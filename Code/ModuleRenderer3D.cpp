@@ -117,6 +117,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
+
+	glBegin(GL_LINES);
+	glVertex2f(0, 0);
+	glVertex2f(20, 20);
+	glEnd();
+
+
 	return UPDATE_CONTINUE;
 }
 
