@@ -81,7 +81,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanVehicle();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 		// crea vehicle
 		VehicleInfo car = createVehicle(VEHICLE_CAR);
 		vehicle = App->physics->AddVehicle(car);
@@ -103,7 +102,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
 		App->scene_intro->CleanUp();
-		App->scene_intro->createMap1();
 
 		App->physics->deleteVehiclesFromWorld();
 		VehicleInfo car = createVehicle(VEHICLE_CAR);
@@ -118,7 +116,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanConstraints();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 
 		App->physics->deleteVehiclesFromWorld();
 		VehicleInfo car = createVehicle(VEHICLE_CAR);
@@ -132,7 +129,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanConstraints();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 
 		vehicle->info.deleteThisObject = true;
 		App->physics->deleteVehiclesFromWorld();
@@ -147,7 +143,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanConstraints();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 
 		vehicle->info.deleteThisObject = true;
 		App->physics->deleteVehiclesFromWorld();
@@ -162,7 +157,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanConstraints();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 
 		vehicle->info.deleteThisObject = true;
 		App->physics->deleteVehiclesFromWorld();
@@ -177,7 +171,6 @@ update_status ModulePlayer::Update(float dt)
 		App->physics->CleanConstraints();
 		App->physics->Start();
 		App->scene_intro->CleanMeshes();
-		App->scene_intro->createMap1();
 
 		vehicle->info.deleteThisObject = true;
 		App->physics->deleteVehiclesFromWorld();

@@ -3,7 +3,6 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
-#include "PugiXml/src/pugixml.hpp"
 
 #define MAX_SNAKE 2
 
@@ -40,7 +39,6 @@ public:
 	int OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 	void CleanMeshes();
-	void createMap1();
 	void addPrimitiveToMap(primitiveTypes type, int x , int y, int z, int radOrX, int Y, int Z);
 	void addMeshToMap(PrimitiveTypes type, char* path, int x, int y, int z, int degToRotate);
 
@@ -64,7 +62,6 @@ public:
 	PhysMotor3D* right_wheel;
 
 	p2List<Primitive*> primitiveListMesh;
-	pugi::xml_document* mapXML = nullptr;
 
 	Plane p;
 	PhysBody3D* sensor[4];

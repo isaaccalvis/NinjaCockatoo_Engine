@@ -19,9 +19,6 @@
     <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pugi">
-      <UniqueIdentifier>{b9d8f169-36bd-4288-94de-604b8a40549d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -87,12 +84,6 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
-      <Filter>Pugi</Filter>
-    </ClInclude>
-    <ClInclude Include="PugiXml\src\pugixml.hpp">
-      <Filter>Pugi</Filter>
-    </ClInclude>
     <ClInclude Include="LoadOBJ.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
@@ -152,16 +143,8 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
-    <ClCompile Include="PugiXml\src\pugixml.cpp">
-      <Filter>Pugi</Filter>
-    </ClCompile>
     <ClCompile Include="LoadOBJ.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\mapa.tmx">
-      <Filter>Pugi</Filter>
-    </None>
   </ItemGroup>
 </Project>
