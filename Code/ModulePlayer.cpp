@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
-#include "Primitive.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
