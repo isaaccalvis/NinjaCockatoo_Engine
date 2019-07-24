@@ -1,7 +1,6 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "p2Point.h"
 
 enum type_vehicle {
 	VEHICLE_CAR,
