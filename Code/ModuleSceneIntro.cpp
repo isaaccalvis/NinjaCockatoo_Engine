@@ -1,9 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-#include "ModulePlayer.h"
-
-#include "ModulePlayer.h"
 
 #define SIZE 3
 #define SPACE_PART_CIRCUIT 4
