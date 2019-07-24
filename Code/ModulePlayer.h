@@ -26,7 +26,6 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	VehicleInfo createVehicle(type_vehicle type);
 
 public:
 

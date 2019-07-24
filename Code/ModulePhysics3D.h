@@ -10,9 +10,6 @@
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
 
 class DebugDrawer;
-struct PhysBody3D;
-struct PhysVehicle3D;
-struct VehicleInfo;
 
 class ModulePhysics3D : public Module
 {
@@ -27,22 +24,6 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	PhysBody3D* AddBody(const Sphere& sphere, float mass = 1.0f, bool render_primtive = false);
-	PhysBody3D* AddBody(const Cube& cube, float mass = 1.0f, bool render_primtive = false);
-	PhysBody3D* AddBody(const Cylinder& cylinder, float mass = 1.0f);
-	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
-
-	void CleanWorld();
-	void CleanBodies();
-	void CleanVehicle();
-	void CleanConstraints();
-
-	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
-	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
-	void AddConstraintSlider(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
-
-	void deleteVehiclesFromWorld();
-	bool CollBetween2RigidBodies(PhysBody3D& bodyA, PhysBody3D& bodyB);
 private:
 
 	bool debug;
@@ -54,12 +35,6 @@ private:
 	btDiscreteDynamicsWorld*			world;
 	btDefaultVehicleRaycaster*			vehicle_raycaster;
 	DebugDrawer*						debug_draw;
-
-	p2List<btCollisionShape*> shapes;
-	p2List<PhysBody3D*> bodies;
-	p2List<btDefaultMotionState*> motions;
-	p2List<btTypedConstraint*> constraints;
-	p2List<PhysVehicle3D*> vehicles;
 };
 
 class DebugDrawer : public btIDebugDraw

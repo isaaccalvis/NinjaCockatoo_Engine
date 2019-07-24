@@ -35,36 +35,4 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-
-	int OnCollision(PhysBody3D* body1, PhysBody3D* body2);
-
-	void CleanMeshes();
-	void addPrimitiveToMap(primitiveTypes type, int x , int y, int z, int radOrX, int Y, int Z);
-	void addMeshToMap(PrimitiveTypes type, char* path, int x, int y, int z, int degToRotate);
-
-	// Temes de sensors
-	void netejarSensor(bool netejaTotal = true);
-	void comprobarMetaDeSensors(int thisSensor = -1);
-	int getLastResetGetTicks = 0;
-	int loops = 0;
-public:
-
-	PhysBody3D* pb_chassis;
-	Cube p_chassis;
-
-	PhysBody3D* pb_wheel;
-	Cylinder p_wheel;
-
-	PhysBody3D* pb_wheel2;
-	Cylinder p_wheel2;
-
-	PhysMotor3D* left_wheel;
-	PhysMotor3D* right_wheel;
-
-	p2List<Primitive*> primitiveListMesh;
-
-	Plane p;
-	PhysBody3D* sensor[4];
-	SENSOR_STATE sensorState[4];
-	bool sensorActive[4];
 };
