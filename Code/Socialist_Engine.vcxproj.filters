@@ -54,9 +54,6 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="glmath.h">
-      <Filter>Engine\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -274,9 +271,6 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="glmath.cpp">
-      <Filter>Engine\Containers</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Engine\Containers</Filter>

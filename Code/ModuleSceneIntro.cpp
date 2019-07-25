@@ -17,8 +17,8 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 	bool ret = true;
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->Move(math::float3(1.0f, 1.0f, 0.0f));
+	App->camera->LookAt(math::float3(0, 0, 0));
 
 	return ret;
 }

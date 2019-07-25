@@ -6,12 +6,12 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 {
 	CalculateViewMatrix();
 
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
+	X = math::float3(1.0f, 0.0f, 0.0f);
+	Y = math::float3(0.0f, 1.0f, 0.0f);
+	Z = math::float3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
+	Position = math::float3(0.0f, 0.0f, 5.0f);
+	Reference = math::float3(0.0f, 0.0f, 0.0f);
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -40,7 +40,7 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	vec3 newPos(0,0,0);
+	math::float3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
@@ -73,26 +73,26 @@ update_status ModuleCamera3D::Update(float dt)
 		{
 			float DeltaX = (float)dx * Sensitivity;
 
-			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			X = math::float3x3::RotateY(DeltaX) * X;
+			Y = math::float3x3::RotateY(DeltaX) * Y;
+			Z = math::float3x3::RotateY(DeltaX) * Z;
 		}
 
 		if(dy != 0)
 		{
 			float DeltaY = (float)dy * Sensitivity;
 
-			Y = rotate(Y, DeltaY, X);
-			Z = rotate(Z, DeltaY, X);
+			Y = math::float3x3::RotateAxisAngle(X, DeltaY) * Y;
+			Z = math::float3x3::RotateAxisAngle(X, DeltaY) * Z;
 
 			if(Y.y < 0.0f)
 			{
-				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = cross(Z, X);
+				Z = math::float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = math::Cross(Z, X);
 			}
 		}
 
-		Position = Reference + Z * length(Position);
+		Position = Reference + Z * Position.Length();
 	}
 
 	// Recalculate matrix -------------
@@ -102,14 +102,14 @@ update_status ModuleCamera3D::Update(float dt)
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference)
+void ModuleCamera3D::Look(const math::float3 &Position, const math::float3 &Reference, bool RotateAroundReference)
 {
 	this->Position = Position;
 	this->Reference = Reference;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	Z = (Position - Reference).Normalized();
+	X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
+	Y = math::Cross(Z, X);
 
 	if(!RotateAroundReference)
 	{
@@ -121,20 +121,20 @@ void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool Rota
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const vec3 &Spot)
+void ModuleCamera3D::LookAt( const math::float3 &Spot)
 {
 	Reference = Spot;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	Z = (Position - Reference).Normalized();
+	X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
+	Y = math::Cross(Z, X);
 
 	CalculateViewMatrix();
 }
 
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Move(const vec3 &Movement)
+void ModuleCamera3D::Move(const math::float3 &Movement)
 {
 	Position += Movement;
 	Reference += Movement;
@@ -145,12 +145,59 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return &ViewMatrix;
+	return ViewMatrix.ptr();
 }
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
+	ViewMatrix = math::float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -math::Dot(X, Position), -math::Dot(Y, Position), -math::Dot(Z, Position), 1.0f);
+	ViewMatrixInverse = ViewMatrix.Inverted();
+}
+
+Camera::Camera()
+{
+	Init();
+}
+
+void Camera::Init()
+{
+	/* Set camera vars*/
+	width = 16;
+	height = 9;
+	aspect_ratio = width / height; // We set aspect ratio 16:9 by now
+
+	near_plane = 0.2;
+	far_plane = 1000;
+	vertical_fov = 60; /* In degrees */
+
+					   /* Set frustum vars */
+	frustum.type = PerspectiveFrustum;
+	frustum.pos.Set(0, 0, 0);
+	frustum.front.Set(0, 0, 1);
+	frustum.up.Set(0, 1, 0);
+	frustum.nearPlaneDistance = near_plane;
+	frustum.farPlaneDistance = far_plane;
+	frustum.verticalFov = vertical_fov * DEGTORAD;
+	frustum.horizontalFov = Atan(aspect_ratio*Tan(frustum.verticalFov / 2)) * 2;
+	frustum_center = frustum.CenterPoint();
+	frustum_halfdistance_squared = 170 * 170;
+}
+
+float* Camera::GetViewMatrix() const
+{
+	static float4x4 matrix;
+	matrix = frustum.ViewMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
+}
+
+float* Camera::GetProjectionMatrix() const
+{
+	static float4x4 matrix;
+	matrix = frustum.ProjectionMatrix();
+	matrix.Transpose();
+
+	return (float*)matrix.v;
 }
