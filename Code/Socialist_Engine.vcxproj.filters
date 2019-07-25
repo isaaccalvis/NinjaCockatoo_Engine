@@ -37,6 +37,9 @@
     <Filter Include="Engine\Helpers">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\PCG">
+      <UniqueIdentifier>{1c7e0f3a-deda-4a14-8a06-3b5f8d60895c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -245,6 +248,15 @@
     </ClInclude>
     <ClInclude Include="MathGeoLib-1.5\src\Time\Clock.h">
       <Filter>External Tools\MathGeoLib\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp">
+      <Filter>External Tools\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp">
+      <Filter>External Tools\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
+      <Filter>External Tools\PCG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
