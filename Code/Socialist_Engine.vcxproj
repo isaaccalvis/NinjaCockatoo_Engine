@@ -137,6 +137,7 @@
     <ClInclude Include="MathGeoLib-1.5\src\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib-1.5\src\Time\Clock.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="MathGeoLib-1.5\src\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib-1.5\src\Time\Clock.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
+    <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleSceneIntro.cpp" />

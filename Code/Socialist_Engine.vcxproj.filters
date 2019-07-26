@@ -258,6 +258,9 @@
     <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
       <Filter>External Tools\PCG</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleGUI.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib-1.5\src\Time\Clock.cpp">
       <Filter>External Tools\MathGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGUI.cpp">
+      <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
