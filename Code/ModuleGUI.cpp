@@ -32,6 +32,23 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("Main Menu"))
+		{
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("View"))
+		{
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Help"))
+		{
+			ImGui::EndMenu();
+		}
+		ImGui::EndMainMenuBar();
+	}
+
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
