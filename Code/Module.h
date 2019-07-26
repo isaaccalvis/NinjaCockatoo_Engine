@@ -19,7 +19,6 @@ public:
 
 	virtual bool Init() 
 	{
-
 		return true; 
 	}
 

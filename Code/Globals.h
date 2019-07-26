@@ -27,7 +27,7 @@ enum update_status
 	UPDATE_ERROR
 };
 
-// Configuration -----------
+// Configuration
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 1024
 #define SCREEN_SIZE 1

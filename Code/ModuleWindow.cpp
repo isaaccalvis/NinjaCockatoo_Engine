@@ -8,12 +8,9 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 	screen_surface = NULL;
 }
 
-// Destructor
 ModuleWindow::~ModuleWindow()
-{
-}
+{}
 
-// Called before render is available
 bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
@@ -72,18 +69,15 @@ bool ModuleWindow::Init()
 	return ret;
 }
 
-// Called before quitting
 bool ModuleWindow::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
 
-	//Destroy window
 	if(window != NULL)
 	{
 		SDL_DestroyWindow(window);
 	}
 
-	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
 }

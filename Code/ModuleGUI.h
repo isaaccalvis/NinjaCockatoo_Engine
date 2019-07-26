@@ -10,7 +10,6 @@ public:
 
 	bool Init();
 	update_status Update(float dt);
-
 };
 
 #endif

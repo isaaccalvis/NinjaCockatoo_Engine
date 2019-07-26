@@ -19,7 +19,6 @@ public:
 	void OnResize(int width, int height);
 
 public:
-
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	math::float3x3 NormalMatrix;

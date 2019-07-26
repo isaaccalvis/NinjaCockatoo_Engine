@@ -17,7 +17,6 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 ModuleCamera3D::~ModuleCamera3D()
 {}
 
-// -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
@@ -26,7 +25,6 @@ bool ModuleCamera3D::Start()
 	return ret;
 }
 
-// -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
 	LOG("Cleaning camera");
@@ -34,12 +32,8 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
-// -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
 	math::float3 newPos(0,0,0);
 	float speed = 3.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -58,7 +52,7 @@ update_status ModuleCamera3D::Update(float dt)
 	Position += newPos;
 	Reference += newPos;
 
-	// Mouse motion ----------------
+	// Mouse motion
 
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
@@ -95,13 +89,12 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * Position.Length();
 	}
 
-	// Recalculate matrix -------------
+	// Recalculate matrix
 	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
 }
 
-// -----------------------------------------------------------------
 void ModuleCamera3D::Look(const math::float3 &Position, const math::float3 &Reference, bool RotateAroundReference)
 {
 	this->Position = Position;
@@ -120,7 +113,6 @@ void ModuleCamera3D::Look(const math::float3 &Position, const math::float3 &Refe
 	CalculateViewMatrix();
 }
 
-// -----------------------------------------------------------------
 void ModuleCamera3D::LookAt( const math::float3 &Spot)
 {
 	Reference = Spot;
@@ -132,8 +124,6 @@ void ModuleCamera3D::LookAt( const math::float3 &Spot)
 	CalculateViewMatrix();
 }
 
-
-// -----------------------------------------------------------------
 void ModuleCamera3D::Move(const math::float3 &Movement)
 {
 	Position += Movement;
@@ -142,13 +132,11 @@ void ModuleCamera3D::Move(const math::float3 &Movement)
 	CalculateViewMatrix();
 }
 
-// -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
 	return ViewMatrix.ptr();
 }
 
-// -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = math::float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -math::Dot(X, Position), -math::Dot(Y, Position), -math::Dot(Z, Position), 1.0f);
