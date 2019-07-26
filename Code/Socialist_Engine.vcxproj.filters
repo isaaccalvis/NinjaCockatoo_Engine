@@ -25,9 +25,6 @@
     <Filter Include="Engine\Modules">
       <UniqueIdentifier>{7b418be2-1631-4a31-9ef2-8a8b234a7339}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Modules\Game">
-      <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Containers">
       <UniqueIdentifier>{afc36133-f401-499a-aa33-0da1e500fb52}</UniqueIdentifier>
     </Filter>
@@ -71,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Engine\Modules\Game</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Tools</Filter>
@@ -319,9 +313,6 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Engine\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Engine\Modules\Game</Filter>
     </ClCompile>
     <ClCompile Include="MathGeoLib-1.5\src\Algorithm\Random\LCG.cpp">
       <Filter>External Tools\MathGeoLib\Algorithm</Filter>
