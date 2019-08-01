@@ -10,7 +10,7 @@ ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_e
 	name = "ModuleGUI";
 }
 
-bool ModuleGUI::Init()
+bool ModuleGUI::Init(JSON_Object* root_object)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();

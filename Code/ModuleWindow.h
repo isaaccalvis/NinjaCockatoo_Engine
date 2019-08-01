@@ -12,7 +12,7 @@ public:
 	ModuleWindow(Application* app, bool start_enabled = true);
 	virtual ~ModuleWindow();
 
-	bool Init();
+	bool Init(JSON_Object* root_object);
 	bool CleanUp();
 
 	void SetTitle(const char* title);

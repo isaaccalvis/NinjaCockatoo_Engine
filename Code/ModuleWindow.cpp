@@ -13,8 +13,10 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 ModuleWindow::~ModuleWindow()
 {}
 
-bool ModuleWindow::Init()
+bool ModuleWindow::Init(JSON_Object* root_object)
 {
+	int screen = (int)json_object_get_number(root_object, "screen_width");
+	printf_s("%i",screen);
 	LOG("Init SDL window & surface");
 	bool ret = true;
 

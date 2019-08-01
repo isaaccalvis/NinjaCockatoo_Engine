@@ -29,11 +29,14 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-
+	JSON_Value* root_value = json_parse_file("Resources/config.json");
+	JSON_Object* root_object = json_value_get_object(root_value);
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
-		(*item)->Init();
+		(*item)->Init(json_object_get_object(root_object, (*item)->name));
 	}
+	if (root_value) { json_value_free(root_value); }
+
 
 	LOG("Application Start --------------");
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)

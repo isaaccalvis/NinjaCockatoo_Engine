@@ -35,6 +35,7 @@ public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 	
+	bool Init(JSON_Object* root_object);
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();

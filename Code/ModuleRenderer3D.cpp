@@ -16,7 +16,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(JSON_Object* root_object)
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
