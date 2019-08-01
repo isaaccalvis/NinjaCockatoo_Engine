@@ -7,7 +7,7 @@
 
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
+	name = "ModuleGUI";
 }
 
 bool ModuleGUI::Init()
@@ -34,7 +34,7 @@ update_status ModuleGUI::Update(float dt)
 
 	if (ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::BeginMenu("Main Menu"))
+		if (ImGui::BeginMenu("File"))
 		{
 			ImGui::EndMenu();
 		}

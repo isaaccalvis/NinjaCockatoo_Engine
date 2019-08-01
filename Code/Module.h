@@ -51,4 +51,8 @@ public:
 	{
 		return 0;
 	}
+
+public:
+	char* name = nullptr;
+
 };

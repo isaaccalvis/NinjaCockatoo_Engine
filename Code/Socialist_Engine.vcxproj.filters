@@ -40,6 +40,9 @@
     <Filter Include="External Tools\ImGui">
       <UniqueIdentifier>{50b707c3-ccb1-4e6f-bfe7-ef0fe1ccd066}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\Parson">
+      <UniqueIdentifier>{abbd37cd-c7a6-4ad6-bd5f-a41e05f2a26c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -282,6 +285,9 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>External Tools\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="parson\parson.h">
+      <Filter>External Tools\Parson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -424,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>External Tools\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="parson\parson.c">
+      <Filter>External Tools\Parson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
