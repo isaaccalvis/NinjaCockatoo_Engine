@@ -15,8 +15,17 @@ ModuleWindow::~ModuleWindow()
 
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
-	int screen = (int)json_object_get_number(root_object, "screen_width");
-	printf_s("%i",screen);
+	// Load info from config.json
+	screenWidth = (int)json_object_get_number(root_object, "screen_width");
+	screenHeight = (int)json_object_get_number(root_object, "screen_height");
+	screenSize = (int)json_object_get_number(root_object, "screen_size");
+	winFullScreen = json_object_get_boolean(root_object, "fullscreen");
+	winResizable = json_object_get_boolean(root_object, "resizable");
+	winBorderless = json_object_get_boolean(root_object, "borderless");
+	winFullScreenDesktop = json_object_get_boolean(root_object, "fulldesktop");
+	winVsync = json_object_get_boolean(root_object, "vsync");
+	winTitle = json_object_get_string(root_object, "title");
+
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -28,35 +37,35 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+		int width = App->window->screenWidth * App->window->screenSize;
+		int height = App->window->screenHeight * App->window->screenSize;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(WIN_FULLSCREEN == true)
+		if(App->window->winFullScreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		if(WIN_RESIZABLE == true)
+		if(App->window->winResizable == true)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(WIN_BORDERLESS == true)
+		if(App->window->winBorderless == true)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
-		if(WIN_FULLSCREEN_DESKTOP == true)
+		if(App->window->winFullScreenDesktop == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(App->window->winTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
