@@ -18,9 +18,10 @@ Application::Application()
 
 Application::~Application()
 {
-	for (std::list<Module*>::iterator item = list_modules.end(); item != list_modules.begin(); item--)
+	for (std::list<Module*>::iterator item = list_modules.end(); item != list_modules.begin();)
 	{
-		list_modules.erase(item--);
+		item--;
+		list_modules.erase(item++);
 		//delete item->data;
 		//item = item->prev;
 	}
