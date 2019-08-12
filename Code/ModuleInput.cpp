@@ -128,3 +128,13 @@ bool ModuleInput::CleanUp()
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
+
+bool ModuleInput::Save(JSON_Object* root_object)
+{
+	return true;
+}
+
+bool ModuleInput::Load(JSON_Object* root_object)
+{
+	return true;
+}

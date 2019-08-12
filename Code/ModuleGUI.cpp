@@ -54,3 +54,13 @@ update_status ModuleGUI::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
+
+bool ModuleGUI::Save(JSON_Object* root_object)
+{
+	return true;
+}
+
+bool ModuleGUI::Load(JSON_Object* root_object)
+{
+	return true;
+}

@@ -15,6 +15,9 @@ public:
 	bool Init(JSON_Object* root_object);
 	bool CleanUp();
 
+	bool Save(JSON_Object* root_object);
+	bool Load(JSON_Object* root_object);
+
 	void SetTitle(const char* title);
 
 public:

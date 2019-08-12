@@ -23,6 +23,9 @@ public:
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 
+	bool Save(JSON_Object* root_object);
+	bool Load(JSON_Object* root_object);
+
 	KEY_STATE GetKey(int id) const
 	{
 		return keyboard[id];

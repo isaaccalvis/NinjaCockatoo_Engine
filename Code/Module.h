@@ -49,9 +49,14 @@ public:
 		return true; 
 	}
 
-	virtual int OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+	virtual bool Save(JSON_Object* root_object = nullptr)
 	{
-		return 0;
+		return true;
+	}
+
+	virtual bool Load(JSON_Object* root_object = nullptr)
+	{
+		return true;
 	}
 
 public:

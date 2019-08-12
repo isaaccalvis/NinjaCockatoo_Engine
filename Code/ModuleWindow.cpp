@@ -95,6 +95,16 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
+bool ModuleWindow::Save(JSON_Object* root_object)
+{
+	return true;
+}
+
+bool ModuleWindow::Load(JSON_Object* root_object)
+{
+	return true;
+}
+
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);

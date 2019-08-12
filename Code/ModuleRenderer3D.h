@@ -16,6 +16,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	bool Save(JSON_Object* root_object);
+	bool Load(JSON_Object* root_object);
+
 	void OnResize(int width, int height);
 
 public:

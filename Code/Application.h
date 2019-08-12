@@ -34,6 +34,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	bool SaveModulesInfo();
+	bool LoadModulesInfo();
+
 private:
 
 	void AddModule(Module* mod);

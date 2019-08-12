@@ -9,5 +9,17 @@
     "borderless": false,
     "vsync": true,
     "title": "Socialist Engine"
+  },
+  "ModuleCamera3D": {
+
+  },
+  "ModuleGUI": {
+
+  },
+  "ModuleInput": {
+
+  },
+  "ModuleRenderer3D": {
+
   }
 }

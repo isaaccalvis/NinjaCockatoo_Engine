@@ -142,6 +142,15 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+bool ModuleRenderer3D::Save(JSON_Object* root_object)
+{
+	return true;
+}
+
+bool ModuleRenderer3D::Load(JSON_Object* root_object)
+{
+	return true;
+}
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {

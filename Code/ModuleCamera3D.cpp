@@ -39,6 +39,16 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
+bool ModuleCamera3D::Save(JSON_Object* root_object)
+{
+	return true;
+}
+
+bool ModuleCamera3D::Load(JSON_Object* root_object)
+{
+	return true;
+}
+
 update_status ModuleCamera3D::Update(float dt)
 {
 	math::float3 newPos(0,0,0);

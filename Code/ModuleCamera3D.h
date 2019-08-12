@@ -40,6 +40,9 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	bool Save(JSON_Object* root_object);
+	bool Load(JSON_Object* root_object);
+
 	void Look(const math::float3 &Position, const math::float3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const math::float3 &Spot);
 	void Move(const math::float3 &Movement);
