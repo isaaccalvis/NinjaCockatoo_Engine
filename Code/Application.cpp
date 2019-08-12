@@ -97,11 +97,22 @@ bool Application::SaveModulesInfo()
 	bool ret = true;
 	JSON_Value* root_value = json_parse_file("Resources/config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
+	char *serialized_string = NULL;
+
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
 	{
 		(*item)->Save(json_object_get_object(root_object, (*item)->name));
 	}
-	if (root_value) { json_value_free(root_value); }
+	json_serialize_to_file(root_value, "Resources/config.json");
+
+	//serialized_string = json_serialize_to_string_pretty(root_value);
+	//puts(serialized_string);
+	//json_free_serialized_string(serialized_string);
+	if (root_value)
+	{
+		json_value_free(root_value);
+	}
+
 	return ret;
 }
 

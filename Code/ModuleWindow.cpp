@@ -16,15 +16,8 @@ ModuleWindow::~ModuleWindow()
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
 	// Load info from config.json
-	screenWidth = (int)json_object_get_number(root_object, "screen_width");
-	screenHeight = (int)json_object_get_number(root_object, "screen_height");
-	screenSize = (int)json_object_get_number(root_object, "screen_size");
-	winFullScreen = json_object_get_boolean(root_object, "fullscreen");
-	winResizable = json_object_get_boolean(root_object, "resizable");
-	winBorderless = json_object_get_boolean(root_object, "borderless");
-	winFullScreenDesktop = json_object_get_boolean(root_object, "fulldesktop");
-	winVsync = json_object_get_boolean(root_object, "vsync");
-	winTitle = json_object_get_string(root_object, "title");
+	App->LoadModulesInfo();
+	App->SaveModulesInfo();
 
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -97,11 +90,28 @@ bool ModuleWindow::CleanUp()
 
 bool ModuleWindow::Save(JSON_Object* root_object)
 {
+	json_object_set_number(root_object, "screen_width", screenWidth);
+	json_object_set_number(root_object, "screen_height", screenHeight);
+	json_object_set_number(root_object, "screen_size", screenSize);
+	json_object_set_boolean(root_object, "fullscreen", winFullScreen);
+	json_object_set_boolean(root_object, "resizable", winResizable);
+	json_object_set_boolean(root_object, "borderless", winBorderless);
+	json_object_set_boolean(root_object, "fulldesktop", winFullScreenDesktop);
+	json_object_set_boolean(root_object, "vsync", winVsync);
 	return true;
 }
 
 bool ModuleWindow::Load(JSON_Object* root_object)
 {
+	screenWidth = (int)json_object_get_number(root_object, "screen_width");
+	screenHeight = (int)json_object_get_number(root_object, "screen_height");
+	screenSize = (int)json_object_get_number(root_object, "screen_size");
+	winFullScreen = json_object_get_boolean(root_object, "fullscreen");
+	winResizable = json_object_get_boolean(root_object, "resizable");
+	winBorderless = json_object_get_boolean(root_object, "borderless");
+	winFullScreenDesktop = json_object_get_boolean(root_object, "fulldesktop");
+	winVsync = json_object_get_boolean(root_object, "vsync");
+	winTitle = json_object_get_string(root_object, "title");
 	return true;
 }
 
