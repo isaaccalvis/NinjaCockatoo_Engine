@@ -3,6 +3,12 @@
 
 #include "Module.h"
 
+enum GUI_WINDOWS
+{
+	GUI_TOPBAR = 0,
+	GUI_ABOUT
+};
+
 class ModuleGUI : public Module
 {
 public:
@@ -13,6 +19,11 @@ public:
 
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
+
+private:
+	bool guiWindows[2] = { true, false };
+	bool GUI_TopBar();
+	bool GUI_AboutWindow();
 };
 
 #endif
