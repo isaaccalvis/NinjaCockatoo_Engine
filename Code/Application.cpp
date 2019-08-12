@@ -32,18 +32,18 @@ bool Application::Init()
 	JSON_Value* root_value = json_parse_file("Resources/config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
 	LoadModulesInfo();
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->Init(json_object_get_object(root_object, (*item)->name));
+		ret = (*item)->Init(json_object_get_object(root_object, (*item)->name));
 	}
 
 	if (root_value) { json_value_free(root_value); }
 
 
 	LOG("Application Start --------------");
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->Start();
+		ret = (*item)->Start();
 	}
 	
 	ms_timer.Start();
@@ -56,40 +56,35 @@ void Application::PrepareUpdate()
 	ms_timer.Start();
 }
 
-void Application::FinishUpdate()
-{
-}
-
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->PreUpdate(dt);
+		ret = (*item)->PreUpdate(dt);
 	}
 
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->Update(dt);
+		ret = (*item)->Update(dt);
 	}
 
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->PostUpdate(dt);
+		ret = (*item)->PostUpdate(dt);
 	}
 
-	FinishUpdate();
 	return ret;
 }
 
 bool Application::CleanUp()
 {
 	bool ret = true;
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
-		(*item)->CleanUp();
+		ret = (*item)->CleanUp();
 	}	
 	return ret;
 }
@@ -101,9 +96,9 @@ bool Application::SaveModulesInfo()
 	JSON_Object* root_object = json_value_get_object(root_value);
 	char *serialized_string = NULL;
 
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
 	{
-		(*item)->Save(json_object_get_object(root_object, (*item)->name));
+		ret = (*item)->Save(json_object_get_object(root_object, (*item)->name));
 	}
 	json_serialize_to_file(root_value, "Resources/config.json");
 
@@ -123,9 +118,9 @@ bool Application::LoadModulesInfo()
 	bool ret = true;
 	JSON_Value* root_value = json_parse_file("Resources/config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
-	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end(); item++)
+	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
 	{
-		(*item)->Load(json_object_get_object(root_object, (*item)->name));
+		ret = (*item)->Load(json_object_get_object(root_object, (*item)->name));
 	}
 	if (root_value) { json_value_free(root_value); }
 	return ret;

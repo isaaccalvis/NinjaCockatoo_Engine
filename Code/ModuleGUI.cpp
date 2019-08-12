@@ -38,6 +38,9 @@ update_status ModuleGUI::Update(float dt)
 	if (guiWindows[GUI_ABOUT])
 		if (!GUI_AboutWindow())
 			return update_status::UPDATE_STOP;
+	if (guiWindows[GUI_CONFIGURATION])
+		if (!GUI_ConfigurationWindow())
+			return update_status::UPDATE_STOP;
 
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
@@ -61,16 +64,35 @@ bool ModuleGUI::GUI_TopBar()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Quit"))
+			{
+				return false;
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
 		{
+			if (ImGui::MenuItem("Configuration"))
+				guiWindows[GUI_CONFIGURATION] = !guiWindows[GUI_CONFIGURATION];
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))
 		{
+			if (ImGui::MenuItem("Documentation"))
+			{
+				ShellExecuteA(NULL, "open", "https://github.com/isaaccalvis/Socialist_Engine/wiki", NULL, NULL, SW_SHOWNORMAL);
+			}
+			if (ImGui::MenuItem("Download Last"))
+			{
+				ShellExecuteA(NULL, "open", "https://github.com/isaaccalvis/Socialist_Engine/releases", NULL, NULL, SW_SHOWNORMAL);
+			}
+			if (ImGui::MenuItem("Report Bug"))
+			{
+				ShellExecuteA(NULL, "open", "https://github.com/isaaccalvis/Socialist_Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+			}
 			if (ImGui::MenuItem("About"))
 				guiWindows[GUI_ABOUT] = !guiWindows[GUI_ABOUT];
+
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
@@ -86,6 +108,14 @@ bool ModuleGUI::GUI_AboutWindow()
 
 
 	ImGui::Text("License: MIT (More info at License file or at ReadMe)");
+	ImGui::End();
+	return true;
+}
+
+bool ModuleGUI::GUI_ConfigurationWindow()
+{
+	ImGui::Begin("Configuration", &guiWindows[GUI_WINDOWS::GUI_CONFIGURATION], ImGuiWindowFlags_NoFocusOnAppearing);
+
 	ImGui::End();
 	return true;
 }
