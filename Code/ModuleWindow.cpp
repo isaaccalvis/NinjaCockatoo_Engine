@@ -15,9 +15,6 @@ ModuleWindow::~ModuleWindow()
 
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
-	// Load info from config.json
-	App->LoadModulesInfo();
-	App->SaveModulesInfo();
 
 	LOG("Init SDL window & surface");
 	bool ret = true;
