@@ -43,6 +43,9 @@
     <Filter Include="External Tools\Parson">
       <UniqueIdentifier>{abbd37cd-c7a6-4ad6-bd5f-a41e05f2a26c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\mmgr">
+      <UniqueIdentifier>{66683c9a-c116-45fd-b208-4067ddf93213}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -288,6 +291,12 @@
     <ClInclude Include="parson\parson.h">
       <Filter>External Tools\Parson</Filter>
     </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>External Tools\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>External Tools\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -433,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="parson\parson.c">
       <Filter>External Tools\Parson</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>External Tools\mmgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

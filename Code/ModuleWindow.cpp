@@ -15,7 +15,7 @@ ModuleWindow::~ModuleWindow()
 
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
-
+	
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -55,6 +55,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
+		printf_s("%s\n", winTitle);
 		window = SDL_CreateWindow(App->window->winTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
@@ -108,11 +109,12 @@ bool ModuleWindow::Load(JSON_Object* root_object)
 	winBorderless = json_object_get_boolean(root_object, "borderless");
 	winFullScreenDesktop = json_object_get_boolean(root_object, "fulldesktop");
 	winVsync = json_object_get_boolean(root_object, "vsync");
-	winTitle = json_object_get_string(root_object, "title");
+	winTitle = strdup(json_object_get_string(root_object, "title"));
 	return true;
 }
 
 void ModuleWindow::SetTitle(const char* title)
 {
+	winTitle = strdup(title);
 	SDL_SetWindowTitle(window, title);
 }

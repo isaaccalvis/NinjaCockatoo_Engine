@@ -32,7 +32,7 @@ public:
 	bool winBorderless = false;
 	bool winFullScreenDesktop = false;
 	bool winVsync = false;
-	const char* winTitle = nullptr;
+	char* winTitle = nullptr;
 };
 
 #endif

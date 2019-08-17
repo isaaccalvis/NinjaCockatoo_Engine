@@ -59,6 +59,8 @@ void Application::PrepareUpdate()
 
 update_status Application::Update()
 {
+
+
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	

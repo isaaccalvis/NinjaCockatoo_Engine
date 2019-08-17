@@ -116,6 +116,50 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 {
 	ImGui::Begin("Configuration", &guiWindows[GUI_WINDOWS::GUI_CONFIGURATION], ImGuiWindowFlags_NoFocusOnAppearing);
 
+	if (ImGui::BeginMenu("Options"))
+	{
+		//ImGui::MenuItem("Set Defaults");
+		if (ImGui::MenuItem("Load"))
+		{
+			App->LoadModulesInfo();
+		}
+		if (ImGui::MenuItem("Save"))
+		{
+			App->SaveModulesInfo();
+		}
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::CollapsingHeader("Application"))
+	{
+		static char gui_appname[256];
+		strcpy_s(gui_appname, 256, App->window->winTitle);
+		if (ImGui::InputText("App Name", App->window->winTitle, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->window->SetTitle(gui_appname);
+		}
+	}
+
+	if (ImGui::CollapsingHeader("Window"))
+	{
+
+	}
+
+	if (ImGui::CollapsingHeader("File System"))
+	{
+
+	}
+
+	if (ImGui::CollapsingHeader("Input"))
+	{
+
+	}
+
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+
+	}
+
 	ImGui::End();
 	return true;
 }
