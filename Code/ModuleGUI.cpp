@@ -10,7 +10,7 @@ ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_e
 	name = "ModuleGUI";
 }
 
-bool ModuleGUI::Init(JSON_Object* root_object)
+bool ModuleGUI::Start()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -48,6 +48,14 @@ update_status ModuleGUI::Update(float dt)
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
+}
+
+bool ModuleGUI::CleanUp()
+{
+	ImGui_ImplOpenGL2_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+	return true;
 }
 
 bool ModuleGUI::Save(JSON_Object* root_object)
@@ -136,7 +144,7 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 	{
 		static char gui_appname[256];
 		strcpy_s(gui_appname, 256, App->window->winTitle);
-		if (ImGui::InputText("App Name", App->window->winTitle, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		if (ImGui::InputText("App Name", gui_appname, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
 			App->window->SetTitle(gui_appname);
 		}
