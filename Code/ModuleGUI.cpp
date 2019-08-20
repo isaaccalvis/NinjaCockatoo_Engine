@@ -126,6 +126,42 @@ bool ModuleGUI::GUI_AboutWindow()
 
 bool ModuleGUI::GUI_ConfigurationWindow()
 {
+	sMStats stats = m_getMemoryStatistics();
+	static int speed = 0;
+	static std::vector<float> memory(100);
+	static std::vector<float> memoryFPS(100);
+	static std::vector<float> memoryMS(100);
+	if (++speed > 20)
+	{
+		speed = 0;
+		if (memory.size() == 100)
+		{
+			for (uint i = 0; i < 100 - 1; ++i)
+				memory[i] = memory[i + 1];
+
+			memory[100 - 1] = (float)stats.totalReportedMemory;
+		}
+		else
+			memory.push_back((float)stats.totalReportedMemory);
+		if (memoryFPS.size() == 100)
+		{
+			for (uint i = 0; i < 100 - 1; ++i)
+				memoryFPS[i] = memoryFPS[i + 1];
+
+			memoryFPS[100 - 1] = App->GetLastFPS();
+		}
+		else
+			memoryFPS.push_back(App->GetLastFPS());
+		if (memoryMS.size() == 100)
+		{
+			for (uint i = 0; i < 100 - 1; ++i)
+				memoryMS[i] = memoryMS[i + 1];
+
+			memoryMS[100 - 1] = App->GetLastMS();
+		}
+		else
+			memoryMS.push_back(App->GetLastMS());
+	}
 
 	ImGui::Begin("Configuration", &guiWindows[GUI_WINDOWS::GUI_CONFIGURATION], ImGuiWindowFlags_NoFocusOnAppearing);
 
@@ -159,6 +195,25 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 			App->window->organization = gui_organization_name;
 		}
 
+		static int tmp_max_fps = App->GetMaxFPS();
+		if (ImGui::SliderInt("Max. fps", &tmp_max_fps, 0.0f, 120.0f))
+		{
+			App->SetMaxFPS(tmp_max_fps);
+		}
+
+		ImGui::PlotHistogram("##memory", &memory[0], memory.size(), 0, "Memory Consumption", 0.0f, (float)stats.peakReportedMemory * 1.2f, ImVec2(310, 100));
+		ImGui::PlotHistogram("##fps", &memoryFPS[0], memoryFPS.size(), 0, "FPS", 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::PlotHistogram("##milliseconds", &memoryMS[0], memoryMS.size(), 0, "Last Frame MS", 0.0f, 50.0f, ImVec2(310, 100));
+
+		ImGui::Text("Total Reported Mem: %u", stats.totalReportedMemory);
+		ImGui::Text("Total Actual Mem: %u", stats.totalActualMemory);
+		ImGui::Text("Peak Reported Mem: %u", stats.peakReportedMemory);
+		ImGui::Text("Peak Actual Mem: %u", stats.peakActualMemory);
+		ImGui::Text("Accumulated Reported Mem: %u", stats.accumulatedReportedMemory);
+		ImGui::Text("Accumulated Actual Mem: %u", stats.accumulatedActualMemory);
+		ImGui::Text("Accumulated Alloc Unit Count: %u", stats.accumulatedAllocUnitCount);
+		ImGui::Text("Total Alloc Unit Count: %u", stats.totalAllocUnitCount);
+		ImGui::Text("Peak Alloc Unit Count: %u", stats.peakAllocUnitCount);
 	}
 
 	if (ImGui::CollapsingHeader("Window"))

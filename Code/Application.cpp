@@ -16,7 +16,6 @@ Application::Application()
 	AddModule(input);
 	AddModule(gui);
 	AddModule(hardware);
-
 	AddModule(renderer3D);
 }
 
@@ -52,21 +51,26 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
-	return ret;
-}
+	fps_timer.Start();
 
-void Application::PrepareUpdate()
-{
-	dt = (float)ms_timer.Read() / 1000.0f;
-	ms_timer.Start();
+	return ret;
 }
 
 update_status Application::Update()
 {
-
-
 	update_status ret = UPDATE_CONTINUE;
-	PrepareUpdate();
+
+	// Prepare Update ----
+	dt = (float)ms_timer.Read() / 1000.0f;
+	ms_timer.Start();
+
+	if ((float)fps_timer.Read() > 1000.0f)
+	{
+		fps_timer.Start();
+		last_fps = count_frames;
+		count_frames = 0;
+	}
+	// Prepare Update ~~~~
 	
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
@@ -82,6 +86,16 @@ update_status Application::Update()
 	{
 		ret = (*item)->PostUpdate(dt);
 	}
+
+	// Finish Update ----
+
+	count_frames++;
+	last_frame_ms = (float)ms_timer.Read();
+
+	if (max_ms > last_frame_ms && max_ms > 0)
+		SDL_Delay(max_ms - last_frame_ms);
+
+	// Finish Update ~~~~
 
 	return ret;
 }
@@ -136,4 +150,28 @@ bool Application::LoadModulesInfo()
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+int  Application::GetLastFPS() const
+{
+	return last_fps;
+}
+
+int Application::GetMaxFPS() const
+{
+	return max_fps;
+}
+
+float  Application::GetLastMS() const
+{
+	return last_frame_ms;
+}
+
+void  Application::SetMaxFPS(int max)
+{
+	max_fps = max;
+	if (max > 0)
+		max_ms = 1000 / max;
+	else
+		max_ms = 0;
 }

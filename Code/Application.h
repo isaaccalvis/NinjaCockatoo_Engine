@@ -14,21 +14,6 @@
 class Application
 {
 public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
-	ModuleGUI* gui;
-	ModuleHardware* hardware;
-
-private:
-
-	Timer	ms_timer;
-	float	dt;
-	std::list<Module*> list_modules;
-
-public:
-
 	Application();
 	~Application();
 
@@ -42,5 +27,29 @@ public:
 private:
 
 	void AddModule(Module* mod);
-	void PrepareUpdate();
+	std::list<Module*> list_modules;
+
+public:
+	ModuleWindow* window;
+	ModuleInput* input;
+	ModuleRenderer3D* renderer3D;
+	ModuleCamera3D* camera;
+	ModuleGUI* gui;
+	ModuleHardware* hardware;
+
+private:
+	Timer	ms_timer;
+	Timer fps_timer;
+	int count_frames;
+	float last_frame_ms;
+	int last_fps;
+	int max_fps = 60;
+	float max_ms;
+	float	dt;
+
+public:
+	int GetLastFPS() const;
+	int GetMaxFPS() const;
+	float GetLastMS() const;
+	void SetMaxFPS(int max);
 };
