@@ -46,6 +46,9 @@
     <Filter Include="External Tools\mmgr">
       <UniqueIdentifier>{66683c9a-c116-45fd-b208-4067ddf93213}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\gpudetect">
+      <UniqueIdentifier>{36a92e78-f987-406c-9257-bf4aca275343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -297,6 +300,18 @@
     <ClInclude Include="mmgr\nommgr.h">
       <Filter>External Tools\mmgr</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleHardware.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="gpudetect\DeviceId.h">
+      <Filter>External Tools\gpudetect</Filter>
+    </ClInclude>
+    <ClInclude Include="gpudetect\dxgi1_4.h">
+      <Filter>External Tools\gpudetect</Filter>
+    </ClInclude>
+    <ClInclude Include="gpudetect\ID3D10Extensions.h">
+      <Filter>External Tools\gpudetect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -445,6 +460,12 @@
     </ClCompile>
     <ClCompile Include="mmgr\mmgr.cpp">
       <Filter>External Tools\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleHardware.cpp">
+      <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="gpudetect\DeviceId.cpp">
+      <Filter>External Tools\gpudetect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

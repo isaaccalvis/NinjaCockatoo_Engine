@@ -7,11 +7,13 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	gui = new ModuleGUI(this);
+	hardware = new ModuleHardware(this);
 
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(gui);
+	AddModule(hardware);
 
 	AddModule(renderer3D);
 }
