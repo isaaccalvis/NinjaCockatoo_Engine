@@ -57,6 +57,8 @@ public:
 	math::float3 X, Y, Z, Position, Reference;
 	Camera camera;
 
+	float camera_mov_speed = 3.0f, mouse_wheel_speed = 0.5f, mouse_sensitivity = 0.25f;
+
 private:
 
 	math::float4x4 ViewMatrix, ViewMatrixInverse;

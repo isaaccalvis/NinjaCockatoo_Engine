@@ -154,7 +154,33 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("Input"))
 	{
+		ImGui::SliderFloat("Camera Speed: ", &App->camera->camera_mov_speed, 1.0f, 10.0f);
+		ImGui::SliderFloat("Mouse Wheel Speed: ", &App->camera->mouse_wheel_speed, 0.1f, 5.0f);
+		ImGui::SliderFloat("Mouse Sensitivity: ", &App->camera->mouse_sensitivity, 0.01f, 2.0f);
 
+		ImGui::Separator();
+
+		ImGui::Text("Mouse Position: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i, %i", App->input->GetMouseX(), App->input->GetMouseY());
+
+		ImGui::Text("Mouse Motion: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i, %i", App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+
+		ImGui::Text("Mouse Wheel: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", App->input->GetMouseZ());
+
+		for (int i = 0; i < 300 /*max keys*/; i++)
+		{
+			switch (App->input->GetKey(i))
+			{
+				case KEY_STATE::KEY_DOWN: ImGui::Text("Key Down: %i", i); break;
+				case KEY_STATE::KEY_REPEAT: ImGui::Text("Key Repeat: %i", i); break;
+				case KEY_STATE::KEY_UP: ImGui::Text("Key UP: %i", i); break;
+			}
+		}
 	}
 
 	if (ImGui::CollapsingHeader("Hardware"))

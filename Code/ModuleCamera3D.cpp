@@ -52,9 +52,9 @@ bool ModuleCamera3D::Load(JSON_Object* root_object)
 update_status ModuleCamera3D::Update(float dt)
 {
 	math::float3 newPos(0,0,0);
-	float speed = 3.0f * dt;
+	float speed = camera_mov_speed * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = camera_mov_speed * 2 * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -76,13 +76,11 @@ update_status ModuleCamera3D::Update(float dt)
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		float Sensitivity = 0.25f;
-
 		Position -= Reference;
 
 		if(dx != 0)
 		{
-			float DeltaX = (float)dx * Sensitivity;
+			float DeltaX = (float)dx * mouse_sensitivity;
 
 			X = math::float3x3::RotateY(DeltaX) * X;
 			Y = math::float3x3::RotateY(DeltaX) * Y;
@@ -91,7 +89,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if(dy != 0)
 		{
-			float DeltaY = (float)dy * Sensitivity;
+			float DeltaY = (float)dy * mouse_sensitivity;
 
 			Y = math::float3x3::RotateAxisAngle(X, DeltaY) * Y;
 			Z = math::float3x3::RotateAxisAngle(X, DeltaY) * Z;
@@ -104,6 +102,11 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = Reference + Z * Position.Length();
+	}
+
+	if (App->input->GetMouseZ() != 0)
+	{
+		Position.y += App->input->GetMouseZ() * mouse_wheel_speed;
 	}
 
 	// Recalculate matrix
