@@ -35,22 +35,22 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(App->window->winFullScreen == true)
+		if(App->window->winFullScreen)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		if(App->window->winResizable == true)
+		if(App->window->winResizable)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(App->window->winBorderless == true)
+		if(App->window->winBorderless)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
-		if(App->window->winFullScreenDesktop == true)
+		if(App->window->winFullScreenDesktop)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
@@ -74,6 +74,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 	SDL_GetCurrentDisplayMode(0, &DM);
 	maxScreenWidth = DM.w;
 	maxScreenHeight = DM.h;
+	refreshRate = DM.refresh_rate;
 
 	return ret;
 }
@@ -138,4 +139,45 @@ void ModuleWindow::SetWindowsSize(int width, int height)
 	{
 		SDL_SetWindowSize(window, width, height);
 	}
+}
+
+void ModuleWindow::SetScreenBrightness(float brightness)
+{
+	SDL_SetWindowBrightness(window, brightness);
+}
+
+bool ModuleWindow::SetFullScreen(bool set)
+{
+	if (set)
+		SDL_SetWindowFullscreen(window, 1);
+	else
+		SDL_SetWindowFullscreen(window, 0);
+	return true;
+}
+
+bool ModuleWindow::SetFullScreenDesktop(bool set)
+{
+	if (!winFullScreen)
+		if (set)
+			SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		else
+			SDL_SetWindowFullscreen(window, 0);
+	return true;
+}
+
+bool ModuleWindow::SetResizable(bool set)
+{
+	//if (!winFullScreen)
+
+	return true;
+}
+
+bool ModuleWindow::SetBorderless(bool set)
+{
+	if (!winFullScreen && !winFullScreenDesktop)
+		if (set)
+			SDL_SetWindowBordered(window, (SDL_bool)false);
+		else
+			SDL_SetWindowBordered(window, (SDL_bool)true);
+	return true;
 }

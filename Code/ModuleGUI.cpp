@@ -5,6 +5,8 @@
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
 
+#include "mmgr/mmgr.h"
+
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleGUI";
@@ -124,6 +126,7 @@ bool ModuleGUI::GUI_AboutWindow()
 
 bool ModuleGUI::GUI_ConfigurationWindow()
 {
+
 	ImGui::Begin("Configuration", &guiWindows[GUI_WINDOWS::GUI_CONFIGURATION], ImGuiWindowFlags_NoFocusOnAppearing);
 
 	if (ImGui::BeginMenu("Options"))
@@ -160,7 +163,12 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("Window"))
 	{
-		//ImGui::SliderFloat("Brightnes: ", &App->camera->camera_mov_speed, 0.0f, 1.0f);
+		static float winBrightness = 1.0f;
+		if (ImGui::SliderFloat("Brightness", &winBrightness, 0, 1))
+		{
+			App->window->SetScreenBrightness(winBrightness);
+		}
+		// MIN RESOLUTION 640x480 
 		if (ImGui::SliderInt("Window Width", &App->window->screenWidth, 640, App->window->maxScreenWidth))
 		{
 			App->window->SetWindowsSize();
@@ -169,12 +177,35 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 		{
 			App->window->SetWindowsSize();
 		}
+		
+		ImGui::Text("Refresh Rate: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", App->window->refreshRate);
 
+		if (ImGui::Checkbox("Full Screen", &App->window->winFullScreen))
+		{
+			App->window->SetFullScreen(App->window->winFullScreen);
+		}
+		if (ImGui::Checkbox("Resizable", &App->window->winResizable))
+		{
+			App->window->SetResizable(App->window->winResizable);
+		}
+		if (ImGui::Checkbox("Borderless", &App->window->winBorderless))
+		{
+			App->window->SetBorderless(App->window->winBorderless);
+		}
+		if (ImGui::Checkbox("Full Desktop", &App->window->winFullScreenDesktop))
+		{
+			App->window->SetFullScreenDesktop(App->window->winFullScreenDesktop);
+		}
 	}
 
 	if (ImGui::CollapsingHeader("File System"))
 	{
-
+		// (TODO)
+		ImGui::Text("Base Path: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s");
 	}
 
 	if (ImGui::CollapsingHeader("Input"))

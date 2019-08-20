@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "mmgr/mmgr.h"
+
 Application::Application()
 {
 	window = new ModuleWindow(this);

@@ -20,6 +20,11 @@ public:
 
 	void SetTitle(const char* title);
 	void SetWindowsSize(int width = 0, int height = 0);
+	void SetScreenBrightness(float brightness);
+	bool SetFullScreen(bool set);
+	bool SetFullScreenDesktop(bool set);
+	bool SetResizable(bool set); // NOT WORKING (TODO)
+	bool SetBorderless(bool set);
 
 public:
 	SDL_Window* window;
@@ -38,6 +43,7 @@ public:
 
 	int maxScreenWidth;
 	int maxScreenHeight;
+	int refreshRate;
 
 };
 
