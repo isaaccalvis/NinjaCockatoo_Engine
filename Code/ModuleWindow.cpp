@@ -70,6 +70,11 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 		}
 	}
 
+	SDL_DisplayMode DM;
+	SDL_GetCurrentDisplayMode(0, &DM);
+	maxScreenWidth = DM.w;
+	maxScreenHeight = DM.h;
+
 	return ret;
 }
 
@@ -96,6 +101,9 @@ bool ModuleWindow::Save(JSON_Object* root_object)
 	json_object_set_boolean(root_object, "borderless", winBorderless);
 	json_object_set_boolean(root_object, "fulldesktop", winFullScreenDesktop);
 	json_object_set_boolean(root_object, "vsync", winVsync);
+	json_object_set_string(root_object, "title", winTitle);
+	json_object_set_string(root_object, "organization", organization);
+
 	return true;
 }
 
@@ -110,6 +118,7 @@ bool ModuleWindow::Load(JSON_Object* root_object)
 	winFullScreenDesktop = json_object_get_boolean(root_object, "fulldesktop");
 	winVsync = json_object_get_boolean(root_object, "vsync");
 	winTitle = strdup(json_object_get_string(root_object, "title"));
+	organization = strdup(json_object_get_string(root_object, "organization"));
 	return true;
 }
 
@@ -117,4 +126,16 @@ void ModuleWindow::SetTitle(const char* title)
 {
 	winTitle = strdup(title);
 	SDL_SetWindowTitle(window, title);
+}
+
+void ModuleWindow::SetWindowsSize(int width, int height)
+{
+	if (height == 0)
+	{
+		SDL_SetWindowSize(window, screenWidth, screenHeight);
+	}
+	else
+	{
+		SDL_SetWindowSize(window, width, height);
+	}
 }

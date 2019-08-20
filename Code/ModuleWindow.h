@@ -19,6 +19,7 @@ public:
 	bool Load(JSON_Object* root_object);
 
 	void SetTitle(const char* title);
+	void SetWindowsSize(int width = 0, int height = 0);
 
 public:
 	SDL_Window* window;
@@ -33,6 +34,11 @@ public:
 	bool winFullScreenDesktop = false;
 	bool winVsync = false;
 	char* winTitle = nullptr;
+	char* organization = nullptr;
+
+	int maxScreenWidth;
+	int maxScreenHeight;
+
 };
 
 #endif

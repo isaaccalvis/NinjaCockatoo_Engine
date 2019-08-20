@@ -148,10 +148,27 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 		{
 			App->window->SetTitle(gui_appname);
 		}
+
+		static char gui_organization_name[256];
+		strcpy_s(gui_organization_name, 256, App->window->organization);
+		if (ImGui::InputText("Organization Name", gui_organization_name, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->window->organization = gui_organization_name;
+		}
+
 	}
 
 	if (ImGui::CollapsingHeader("Window"))
 	{
+		//ImGui::SliderFloat("Brightnes: ", &App->camera->camera_mov_speed, 0.0f, 1.0f);
+		if (ImGui::SliderInt("Window Width", &App->window->screenWidth, 640, App->window->maxScreenWidth))
+		{
+			App->window->SetWindowsSize();
+		}
+		if (ImGui::SliderInt("Window Height", &App->window->screenHeight, 480, App->window->maxScreenHeight))
+		{
+			App->window->SetWindowsSize();
+		}
 
 	}
 
@@ -162,9 +179,9 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("Input"))
 	{
-		ImGui::SliderFloat("Camera Speed: ", &App->camera->camera_mov_speed, 1.0f, 10.0f);
-		ImGui::SliderFloat("Mouse Wheel Speed: ", &App->camera->mouse_wheel_speed, 0.1f, 5.0f);
-		ImGui::SliderFloat("Mouse Sensitivity: ", &App->camera->mouse_sensitivity, 0.01f, 2.0f);
+		ImGui::SliderFloat("Camera Speed", &App->camera->camera_mov_speed, 1.0f, 10.0f);
+		ImGui::SliderFloat("Mouse Wheel Speed", &App->camera->mouse_wheel_speed, 0.1f, 5.0f);
+		ImGui::SliderFloat("Mouse Sensitivity", &App->camera->mouse_sensitivity, 0.01f, 2.0f);
 
 		ImGui::Separator();
 

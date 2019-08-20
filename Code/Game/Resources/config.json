@@ -1,1 +1,18 @@
-{"ModuleWindow":{"screen_width":1280,"screen_height":1024,"screen_size":1,"fullscreen":false,"fulldesktop":false,"resizable":false,"borderless":false,"vsync":true,"title":"Socialist Engine"},"ModuleCamera3D":{},"ModuleGUI":{},"ModuleInput":{},"ModuleRenderer3D":{}}
+{
+  "ModuleWindow": {
+    "screen_width": 1280,
+    "screen_height": 1024,
+    "screen_size": 1,
+    "fullscreen": false,
+    "fulldesktop": false,
+    "resizable": false,
+    "borderless": false,
+    "vsync": true,
+    "title": "Socialist Engine",
+    "organization": "SocialistEngineGroup"
+  },
+  "ModuleCamera3D": {},
+  "ModuleGUI": {},
+  "ModuleInput": {},
+  "ModuleRenderer3D": {}
+}
