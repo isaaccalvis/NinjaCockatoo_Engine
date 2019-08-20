@@ -23,6 +23,8 @@ bool ModuleGUI::Init(JSON_Object* root_object)
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 	ImGui_ImplOpenGL2_Init();
 
+	SDL_GetVersion(&sdl_version);
+
 	return true;
 }
 
@@ -157,7 +159,63 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
+		static ModuleHardware::hw_info hw_info = App->hardware->GetInfo();
+		
+		ImGui::Text("SDL_Version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255),"%i.%i.%i" , sdl_version.major, sdl_version.minor, sdl_version.patch);
 
+		ImGui::Separator();
+
+		ImGui::Text("CPUs: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255,255,0,255), "%i (Cache: %ikb)", hw_info.cpu_count, SDL_GetCPUCacheLineSize());
+		
+		ImGui::Text("RAM: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%iGb", SDL_GetSystemRAM() / 1024);
+		
+		ImGui::Text("Caps:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s%s%s%s%s%s",
+			hw_info.rdtsc ? "RDTSC," : "",
+			hw_info.altivec ? "AltiVec," : "",
+			hw_info.mmx ? "MMX," : "",
+			hw_info.now3d ? "3DNow," : "",
+			hw_info.sse ? "SSE," : "",
+			hw_info.sse2 ? "SSE2," : "");
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s%s%s%s%s",
+			hw_info.sse3 ? "SSE3," : "",
+			hw_info.sse41 ? "SSE41," : "",
+			hw_info.sse42 ? "SSE42," : "",
+			hw_info.avx ? "AVX," : "",
+			hw_info.avx2 ? "AVX2" : "");
+
+		ImGui::Separator();
+
+		ImGui::Text("GPU:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "vendor %u device %u", hw_info.gpu_vendor, hw_info.gpu_device);
+
+		ImGui::Text("Brand: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s", hw_info.gpu_brand);
+
+		ImGui::Text("VRAM Budget: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%.1f Mb", hw_info.vram_mb_budget);
+
+		ImGui::Text("VRAM Usage: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%.1f Mb", hw_info.vram_mb_usage);
+
+		ImGui::Text("VRAM Available: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%.1f Mb", hw_info.vram_mb_available);
+
+		ImGui::Text("VRAM Reserved: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%.1f Mb", hw_info.vram_mb_reserved);
 	}
 
 	ImGui::End();

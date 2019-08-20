@@ -26,6 +26,9 @@ private:
 	bool GUI_TopBar();
 	bool GUI_AboutWindow();
 	bool GUI_ConfigurationWindow();
+
+private:
+	SDL_version sdl_version;
 };
 
 #endif
