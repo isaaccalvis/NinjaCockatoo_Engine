@@ -10,6 +10,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "ModuleHardware.h"
+#include "ModuleMeshes.h"
 
 class Application
 {
@@ -36,6 +37,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleHardware* hardware;
+	ModuleMeshes* meshes;
 
 private:
 	Timer	ms_timer;

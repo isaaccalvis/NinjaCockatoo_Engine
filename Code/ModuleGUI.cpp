@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleGUI.h"
+#include "glew-2.1.0/include/GL/glew.h"
 
 #include "SDL/include/SDL_opengl.h"
 
@@ -123,6 +124,9 @@ bool ModuleGUI::GUI_AboutWindow()
 	ImGui::Text("License: MIT (More info at License file or at ReadMe)");
 	ImGui::Text("External tools & libraries");
 
+	// TODO: repassar les versions de les llibreries (no ficar strings directament)
+	// TODO: passar tot el text a angles...
+
 	if (ImGui::CollapsingHeader("Libraries"))
 	{
 		if (ImGui::Button("SDL"))
@@ -151,6 +155,15 @@ bool ModuleGUI::GUI_AboutWindow()
 		ImGui::Text(" version: ");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s", ImGui::GetVersion());
+
+		if (ImGui::Button("GLEW"))
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/nigels-com/glew", NULL, NULL, SW_SHOWNORMAL);
+		}
+		ImGui::SameLine();
+		ImGui::Text(" version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i%i.", GLEW_VERSION, GLEW_VERSION_MAJOR, GLEW_VERSION_MINOR, GLEW_VERSION_MICRO);
 
 		if (ImGui::Button("MathGeoLib"))
 		{

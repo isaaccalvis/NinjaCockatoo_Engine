@@ -77,6 +77,10 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="glew-2.1.0\include\GL\eglew.h" />
+    <ClInclude Include="glew-2.1.0\include\GL\glew.h" />
+    <ClInclude Include="glew-2.1.0\include\GL\glxew.h" />
+    <ClInclude Include="glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="gpudetect\DeviceId.h" />
     <ClInclude Include="gpudetect\dxgi1_4.h" />
@@ -153,6 +157,7 @@
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleHardware.h" />
+    <ClInclude Include="ModuleMeshes.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -211,6 +216,7 @@
     <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleMeshes.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson\parson.c" />

@@ -10,12 +10,14 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	gui = new ModuleGUI(this);
 	hardware = new ModuleHardware(this);
+	meshes = new ModuleMeshes(this);
 
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(gui);
-	AddModule(hardware);
+	AddModule(meshes);
+
 	AddModule(renderer3D);
 }
 
