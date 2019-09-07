@@ -1,12 +1,15 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+
+//#include <gl/GL.h>
+//#include <gl/GLU.h>
 
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
+#pragma comment (lib, "glew-2.1.0/lib/Release/Win32/glew32.lib")
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -92,6 +95,8 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+
+		glewInit();
 	}
 
 	// Projection matrix for
@@ -120,7 +125,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glVertex2f(0, 0);
 	glVertex2f(20, 20);
 	glEnd();
-
+	
 	// Print Geometry
 
 	// Print Debug Draw

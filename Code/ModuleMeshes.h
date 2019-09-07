@@ -10,6 +10,7 @@ public:
 	virtual ~ModuleMeshes();
 
 	bool Init(JSON_Object* root_object);
+	update_status Update(float dt);
 	bool CleanUp();
 
 	bool Save(JSON_Object* root_object);
