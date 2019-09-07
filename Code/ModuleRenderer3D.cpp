@@ -4,9 +4,6 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
 
-//#include <gl/GL.h>
-//#include <gl/GLU.h>
-
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glew-2.1.0/lib/Release/Win32/glew32.lib")
@@ -25,16 +22,15 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 	bool ret = true;
 	
 	context = SDL_GL_CreateContext(App->window->GetWindow());
-	if(context == NULL)
+	if(context == nullptr)
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	
-	if(ret == true)
+	else
 	{
 		//Use Vsync
-		if(App->window->winVsync && SDL_GL_SetSwapInterval(1) < 0)
+		if (App->window->winVsync && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
@@ -42,61 +38,70 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		glLoadIdentity();
 
 		//Check for error
-		GLenum error = glGetError();
-		if(error != GL_NO_ERROR)
+		GLenum error = glGetError(); // TODO: this is part of GLU, maybe we have to delete it
+		if (error != GL_NO_ERROR)
 		{
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-
-		//Initialize Modelview Matrix
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		//Check for error
-		error = glGetError();
-		if(error != GL_NO_ERROR)
+		else
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-			ret = false;
+
+			//Initialize Modelview Matrix
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+
+			//Check for error
+			error = glGetError();
+			if (error != GL_NO_ERROR)
+			{
+				LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+				ret = false;
+			}
+			else
+			{
+
+				glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+				glClearDepth(1.0f);
+
+				//Initialize clear color
+				glClearColor(0.f, 0.f, 0.f, 1.f);
+
+				//Check for error
+				error = glGetError();
+				if (error != GL_NO_ERROR)
+				{
+					LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+					ret = false;
+				}
+				else
+				{
+
+					GLfloat LightModelAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+					glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
+
+					lights[0].ref = GL_LIGHT0;
+					lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+					lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+					lights[0].SetPos(0.0f, 0.0f, 2.5f);
+					lights[0].Init();
+
+					GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+					glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
+
+					GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+					glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
+
+					glEnable(GL_DEPTH_TEST);
+					glEnable(GL_CULL_FACE);
+					lights[0].Active(true);
+					glEnable(GL_LIGHTING);
+					glEnable(GL_COLOR_MATERIAL);
+
+					glewInit();
+				}
+			}
 		}
-		
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-		glClearDepth(1.0f);
-		
-		//Initialize clear color
-		glClearColor(0.f, 0.f, 0.f, 1.f);
-
-		//Check for error
-		error = glGetError();
-		if(error != GL_NO_ERROR)
-		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-			ret = false;
-		}
-		
-		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-		
-		lights[0].ref = GL_LIGHT0;
-		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-		lights[0].SetPos(0.0f, 0.0f, 2.5f);
-		lights[0].Init();
-		
-		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
-
-		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
-		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-		
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
-		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_COLOR_MATERIAL);
-
-		glewInit();
 	}
 
 	// Projection matrix for
@@ -140,7 +145,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-// Called before quitting
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
@@ -171,4 +175,17 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+SDL_GLContext ModuleRenderer3D::GetContext()
+{
+	if (context != nullptr)
+	{
+		return context;
+	}
+}
+
+void ModuleRenderer3D::SetContext(SDL_GLContext nContext)
+{
+	context = nContext;
 }

@@ -21,9 +21,15 @@ public:
 
 	void OnResize(int width, int height);
 
+	SDL_GLContext GetContext();
+	void SetContext(SDL_GLContext nContext);
+
+private:
+	SDL_GLContext context;
+
 public:
 	Light lights[MAX_LIGHTS];
-	SDL_GLContext context;
-	math::float3x3 NormalMatrix;
-	math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+	
+	//math::float3x3 NormalMatrix;
+	//math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 };

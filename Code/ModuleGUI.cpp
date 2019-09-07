@@ -25,7 +25,7 @@ bool ModuleGUI::Start()
 
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplSDL2_InitForOpenGL(App->window->GetWindow(), App->renderer3D->context);
+	ImGui_ImplSDL2_InitForOpenGL(App->window->GetWindow(), App->renderer3D->GetContext());
 	ImGui_ImplOpenGL2_Init();
 
 	SDL_GetVersion(&sdl_version);
