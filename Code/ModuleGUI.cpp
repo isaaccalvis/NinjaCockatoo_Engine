@@ -25,7 +25,7 @@ bool ModuleGUI::Start()
 
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
+	ImGui_ImplSDL2_InitForOpenGL(App->window->GetWindow(), App->renderer3D->context);
 	ImGui_ImplOpenGL2_Init();
 
 	SDL_GetVersion(&sdl_version);
@@ -36,7 +36,7 @@ bool ModuleGUI::Start()
 update_status ModuleGUI::Update(float dt)
 {
 	ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplSDL2_NewFrame(App->window->window);
+	ImGui_ImplSDL2_NewFrame(App->window->GetWindow());
 	ImGui::NewFrame();
 
 	if (guiWindows[GUI_TOPBAR])

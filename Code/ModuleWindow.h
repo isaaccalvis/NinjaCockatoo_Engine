@@ -19,17 +19,21 @@ public:
 	bool Load(JSON_Object* root_object);
 
 	void SetTitle(const char* title);
-	void SetWindowsSize(int width = 0, int height = 0);
-	void SetScreenBrightness(float brightness);
+	bool SetWindowsSize(int width = 0, int height = 0);
+	bool SetScreenBrightness(float brightness);
 	bool SetFullScreen(bool set);
 	bool SetFullScreenDesktop(bool set);
 	bool SetResizable(bool set); // NOT WORKING (TODO)
 	bool SetBorderless(bool set);
 
-public:
-	SDL_Window* window;
-	SDL_Surface* screen_surface;
+	SDL_Window*	GetWindow();
+	void		SetWindow(SDL_Window* nWindow);
 
+private:
+	SDL_Window* window = nullptr;
+	SDL_Surface* screen_surface = nullptr;
+
+public:
 	int screenWidth = 0;
 	int screenHeight = 0;
 	int screenSize = 1;
@@ -44,7 +48,6 @@ public:
 	int maxScreenWidth;
 	int maxScreenHeight;
 	int refreshRate;
-
 };
 
 #endif

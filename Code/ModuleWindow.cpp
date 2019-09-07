@@ -5,9 +5,6 @@
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleWindow";
-
-	window = NULL;
-	screen_surface = NULL;
 }
 
 ModuleWindow::~ModuleWindow()
@@ -15,7 +12,6 @@ ModuleWindow::~ModuleWindow()
 
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
-	
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
@@ -58,7 +54,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 		printf_s("%s\n", winTitle);
 		window = SDL_CreateWindow(App->window->winTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
-		if(window == NULL)
+		if(window == nullptr)
 		{
 			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			ret = false;
@@ -83,7 +79,7 @@ bool ModuleWindow::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
 
-	if(window != NULL)
+	if(window != nullptr)
 	{
 		SDL_DestroyWindow(window);
 	}
@@ -125,44 +121,89 @@ bool ModuleWindow::Load(JSON_Object* root_object)
 
 void ModuleWindow::SetTitle(const char* title)
 {
+
 	winTitle = strdup(title);
 	SDL_SetWindowTitle(window, title);
 }
 
-void ModuleWindow::SetWindowsSize(int width, int height)
+bool ModuleWindow::SetWindowsSize(int width, int height)
 {
+	bool ret = true;
 	if (height == 0)
 	{
 		SDL_SetWindowSize(window, screenWidth, screenHeight);
 	}
 	else
 	{
-		SDL_SetWindowSize(window, width, height);
+		if (width >= 0 && height >= 0)
+		{
+			SDL_SetWindowSize(window, width, height);
+		}
+		else
+		{
+			LOG("Can't resize screen, width or height are < 0");
+			ret = false;
+		}
 	}
+	return ret;
 }
 
-void ModuleWindow::SetScreenBrightness(float brightness)
+bool ModuleWindow::SetScreenBrightness(float brightness)
 {
-	SDL_SetWindowBrightness(window, brightness);
+	bool ret = true;
+	if (SDL_SetWindowBrightness(window, brightness) < 0)
+	{
+		LOG("Can't SetWindowBrightness");
+		ret = false;
+	}
+	return ret;
 }
 
 bool ModuleWindow::SetFullScreen(bool set)
 {
+	bool ret = true;
 	if (set)
-		SDL_SetWindowFullscreen(window, 1);
+	{
+		if (SDL_SetWindowFullscreen(window, 1) < 0)
+		{
+			LOG("Can't SetWindowFullscreen");
+			ret = false;
+		}
+	}
 	else
-		SDL_SetWindowFullscreen(window, 0);
-	return true;
+	{
+		if (SDL_SetWindowFullscreen(window, 0) < 0)
+		{
+			LOG("Can't SetWindowFullscreen");
+			ret = false;
+		}
+	}
+	return ret;
 }
 
 bool ModuleWindow::SetFullScreenDesktop(bool set)
 {
+	bool ret = true;
 	if (!winFullScreen)
+	{
 		if (set)
-			SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		{
+			if (SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+			{
+				LOG("Can't SetWindowFullscreen desktop")
+				ret = false;
+			}
+		}
 		else
-			SDL_SetWindowFullscreen(window, 0);
-	return true;
+		{
+			if (SDL_SetWindowFullscreen(window, 0) < 0)
+			{
+				LOG("Can't SetWindowFullscreen desktop")
+				ret = false;
+			}
+		}
+	}
+	return ret;
 }
 
 bool ModuleWindow::SetResizable(bool set)
@@ -180,4 +221,21 @@ bool ModuleWindow::SetBorderless(bool set)
 		else
 			SDL_SetWindowBordered(window, (SDL_bool)true);
 	return true;
+}
+
+SDL_Window* ModuleWindow::GetWindow()
+{
+	if (window != nullptr)
+	{
+		return window;
+	}
+	else
+	{
+		LOG("Window is nullptr");
+	}
+}
+
+void ModuleWindow::SetWindow(SDL_Window* nWindow)
+{
+	window = nWindow;
 }
