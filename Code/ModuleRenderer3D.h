@@ -24,6 +24,8 @@ public:
 	SDL_GLContext GetContext() const;
 	void SetContext(SDL_GLContext nContext);
 
+	void SetWireframeMode(bool set);
+
 private:
 	SDL_GLContext context;
 
@@ -32,4 +34,6 @@ public:
 	
 	//math::float3x3 NormalMatrix;
 	//math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	bool renderWireframeMode = false;
 };

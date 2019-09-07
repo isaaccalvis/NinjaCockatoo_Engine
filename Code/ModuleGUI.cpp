@@ -378,6 +378,14 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 			}
 		}
 	}
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		if (ImGui::Checkbox("Wireframe", &App->renderer3D->renderWireframeMode))
+		{
+			App->renderer3D->SetWireframeMode(App->renderer3D->renderWireframeMode);
+		}
+
+	}
 
 	if (ImGui::CollapsingHeader("Hardware"))
 	{

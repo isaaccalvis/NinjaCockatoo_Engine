@@ -189,3 +189,15 @@ void ModuleRenderer3D::SetContext(SDL_GLContext nContext)
 {
 	context = nContext;
 }
+
+void ModuleRenderer3D::SetWireframeMode(bool set)
+{
+	if (set)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
