@@ -75,13 +75,14 @@ bool ModuleGUI::Load(JSON_Object* root_object)
 
 bool ModuleGUI::GUI_TopBar()
 {
+	bool ret = true;
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Quit"))
 			{
-				return false;
+				ret = false;
 			}
 			ImGui::EndMenu();
 		}
@@ -112,11 +113,12 @@ bool ModuleGUI::GUI_TopBar()
 		}
 		ImGui::EndMainMenuBar();
 	}
-	return true;
+	return ret;
 }
 
 bool ModuleGUI::GUI_AboutWindow()
 {
+	bool ret = true;
 	ImGui::Begin("About", &guiWindows[GUI_WINDOWS::GUI_ABOUT], ImGuiWindowFlags_NoFocusOnAppearing);
 	ImGui::Text("Socialist Engine is a video game engine made by students\nfrom CITM(UPC) at VideoGame Development & Design degree");
 	ImGui::Text("Made by Isaac Calvis & Aitor Velez");
@@ -202,11 +204,13 @@ bool ModuleGUI::GUI_AboutWindow()
 	}
 
 	ImGui::End();
-	return true;
+	return ret;
 }
 
 bool ModuleGUI::GUI_ConfigurationWindow()
 {
+	bool ret = true;
+
 	sMStats stats = m_getMemoryStatistics();
 	static int speed = 0;
 	static std::vector<float> memory(100);
@@ -348,7 +352,7 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 	{
 		ImGui::SliderFloat("Camera Speed", &App->camera->camera_mov_speed, 1.0f, 10.0f);
 		ImGui::SliderFloat("Mouse Wheel Speed", &App->camera->mouse_wheel_speed, 0.1f, 5.0f);
-		ImGui::SliderFloat("Mouse Sensitivity", &App->camera->mouse_sensitivity, 0.01f, 2.0f);
+		ImGui::SliderFloat("Mouse Sensitivity", &App->camera->mouse_sensitivity, 0.001f, 2.0f);
 
 		ImGui::Separator();
 
@@ -437,5 +441,5 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 	}
 
 	ImGui::End();
-	return true;
+	return ret;
 }

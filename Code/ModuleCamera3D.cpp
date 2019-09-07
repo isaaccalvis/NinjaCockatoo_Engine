@@ -41,11 +41,18 @@ bool ModuleCamera3D::CleanUp()
 
 bool ModuleCamera3D::Save(JSON_Object* root_object)
 {
+	json_object_set_number(root_object, "camera_movspeed", camera_mov_speed);
+	json_object_set_number(root_object, "mouse_wheel_speed", mouse_wheel_speed);
+	json_object_set_number(root_object, "mouse_sensitive", mouse_sensitivity);
+
 	return true;
 }
 
 bool ModuleCamera3D::Load(JSON_Object* root_object)
 {
+	camera_mov_speed = (float)json_object_get_number(root_object, "camera_movspeed");
+	mouse_wheel_speed = (float)json_object_get_number(root_object, "mouse_wheel_speed");
+	mouse_sensitivity = (float)json_object_get_number(root_object, "mouse_sensitive");
 	return true;
 }
 
