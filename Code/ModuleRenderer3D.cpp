@@ -177,7 +177,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-SDL_GLContext ModuleRenderer3D::GetContext()
+SDL_GLContext ModuleRenderer3D::GetContext() const
 {
 	if (context != nullptr)
 	{

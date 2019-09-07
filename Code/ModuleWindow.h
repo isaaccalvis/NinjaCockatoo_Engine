@@ -26,7 +26,7 @@ public:
 	bool SetResizable(bool set); // NOT WORKING (TODO)
 	bool SetBorderless(bool set);
 
-	SDL_Window*	GetWindow();
+	SDL_Window*	GetWindow() const;
 	void		SetWindow(SDL_Window* nWindow);
 
 private:

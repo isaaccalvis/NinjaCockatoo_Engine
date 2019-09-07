@@ -27,40 +27,13 @@ public:
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
 
-	KEY_STATE GetKey(int id) const
-	{
-		return keyboard[id];
-	}
-
-	KEY_STATE GetMouseButton(int id) const
-	{
-		return mouse_buttons[id];
-	}
-
-	int GetMouseX() const
-	{
-		return mouse_x;
-	}
-
-	int GetMouseY() const
-	{
-		return mouse_y;
-	}
-
-	int GetMouseZ() const
-	{
-		return mouse_z;
-	}
-
-	int GetMouseXMotion() const
-	{
-		return mouse_x_motion;
-	}
-
-	int GetMouseYMotion() const
-	{
-		return mouse_y_motion;
-	}
+	KEY_STATE GetKey(int id) const;
+	KEY_STATE GetMouseButton(int id) const;
+	int GetMouseX() const;
+	int GetMouseY() const;
+	int GetMouseZ() const;
+	int GetMouseXMotion() const;
+	int GetMouseYMotion() const;
 
 private:
 	KEY_STATE* keyboard;

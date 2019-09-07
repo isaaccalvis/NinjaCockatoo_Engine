@@ -223,7 +223,7 @@ bool ModuleWindow::SetBorderless(bool set)
 	return true;
 }
 
-SDL_Window* ModuleWindow::GetWindow()
+SDL_Window* ModuleWindow::GetWindow() const
 {
 	if (window != nullptr)
 	{

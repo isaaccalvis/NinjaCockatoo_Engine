@@ -21,7 +21,7 @@ public:
 
 	void OnResize(int width, int height);
 
-	SDL_GLContext GetContext();
+	SDL_GLContext GetContext() const;
 	void SetContext(SDL_GLContext nContext);
 
 private:

@@ -38,7 +38,6 @@ bool ModuleInput::Init(JSON_Object* root_object)
 	return ret;
 }
 
-// Called every draw update
 update_status ModuleInput::PreUpdate(float dt)
 {
 	SDL_PumpEvents();
@@ -126,7 +125,6 @@ update_status ModuleInput::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-// Called before quitting
 bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
@@ -142,4 +140,39 @@ bool ModuleInput::Save(JSON_Object* root_object)
 bool ModuleInput::Load(JSON_Object* root_object)
 {
 	return true;
+}
+
+KEY_STATE ModuleInput::GetKey(int id) const
+{
+	return keyboard[id];
+}
+
+KEY_STATE ModuleInput::GetMouseButton(int id) const
+{
+	return mouse_buttons[id];
+}
+
+int ModuleInput::GetMouseX() const
+{
+	return mouse_x;
+}
+
+int ModuleInput::GetMouseY() const
+{
+	return mouse_y;
+}
+
+int ModuleInput::GetMouseZ() const
+{
+	return mouse_z;
+}
+
+int ModuleInput::GetMouseXMotion() const
+{
+	return mouse_x_motion;
+}
+
+int ModuleInput::GetMouseYMotion() const
+{
+	return mouse_y_motion;
 }
