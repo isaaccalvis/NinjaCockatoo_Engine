@@ -52,6 +52,9 @@
     <Filter Include="External Tools\glew">
       <UniqueIdentifier>{9f038727-b6a1-4915-9671-5d4770caf7cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Meshes">
+      <UniqueIdentifier>{de965c2a-d3d6-40a4-8791-bee895b76b90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="ModuleMeshes.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -487,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="ModuleMeshes.cpp">
       <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Meshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
