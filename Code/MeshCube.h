@@ -9,7 +9,6 @@ public:
 	MeshCube(int size);
 	~MeshCube();
 
-
 public:
 	int size = 1;
 

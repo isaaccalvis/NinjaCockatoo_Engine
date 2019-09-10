@@ -3,9 +3,7 @@
 
 #include "glew-2.1.0/include/GL/glew.h"
 
-
 #include "MeshCube.h"
-
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
