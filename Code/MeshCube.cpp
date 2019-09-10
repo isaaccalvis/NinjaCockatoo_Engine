@@ -3,6 +3,7 @@
 MeshCube::MeshCube(int size) : Mesh()
 {
 	this->size = size;
+	// TODO: fer l'escalat amb scale no amb una nova variable
 
 	verticesSize = 24;
 	GLfloat* vertices_array = new GLfloat[verticesSize]{

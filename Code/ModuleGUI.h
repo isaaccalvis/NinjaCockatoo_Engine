@@ -7,7 +7,8 @@ enum GUI_WINDOWS
 {
 	GUI_TOPBAR = 0,
 	GUI_ABOUT,
-	GUI_CONFIGURATION
+	GUI_CONFIGURATION,
+	GUI_CONSOLE
 };
 
 class ModuleGUI : public Module
@@ -23,7 +24,7 @@ public:
 	bool Load(JSON_Object* root_object);
 
 private:
-	bool guiWindows[3] = { true, false, false };
+	bool guiWindows[4] = { true, false, false, false };
 	bool GUI_TopBar();
 	bool GUI_AboutWindow();
 	bool GUI_ConfigurationWindow();

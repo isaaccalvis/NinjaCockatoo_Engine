@@ -11,6 +11,7 @@
 #include "ModuleGUI.h"
 #include "ModuleHardware.h"
 #include "ModuleMeshes.h"
+#include "Console.h"
 
 class Application
 {
@@ -38,6 +39,8 @@ public:
 	ModuleGUI* gui;
 	ModuleHardware* hardware;
 	ModuleMeshes* meshes;
+
+	Console* console;
 
 private:
 	Timer	ms_timer;

@@ -10,8 +10,7 @@ public:
 	~MeshCube();
 
 public:
-	int size = 1;
-
+	int size;
 };
 
 #endif

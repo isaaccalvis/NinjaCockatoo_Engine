@@ -55,6 +55,12 @@
     <Filter Include="Engine\Meshes">
       <UniqueIdentifier>{de965c2a-d3d6-40a4-8791-bee895b76b90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Meshes\BasicMeshes">
+      <UniqueIdentifier>{08295fc5-fef4-4d49-b47b-bc308871d049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI">
+      <UniqueIdentifier>{db56e3a7-9cb7-4404-aeba-075b18c07ce3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -337,7 +343,10 @@
       <Filter>Engine\Meshes</Filter>
     </ClInclude>
     <ClInclude Include="MeshCube.h">
-      <Filter>Engine\Meshes</Filter>
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Engine\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -501,7 +510,19 @@
       <Filter>Engine\Meshes</Filter>
     </ClCompile>
     <ClCompile Include="MeshCube.cpp">
-      <Filter>Engine\Meshes</Filter>
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_TopBar.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_About.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Configuration.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Engine\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

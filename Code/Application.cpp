@@ -12,11 +12,15 @@ Application::Application()
 	hardware = new ModuleHardware(this);
 	meshes = new ModuleMeshes(this);
 
+	console = new Console(this);
+
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(gui);
 	AddModule(meshes);
+
+	AddModule(console);
 
 	AddModule(renderer3D);
 }
