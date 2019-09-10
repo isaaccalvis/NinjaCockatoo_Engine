@@ -1,11 +1,13 @@
-#ifndef __MESH_H__
-#define __MESH_H__
+#ifndef __Mesh_H__
+#define __Mesh_H__
+
+#include "glew-2.1.0/include/GL/glew.h"
 
 class Mesh
 {
 public:
 	Mesh();
-	~Mesh();
+	~Mesh(); // TODO: DESTRUCTOR
 
 	void Render();
 
