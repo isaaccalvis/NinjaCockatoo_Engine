@@ -6,7 +6,7 @@
 class MeshCube : public Mesh
 {
 public:
-	MeshCube(int size);
+	MeshCube();
 	~MeshCube();
 
 public:

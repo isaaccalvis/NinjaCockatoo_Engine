@@ -348,6 +348,12 @@
     <ClInclude Include="Console.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="MeshSphere.h">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshPlane.h">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -523,6 +529,12 @@
     </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshSphere.cpp">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshPlane.cpp">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

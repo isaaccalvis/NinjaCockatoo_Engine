@@ -4,6 +4,7 @@
 #include "glew-2.1.0/include/GL/glew.h"
 
 #include "MeshCube.h"
+#include "MeshPlane.h"
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,7 +16,7 @@ ModuleMeshes::~ModuleMeshes()
 
 bool ModuleMeshes::Start()
 {
-	Mesh *tmp_cube_mesh = new MeshCube(3);
+	Mesh *tmp_cube_mesh = new MeshPlane();
 	AddMesh(tmp_cube_mesh);
 	return true;
 }

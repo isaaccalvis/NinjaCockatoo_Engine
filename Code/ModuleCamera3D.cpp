@@ -12,7 +12,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = math::float3(0.0f, 1.0f, 0.0f);
 	Z = math::float3(0.0f, 0.0f, 1.0f);
 
-	Position = math::float3(0.0f, 0.0f, 5.0f);
+	Position = math::float3(0.0f, 3.0f, 3.0f);
 	Reference = math::float3(0.0f, 0.0f, 0.0f);
 }
 
