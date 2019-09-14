@@ -19,6 +19,9 @@ public:
 	bool Load(JSON_Object* root_object);
 	
 	void AddMesh(Mesh* mesh);
+	void AddCube();
+	void AddPlane();
+	void AddSphere();
 
 private:
 	std::list<Mesh*> meshes;

@@ -6,7 +6,7 @@
 class MeshSphere : public Mesh
 {
 public:
-	MeshSphere();
+	MeshSphere(unsigned int rings, unsigned int sectors);
 	~MeshSphere();
 
 };

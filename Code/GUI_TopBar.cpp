@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleGUI.h"
 
+#include "ModuleMeshes.h"
+
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
@@ -24,6 +26,22 @@ bool ModuleGUI::GUI_TopBar()
 				guiWindows[GUI_CONFIGURATION] = !guiWindows[GUI_CONFIGURATION];
 			if (ImGui::MenuItem("Console"))
 				guiWindows[GUI_CONSOLE] = !guiWindows[GUI_CONSOLE];
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("GameObject"))
+		{
+			if (ImGui::MenuItem("Cube"))
+			{
+				App->meshes->AddCube();
+			}
+			if (ImGui::MenuItem("Plane"))
+			{
+				App->meshes->AddPlane();
+			}
+			if (ImGui::MenuItem("Sphere"))
+			{
+				App->meshes->AddSphere();
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

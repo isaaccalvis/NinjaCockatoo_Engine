@@ -8,9 +8,6 @@ class MeshCube : public Mesh
 public:
 	MeshCube();
 	~MeshCube();
-
-public:
-	int size;
 };
 
 #endif
