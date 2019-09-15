@@ -185,6 +185,42 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 			App->renderer3D->SetWireframeMode(App->renderer3D->renderWireframeMode);
 		}
 
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("GL DEPTH TEST", &App->renderer3D->renderGlDepthTest))
+		{
+			App->renderer3D->SetGlDepthTest(App->renderer3D->renderGlDepthTest);
+		}
+
+		if (ImGui::Checkbox("GL CULL FACE", &App->renderer3D->renderGlCullFace))
+		{
+			App->renderer3D->SetGlCullFace(App->renderer3D->renderGlCullFace);
+		}
+
+		if (ImGui::Checkbox("GL LIGHTING", &App->renderer3D->renderGlLighting))
+		{
+			App->renderer3D->SetGlLighting(App->renderer3D->renderGlLighting);
+		}
+
+		if (ImGui::Checkbox("GL COLOR MATERIAL", &App->renderer3D->renderGlColorMaterial))
+		{
+			App->renderer3D->SetGlColorMaterial(App->renderer3D->renderGlColorMaterial);
+		}
+
+		if (ImGui::Checkbox("GL TEXTURE", &App->renderer3D->renderGlTexture))
+		{
+			App->renderer3D->SetGlTexture(App->renderer3D->renderGlTexture);
+		}
+
+		if (ImGui::Checkbox("GL ALPHA TEST", &App->renderer3D->renderGlAlphaTest))
+		{
+			App->renderer3D->SetGlAlphaTest(App->renderer3D->renderGlAlphaTest);
+		}
+
+		if (ImGui::Checkbox("GL LINE SMOOTH", &App->renderer3D->renderGlLineSmooth))
+		{
+			App->renderer3D->SetGlLineSmooth(App->renderer3D->renderGlLineSmooth);
+		}
 	}
 
 	if (ImGui::CollapsingHeader("Hardware"))

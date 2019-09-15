@@ -195,3 +195,87 @@ void ModuleRenderer3D::SetWireframeMode(bool set)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
+
+void ModuleRenderer3D::SetGlDepthTest(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_DEPTH_TEST);
+	}
+	else
+	{
+		glDisable(GL_DEPTH_TEST);
+	}
+}
+
+void ModuleRenderer3D::SetGlCullFace(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_CULL_FACE);
+	}
+	else
+	{
+		glDisable(GL_CULL_FACE);
+	}
+}
+
+void ModuleRenderer3D::SetGlLighting(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_LIGHTING);
+	}
+	else
+	{
+		glDisable(GL_LIGHTING);
+	}
+}
+
+void ModuleRenderer3D::SetGlColorMaterial(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_COLOR_MATERIAL);
+	}
+	else
+	{
+		glDisable(GL_COLOR_MATERIAL);
+	}
+}
+
+void ModuleRenderer3D::SetGlTexture(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_TEXTURE);
+	}
+	else
+	{
+		glDisable(GL_TEXTURE);
+	}
+}
+
+void ModuleRenderer3D::SetGlAlphaTest(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_ALPHA_TEST);
+	}
+	else
+	{
+		glDisable(GL_ALPHA_TEST);
+	}
+}
+
+void ModuleRenderer3D::SetGlLineSmooth(bool set)
+{
+	if (set)
+	{
+		glEnable(GL_LINE_SMOOTH);
+	}
+	else
+	{
+		glDisable(GL_LINE_SMOOTH);
+	}
+}

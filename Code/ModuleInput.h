@@ -1,5 +1,6 @@
-// TODO: treure el pragma once
-#pragma once
+#ifndef __ModuleInput_H__
+#define __ModuleInput_H__
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -44,4 +45,7 @@ private:
 	int mouse_x_motion;
 	int mouse_y_motion;
 	//int mouse_z_motion;
+
 };
+
+#endif

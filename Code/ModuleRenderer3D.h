@@ -25,6 +25,13 @@ public:
 	void SetContext(SDL_GLContext nContext);
 
 	void SetWireframeMode(bool set);
+	void SetGlDepthTest(bool set);
+	void SetGlCullFace(bool set);
+	void SetGlLighting(bool set);
+	void SetGlColorMaterial(bool set);
+	void SetGlTexture(bool set);
+	void SetGlAlphaTest(bool set);
+	void SetGlLineSmooth(bool set);
 
 private:
 	SDL_GLContext context;
@@ -36,4 +43,11 @@ public:
 	//math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 	bool renderWireframeMode = false;
+	bool renderGlDepthTest = true;
+	bool renderGlCullFace = true;
+	bool renderGlLighting = true;
+	bool renderGlColorMaterial = true;
+	bool renderGlTexture = true;
+	bool renderGlAlphaTest = false;
+	bool renderGlLineSmooth = false;
 };
