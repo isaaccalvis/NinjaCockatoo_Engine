@@ -126,6 +126,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		lights[i].Render();
 	
 	// Print Geometry
+	std::list<Mesh*>::iterator it = App->meshes->meshes.begin();
+	for (; it != App->meshes->meshes.end(); it++)
+	{
+		(*it)->Render();
+	}
 
 	// Print Debug Draw
 
@@ -195,6 +200,8 @@ void ModuleRenderer3D::SetWireframeMode(bool set)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
+
+// TODO: repassar que vagin be les opcions de opengl següents
 
 void ModuleRenderer3D::SetGlDepthTest(bool set)
 {

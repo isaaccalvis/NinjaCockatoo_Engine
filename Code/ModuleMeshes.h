@@ -23,7 +23,7 @@ public:
 	void AddPlane();
 	void AddSphere();
 
-private:
+public: // TODO: s'ha de passar la llista mesh a privat
 	std::list<Mesh*> meshes;
 
 };

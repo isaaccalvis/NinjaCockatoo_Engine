@@ -22,13 +22,6 @@ bool ModuleMeshes::Start()
 
 update_status ModuleMeshes::Update(float dt)
 {
-	// Render phase
-	std::list<Mesh*>::iterator it = meshes.begin();
-	for (; it != meshes.end(); it++)
-	{
-		(*it)->Render();
-	}
-
 	return update_status::UPDATE_CONTINUE;
 }
 
