@@ -1,6 +1,13 @@
 #include "Application.h"
 #include "ModuleImporter.h"
 
+#include "Assimp/include/Importer.hpp"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+
+#pragma comment (lib, "Assimp/libx86/assimp.lib")
+#pragma comment (lib, "Assimp/libx86/zlibstatic.lib")
+
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "importer";
