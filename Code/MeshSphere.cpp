@@ -1,6 +1,7 @@
 #include "MeshSphere.h"
 
 // RADIUS = 1.0f
+//TODO: save info at vertiesArray & indicesArray
 MeshSphere::MeshSphere(unsigned int rings, unsigned int sectors)
 {
 	float const R = 1. / (float)(rings - 1);

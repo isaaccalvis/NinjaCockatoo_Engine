@@ -357,6 +357,9 @@
     <ClInclude Include="ModuleImporter.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="MeshCustom.h">
+      <Filter>Engine\Meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -541,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="ModuleImporter.cpp">
       <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCustom.cpp">
+      <Filter>Engine\Meshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

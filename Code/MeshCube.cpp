@@ -3,7 +3,7 @@
 MeshCube::MeshCube() : Mesh()
 {
 	verticesSize = 24;
-	GLfloat* vertices_array = new GLfloat[verticesSize]{
+	verticesArray = new GLfloat[verticesSize]{
 		0.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		1.0f, 1.0f, 0.0f,
@@ -17,11 +17,11 @@ MeshCube::MeshCube() : Mesh()
 	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize, vertices_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize, verticesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	indicesSize = 36;
-	unsigned int* indices_array = new unsigned int[indicesSize]{
+	unsigned int* indicesArray = new unsigned int[indicesSize]{
 		2,1,0,
 		3,2,0,
 		2,5,1,
@@ -39,7 +39,7 @@ MeshCube::MeshCube() : Mesh()
 	indices = 0u;
 	glGenBuffers(1, (GLuint*) &(indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indices_array, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 

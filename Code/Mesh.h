@@ -26,10 +26,13 @@ public:
 
 
 protected:
-	int verticesSize = 0;
 	unsigned int vertices = 0u;
+	int verticesSize = 0;
+	GLfloat* verticesArray = nullptr;
+
 	int indicesSize = 0;
 	unsigned int indices = 0u;
+	unsigned int* indicesArray = nullptr;
 
 	math::float3 position = {0,0,0};
 	math::float3 scale = { 1,1,1 };
