@@ -354,6 +354,9 @@
     <ClInclude Include="MeshPlane.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleImporter.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -535,6 +538,9 @@
     </ClCompile>
     <ClCompile Include="MeshPlane.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleImporter.cpp">
+      <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

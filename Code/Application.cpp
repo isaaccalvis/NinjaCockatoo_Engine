@@ -11,6 +11,7 @@ Application::Application()
 	gui = new ModuleGUI(this);
 	hardware = new ModuleHardware(this);
 	meshes = new ModuleMeshes(this);
+	importer = new ModuleImporter(this);
 
 	console = new Console(this);
 
@@ -19,6 +20,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(gui);
 	AddModule(meshes);
+	AddModule(importer);
 
 	AddModule(console);
 

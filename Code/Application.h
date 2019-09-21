@@ -11,6 +11,7 @@
 #include "ModuleGUI.h"
 #include "ModuleHardware.h"
 #include "ModuleMeshes.h"
+#include "ModuleImporter.h"
 #include "Console.h"
 
 class Application
@@ -39,6 +40,7 @@ public:
 	ModuleGUI* gui;
 	ModuleHardware* hardware;
 	ModuleMeshes* meshes;
+	ModuleImporter* importer;
 
 	Console* console;
 
