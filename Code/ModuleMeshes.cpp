@@ -6,6 +6,7 @@
 #include "MeshCube.h"
 #include "MeshPlane.h"
 #include "MeshSphere.h"
+#include "MeshCustom.h"
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -17,6 +18,9 @@ ModuleMeshes::~ModuleMeshes()
 
 bool ModuleMeshes::Start()
 {
+	MeshCustom* c = new MeshCustom("Resources/BakerHouse.fbx");
+	AddMesh(c);
+
 	return true;
 }
 

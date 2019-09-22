@@ -16,7 +16,7 @@ public:
 	Mesh();
 	~Mesh(); // TODO: DESTRUCTOR
 
-	void Render();
+	virtual void Render();
 
 	void SetPosition(math::float3 nPosition);
 	void SetScale(math::float3 nScale);

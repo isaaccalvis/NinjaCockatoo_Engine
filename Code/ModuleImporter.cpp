@@ -37,3 +37,8 @@ bool ModuleImporter::Load(JSON_Object* root_object)
 {
 	return true;
 }
+
+void ModuleImporter::LoadMesh(const char* path)
+{
+
+}
