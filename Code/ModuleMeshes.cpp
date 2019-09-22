@@ -14,7 +14,9 @@ ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, s
 }
 
 ModuleMeshes::~ModuleMeshes()
-{}
+{
+
+}
 
 bool ModuleMeshes::Start()
 {
