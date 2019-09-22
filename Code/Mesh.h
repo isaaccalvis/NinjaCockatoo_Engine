@@ -4,11 +4,7 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
 
-enum DRAW_TYPE_SHAPE
-{
-	TRIANGLE,
-	QUAD
-};
+// Think system to draw in quads ?
 
 class Mesh
 {
@@ -30,14 +26,12 @@ protected:
 	int verticesSize = 0;
 	GLfloat* verticesArray = nullptr;
 
-	int indicesSize = 0;
 	unsigned int indices = 0u;
+	int indicesSize = 0;
 	unsigned int* indicesArray = nullptr;
 
 	math::float3 position = {0,0,0};
 	math::float3 scale = { 1,1,1 };
-
-	DRAW_TYPE_SHAPE type_shape = DRAW_TYPE_SHAPE::TRIANGLE;
 };
 
 #endif

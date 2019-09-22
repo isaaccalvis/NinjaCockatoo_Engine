@@ -18,9 +18,6 @@ ModuleMeshes::~ModuleMeshes()
 
 bool ModuleMeshes::Start()
 {
-	MeshCustom* c = new MeshCustom("Resources/BakerHouse.fbx");
-	AddMesh(c);
-
 	return true;
 }
 
@@ -46,23 +43,37 @@ bool ModuleMeshes::Load(JSON_Object* root_object)
 
 void ModuleMeshes::AddMesh(Mesh* mesh)
 {
-	meshes.push_back(mesh);
+	if (mesh != nullptr)
+	{
+		meshes.push_back(mesh);
+	}
 }
 
-void ModuleMeshes::AddCube()
+Mesh* ModuleMeshes::AddCube()
 {
 	Mesh *tmp_mesh = new MeshCube();
 	AddMesh(tmp_mesh);
+	return tmp_mesh;
 }
 
-void ModuleMeshes::AddPlane()
+Mesh* ModuleMeshes::AddPlane()
 {
 	Mesh *tmp_mesh = new MeshPlane();
 	AddMesh(tmp_mesh);
+	return tmp_mesh;
 }
 
-void ModuleMeshes::AddSphere()
+Mesh* ModuleMeshes::AddSphere()
 {
 	Mesh *tmp_mesh = new MeshSphere(12, 24);
 	AddMesh(tmp_mesh);
+	return tmp_mesh;
+}
+
+// TODO: hauriem de revisar que no fos nullptr ?
+Mesh* ModuleMeshes::AddCustomMesh(const char* path)
+{
+	MeshCustom* tmp_mesh = new MeshCustom(path);
+	AddMesh(tmp_mesh);
+	return tmp_mesh;
 }
