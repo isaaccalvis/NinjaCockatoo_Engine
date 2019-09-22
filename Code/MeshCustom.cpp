@@ -66,19 +66,20 @@ MeshCustom::~MeshCustom()
 void MeshCustom::Render()
 {
 	for (int i = 0; i < num_Meshes; i++) {
-
 		glEnableClientState(GL_VERTEX_ARRAY);
 
 		glTranslatef(position.x, position.y, position.z);
 
 		glBindBuffer(GL_ARRAY_BUFFER, allInternalMeshes[i].individualVertices);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, allInternalMeshes[i].individualIndices);
-		glDrawElements(GL_LINES, allInternalMeshes[i].indicesSize, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, allInternalMeshes[i].indicesSize, GL_UNSIGNED_INT, NULL);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 }
