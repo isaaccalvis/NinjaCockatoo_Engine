@@ -42,6 +42,10 @@ bool ModuleGUI::GUI_TopBar()
 			{
 				App->meshes->AddSphere();
 			}
+			if (ImGui::MenuItem("Frustrum"))
+			{
+				App->meshes->AddFrustrum();
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))
