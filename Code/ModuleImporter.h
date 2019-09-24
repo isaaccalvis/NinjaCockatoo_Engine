@@ -19,6 +19,12 @@ public:
 
 	void LoadMesh(const char* path);
 
+	const std::string GetResourcesDirectory() const;
+	void SetResourcesDirectory(const std::string str);
+
+private:
+	std::string resources_directory;
+
 };
 
 #endif

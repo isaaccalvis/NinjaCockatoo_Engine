@@ -4,7 +4,7 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
 
-// Think system to draw in quads ?
+// TODO : Think system to draw in quads ?
 
 class Mesh
 {
@@ -23,11 +23,11 @@ public:
 
 protected:
 	unsigned int vertices = 0u;
-	int verticesSize = 0;
+	unsigned int verticesSize = 0;
 	GLfloat* verticesArray = nullptr;
 
 	unsigned int indices = 0u;
-	int indicesSize = 0;
+	unsigned int indicesSize = 0;
 	unsigned int* indicesArray = nullptr;
 
 	math::float3 position = {0,0,0};

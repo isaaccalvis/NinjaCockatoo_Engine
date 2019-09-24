@@ -25,6 +25,8 @@ public:
 
 private:
 	bool guiWindows[4] = { true, false, false, false };
+
+private:
 	bool GUI_TopBar();
 	bool GUI_AboutWindow();
 	bool GUI_ConfigurationWindow();
