@@ -31,13 +31,13 @@ bool ModuleImporter::CleanUp()
 
 bool ModuleImporter::Save(JSON_Object* root_object)
 {
-	json_object_set_string(root_object, "resoruces_directory", resources_directory.c_str());
+	json_object_set_string(root_object, "resources_directory", resources_directory.c_str());
 	return true;
 }
 
 bool ModuleImporter::Load(JSON_Object* root_object)
 {
-	resources_directory = json_object_get_string(root_object, "resoruces_directory");
+	resources_directory = json_object_get_string(root_object, "resources_directory");
 	return true;
 }
 
