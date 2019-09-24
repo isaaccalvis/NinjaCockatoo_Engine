@@ -15,6 +15,8 @@ public:
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
 
+	void DistributeObjectToLoad(const char* path);
+
 	void LoadMesh(const char* path);
 
 };

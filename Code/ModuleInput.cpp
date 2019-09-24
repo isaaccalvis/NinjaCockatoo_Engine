@@ -107,15 +107,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			mouse_y_motion = e.motion.yrel / App->window->screenSize;
 			break;
 
-			case (SDL_DROPFILE): {				// In case if dropped file
+			case (SDL_DROPFILE): {
 				char* dropped_filedir = e.drop.file;
-				std::string nameAndExtension(e.drop.file);
-				nameAndExtension = nameAndExtension.substr(nameAndExtension.find_last_of(92) + 1);
-				std::string tmp = "Resources/" + nameAndExtension;	// TODO: CREATE FILE SISTEM MODULE
-				const char* finalDirection = tmp.c_str();
-				CopyFile(dropped_filedir, finalDirection, true);
+				App->importer->DistributeObjectToLoad(dropped_filedir);
 				SDL_free(dropped_filedir);		// Free dropped_filedir memory
-				DirectDragLoad(nameAndExtension, std::string(dropped_filedir));
 			}
 			break;
 
@@ -187,19 +182,4 @@ int ModuleInput::GetMouseXMotion() const
 int ModuleInput::GetMouseYMotion() const
 {
 	return mouse_y_motion;
-}
-
-void ModuleInput::DirectDragLoad(std::string name, std::string originalPath)
-{
-	std::string cname = name;
-	std::string tmp_path = "Resources/" + name;
-	const char* path = tmp_path.c_str();
-
-	cname = cname.substr(cname.find_last_of('.') + 1);
-	if (cname == "fbx")
-	{
-		App->meshes->AddCustomMesh(path);
-		//if (SearchTexture(name, originalPath, "dds")) {}
-		//else if (SearchTexture(name, originalPath, "png")) {}
-	}
 }

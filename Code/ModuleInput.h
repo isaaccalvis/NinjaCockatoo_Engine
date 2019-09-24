@@ -36,8 +36,6 @@ public:
 	int GetMouseXMotion() const;
 	int GetMouseYMotion() const;
 
-	void DirectDragLoad(std::string name, std::string originalPath);
-
 private:
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];
