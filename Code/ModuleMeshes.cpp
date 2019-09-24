@@ -7,6 +7,7 @@
 #include "MeshPlane.h"
 #include "MeshSphere.h"
 #include "MeshCustom.h"
+#include "MeshFrustrum.h"
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -54,6 +55,13 @@ void ModuleMeshes::AddMesh(Mesh* mesh)
 Mesh* ModuleMeshes::AddCube()
 {
 	Mesh *tmp_mesh = new MeshCube();
+	AddMesh(tmp_mesh);
+	return tmp_mesh;
+}
+
+Mesh* ModuleMeshes::AddFrustrum()
+{
+	Mesh *tmp_mesh = new MeshFrustrum();
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }
