@@ -369,6 +369,9 @@
     <ClInclude Include="MeshDebugArrow.h">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClInclude>
+    <ClInclude Include="MeshDebugCube.h">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -561,6 +564,9 @@
       <Filter>Engine\Meshes</Filter>
     </ClCompile>
     <ClCompile Include="MeshDebugArrow.cpp">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDebugCube.cpp">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClCompile>
   </ItemGroup>

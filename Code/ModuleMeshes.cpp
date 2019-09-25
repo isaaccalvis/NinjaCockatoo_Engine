@@ -9,6 +9,8 @@
 #include "MeshCustom.h"
 #include "MeshFrustrum.h"
 
+#include "MeshDebugCube.h"
+
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleMeshes";
@@ -62,6 +64,13 @@ Mesh* ModuleMeshes::AddCube()
 Mesh* ModuleMeshes::AddFrustrum()
 {
 	Mesh *tmp_mesh = new MeshFrustrum();
+	AddMesh(tmp_mesh);
+	return tmp_mesh;
+}
+
+Mesh* ModuleMeshes::AddDebugCube()
+{
+	Mesh *tmp_mesh = new MeshDebugCube();
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }

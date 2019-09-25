@@ -55,11 +55,14 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * scene->mMeshes[a]->mNumFaces * 3, allInternalMeshes[a].ind_indices_array, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-		// Normals
-		allInternalMeshes[a].normals = new MeshDebugArrow[scene->mMeshes[a]->mNumVertices];
-		for (int i = 0; i < scene->mMeshes[a]->mNumVertices; i++)
+		// Normals TODO: MAKE IT WORK
+		if (scene->mMeshes[a]->HasNormals())
 		{
-			allInternalMeshes[a].normals[i].SetDebugArrow(math::float3(scene->mMeshes[a]->mVertices[i].x, scene->mMeshes[a]->mVertices[i].y, scene->mMeshes[a]->mVertices[i].z), math::float3(scene->mMeshes[a]->mNormals[i].x, scene->mMeshes[a]->mNormals[i].y, scene->mMeshes[a]->mNormals[i].z));
+			allInternalMeshes[a].individial_normals = new MeshDebugArrow[scene->mMeshes[a]->mNumVertices];
+			for (int i = 0; i < scene->mMeshes[a]->mNumVertices; i++)
+			{
+				allInternalMeshes[a].individial_normals[i].SetDebugArrow(math::float3(scene->mMeshes[a]->mVertices[i].x, scene->mMeshes[a]->mVertices[i].y, scene->mMeshes[a]->mVertices[i].z), math::float3(scene->mMeshes[a]->mNormals[i].x, scene->mMeshes[a]->mNormals[i].y, scene->mMeshes[a]->mNormals[i].z));
+			}
 		}
 	}
 }
@@ -91,12 +94,12 @@ void MeshCustom::Render()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		// Draw Normals
-		for (int i = 0; i < num_Meshes; i++)
-			for (int e = 0; e < allInternalMeshes[i].verticesSize; e++)
-			{
-				if (allInternalMeshes[i].normals != nullptr)
-					allInternalMeshes[i].normals[e].Render();
-			}
+		//for (int i = 0; i < num_Meshes; i++)
+		//	for (int e = 0; e < allInternalMeshes[i].verticesSize; e++)
+		//	{
+		//		if (allInternalMeshes[i].individial_normals != nullptr)
+		//			allInternalMeshes[i].individial_normals[e].Render();
+		//	}
 	}
 }
 
