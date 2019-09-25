@@ -363,9 +363,6 @@
     <ClInclude Include="MeshFrustrum.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
-    <ClInclude Include="MeshCylinder.h">
-      <Filter>Engine\Meshes\BasicMeshes</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -555,9 +552,6 @@
       <Filter>Engine\Meshes</Filter>
     </ClCompile>
     <ClCompile Include="MeshFrustrum.cpp">
-      <Filter>Engine\Meshes\BasicMeshes</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshCylinder.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
   </ItemGroup>
