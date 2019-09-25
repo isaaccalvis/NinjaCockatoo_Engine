@@ -61,7 +61,7 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 			allInternalMeshes[a].individial_normals = new MeshDebugArrow[scene->mMeshes[a]->mNumVertices];
 			for (int i = 0; i < scene->mMeshes[a]->mNumVertices; i++)
 			{
-				allInternalMeshes[a].individial_normals[i].SetDebugArrow(math::float3(scene->mMeshes[a]->mVertices[i].x, scene->mMeshes[a]->mVertices[i].y, scene->mMeshes[a]->mVertices[i].z), math::float3(scene->mMeshes[a]->mNormals[i].x, scene->mMeshes[a]->mNormals[i].y, scene->mMeshes[a]->mNormals[i].z));
+				allInternalMeshes[a].individial_normals[i].SetDebugArrow(math::float3(scene->mMeshes[a]->mVertices[i].x, scene->mMeshes[a]->mVertices[i].y, scene->mMeshes[a]->mVertices[i].z), math::float3(scene->mMeshes[a]->mVertices[i].x + scene->mMeshes[a]->mNormals[i].x , scene->mMeshes[a]->mVertices[i].y + scene->mMeshes[a]->mNormals[i].y, scene->mMeshes[a]->mVertices[i].z + scene->mMeshes[a]->mNormals[i].z));
 			}
 		}
 
@@ -100,12 +100,12 @@ void MeshCustom::Render()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		// Draw Normals
-		//for (int i = 0; i < num_Meshes; i++)
-		//	for (int e = 0; e < allInternalMeshes[i].verticesSize; e++)
-		//	{
-		//		if (allInternalMeshes[i].individial_normals != nullptr)
-		//			allInternalMeshes[i].individial_normals[e].Render();
-		//	}
+		for (int i = 0; i < num_Meshes; i++)
+			for (int e = 0; e < allInternalMeshes[i].verticesSize; e++)
+			{
+				if (allInternalMeshes[i].individial_normals != nullptr)
+					allInternalMeshes[i].individial_normals[e].Render();
+			}
 		allInternalMeshes[i].individual_cubeBouncingBox->Render();
 	}
 }
