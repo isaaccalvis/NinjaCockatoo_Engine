@@ -8,6 +8,7 @@
 #include "MeshSphere.h"
 #include "MeshCustom.h"
 #include "MeshFrustrum.h"
+#include "MeshCylinder.h"
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

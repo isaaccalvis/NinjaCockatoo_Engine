@@ -23,6 +23,7 @@ public:
 	Mesh* AddPlane();
 	Mesh* AddSphere();
 	Mesh* AddFrustrum();
+	Mesh* AddCylinder();
 	Mesh* AddCustomMesh(const char* path);
 
 public: // TODO: s'ha de passar la llista mesh a privat
