@@ -12,12 +12,12 @@ ModuleWindow::~ModuleWindow()
 
 bool ModuleWindow::Init(JSON_Object* root_object)
 {
-	LOG("Init SDL window & surface");
+	LOG_IDE("Init SDL window & surface");
 	bool ret = true;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
+		LOG_IDE("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
@@ -56,7 +56,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 
 		if(window == nullptr)
 		{
-			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			LOG_IDE("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			ret = false;
 		}
 		else
@@ -77,7 +77,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 
 bool ModuleWindow::CleanUp()
 {
-	LOG("Destroying SDL window and quitting all SDL systems");
+	LOG_IDE("Destroying SDL window and quitting all SDL systems");
 
 	if(window != nullptr)
 	{
@@ -141,7 +141,7 @@ bool ModuleWindow::SetWindowsSize(int width, int height)
 		}
 		else
 		{
-			LOG("Can't resize screen, width or height are < 0");
+			LOG_IDE("Can't resize screen, width or height are < 0");
 			ret = false;
 		}
 	}
@@ -153,7 +153,7 @@ bool ModuleWindow::SetScreenBrightness(float brightness)
 	bool ret = true;
 	if (SDL_SetWindowBrightness(window, brightness) < 0)
 	{
-		LOG("Can't SetWindowBrightness");
+		LOG_IDE("Can't SetWindowBrightness");
 		ret = false;
 	}
 	return ret;
@@ -166,7 +166,7 @@ bool ModuleWindow::SetFullScreen(bool set)
 	{
 		if (SDL_SetWindowFullscreen(window, 1) < 0)
 		{
-			LOG("Can't SetWindowFullscreen");
+			LOG_IDE("Can't SetWindowFullscreen");
 			ret = false;
 		}
 	}
@@ -174,7 +174,7 @@ bool ModuleWindow::SetFullScreen(bool set)
 	{
 		if (SDL_SetWindowFullscreen(window, 0) < 0)
 		{
-			LOG("Can't SetWindowFullscreen");
+			LOG_IDE("Can't SetWindowFullscreen");
 			ret = false;
 		}
 	}
@@ -190,7 +190,7 @@ bool ModuleWindow::SetFullScreenDesktop(bool set)
 		{
 			if (SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
 			{
-				LOG("Can't SetWindowFullscreen desktop")
+				LOG_IDE("Can't SetWindowFullscreen desktop");
 				ret = false;
 			}
 		}
@@ -198,7 +198,7 @@ bool ModuleWindow::SetFullScreenDesktop(bool set)
 		{
 			if (SDL_SetWindowFullscreen(window, 0) < 0)
 			{
-				LOG("Can't SetWindowFullscreen desktop")
+				LOG_IDE("Can't SetWindowFullscreen desktop");
 				ret = false;
 			}
 		}
@@ -231,7 +231,7 @@ SDL_Window* ModuleWindow::GetWindow() const
 	}
 	else
 	{
-		LOG("Window is nullptr");
+		LOG_IDE("Window is nullptr");
 	}
 }
 

@@ -26,7 +26,7 @@ bool ModuleCamera3D::Init(JSON_Object* root_object)
 
 bool ModuleCamera3D::Start()
 {
-	LOG("Setting up the camera");
+	LOG_IDE("Setting up the camera");
 	bool ret = true;
 
 	return ret;
@@ -34,7 +34,7 @@ bool ModuleCamera3D::Start()
 
 bool ModuleCamera3D::CleanUp()
 {
-	LOG("Cleaning camera");
+	LOG_IDE("Cleaning camera");
 
 	return true;
 }

@@ -61,6 +61,9 @@
     <Filter Include="Engine\GUI">
       <UniqueIdentifier>{db56e3a7-9cb7-4404-aeba-075b18c07ce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Meshes\DebugMesh">
+      <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -363,6 +366,12 @@
     <ClInclude Include="MeshFrustrum.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
+    <ClInclude Include="MeshDebugArrow.h">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshDebugCube.h">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -521,9 +530,6 @@
     <ClCompile Include="ModuleMeshes.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Engine\Meshes</Filter>
-    </ClCompile>
     <ClCompile Include="MeshCube.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
@@ -553,6 +559,15 @@
     </ClCompile>
     <ClCompile Include="MeshFrustrum.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDebugArrow.cpp">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDebugCube.cpp">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

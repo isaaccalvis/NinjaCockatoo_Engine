@@ -18,20 +18,20 @@ ModuleRenderer3D::~ModuleRenderer3D()
 
 bool ModuleRenderer3D::Init(JSON_Object* root_object)
 {
-	LOG("Creating 3D Renderer context");
+	LOG_IDE("Creating 3D Renderer context");
 	bool ret = true;
 	
 	context = SDL_GL_CreateContext(App->window->GetWindow());
 	if(context == nullptr)
 	{
-		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOG_IDE("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
 	{
 		//Use Vsync
 		if (App->window->winVsync && SDL_GL_SetSwapInterval(1) < 0)
-			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+			LOG_IDE("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -41,7 +41,7 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		GLenum error = glGetError(); // TODO: this is part of GLU, maybe we have to delete it
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		else
@@ -55,7 +55,7 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 			error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
-				LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+				LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
 				ret = false;
 			}
 			else
@@ -71,7 +71,7 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 				error = glGetError();
 				if (error != GL_NO_ERROR)
 				{
-					LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+					LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
 					ret = false;
 				}
 				else
@@ -146,7 +146,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 bool ModuleRenderer3D::CleanUp()
 {
-	LOG("Destroying 3D Renderer");
+	LOG_IDE("Destroying 3D Renderer");
 
 	SDL_GL_DeleteContext(context);
 

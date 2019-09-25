@@ -3,8 +3,6 @@
 
 #include "Module.h"
 
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
-
 class ModuleHardware : public Module
 {
 public:

@@ -41,7 +41,7 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-	JSON_Value* root_value = json_parse_file("Resources/config.json");
+	JSON_Value* root_value = json_parse_file("config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
 	LoadModulesInfo();
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
@@ -52,7 +52,7 @@ bool Application::Init()
 	if (root_value) { json_value_free(root_value); }
 
 
-	LOG("Application Start --------------");
+	LOG_IDE("Application Start --------------");
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
 		ret = (*item)->Start();
@@ -121,7 +121,7 @@ bool Application::CleanUp()
 bool Application::SaveModulesInfo()
 {
 	bool ret = true;
-	JSON_Value* root_value = json_parse_file("Resources/config.json");
+	JSON_Value* root_value = json_parse_file("config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
 	char *serialized_string = NULL;
 
@@ -129,7 +129,7 @@ bool Application::SaveModulesInfo()
 	{
 		ret = (*item)->Save(json_object_get_object(root_object, (*item)->name));
 	}
-	json_serialize_to_file(root_value, "Resources/config.json");
+	json_serialize_to_file(root_value, "config.json");
 
 	//serialized_string = json_serialize_to_string_pretty(root_value);
 	//puts(serialized_string);
@@ -145,7 +145,7 @@ bool Application::SaveModulesInfo()
 bool Application::LoadModulesInfo()
 {
 	bool ret = true;
-	JSON_Value* root_value = json_parse_file("Resources/config.json");
+	JSON_Value* root_value = json_parse_file("config.json");
 	JSON_Object* root_object = json_value_get_object(root_value);
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret; item++)
 	{
@@ -182,4 +182,10 @@ void  Application::SetMaxFPS(int max)
 		max_ms = 1000 / max;
 	else
 		max_ms = 0;
+}
+
+void Application::LogConsole(const char* msg)
+{
+	if (console != nullptr)
+		console->AddLog(msg);
 }

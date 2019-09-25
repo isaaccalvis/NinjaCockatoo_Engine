@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+void myCallback(const char* msg, char* userData);
+
 class ModuleImporter : public Module
 {
 public:
@@ -18,6 +20,12 @@ public:
 	void DistributeObjectToLoad(const char* path);
 
 	void LoadMesh(const char* path);
+
+	const std::string GetResourcesDirectory() const;
+	void SetResourcesDirectory(const std::string str);
+
+private:
+	std::string resources_directory;
 
 };
 

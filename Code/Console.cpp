@@ -4,8 +4,6 @@
 
 // TODO: IT'S WRONG TO USE THIS CONSOLE ? USE IT AS A MODULE ?
 
-// TODO: ADD ALL LOGS AT CONSOLE ?
-
 Console::Console(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "console";

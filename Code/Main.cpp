@@ -15,11 +15,12 @@ enum main_states
 	MAIN_EXIT
 };
 
+Application* App = nullptr;
+
 int main(int argc, char ** argv)
 {
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
-	Application* App = NULL;
 
 	while (state != MAIN_EXIT)
 	{
@@ -27,23 +28,23 @@ int main(int argc, char ** argv)
 		{
 		case MAIN_CREATION:
 
-			LOG("-------------- Application Creation --------------");
+			LOG_IDE("-------------- Application Creation --------------");
 			App = new Application();
 			state = MAIN_START;
 			break;
 
 		case MAIN_START:
 
-			LOG("-------------- Application Init --------------");
+			LOG_IDE("-------------- Application Init --------------");
 			if (App->Init() == false)
 			{
-				LOG("Application Init exits with ERROR");
+				LOG_IDE("Application Init exits with ERROR");
 				state = MAIN_EXIT;
 			}
 			else
 			{
 				state = MAIN_UPDATE;
-				LOG("-------------- Application Update --------------");
+				LOG_IDE("-------------- Application Update --------------");
 			}
 
 			break;
@@ -54,7 +55,7 @@ int main(int argc, char ** argv)
 
 			if (update_return == UPDATE_ERROR)
 			{
-				LOG("Application Update exits with ERROR");
+				LOG_IDE("Application Update exits with ERROR");
 				state = MAIN_EXIT;
 			}
 
@@ -65,10 +66,10 @@ int main(int argc, char ** argv)
 
 		case MAIN_FINISH:
 
-			LOG("-------------- Application CleanUp --------------");
+			LOG_IDE("-------------- Application CleanUp --------------");
 			if (App->CleanUp() == false)
 			{
-				LOG("Application CleanUp exits with ERROR");
+				LOG_IDE("Application CleanUp exits with ERROR");
 			}
 			else
 				main_return = EXIT_SUCCESS;

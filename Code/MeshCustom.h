@@ -3,6 +3,9 @@
 
 #include "Mesh.h"
 
+#include "MeshDebugArrow.h"
+#include "MeshDebugCube.h"
+
 class MeshCustom : public Mesh
 {
 public:
@@ -26,6 +29,11 @@ private:
 
 		uint verticesSize = 0u;
 		uint indicesSize = 0u;
+
+		MeshDebugArrow* individial_normals = nullptr;
+
+		AABB individual_boundingBox;
+		MeshDebugCube* individual_cubeBouncingBox = nullptr;
 	};
 
 	IndividualMesh* allInternalMeshes = nullptr;

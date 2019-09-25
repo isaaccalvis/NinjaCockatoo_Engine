@@ -142,10 +142,12 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 	if (ImGui::CollapsingHeader("File System"))
 	{
-		// (TODO)
-		ImGui::Text("Base Path: ");
-		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s");
+		static char gui_resources_directory[256];
+		strcpy_s(gui_resources_directory, 256, App->importer->GetResourcesDirectory().c_str());
+		if (ImGui::InputText("Resources Path: ", gui_resources_directory, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->importer->SetResourcesDirectory(gui_resources_directory);
+		}
 	}
 
 	if (ImGui::CollapsingHeader("Input"))
