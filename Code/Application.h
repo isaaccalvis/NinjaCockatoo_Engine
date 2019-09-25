@@ -3,6 +3,7 @@
 #include <list>
 #include "Globals.h"
 #include "Timer.h"
+
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -26,6 +27,8 @@ public:
 
 	bool SaveModulesInfo();
 	bool LoadModulesInfo();
+
+	void LogConsole(const char* msg);
 
 private:
 
@@ -60,3 +63,5 @@ public:
 	float GetLastMS() const;
 	void SetMaxFPS(int max);
 };
+
+extern Application* App;

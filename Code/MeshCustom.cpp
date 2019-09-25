@@ -12,7 +12,7 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 	if (!scene)
 	{
 		// TODO: PASAR AQUEST LOG A LOG DE CONSOLA INTERNA
-		LOG("Mesh can not be loaded");
+		LOG_IDE("Mesh can not be loaded");
 		return;
 	}
 	allInternalMeshes = new IndividualMesh[scene->mNumMeshes];

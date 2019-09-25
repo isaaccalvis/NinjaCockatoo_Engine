@@ -52,7 +52,7 @@ bool Application::Init()
 	if (root_value) { json_value_free(root_value); }
 
 
-	LOG("Application Start --------------");
+	LOG_IDE("Application Start --------------");
 	for (std::list<Module*>::iterator item = list_modules.begin(); item != list_modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
 		ret = (*item)->Start();
@@ -182,4 +182,10 @@ void  Application::SetMaxFPS(int max)
 		max_ms = 1000 / max;
 	else
 		max_ms = 0;
+}
+
+void Application::LogConsole(const char* msg)
+{
+	if (console != nullptr)
+		console->AddLog(msg);
 }

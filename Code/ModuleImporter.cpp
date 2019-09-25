@@ -15,7 +15,7 @@ void myCallback(const char* msg, char* userData)
 {
 	printf_s("%s", msg);
 	// TODO: Passar aquest log a consola
-	LOG("%s", msg);
+	LOG_CONSOLE("%s", msg);
 }
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
