@@ -64,6 +64,11 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 				allInternalMeshes[a].individial_normals[i].SetDebugArrow(math::float3(scene->mMeshes[a]->mVertices[i].x, scene->mMeshes[a]->mVertices[i].y, scene->mMeshes[a]->mVertices[i].z), math::float3(scene->mMeshes[a]->mNormals[i].x, scene->mMeshes[a]->mNormals[i].y, scene->mMeshes[a]->mNormals[i].z));
 			}
 		}
+
+		// Bounding Box
+		allInternalMeshes[a].individual_boundingBox.SetNegativeInfinity();
+		allInternalMeshes[a].individual_boundingBox.Enclose((const math::float3*)allInternalMeshes[a].ind_vertices_array, allInternalMeshes[a].verticesSize);
+		allInternalMeshes[a].individual_cubeBouncingBox = new MeshDebugCube(allInternalMeshes[a].individual_boundingBox.CenterPoint(), allInternalMeshes[a].individual_boundingBox.Size());
 	}
 }
 
@@ -79,6 +84,7 @@ void MeshCustom::Render()
 		glEnableClientState(GL_VERTEX_ARRAY);
 
 		glTranslatef(position.x, position.y, position.z);
+		glScalef(scale.x, scale.y, scale.z);
 
 		glBindBuffer(GL_ARRAY_BUFFER, allInternalMeshes[i].individualVertices);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -100,6 +106,7 @@ void MeshCustom::Render()
 		//		if (allInternalMeshes[i].individial_normals != nullptr)
 		//			allInternalMeshes[i].individial_normals[e].Render();
 		//	}
+		allInternalMeshes[i].individual_cubeBouncingBox->Render();
 	}
 }
 

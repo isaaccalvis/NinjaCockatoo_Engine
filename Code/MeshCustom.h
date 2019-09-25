@@ -31,6 +31,9 @@ private:
 		uint indicesSize = 0u;
 
 		MeshDebugArrow* individial_normals = nullptr;
+
+		AABB individual_boundingBox;
+		MeshDebugCube* individual_cubeBouncingBox = nullptr;
 	};
 
 	IndividualMesh* allInternalMeshes = nullptr;

@@ -41,6 +41,7 @@ void MeshDebugArrow::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glTranslatef(position.x, position.y, position.z);
+	glScalef(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);

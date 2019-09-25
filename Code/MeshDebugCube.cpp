@@ -56,6 +56,8 @@ void MeshDebugCube::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glTranslatef(position.x, position.y, position.z);
+	// TODO : si actives l'scale aqui es modifica la malla de la casa (pero no la del guerrer...)
+	//glScalef(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
