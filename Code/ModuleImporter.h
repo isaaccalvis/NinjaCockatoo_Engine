@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+void myCallback(const char* msg, char* userData);
+
 class ModuleImporter : public Module
 {
 public:

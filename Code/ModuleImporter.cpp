@@ -1,12 +1,22 @@
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "Console.h"
 
 #include "Assimp/include/Importer.hpp"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
+#include "Assimp/include/cfileio.h"
+#include "Assimp/include/cimport.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Assimp/libx86/zlibstatic.lib")
+
+void myCallback(const char* msg, char* userData)
+{
+	printf_s("%s", msg);
+	// TODO: Passar aquest log a consola
+	LOG("%s", msg);
+}
 
 ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,6 +25,9 @@ ModuleImporter::ModuleImporter(Application* app, bool start_enabled) : Module(ap
 
 bool ModuleImporter::Start()
 {
+	struct aiLogStream stream;
+	stream.callback = myCallback;
+	aiAttachLogStream(&stream);
 
 	return true;
 }
