@@ -2,6 +2,7 @@
 #define __MeshCustom_H__
 
 #include "Mesh.h"
+#include "MeshDebugArrow.h"
 
 class MeshCustom : public Mesh
 {
@@ -26,6 +27,7 @@ private:
 
 		uint verticesSize = 0u;
 		uint indicesSize = 0u;
+		MeshDebugArrow* normals = nullptr;
 	};
 
 	IndividualMesh* allInternalMeshes = nullptr;
