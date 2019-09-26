@@ -26,6 +26,8 @@ bool ModuleGUI::GUI_TopBar()
 				guiWindows[GUI_CONFIGURATION] = !guiWindows[GUI_CONFIGURATION];
 			if (ImGui::MenuItem("Console"))
 				guiWindows[GUI_CONSOLE] = !guiWindows[GUI_CONSOLE];
+			if (ImGui::MenuItem("Properties"))
+				guiWindows[GUI_PROPERTIES] = !guiWindows[GUI_PROPERTIES];
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("GameObject"))

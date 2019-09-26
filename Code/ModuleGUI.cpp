@@ -50,6 +50,9 @@ update_status ModuleGUI::Update(float dt)
 			return update_status::UPDATE_STOP;
 	if (guiWindows[GUI_CONSOLE])
 		App->console->Draw("Console", &App->console->p_open);
+	if (guiWindows[GUI_PROPERTIES])
+		if (!GUI_PropertiesWindow())
+			return update_status::UPDATE_STOP;
 
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());

@@ -8,7 +8,8 @@ enum GUI_WINDOWS
 	GUI_TOPBAR = 0,
 	GUI_ABOUT,
 	GUI_CONFIGURATION,
-	GUI_CONSOLE
+	GUI_CONSOLE,
+	GUI_PROPERTIES
 };
 
 class ModuleGUI : public Module
@@ -24,12 +25,13 @@ public:
 	bool Load(JSON_Object* root_object);
 
 private:
-	bool guiWindows[4] = { true, false, false, false };
+	bool guiWindows[5] = { true, false, false, true, false };
 
 private:
 	bool GUI_TopBar();
 	bool GUI_AboutWindow();
 	bool GUI_ConfigurationWindow();
+	bool GUI_PropertiesWindow();
 
 private:
 	SDL_version sdl_version;

@@ -602,6 +602,9 @@
     <ClCompile Include="ModuleTextures.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="GUI_Properties.cpp">
+      <Filter>Engine\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib-1.5\src\Geometry\KDTree.inl">
