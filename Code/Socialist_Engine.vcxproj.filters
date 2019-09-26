@@ -402,6 +402,9 @@
     <ClInclude Include="DevIL\include\IL\ilut_config.h">
       <Filter>External Tools\Devil</Filter>
     </ClInclude>
+    <ClInclude Include="MeshCylinder.h">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -604,6 +607,9 @@
     </ClCompile>
     <ClCompile Include="GUI_Properties.cpp">
       <Filter>Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCylinder.cpp">
+      <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

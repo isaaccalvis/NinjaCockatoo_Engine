@@ -23,6 +23,7 @@ public:
 	Mesh* AddPlane();
 	Mesh* AddSphere();
 	Mesh* AddFrustrum();
+	Mesh* AddCylinder();
 	Mesh* AddDebugCube();
 	Mesh* AddCustomMesh(const char* path);
 
