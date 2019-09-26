@@ -20,7 +20,6 @@ public:
 	math::float3 GetPosition() const;
 	math::float3 GetScale() const;
 
-
 protected:
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;

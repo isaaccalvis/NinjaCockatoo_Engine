@@ -22,13 +22,15 @@ private:
 
 		uint individualVertices = 0u;
 		uint individualIndices = 0u;
-		uint individualTextureCoors = 0u;
+		uint individualTextureIndex = 0u;
 
 		GLfloat* ind_vertices_array = nullptr;
 		uint* ind_indices_array = nullptr;
 
 		uint verticesSize = 0u;
 		uint indicesSize = 0u;
+
+		GLfloat* individual_textureCoor = nullptr;
 
 		MeshDebugArrow* individial_normals = nullptr;
 

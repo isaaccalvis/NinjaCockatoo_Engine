@@ -9,7 +9,7 @@ public:
 	Texture();
 	~Texture();
 
-	uint BufferPos = 0u;
+	unsigned int BufferPos = 0u;
 	int width = 0;
 	int heigh = 0;
 };

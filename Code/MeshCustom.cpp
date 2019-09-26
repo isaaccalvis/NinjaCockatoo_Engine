@@ -55,6 +55,22 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * scene->mMeshes[a]->mNumFaces * 3, allInternalMeshes[a].ind_indices_array, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+		// Texture
+		if (scene->mMeshes[a]->HasTextureCoords(0))
+		{
+			allInternalMeshes[a].individual_textureCoor = new GLfloat[scene->mMeshes[a]->mNumVertices * 2];
+			for (int i = 0; i < scene->mMeshes[a]->mNumVertices; i++)
+			{
+				allInternalMeshes[a].individual_textureCoor[i * 2] = scene->mMeshes[a]->mTextureCoords[0][i].x;
+				allInternalMeshes[a].individual_textureCoor[(i * 2) + 1] = scene->mMeshes[a]->mTextureCoords[0][i].y;
+			}
+
+			glGenBuffers(1, (GLuint*)&allInternalMeshes[a].individualTextureIndex);
+			glBindBuffer(GL_ARRAY_BUFFER, allInternalMeshes[a].individualTextureIndex);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * 2 * scene->mMeshes[a]->mNumVertices, allInternalMeshes[a].individual_textureCoor, GL_STATIC_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+
 		// Normals TODO: MAKE IT WORK
 		if (scene->mMeshes[a]->HasNormals())
 		{
@@ -81,6 +97,10 @@ void MeshCustom::Render()
 {
 	for (int i = 0; i < num_Meshes; i++) {
 		// Draw Geometry
+
+		// Comprobar textura TODO: TREURE AIXO PER FAVAAAAH
+		if (App->textures->last_texture != nullptr)
+		glBindTexture(GL_TEXTURE_2D, App->textures->last_texture->BufferPos);
 		glEnableClientState(GL_VERTEX_ARRAY);
 
 		glTranslatef(position.x, position.y, position.z);
@@ -89,9 +109,15 @@ void MeshCustom::Render()
 		glBindBuffer(GL_ARRAY_BUFFER, allInternalMeshes[i].individualVertices);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
 
+		if (allInternalMeshes[i].individual_textureCoor != nullptr)
+		{
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, allInternalMeshes[i].individualTextureIndex);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, allInternalMeshes[i].individualIndices);
 		glDrawElements(GL_TRIANGLES, allInternalMeshes[i].indicesSize, GL_UNSIGNED_INT, NULL);
-
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -114,7 +140,7 @@ MeshCustom::IndividualMesh::~IndividualMesh()
 {
 	glDeleteBuffers(1, (GLuint*)&individualVertices);
 	glDeleteBuffers(1, (GLuint*)&individualIndices);
-	glDeleteBuffers(1, (GLuint*)&individualTextureCoors);
+	glDeleteBuffers(1, (GLuint*)&individual_textureCoor);
 	if (ind_vertices_array != nullptr)
 		delete[] ind_vertices_array;
 	if (ind_indices_array != nullptr)
