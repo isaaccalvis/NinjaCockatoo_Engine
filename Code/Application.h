@@ -13,6 +13,7 @@
 #include "ModuleHardware.h"
 #include "ModuleMeshes.h"
 #include "ModuleImporter.h"
+#include "ModuleTextures.h"
 #include "Console.h"
 
 class Application
@@ -44,6 +45,7 @@ public:
 	ModuleHardware* hardware;
 	ModuleMeshes* meshes;
 	ModuleImporter* importer;
+	ModuleTextures* textures;
 
 	Console* console;
 

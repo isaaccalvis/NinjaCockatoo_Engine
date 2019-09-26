@@ -64,6 +64,9 @@
     <Filter Include="Engine\Meshes\DebugMesh">
       <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\Devil">
+      <UniqueIdentifier>{9dee2a1a-5ebd-4f37-b1b3-8340ce780b83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -372,6 +375,9 @@
     <ClInclude Include="MeshDebugCube.h">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleTextures.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -568,6 +574,9 @@
     </ClCompile>
     <ClCompile Include="MeshDebugCube.cpp">
       <Filter>Engine\Meshes\DebugMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTextures.cpp">
+      <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
