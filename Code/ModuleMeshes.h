@@ -28,6 +28,7 @@ public:
 
 public: // TODO: s'ha de passar la llista mesh a privat
 	std::list<Mesh*> meshes;
+	Mesh* lastMesh = nullptr;
 
 };
 

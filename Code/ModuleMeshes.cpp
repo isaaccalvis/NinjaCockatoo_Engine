@@ -94,5 +94,7 @@ Mesh* ModuleMeshes::AddCustomMesh(const char* path)
 {
 	MeshCustom* tmp_mesh = new MeshCustom(path);
 	AddMesh(tmp_mesh);
+	// TODO: TREURE D'AQUI EL LAST MESH EN UN FUTUR
+	lastMesh = tmp_mesh;
 	return tmp_mesh;
 }
