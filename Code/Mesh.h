@@ -14,8 +14,8 @@ public:
 
 	virtual void Render();
 
-	void SetPosition(math::float3 nPosition);
-	void SetScale(math::float3 nScale);
+	void SetPosition(const math::float3 nPosition);
+	void SetScale(const math::float3 nScale);
 
 	math::float3 GetPosition() const;
 	math::float3 GetScale() const;

@@ -15,7 +15,21 @@ bool ModuleGUI::GUI_PropertiesWindow()
 
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-
+		if (App->meshes->lastMesh != nullptr)
+		{
+			// TODO: NOSE SI AIXO AMB VARIES MESH SERA COMPATIBLE
+			static float auxPos[3] = { App->meshes->lastMesh->GetPosition().x, App->meshes->lastMesh->GetPosition().y, App->meshes->lastMesh->GetPosition().z };
+			if (ImGui::InputFloat3("Position", auxPos))
+			{
+				App->meshes->lastMesh->SetPosition(math::float3(auxPos[0], auxPos[1], auxPos[2]));
+			}
+			ImGui::Text("Rotation:\t - , - , -");
+			static float auxScale[3] = { App->meshes->lastMesh->GetScale().x, App->meshes->lastMesh->GetScale().y, App->meshes->lastMesh->GetScale().z };
+			if (ImGui::InputFloat3("Scale", auxScale))
+			{
+				App->meshes->lastMesh->SetScale(math::float3(auxScale[0], auxScale[1], auxScale[2]));
+			}
+		}
 	}
 	if (ImGui::CollapsingHeader("Geometry"))
 	{
