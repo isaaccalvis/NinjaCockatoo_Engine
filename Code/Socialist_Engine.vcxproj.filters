@@ -65,7 +65,7 @@
       <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
     </Filter>
     <Filter Include="External Tools\Devil">
-      <UniqueIdentifier>{9dee2a1a-5ebd-4f37-b1b3-8340ce780b83}</UniqueIdentifier>
+      <UniqueIdentifier>{214677e4-d998-43f6-9748-d52a4af50021}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +377,30 @@
     </ClInclude>
     <ClInclude Include="ModuleTextures.h">
       <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\devil_internal_exports.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\il.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\il_wrap.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilu.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilu_region.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilut.h">
+      <Filter>External Tools\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\IL\ilut_config.h">
+      <Filter>External Tools\Devil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

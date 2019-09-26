@@ -1,6 +1,16 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 
+Texture::Texture()
+{
+
+}
+
+Texture::~Texture()
+{
+
+}
+
 ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleTextures";
@@ -18,6 +28,9 @@ update_status ModuleTextures::Update(float dt)
 
 bool ModuleTextures::CleanUp()
 {
+	if (last_texture != nullptr)
+		delete last_texture;
+
 	return true;
 }
 

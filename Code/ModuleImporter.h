@@ -2,6 +2,7 @@
 #define __ModuleImporter_H__
 
 #include "Module.h"
+#include "ModuleTextures.h"
 
 void myCallback(const char* msg, char* userData);
 
@@ -20,6 +21,7 @@ public:
 	void DistributeObjectToLoad(const char* path);
 
 	void LoadMesh(const char* path);
+	Texture* LoadTexture(const char* path);
 
 	const std::string GetResourcesDirectory() const;
 	void SetResourcesDirectory(const std::string str);
