@@ -5,6 +5,9 @@
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
 
+#include "Assimp/include/version.h"
+#include "DevIL/include/IL/il.h"
+
 #include "mmgr/mmgr.h"
 
 bool ModuleGUI::GUI_AboutWindow()
@@ -18,7 +21,6 @@ bool ModuleGUI::GUI_AboutWindow()
 	ImGui::Text("External tools & libraries");
 
 	// TODO: repassar les versions de les llibreries (no ficar strings directament)
-	// TODO: passar tot el text a angles...
 
 	if (ImGui::CollapsingHeader("Libraries"))
 	{
@@ -76,6 +78,24 @@ bool ModuleGUI::GUI_AboutWindow()
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%s", "0.94");
 
+		if (ImGui::Button("Assimp"))
+		{
+			ShellExecuteA(NULL, "open", "http://cms.assimp.org/index.php", NULL, NULL, SW_SHOWNORMAL);
+		}
+		ImGui::SameLine();
+		ImGui::Text(" version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", aiGetVersionMajor(), aiGetVersionMinor(), aiGetVersionRevision());
+
+		if (ImGui::Button("DevIl"))
+		{
+			ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+		}
+		ImGui::SameLine();
+		ImGui::Text(" version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", ilGetInteger(IL_VERSION_NUM));
+
 		if (ImGui::Button("MMGR"))
 		{
 			ShellExecuteA(NULL, "open", "http://www.flipcode.com/archives/Presenting_A_Memory_Manager.shtml", NULL, NULL, SW_SHOWNORMAL);
@@ -85,7 +105,6 @@ bool ModuleGUI::GUI_AboutWindow()
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/kgabis/parson", NULL, NULL, SW_SHOWNORMAL);
 		}
-
 	}
 
 	if (ImGui::CollapsingHeader("Licenses"))

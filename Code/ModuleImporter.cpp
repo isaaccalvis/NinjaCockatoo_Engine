@@ -88,12 +88,11 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 
 	CopyFile(path, finalPath.c_str(), true);
 
-	// TODO: LOAD ALSO PNG
 	if (extension == "fbx")
 	{
 		LoadMesh(finalPath.c_str());
 	}
-	else if (extension == "dds")
+	else if (extension == "dds" || extension == "png")
 	{
 		LoadTexture(finalPath.c_str());
 	}

@@ -4,8 +4,6 @@
 
 #include "mmgr/mmgr.h"
 
-// TODO: IT'S WRONG TO USE THIS CONSOLE ? USE IT AS A MODULE ?
-
 Console::Console(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "console";

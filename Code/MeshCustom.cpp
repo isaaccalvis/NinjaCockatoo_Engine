@@ -13,8 +13,7 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
 	if (!scene)
 	{
-		// TODO: PASAR AQUEST LOG A LOG DE CONSOLA INTERNA
-		LOG_IDE("Mesh can not be loaded");
+		LOG_CONSOLE_IDE("Mesh can not be loaded");
 		return;
 	}
 	allInternalMeshes = new IndividualMesh[scene->mNumMeshes];
