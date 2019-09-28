@@ -8,6 +8,7 @@
 #include "MeshSphere.h"
 #include "MeshCustom.h"
 #include "MeshFrustrum.h"
+#include "MeshCylinder.h"
 
 #include "MeshDebugCube.h"
 
@@ -67,6 +68,14 @@ Mesh* ModuleMeshes::AddFrustrum()
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }
+
+Mesh* ModuleMeshes::AddCylinder()
+{
+	Mesh *tmp_mesh = new MeshCylinder();
+	AddMesh(tmp_mesh);
+	return tmp_mesh;
+}
+
 
 Mesh* ModuleMeshes::AddDebugCube()
 {

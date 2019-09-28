@@ -48,6 +48,10 @@ bool ModuleGUI::GUI_TopBar()
 			{
 				App->meshes->AddFrustrum();
 			}
+			if (ImGui::MenuItem("Cylinder"))
+			{
+				App->meshes->AddCylinder();
+			}
 			if (ImGui::MenuItem("DebugCube"))
 			{
 				App->meshes->AddDebugCube();
