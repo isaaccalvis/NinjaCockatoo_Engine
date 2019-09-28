@@ -19,6 +19,8 @@
 #pragma comment (lib, "DevIL/libx86/Release/ILU.lib")
 #pragma comment (lib, "DevIL/libx86/Release/ILUT.lib")
 
+#include "mmgr/mmgr.h"
+
 void myCallback(const char* msg, char* userData)
 {
 	printf_s("%s", msg);

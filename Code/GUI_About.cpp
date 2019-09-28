@@ -5,6 +5,8 @@
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
 
+#include "mmgr/mmgr.h"
+
 bool ModuleGUI::GUI_AboutWindow()
 {
 	bool ret = true;

@@ -11,6 +11,8 @@
 #include "MeshCylinder.h"
 #include "MeshDebugCube.h"
 
+#include "mmgr/mmgr.h"
+
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleMeshes";
@@ -32,6 +34,11 @@ update_status ModuleMeshes::Update(float dt)
 
 bool ModuleMeshes::CleanUp()
 {
+	lastMesh = nullptr;
+	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	{
+		delete (*item);
+	}
 	meshes.clear();
 	return true;
 }

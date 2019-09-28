@@ -31,14 +31,10 @@ Application::Application()
 
 Application::~Application()
 {
-	// TODO: PREGUNTA, ES MILLOR FER UN CLEAR O NETEJAR LA LLISTA DE END FINS A BEGIN ?
-	//list_modules.clear();
 	for (std::list<Module*>::iterator item = list_modules.end(); item != list_modules.begin();)
 	{
 		item--;
 		list_modules.erase(item++);
-		//delete item->data;
-		//item = item->prev;
 	}
 }
 

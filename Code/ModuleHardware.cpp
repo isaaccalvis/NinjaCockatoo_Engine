@@ -3,6 +3,8 @@
 #include "gpudetect/DeviceId.h"
 #include "SDL/include/SDL.h"
 
+#include "mmgr/mmgr.h"
+
 // TODO: EN REALITAT NO ES UN MODUL, MILLOR TREUREHO DE MODULS ??
 
 ModuleHardware::ModuleHardware(Application* app, bool start_enabled) : Module(app, start_enabled)

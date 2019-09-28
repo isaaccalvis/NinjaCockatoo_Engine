@@ -10,7 +10,7 @@ class Mesh
 {
 public:
 	Mesh();
-	~Mesh();
+	virtual ~Mesh();
 
 	virtual void Render();
 

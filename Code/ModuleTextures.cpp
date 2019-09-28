@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 
+#include "mmgr/mmgr.h"
+
 Texture::Texture()
 {
 

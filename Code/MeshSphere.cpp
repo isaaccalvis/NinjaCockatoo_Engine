@@ -1,5 +1,7 @@
 #include "MeshSphere.h"
 
+#include "mmgr/mmgr.h"
+
 // RADIUS = 1.0f
 //TODO: save info at vertiesArray & indicesArray
 MeshSphere::MeshSphere(unsigned int rings, unsigned int sectors)

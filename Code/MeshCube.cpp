@@ -1,5 +1,7 @@
 #include "MeshCube.h"
 
+#include "mmgr/mmgr.h"
+
 MeshCube::MeshCube() : Mesh()
 {
 	verticesSize = 24;

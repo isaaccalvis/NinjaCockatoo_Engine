@@ -5,6 +5,8 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 
+#include "mmgr/mmgr.h"
+
 MeshCustom::MeshCustom(const char* path) : Mesh()
 {
 	Assimp::Importer importer;
@@ -93,7 +95,10 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 
 MeshCustom::~MeshCustom()
 {
-
+	delete[] allInternalMeshes;
+	//for (int i = 0; i < num_Meshes; i++) {
+	//	allInternalMeshes[i].~IndividualMesh();
+	//}
 }
 
 void MeshCustom::Render()
@@ -153,4 +158,8 @@ MeshCustom::IndividualMesh::~IndividualMesh()
 		delete[] ind_vertices_array;
 	if (ind_indices_array != nullptr)
 		delete[] ind_indices_array;
+	if (individual_textureCoor != nullptr)
+		delete[] individual_textureCoor;
+	delete individual_cubeBouncingBox;
+	delete[] individial_normals;
 }
