@@ -86,6 +86,7 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 
 	CopyFile(path, finalPath.c_str(), true);
 
+	// TODO: LOAD ALSO PNG
 	if (extension == "fbx")
 	{
 		LoadMesh(finalPath.c_str());
@@ -146,8 +147,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 
 	texture->BufferPos = textureNum;
 
-	// Assignem la last_texture TODO: CANVIAR AIXO
-	App->textures->last_texture = texture;
+	App->textures->AddTexture(texture);
 	return texture;
 }
 

@@ -26,8 +26,15 @@ public:
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
 
+	// TODO: MAKE DELETE TEXTURE
+	void AddTexture(Texture* texture);
+	void DeleteTexture(Texture* texture);
+
 public:
 	Texture* last_texture = nullptr;
+
+private:
+	std::list<Texture*> textures;
 };
 
 #endif

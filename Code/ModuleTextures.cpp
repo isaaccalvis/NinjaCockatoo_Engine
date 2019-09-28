@@ -28,6 +28,8 @@ update_status ModuleTextures::Update(float dt)
 
 bool ModuleTextures::CleanUp()
 {
+	textures.clear();
+
 	if (last_texture != nullptr)
 		delete last_texture;
 
@@ -42,4 +44,26 @@ bool ModuleTextures::Save(JSON_Object* root_object)
 bool ModuleTextures::Load(JSON_Object* root_object)
 {
 	return true;
+}
+
+void ModuleTextures::AddTexture(Texture* texture)
+{
+	if (texture != nullptr)
+	{
+		textures.push_back(texture);
+		// TODO: Treure que el last texture sigui assignat aqui
+		last_texture = texture;
+	}
+}
+
+void ModuleTextures::DeleteTexture(Texture* texture)
+{
+	for (std::list<Texture*>::iterator item = textures.end(); item != textures.begin();)
+	{
+		if ((*item) == texture)
+		{
+			item--;
+			textures.erase(item++);
+		}
+	}
 }
