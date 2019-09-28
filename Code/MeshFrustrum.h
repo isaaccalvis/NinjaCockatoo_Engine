@@ -7,7 +7,6 @@ class MeshFrustrum : public Mesh
 {
 public:
 	MeshFrustrum();
-	~MeshFrustrum();
 };
 
 #endif

@@ -7,10 +7,6 @@ class MeshPlane : public Mesh
 {
 public:
 	MeshPlane();
-	~MeshPlane();
-
-public:
-	int size;
 };
 
 #endif

@@ -9,7 +9,6 @@
 #include "MeshCustom.h"
 #include "MeshFrustrum.h"
 #include "MeshCylinder.h"
-
 #include "MeshDebugCube.h"
 
 ModuleMeshes::ModuleMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -24,6 +23,10 @@ ModuleMeshes::~ModuleMeshes()
 
 update_status ModuleMeshes::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_STATE::KEY_DOWN)
+	{
+		CleanUp();
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 

@@ -86,6 +86,9 @@ MeshCustom::MeshCustom(const char* path) : Mesh()
 		allInternalMeshes[a].individual_boundingBox.Enclose((const math::float3*)allInternalMeshes[a].ind_vertices_array, allInternalMeshes[a].verticesSize);
 		allInternalMeshes[a].individual_cubeBouncingBox = new MeshDebugCube(allInternalMeshes[a].individual_boundingBox.CenterPoint(), allInternalMeshes[a].individual_boundingBox.Size());
 	}
+	// Set texture
+	if (App->textures->last_texture != nullptr)
+		texture = App->textures->last_texture;
 }
 
 MeshCustom::~MeshCustom()
@@ -96,11 +99,14 @@ MeshCustom::~MeshCustom()
 void MeshCustom::Render()
 {
 	for (int i = 0; i < num_Meshes; i++) {
-		// Draw Geometry
 
-		// Comprobar textura TODO: TREURE AIXO PER FAVAAAAH
-		if (App->textures->last_texture != nullptr)
-		glBindTexture(GL_TEXTURE_2D, App->textures->last_texture->BufferPos);
+		glPushMatrix();
+
+		// Draw Geometry
+		if (texture != nullptr)
+		{
+			glBindTexture(GL_TEXTURE_2D, texture->BufferPos);
+		}
 		glEnableClientState(GL_VERTEX_ARRAY);
 
 		glTranslatef(position.x, position.y, position.z);
@@ -133,6 +139,8 @@ void MeshCustom::Render()
 					allInternalMeshes[i].individial_normals[e].Render();
 			}
 		allInternalMeshes[i].individual_cubeBouncingBox->Render();
+
+		glPopMatrix();
 	}
 }
 

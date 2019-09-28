@@ -9,16 +9,11 @@ MeshCylinder::MeshCylinder() : Mesh()
 	float y;
 	float angle;
 
-
 	for (angle = 0.0; angle < 2 * pi; angle++) {
 		*verticesArray++ = cos(angle);
 		*verticesArray++ = sin(angle);
 		*verticesArray++ = 1;
 	}
-	
-
-	
-	
 
 	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));
@@ -47,9 +42,4 @@ MeshCylinder::MeshCylinder() : Mesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-MeshCylinder::~MeshCylinder()
-{
-
 }

@@ -7,8 +7,6 @@ class MeshSphere : public Mesh
 {
 public:
 	MeshSphere(unsigned int rings, unsigned int sectors);
-	~MeshSphere();
-
 };
 
 #endif

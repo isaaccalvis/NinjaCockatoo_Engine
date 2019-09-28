@@ -21,15 +21,14 @@ private:
 		~IndividualMesh();
 
 		uint individualVertices = 0u;
-		uint individualIndices = 0u;
-		uint individualTextureIndex = 0u;
-
+		uint verticesSize = 0u;
 		GLfloat* ind_vertices_array = nullptr;
+
+		uint individualIndices = 0u;
+		uint indicesSize = 0u;
 		uint* ind_indices_array = nullptr;
 
-		uint verticesSize = 0u;
-		uint indicesSize = 0u;
-
+		uint individualTextureIndex = 0u;
 		GLfloat* individual_textureCoor = nullptr;
 
 		MeshDebugArrow* individial_normals = nullptr;

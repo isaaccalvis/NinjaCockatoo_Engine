@@ -7,7 +7,7 @@ MeshPlane::MeshPlane()
 		0.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f
 	};
 
 	vertices = 0u;
@@ -27,9 +27,4 @@ MeshPlane::MeshPlane()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-MeshPlane::~MeshPlane()
-{
-
 }

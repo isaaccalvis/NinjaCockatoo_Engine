@@ -31,11 +31,6 @@ MeshDebugArrow::MeshDebugArrow(math::float3 origin, math::float3 end) : Mesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-MeshDebugArrow::~MeshDebugArrow()
-{
-
-}
-
 void MeshDebugArrow::Render()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);

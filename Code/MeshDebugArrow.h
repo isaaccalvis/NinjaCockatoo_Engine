@@ -8,7 +8,6 @@ class MeshDebugArrow : public Mesh
 public:
 	MeshDebugArrow();
 	MeshDebugArrow(math::float3 origin, math::float3 end);
-	~MeshDebugArrow();
 
 	void Render();
 

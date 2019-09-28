@@ -42,8 +42,3 @@ MeshCube::MeshCube() : Mesh()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-
-MeshCube::~MeshCube()
-{
-
-}

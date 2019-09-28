@@ -49,8 +49,3 @@ MeshSphere::MeshSphere(unsigned int rings, unsigned int sectors)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indices_array, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-
-MeshSphere::~MeshSphere()
-{
-
-}

@@ -7,7 +7,6 @@ class MeshCylinder : public Mesh
 {
 public:
 	MeshCylinder();
-	~MeshCylinder();
 };
 
 #endif

@@ -1,16 +1,16 @@
 #ifndef __Mesh_H__
 #define __Mesh_H__
 
+#include "Globals.h"
+#include "ModuleTextures.h"
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
-
-// TODO : Think system to draw in quads ?
 
 class Mesh
 {
 public:
 	Mesh();
-	~Mesh(); // TODO: DESTRUCTOR
+	~Mesh();
 
 	virtual void Render();
 
@@ -21,16 +21,24 @@ public:
 	math::float3 GetScale() const;
 
 protected:
+	// Vertices
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
 	GLfloat* verticesArray = nullptr;
 
+	// Indices
 	unsigned int indices = 0u;
 	unsigned int indicesSize = 0;
 	unsigned int* indicesArray = nullptr;
+	
+	// Texture
+	unsigned int textureIndex = 0u;
+	GLfloat* textureCoords = nullptr;
+	Texture* texture = nullptr;
 
+	// Transform
 	math::float3 position = {0,0,0};
-	// TODO: FER ROTACIO
+	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
 	math::float3 scale = { 1,1,1 };
 };
 

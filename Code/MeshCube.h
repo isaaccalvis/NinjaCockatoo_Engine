@@ -7,7 +7,6 @@ class MeshCube : public Mesh
 {
 public:
 	MeshCube();
-	~MeshCube();
 };
 
 #endif

@@ -46,11 +46,6 @@ MeshDebugCube::MeshDebugCube(math::float3 center, math::float3 resize) : Mesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-MeshDebugCube::~MeshDebugCube()
-{
-
-}
-
 void MeshDebugCube::Render()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
