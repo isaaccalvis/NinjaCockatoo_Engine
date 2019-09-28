@@ -32,7 +32,11 @@ bool ModuleGUI::GUI_PropertiesWindow()
 	}
 	if (ImGui::CollapsingHeader("Geometry"))
 	{
-
+		if (App->meshes->lastMesh != nullptr)
+		{
+			ImGui::Text("Triangles:\t %i", App->meshes->lastMesh->GetIndicesSize() / 3);
+			ImGui::Text("Vertex:\t\t%i ", App->meshes->lastMesh->GetVerticesSize() / 3);
+		}
 	}
 	if (ImGui::CollapsingHeader("Texture"))
 	{

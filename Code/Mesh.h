@@ -20,6 +20,9 @@ public:
 	math::float3 GetPosition() const;
 	math::float3 GetScale() const;
 
+	unsigned int GetIndicesSize() const;
+	unsigned int GetVerticesSize() const;
+
 protected:
 	// Vertices
 	unsigned int vertices = 0u;

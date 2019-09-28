@@ -61,3 +61,13 @@ math::float3 Mesh::GetScale() const
 {
 	return scale;
 }
+
+unsigned int Mesh::GetIndicesSize() const
+{
+	return indicesSize;
+}
+
+unsigned int Mesh::GetVerticesSize() const
+{
+	return verticesSize;
+}
