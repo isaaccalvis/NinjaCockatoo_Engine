@@ -22,11 +22,6 @@ ModuleMeshes::~ModuleMeshes()
 
 }
 
-bool ModuleMeshes::Start()
-{
-	return true;
-}
-
 update_status ModuleMeshes::Update(float dt)
 {
 	return update_status::UPDATE_CONTINUE;
@@ -34,6 +29,7 @@ update_status ModuleMeshes::Update(float dt)
 
 bool ModuleMeshes::CleanUp()
 {
+	meshes.clear();
 	return true;
 }
 
@@ -52,6 +48,20 @@ void ModuleMeshes::AddMesh(Mesh* mesh)
 	if (mesh != nullptr)
 	{
 		meshes.push_back(mesh);
+		// TODO: TREURE LAST MESH
+		lastMesh = mesh;
+	}
+}
+
+void ModuleMeshes::DeleteMesh(Mesh* mesh)
+{
+	for (std::list<Mesh*>::iterator item = meshes.end(); item != meshes.begin();)
+	{
+		if ((*item) == mesh)
+		{
+			item--;
+			meshes.erase(item++);
+		}
 	}
 }
 
@@ -103,7 +113,5 @@ Mesh* ModuleMeshes::AddCustomMesh(const char* path)
 {
 	MeshCustom* tmp_mesh = new MeshCustom(path);
 	AddMesh(tmp_mesh);
-	// TODO: TREURE D'AQUI EL LAST MESH EN UN FUTUR
-	lastMesh = tmp_mesh;
 	return tmp_mesh;
 }

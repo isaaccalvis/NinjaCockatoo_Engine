@@ -11,7 +11,6 @@ public:
 	ModuleMeshes(Application* app, bool start_enabled = true);
 	virtual ~ModuleMeshes();
 
-	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
 
@@ -19,6 +18,7 @@ public:
 	bool Load(JSON_Object* root_object);
 	
 	void AddMesh(Mesh* mesh);
+	void DeleteMesh(Mesh* mesh);
 	Mesh* AddCube();
 	Mesh* AddPlane();
 	Mesh* AddSphere();
@@ -27,7 +27,7 @@ public:
 	Mesh* AddDebugCube();
 	Mesh* AddCustomMesh(const char* path);
 
-public: // TODO: s'ha de passar la llista mesh a privat
+public: // TODO: PREGUNTA, QUE TAN GREU ES TENIR AQUESTA LLISTA EN PUBLIC ?
 	std::list<Mesh*> meshes;
 	Mesh* lastMesh = nullptr;
 

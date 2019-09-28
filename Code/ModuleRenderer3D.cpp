@@ -46,7 +46,6 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		}
 		else
 		{
-
 			//Initialize Modelview Matrix
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
@@ -60,7 +59,6 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 			}
 			else
 			{
-
 				glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 				glClearDepth(1.0f);
 
@@ -76,7 +74,6 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 				}
 				else
 				{
-
 					GLfloat LightModelAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 					glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 

@@ -30,6 +30,7 @@ protected:
 	unsigned int* indicesArray = nullptr;
 
 	math::float3 position = {0,0,0};
+	// TODO: FER ROTACIO
 	math::float3 scale = { 1,1,1 };
 };
 

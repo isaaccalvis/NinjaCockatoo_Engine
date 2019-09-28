@@ -121,7 +121,6 @@ bool ModuleWindow::Load(JSON_Object* root_object)
 
 void ModuleWindow::SetTitle(const char* title)
 {
-
 	winTitle = strdup(title);
 	SDL_SetWindowTitle(window, title);
 }

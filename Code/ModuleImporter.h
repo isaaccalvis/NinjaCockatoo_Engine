@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "ModuleTextures.h"
+#include "Mesh.h"
 
 void myCallback(const char* msg, char* userData);
 

@@ -16,11 +16,6 @@ ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(ap
 	name = "ModuleTextures";
 }
 
-bool ModuleTextures::Start()
-{
-	return true;
-}
-
 update_status ModuleTextures::Update(float dt)
 {
 	return update_status::UPDATE_CONTINUE;
