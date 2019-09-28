@@ -17,7 +17,6 @@ bool ModuleGUI::GUI_PropertiesWindow()
 	{
 		if (App->meshes->lastMesh != nullptr)
 		{
-			// TODO: NOSE SI AIXO AMB VARIES MESH SERA COMPATIBLE
 			float auxPos[3] = { App->meshes->lastMesh->GetPosition().x, App->meshes->lastMesh->GetPosition().y, App->meshes->lastMesh->GetPosition().z };
 			if (ImGui::InputFloat3("Position", auxPos))
 			{

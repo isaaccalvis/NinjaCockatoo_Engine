@@ -40,7 +40,7 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		glLoadIdentity();
 
 		//Check for error
-		GLenum error = glGetError(); // TODO: this is part of GLU, maybe we have to delete it
+		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
 			LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
@@ -97,7 +97,12 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 					glEnable(GL_LIGHTING);
 					glEnable(GL_COLOR_MATERIAL);
 
-					glewInit();
+					GLenum glewError = glewInit();
+					if (glewError != GL_NO_ERROR)
+					{
+						ret = false;
+						LOG_CONSOLE_IDE("Error opening glew %s", glewGetErrorString(glewError));
+					}
 				}
 			}
 		}

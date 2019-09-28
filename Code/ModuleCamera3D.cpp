@@ -180,7 +180,7 @@ Camera::Camera()
 void Camera::Init()
 {
 	/* Set camera vars*/
-	width = 16; // TODO: reducing width to 9 bug solved, but is not a solution
+	width = 9; // TODO: ABANS HI HAVIA UN 16, QUE ES LA PROPORCIO CORRECTA
 	height = 9;
 	aspect_ratio = width / height; // We set aspect ratio 16:9 by now
 

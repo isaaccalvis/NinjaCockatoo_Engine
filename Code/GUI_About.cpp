@@ -20,8 +20,6 @@ bool ModuleGUI::GUI_AboutWindow()
 	ImGui::Text("License: MIT (More info at License file or at ReadMe)");
 	ImGui::Text("External tools & libraries");
 
-	// TODO: repassar les versions de les llibreries (no ficar strings directament)
-
 	if (ImGui::CollapsingHeader("Libraries"))
 	{
 		if (ImGui::Button("SDL"))
