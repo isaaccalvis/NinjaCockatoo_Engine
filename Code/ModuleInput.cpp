@@ -185,3 +185,31 @@ int ModuleInput::GetMouseYMotion() const
 {
 	return mouse_y_motion;
 }
+
+void ModuleInput::LoadPCGSeed(int argc, char** argv)
+{
+	int rounds = 5;
+	bool nondeterministic_seed = true;	// en teoria hauria de ser false, pero si ho poso false no s'activa la part
+										// de sota, i els numeros no tenen seed i surten amb el mateix patro sempre
+
+	++argv;
+	--argc;
+	if (argc > 0 && strcmp(argv[0], "-r") == 0) {
+		nondeterministic_seed = true;
+		++argv;
+		--argc;
+	}
+	if (argc > 0) {
+		rounds = atoi(argv[0]);
+	}
+	if (nondeterministic_seed) {
+		// Seed with external entropy
+		uint64_t seeds[2];
+		entropy_getbytes((void*)seeds, sizeof(seeds));
+		pcg32_srandom_r(&rng, seeds[0], seeds[1]);
+	}
+	else {
+		// Seed with a fixed constant
+		pcg32_srandom_r(&rng, 42u, 54u);
+	}
+}

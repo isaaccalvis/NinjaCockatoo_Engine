@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Globals.h"
 
+#include "pcg-c-0.94/include/pcg_variants.h"
+#include "pcg-c-0.94/extras/entropy.h"
+
 #define MAX_MOUSE_BUTTONS 5
 
 enum KEY_STATE
@@ -35,6 +38,7 @@ public:
 	int GetMouseZ() const;
 	int GetMouseXMotion() const;
 	int GetMouseYMotion() const;
+	void LoadPCGSeed(int argc, char** argv);
 
 private:
 	KEY_STATE* keyboard;
@@ -46,6 +50,7 @@ private:
 	int mouse_y_motion;
 	//int mouse_z_motion;
 
+	pcg32_random_t rng;
 };
 
 #endif

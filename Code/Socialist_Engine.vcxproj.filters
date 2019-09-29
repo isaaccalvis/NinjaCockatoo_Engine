@@ -276,15 +276,6 @@
     <ClInclude Include="MathGeoLib-1.5\src\Time\Clock.h">
       <Filter>External Tools\MathGeoLib\Time</Filter>
     </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_extras.hpp">
-      <Filter>External Tools\PCG</Filter>
-    </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_random.hpp">
-      <Filter>External Tools\PCG</Filter>
-    </ClInclude>
-    <ClInclude Include="pcg-cpp-0.98\include\pcg_uint128.hpp">
-      <Filter>External Tools\PCG</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleGUI.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
@@ -407,6 +398,15 @@
     </ClInclude>
     <ClInclude Include="MeshCustom.h">
       <Filter>Engine\Meshes\CustomMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-c-0.94\extras\entropy.h">
+      <Filter>External Tools\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-c-0.94\extras\pcg_spinlock.h">
+      <Filter>External Tools\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="pcg-c-0.94\include\pcg_variants.h">
+      <Filter>External Tools\PCG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +613,9 @@
     </ClCompile>
     <ClCompile Include="MeshCustom.cpp">
       <Filter>Engine\Meshes\CustomMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="pcg-c-0.94\extras\entropy.c">
+      <Filter>External Tools\PCG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

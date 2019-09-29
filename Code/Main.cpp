@@ -31,6 +31,7 @@ int main(int argc, char ** argv)
 			LOG_IDE("-------------- Application Creation --------------");
 			App = new Application();
 			state = MAIN_START;
+			App->input->LoadPCGSeed(argc, argv);
 			break;
 
 		case MAIN_START:
