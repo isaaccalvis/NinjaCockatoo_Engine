@@ -6,6 +6,9 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
 
+class MeshDebugArrow;
+class MeshDebugCube;
+
 class Mesh
 {
 public:
@@ -24,6 +27,11 @@ public:
 	unsigned int GetVerticesSize() const;
 
 protected:
+	// Transform
+	math::float3 position = { 0,0,0 };
+	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
+	math::float3 scale = { 1,1,1 };
+
 	// Vertices
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
@@ -39,10 +47,12 @@ protected:
 	GLfloat* textureCoords = nullptr;
 	Texture* texture = nullptr;
 
-	// Transform
-	math::float3 position = {0,0,0};
-	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
-	math::float3 scale = { 1,1,1 };
+	// Normals
+	MeshDebugArrow* normals = nullptr;
+
+	// Bounding Box & AABB
+	AABB boundingBox;
+	MeshDebugCube* boundingBoxCube = nullptr;
 };
 
 #endif

@@ -71,7 +71,6 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
@@ -187,7 +186,6 @@ void Camera::Init()
 	near_plane = 0.2;
 	far_plane = 1000;
 	vertical_fov = 60; /* In degrees */
-
 					   /* Set frustum vars */
 	frustum.type = PerspectiveFrustum;
 	frustum.pos.Set(0, 0, 0);

@@ -25,7 +25,6 @@ public:
 	Mesh* AddFrustrum();
 	Mesh* AddCylinder();
 	Mesh* AddDebugCube();
-	Mesh* AddCustomMesh(const char* path);
 
 public: // TODO: PREGUNTA, QUE TAN GREU ES TENIR AQUESTA LLISTA EN PUBLIC ?
 	std::list<Mesh*> meshes;

@@ -64,7 +64,6 @@ void MeshDebugCube::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
 	glLineWidth(4);
 	glColor3f(0,255,0);
-	// TODO: AQUI FICAR L'INDICES SIZE NO M'ACABA DE MOLAR, PREGUNTAR SI ESTA BE
 	glDrawElements(GL_LINES, indicesSize, GL_UNSIGNED_INT, NULL);
 	glColor3f(255, 255, 255);
 	glLineWidth(1);

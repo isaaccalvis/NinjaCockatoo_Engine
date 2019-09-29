@@ -117,11 +117,3 @@ Mesh* ModuleMeshes::AddSphere()
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }
-
-// TODO: hauriem de revisar que no fos nullptr ?
-Mesh* ModuleMeshes::AddCustomMesh(const char* path)
-{
-	MeshCustom* tmp_mesh = new MeshCustom(path);
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}

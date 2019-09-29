@@ -6,39 +6,17 @@
 #include "MeshDebugArrow.h"
 #include "MeshDebugCube.h"
 
+#include "Assimp/include/Importer.hpp"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+
 class MeshCustom : public Mesh
 {
 public:
-	MeshCustom(const char* path);
-	~MeshCustom();
+	MeshCustom();
+	MeshCustom(const aiScene* scene, int num);
 
 	void Render();
-
-private:
-	class IndividualMesh {
-	public:
-		IndividualMesh() {}
-		~IndividualMesh();
-
-		uint individualVertices = 0u;
-		uint verticesSize = 0u;
-		GLfloat* ind_vertices_array = nullptr;
-
-		uint individualIndices = 0u;
-		uint indicesSize = 0u;
-		uint* ind_indices_array = nullptr;
-
-		uint individualTextureIndex = 0u;
-		GLfloat* individual_textureCoor = nullptr;
-
-		MeshDebugArrow* individial_normals = nullptr;
-
-		AABB individual_boundingBox;
-		MeshDebugCube* individual_cubeBouncingBox = nullptr;
-	};
-
-	IndividualMesh* allInternalMeshes = nullptr;
-	uint num_Meshes = 0u;
 };
 
 #endif

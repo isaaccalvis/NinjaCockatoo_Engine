@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "MeshCustom.h"
 #include "Console.h"
 
 #include "Assimp/include/Importer.hpp"
@@ -18,8 +19,6 @@
 #pragma comment (lib, "DevIL/libx86/Release/DevIL.lib")
 #pragma comment (lib, "DevIL/libx86/Release/ILU.lib")
 #pragma comment (lib, "DevIL/libx86/Release/ILUT.lib")
-
-#include "mmgr/mmgr.h"
 
 void myCallback(const char* msg, char* userData)
 {
@@ -101,7 +100,18 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 // TODO: Carregar la mesh aqui
 void ModuleImporter::LoadMesh(const char* path)
 {
-	App->meshes->AddCustomMesh(path);
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	if (!scene)
+	{
+		LOG_CONSOLE_IDE("Mesh can not be loaded");
+		return;
+	}
+	for (int i = 0; i < scene->mNumMeshes; i++)
+	{
+		MeshCustom* mesh = new MeshCustom(scene, i);
+		App->meshes->AddMesh(mesh);
+	}
 }
 
 Texture* ModuleImporter::LoadTexture(const char* path)
