@@ -70,6 +70,9 @@
     <Filter Include="Engine\Meshes\CustomMesh">
       <UniqueIdentifier>{612725b9-e0c9-407d-b721-05ce4573422e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\Brofiler">
+      <UniqueIdentifier>{6fcadfc2-8d38-41c5-bb42-54c34fc6beea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -407,6 +410,9 @@
     </ClInclude>
     <ClInclude Include="pcg-c-0.94\include\pcg_variants.h">
       <Filter>External Tools\PCG</Filter>
+    </ClInclude>
+    <ClInclude Include="Brofiler\Brofiler.h">
+      <Filter>External Tools\Brofiler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
