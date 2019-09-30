@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleGUI.h"
+#include "GUI_TopBar.h"
 
 #include "ModuleMeshes.h"
 
@@ -9,27 +9,33 @@
 
 #include "mmgr/mmgr.h"
 
-bool ModuleGUI::GUI_TopBar()
+GUI_TopBar::GUI_TopBar(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_TOPBAR)
 {
-	bool ret = true;
+	active = true;
+}
+
+void GUI_TopBar::Draw()
+{
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Quit"))
 			{
-				ret = false;
+				// TODO: FIX THAT
+				//ret = false;
 			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("View"))
 		{
+			// TODO: FIX THAT
 			if (ImGui::MenuItem("Configuration"))
-				guiWindows[GUI_CONFIGURATION] = !guiWindows[GUI_CONFIGURATION];
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_CONFIGURATION)->SwitchActive();
 			if (ImGui::MenuItem("Console"))
-				guiWindows[GUI_CONSOLE] = !guiWindows[GUI_CONSOLE];
+				App->console->SwitchActive();
 			if (ImGui::MenuItem("Properties"))
-				guiWindows[GUI_PROPERTIES] = !guiWindows[GUI_PROPERTIES];
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PROPERTIES)->SwitchActive();
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("GameObject"))
@@ -74,12 +80,12 @@ bool ModuleGUI::GUI_TopBar()
 			{
 				ShellExecuteA(NULL, "open", "https://github.com/isaaccalvis/Socialist_Engine/issues", NULL, NULL, SW_SHOWNORMAL);
 			}
+			// TODO: FIX THAT
 			if (ImGui::MenuItem("About"))
-				guiWindows[GUI_ABOUT] = !guiWindows[GUI_ABOUT];
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_ABOUT)->SwitchActive();
 
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
 	}
-	return ret;
 }

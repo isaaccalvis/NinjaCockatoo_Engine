@@ -1,16 +1,9 @@
 #ifndef __ModuleGUI_H__
 #define __ModuleGUI_H__
 
+#include <list>
 #include "Module.h"
-
-enum GUI_WINDOWS
-{
-	GUI_TOPBAR = 0,
-	GUI_ABOUT,
-	GUI_CONFIGURATION,
-	GUI_CONSOLE,
-	GUI_PROPERTIES
-};
+#include "GUI_Panel.h"
 
 class ModuleGUI : public Module
 {
@@ -24,17 +17,11 @@ public:
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
 
-private:
-	bool guiWindows[5] = { true, false, false, true, false };
-
-private:
-	bool GUI_TopBar();
-	bool GUI_AboutWindow();
-	bool GUI_ConfigurationWindow();
-	bool GUI_PropertiesWindow();
+	GUI_Panel* GetGUIPanel(GUI_WINDOWS type);
 
 private:
 	SDL_version sdl_version;
+	std::list<GUI_Panel*> guiPanels;
 };
 
 #endif

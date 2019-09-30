@@ -19,6 +19,9 @@ public:
 	void Draw(const char* title, bool* p_open);
 	//void ExecCommand(const char* command_line);
 
+	bool IsActive();
+	void SwitchActive();
+
 private:
 	char                  InputBuf[256];
 	ImVector<char*>       Items;
@@ -34,6 +37,8 @@ private:
 public:
 	bool p_open = true;
 
+private:
+	bool active = false;
 };
 
 #endif

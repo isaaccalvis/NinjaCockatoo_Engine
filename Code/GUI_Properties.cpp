@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleGUI.h"
+#include "GUI_Properties.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
@@ -7,11 +7,12 @@
 
 #include "mmgr/mmgr.h"
 
-bool ModuleGUI::GUI_PropertiesWindow()
-{
-	bool ret = true;
+GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_PROPERTIES)
+{}
 
-	ImGui::Begin("Properties", &guiWindows[GUI_WINDOWS::GUI_PROPERTIES], ImGuiWindowFlags_NoFocusOnAppearing);
+void GUI_Properties::Draw()
+{
+	ImGui::Begin("Properties", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 
 	if (ImGui::CollapsingHeader("Transform"))
 	{
@@ -52,5 +53,4 @@ bool ModuleGUI::GUI_PropertiesWindow()
 	}
 
 	ImGui::End();
-	return ret;
 }

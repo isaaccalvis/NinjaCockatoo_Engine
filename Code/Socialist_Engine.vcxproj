@@ -95,6 +95,11 @@
     <ClInclude Include="gpudetect\DeviceId.h" />
     <ClInclude Include="gpudetect\dxgi1_4.h" />
     <ClInclude Include="gpudetect\ID3D10Extensions.h" />
+    <ClInclude Include="GUI_About.h" />
+    <ClInclude Include="GUI_Configuration.h" />
+    <ClInclude Include="GUI_Panel.h" />
+    <ClInclude Include="GUI_Properties.h" />
+    <ClInclude Include="GUI_TopBar.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_opengl2.h" />
@@ -196,6 +201,7 @@
     <ClCompile Include="gpudetect\DeviceId.cpp" />
     <ClCompile Include="GUI_About.cpp" />
     <ClCompile Include="GUI_Configuration.cpp" />
+    <ClCompile Include="GUI_Panel.cpp" />
     <ClCompile Include="GUI_Properties.cpp" />
     <ClCompile Include="GUI_TopBar.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />

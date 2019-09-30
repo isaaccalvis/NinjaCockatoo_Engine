@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleGUI.h"
+#include "GUI_Configuration.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
@@ -7,10 +7,11 @@
 
 #include "mmgr/mmgr.h"
 
-bool ModuleGUI::GUI_ConfigurationWindow()
-{
-	bool ret = true;
+GUI_Configuration::GUI_Configuration(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_CONFIGURATION)
+{}
 
+void GUI_Configuration::Draw()
+{
 	sMStats stats = m_getMemoryStatistics();
 	static int speed = 0;
 	static std::vector<float> memory(100);
@@ -48,7 +49,7 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 			memoryMS.push_back(App->GetLastMS());
 	}
 
-	ImGui::Begin("Configuration", &guiWindows[GUI_WINDOWS::GUI_CONFIGURATION], ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::Begin("Configuration", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 
 	if (ImGui::BeginMenu("Options"))
 	{
@@ -231,7 +232,8 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 
 		ImGui::Text("SDL_Version: ");
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", sdl_version.major, sdl_version.minor, sdl_version.patch);
+		// TODO: FIX THAT
+		//ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", sdl_version.major, sdl_version.minor, sdl_version.patch);
 
 		ImGui::Separator();
 
@@ -287,5 +289,4 @@ bool ModuleGUI::GUI_ConfigurationWindow()
 	}
 
 	ImGui::End();
-	return ret;
 }

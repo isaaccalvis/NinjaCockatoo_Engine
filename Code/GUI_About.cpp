@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "ModuleGUI.h"
+#include "GUI_About.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
@@ -8,12 +8,12 @@
 #include "Assimp/include/version.h"
 #include "DevIL/include/IL/il.h"
 
-#include "mmgr/mmgr.h"
+GUI_About::GUI_About(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_ABOUT)
+{}
 
-bool ModuleGUI::GUI_AboutWindow()
+void GUI_About::Draw()
 {
-	bool ret = true;
-	ImGui::Begin("About", &guiWindows[GUI_WINDOWS::GUI_ABOUT], ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::Begin("About", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 	ImGui::Text("Socialist Engine is a video game engine made by students\nfrom CITM(UPC) at VideoGame Development & Design degree");
 	ImGui::Text("Made by Isaac Calvis & Aitor Velez");
 
@@ -29,7 +29,8 @@ bool ModuleGUI::GUI_AboutWindow()
 		ImGui::SameLine();
 		ImGui::Text(" version: ");
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", sdl_version.major, sdl_version.minor, sdl_version.patch);
+		// TODO: FIX THAT
+		//ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", sdl_version.major, sdl_version.minor, sdl_version.patch);
 
 		if (ImGui::Button("OpenGL"))
 		{
@@ -112,5 +113,4 @@ bool ModuleGUI::GUI_AboutWindow()
 	}
 
 	ImGui::End();
-	return ret;
 }

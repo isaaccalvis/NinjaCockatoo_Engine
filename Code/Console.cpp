@@ -152,3 +152,13 @@ void Console::Draw(const char* title, bool* p_open)
 
 	ImGui::End();
 }
+
+bool Console::IsActive()
+{
+	return active;
+}
+
+void Console::SwitchActive()
+{
+	active = !active;
+}
