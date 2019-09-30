@@ -16,9 +16,9 @@
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Assimp/libx86/zlibstatic.lib")
 
-#pragma comment (lib, "DevIL/libx86/Release/DevIL.lib")
-#pragma comment (lib, "DevIL/libx86/Release/ILU.lib")
-#pragma comment (lib, "DevIL/libx86/Release/ILUT.lib")
+#pragma comment (lib, "DevIL/lib/DevIL.lib")
+#pragma comment (lib, "DevIL/lib/ILU.lib")
+#pragma comment (lib, "DevIL/lib/ILUT.lib")
 
 void myCallback(const char* msg, char* userData)
 {
