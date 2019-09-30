@@ -67,9 +67,11 @@ update_status ModuleGUI::Update(float dt)
 		}
 	}
 
-	// Console
+	// Console //TODO: CANVIAR AIXO
 	if (App->console->IsActive())
 		App->console->Draw("Console", &App->console->p_open);
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_STATE::KEY_DOWN)
+		App->console->SwitchActive();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
