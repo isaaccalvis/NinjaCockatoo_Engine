@@ -43,8 +43,8 @@ void GUI_Properties::Draw()
 	{
 		if (App->textures->last_texture != nullptr)
 		{
-			ImGui::Text("Image (witdth/ heigh): %i , %i", App->textures->last_texture->width, App->textures->last_texture->heigh);
-			ImGui::Image((void*)(intptr_t)App->textures->last_texture->BufferPos, ImVec2(512, 512));
+			ImGui::Text("Image (witdth/ heigh): %i , %i", App->textures->last_texture->GetWidth(), App->textures->last_texture->GetHeigh());
+			ImGui::Image((void*)(intptr_t)App->textures->last_texture->GetBufferPos(), ImVec2(512, 512));
 		}
 		else
 		{

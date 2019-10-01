@@ -129,8 +129,8 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	{
 		ILinfo imageInfo;
 		iluGetImageInfo(&imageInfo);
-		texture->width = imageInfo.Width;
-		texture->heigh = imageInfo.Height;
+		texture->SetWidth(imageInfo.Width);
+		texture->SetHeigh(imageInfo.Height);
 		if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 			iluFlipImage();
 
@@ -156,7 +156,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 
 	ilDeleteImages(1, &ImageName);
 
-	texture->BufferPos = textureNum;
+	texture->SetBufferPos(textureNum);
 
 	App->textures->AddTexture(texture);
 	return texture;

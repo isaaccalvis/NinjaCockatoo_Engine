@@ -93,7 +93,7 @@ void MeshCustom::Render()
 	// Draw Geometry
 	if (texture != nullptr)
 	{
-		glBindTexture(GL_TEXTURE_2D, texture->BufferPos);
+		glBindTexture(GL_TEXTURE_2D, texture->GetBufferPos());
 	}
 	glEnableClientState(GL_VERTEX_ARRAY);
 

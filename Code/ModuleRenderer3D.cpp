@@ -290,3 +290,15 @@ void ModuleRenderer3D::SetGlLineSmooth(bool set)
 		glDisable(GL_LINE_SMOOTH);
 	}
 }
+
+bool ModuleRenderer3D::GetWireframeMode()
+{
+	return renderWireframeMode;
+}
+//bool GetGlDepthTest();
+//bool GetGlCullFace();
+//bool GetGlLighting();
+//bool GetGlColorMaterial();
+//bool GetGlTexture();
+//bool GetGlAlphaTest();
+//bool GetGlLineSmooth();

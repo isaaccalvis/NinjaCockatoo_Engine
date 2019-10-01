@@ -9,6 +9,14 @@ public:
 	Texture();
 	~Texture();
 
+	void SetBufferPos(unsigned int nBufferPos);
+	void SetWidth(int nWidth);
+	void SetHeigh(int nHeigh);
+	unsigned int GetBufferPos() const;
+	int GetWidth() const;
+	int GetHeigh() const;
+
+private:
 	unsigned int BufferPos = 0u;
 	int width = 0;
 	int heigh = 0;
@@ -19,11 +27,7 @@ class ModuleTextures : public Module
 public:
 	ModuleTextures(Application* app, bool start_enabled = true);
 
-	update_status Update(float dt);
 	bool CleanUp();
-
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
 
 	void AddTexture(Texture* texture);
 	void DeleteTexture(Texture* texture);

@@ -33,8 +33,19 @@ public:
 	void SetGlAlphaTest(bool set);
 	void SetGlLineSmooth(bool set);
 
+	// TODO, PREGUTNA, ES MOLT GUARRO TENIR LES VARIABLES EN PUBLIC ?
+
+	bool GetWireframeMode();
+	//bool GetGlDepthTest();
+	//bool GetGlCullFace();
+	//bool GetGlLighting();
+	//bool GetGlColorMaterial();
+	//bool GetGlTexture();
+	//bool GetGlAlphaTest();
+	//bool GetGlLineSmooth();
 private:
 	SDL_GLContext context;
+	bool renderWireframeMode = false;
 
 public:
 	Light lights[MAX_LIGHTS];
@@ -42,7 +53,6 @@ public:
 	//math::float3x3 NormalMatrix;
 	//math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	bool renderWireframeMode = false;
 	bool renderGlDepthTest = true;
 	bool renderGlCullFace = true;
 	bool renderGlLighting = true;

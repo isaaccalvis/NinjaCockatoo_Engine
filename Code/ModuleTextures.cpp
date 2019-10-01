@@ -13,14 +13,39 @@ Texture::~Texture()
 
 }
 
+void Texture::SetBufferPos(unsigned int nBufferPos)
+{
+	this->BufferPos = nBufferPos;
+}
+
+void Texture::SetWidth(int nWidth)
+{
+	this->width = nWidth;
+}
+
+void Texture::SetHeigh(int nHeigh)
+{
+	this->heigh = nHeigh;
+}
+
+unsigned int Texture::GetBufferPos() const
+{
+	return BufferPos;
+}
+
+int Texture::GetWidth() const
+{
+	return width;
+}
+
+int Texture::GetHeigh() const
+{
+	return heigh;
+}
+
 ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleTextures";
-}
-
-update_status ModuleTextures::Update(float dt)
-{
-	return update_status::UPDATE_CONTINUE;
 }
 
 bool ModuleTextures::CleanUp()
@@ -30,16 +55,6 @@ bool ModuleTextures::CleanUp()
 	if (last_texture != nullptr)
 		delete last_texture;
 
-	return true;
-}
-
-bool ModuleTextures::Save(JSON_Object* root_object)
-{
-	return true;
-}
-
-bool ModuleTextures::Load(JSON_Object* root_object)
-{
 	return true;
 }
 

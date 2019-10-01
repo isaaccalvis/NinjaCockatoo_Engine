@@ -183,9 +183,10 @@ void GUI_Configuration::Draw()
 	}
 	if (ImGui::CollapsingHeader("Renderer"))
 	{
-		if (ImGui::Checkbox("Wireframe", &App->renderer3D->renderWireframeMode))
+		static bool wireframeAux = App->renderer3D->GetWireframeMode();
+		if (ImGui::Checkbox("Wireframe", &wireframeAux))
 		{
-			App->renderer3D->SetWireframeMode(App->renderer3D->renderWireframeMode);
+			App->renderer3D->SetWireframeMode(wireframeAux);
 		}
 
 		ImGui::Separator();
