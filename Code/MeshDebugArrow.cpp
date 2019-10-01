@@ -49,7 +49,7 @@ void MeshDebugArrow::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-}
+}           
 
 void MeshDebugArrow::SetDebugArrow(math::float3 origin, math::float3 end)
 {

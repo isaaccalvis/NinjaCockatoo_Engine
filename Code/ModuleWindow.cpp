@@ -77,6 +77,12 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 	return ret;
 }
 
+update_status ModuleWindow::Update(float dt)
+{
+	// TODO: FICAR EL BRIGHTNESS AQUI
+	return update_status::UPDATE_CONTINUE;
+}
+
 bool ModuleWindow::CleanUp()
 {
 	LOG_IDE("Destroying SDL window and quitting all SDL systems");
@@ -127,7 +133,12 @@ void ModuleWindow::SetTitle(const char* title)
 	SDL_SetWindowTitle(window, title);
 }
 
-bool ModuleWindow::SetWindowsSize(int width, int height)
+void ModuleWindow::SetOrganization(const char* organization)
+{
+	this->organization = strdup(organization);
+}
+
+bool ModuleWindow::SetWindowsSize(int width, int height, int size)
 {
 	bool ret = true;
 	if (height == 0)
@@ -149,9 +160,15 @@ bool ModuleWindow::SetWindowsSize(int width, int height)
 	return ret;
 }
 
+void ModuleWindow::SetVSync(bool set)
+{
+	winVsync = set;
+}
+
 bool ModuleWindow::SetScreenBrightness(float brightness)
 {
 	bool ret = true;
+	winBrightness = brightness;
 	if (SDL_SetWindowBrightness(window, brightness) < 0)
 	{
 		LOG_IDE("Can't SetWindowBrightness");
@@ -222,6 +239,68 @@ bool ModuleWindow::SetBorderless(bool set)
 		else
 			SDL_SetWindowBordered(window, (SDL_bool)true);
 	return true;
+}
+
+char* ModuleWindow::GetWindowTitle()
+{
+	return winTitle;
+}
+
+char* ModuleWindow::GetOrganization()
+{
+	return organization;
+}
+
+void ModuleWindow::GetWindowSize(int &width, int &height, int &size)
+{
+	width = this->screenWidth;
+	height = this->screenHeight;
+	size = this->screenSize;
+}
+
+bool ModuleWindow::GetVsync()
+{
+	return winVsync;
+}
+
+bool ModuleWindow::GetScreenBrightness()
+{
+	return winBrightness;
+}
+
+bool ModuleWindow::GetFullScreen()
+{
+	return winFullScreen;
+}
+
+bool ModuleWindow::GetFullScreenDesktop()
+{
+	return winFullScreenDesktop;
+}
+
+bool ModuleWindow::GetResizable()
+{
+	return winResizable;
+}
+
+bool ModuleWindow::GetBorderless()
+{
+	return winBorderless;
+}
+
+int ModuleWindow::GetMaxScreenWidth()
+{
+	return maxScreenWidth;
+}
+
+int ModuleWindow::GetMaxScreenHeight()
+{
+	return maxScreenHeight;
+}
+
+int ModuleWindow::GetScreenRefreshRate()
+{
+	return refreshRate;
 }
 
 SDL_Window* ModuleWindow::GetWindow() const

@@ -183,7 +183,7 @@ Camera::Camera()
 void Camera::Init()
 {
 	/* Set camera vars*/
-	width = 9; // TODO: ABANS HI HAVIA UN 16, QUE ES LA PROPORCIO CORRECTA
+	width = 16; // TODO, PREGUNTA, LA ASPECT RATIO ESTA BE ARA ??
 	height = 9;
 	aspect_ratio = width / height; // We set aspect ratio 16:9 by now
 

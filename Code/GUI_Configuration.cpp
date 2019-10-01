@@ -68,17 +68,17 @@ void GUI_Configuration::Draw()
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		static char gui_appname[256];
-		strcpy_s(gui_appname, 256, App->window->winTitle);
+		strcpy_s(gui_appname, 256, App->window->GetWindowTitle());
 		if (ImGui::InputText("App Name", gui_appname, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
 			App->window->SetTitle(gui_appname);
 		}
 
 		static char gui_organization_name[256];
-		strcpy_s(gui_organization_name, 256, App->window->organization);
+		strcpy_s(gui_organization_name, 256, App->window->GetOrganization());
 		if (ImGui::InputText("Organization Name", gui_organization_name, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
-			App->window->organization = gui_organization_name;
+			App->window->SetOrganization(gui_organization_name);
 		}
 
 		static int tmp_max_fps = App->GetMaxFPS();
@@ -110,34 +110,38 @@ void GUI_Configuration::Draw()
 			App->window->SetScreenBrightness(winBrightness);
 		}
 		// MIN RESOLUTION 640x480 
-		if (ImGui::SliderInt("Window Width", &App->window->screenWidth, 640, App->window->maxScreenWidth))
+		if (ImGui::SliderInt("Window Width", &App->window->screenWidth, 640, App->window->GetMaxScreenWidth()))
 		{
 			App->window->SetWindowsSize();
 		}
-		if (ImGui::SliderInt("Window Height", &App->window->screenHeight, 480, App->window->maxScreenHeight))
+		if (ImGui::SliderInt("Window Height", &App->window->screenHeight, 480, App->window->GetMaxScreenHeight()))
 		{
 			App->window->SetWindowsSize();
 		}
 
 		ImGui::Text("Refresh Rate: ");
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", App->window->refreshRate);
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i", App->window->GetScreenRefreshRate());
 
-		if (ImGui::Checkbox("Full Screen", &App->window->winFullScreen))
+		static bool wfullscreen = App->window->GetFullScreen();
+		if (ImGui::Checkbox("Full Screen", &wfullscreen))
 		{
-			App->window->SetFullScreen(App->window->winFullScreen);
+			App->window->SetFullScreen(wfullscreen);
 		}
-		if (ImGui::Checkbox("Resizable", &App->window->winResizable))
+		static bool wresizable = App->window->GetResizable();
+		if (ImGui::Checkbox("Resizable", &wresizable))
 		{
-			App->window->SetResizable(App->window->winResizable);
+			App->window->SetResizable(wresizable);
 		}
-		if (ImGui::Checkbox("Borderless", &App->window->winBorderless))
+		static bool wborderless = App->window->GetBorderless();
+		if (ImGui::Checkbox("Borderless", &wborderless))
 		{
-			App->window->SetBorderless(App->window->winBorderless);
+			App->window->SetBorderless(wborderless);
 		}
-		if (ImGui::Checkbox("Full Desktop", &App->window->winFullScreenDesktop))
+		static bool wfulldesktop = App->window->GetFullScreenDesktop();
+		if (ImGui::Checkbox("Full Desktop", &wfulldesktop))
 		{
-			App->window->SetFullScreenDesktop(App->window->winFullScreenDesktop);
+			App->window->SetFullScreenDesktop(wfulldesktop);
 		}
 	}
 
