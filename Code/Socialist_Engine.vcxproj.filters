@@ -432,6 +432,7 @@
     <ClInclude Include="GUI_TopBar.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -664,5 +665,11 @@
     <None Include="MathGeoLib-1.5\src\Math\Matrix.inl">
       <Filter>External Tools\MathGeoLib\Math</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Socialist_Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
 </Project>

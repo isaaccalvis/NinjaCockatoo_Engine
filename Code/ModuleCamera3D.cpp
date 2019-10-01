@@ -75,7 +75,9 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
 	// TODO: TREURE LAST MESH D'AQUI
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) LookAt(App->meshes->lastMesh->GetPosition());
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) 
+		if (App->meshes->lastMesh != nullptr)
+			LookAt(App->meshes->lastMesh->GetPosition());
 
 	if (App->input->GetMouseZ() != 0)
 	{
@@ -86,7 +88,6 @@ update_status ModuleCamera3D::Update(float dt)
 	Reference += newPos;
 
 	// Mouse motion
-
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -96,7 +97,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if(dx != 0)
 		{
-			float DeltaX = (float)dx * mouse_sensitivity;
+			float DeltaX = (float)dx * mouse_sensitivity * dt;
 
 			X = math::float3x3::RotateY(DeltaX) * X;
 			Y = math::float3x3::RotateY(DeltaX) * Y;
@@ -105,7 +106,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if(dy != 0)
 		{
-			float DeltaY = (float)dy * mouse_sensitivity;
+			float DeltaY = (float)dy * mouse_sensitivity * dt;
 
 			Y = math::float3x3::RotateAxisAngle(X, DeltaY) * Y;
 			Z = math::float3x3::RotateAxisAngle(X, DeltaY) * Z;

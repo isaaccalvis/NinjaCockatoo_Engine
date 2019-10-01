@@ -192,6 +192,7 @@
     <ClInclude Include="pcg-c-0.94\extras\entropy.h" />
     <ClInclude Include="pcg-c-0.94\extras\pcg_spinlock.h" />
     <ClInclude Include="pcg-c-0.94\include\pcg_variants.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +274,12 @@
     <None Include="MathGeoLib-1.5\src\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="MathGeoLib-1.5\src\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="MathGeoLib-1.5\src\Math\Matrix.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Socialist_Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
