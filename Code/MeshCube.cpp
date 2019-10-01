@@ -6,14 +6,14 @@ MeshCube::MeshCube() : Mesh()
 {
 	verticesSize = 24;
 	verticesArray = new GLfloat[verticesSize]{
-		0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		0.0f, 1.0f, 1.0f
+		-0.5f, -0.5f, -0.5f,
+		0.5f, -0.5f, -0.5f,
+		0.5f, 0.5f, -0.5f,
+		-0.5f, 0.5f, -0.5f,
+		-0.5f, -0.5f, 0.5f,
+		0.5f, -0.5f, 0.5f,
+		0.5f, 0.5f, 0.5f,
+		-0.5f, 0.5f, 0.5f
 	};
 	
 	vertices = 0u;
