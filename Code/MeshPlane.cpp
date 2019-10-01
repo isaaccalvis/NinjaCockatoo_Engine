@@ -5,7 +5,7 @@
 MeshPlane::MeshPlane()
 {
 	verticesSize = 12;
-	GLfloat* verticesArray = new GLfloat[verticesSize]{
+	verticesArray = new GLfloat[verticesSize]{
 		-0.5f,  -0.5f, -0.5f,
 		0.5f,  -0.5f, -0.5f,
 		-0.5f,  -0.5f, 0.5f,
@@ -19,7 +19,7 @@ MeshPlane::MeshPlane()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	indicesSize = 6;
-	unsigned int* indicesArray = new unsigned int[indicesSize] {
+	indicesArray = new unsigned int[indicesSize] {
 		0,2,1,
 		2,3,1
 	};

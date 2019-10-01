@@ -17,6 +17,11 @@ Mesh::~Mesh()
 		delete[] indicesArray;
 	if (textureCoords != nullptr)
 		delete[] textureCoords;
+	if (normals != nullptr)
+		delete[] normals;
+	if (boundingBoxCube != nullptr)
+		delete boundingBoxCube;
+	texture = nullptr;
 }
 
 void Mesh::Render()

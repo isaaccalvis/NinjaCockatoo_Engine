@@ -26,7 +26,7 @@ MeshDebugCube::MeshDebugCube(math::float3 center, math::float3 resize) : Mesh()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	indicesSize = 24;
-	unsigned int* indicesArray = new unsigned int[indicesSize] {
+	indicesArray = new unsigned int[indicesSize] {
 		0,1,
 		1,2,
 		2,3,

@@ -5,7 +5,7 @@
 MeshCylinder::MeshCylinder() : Mesh()
 {
 	verticesSize = 24;
-	GLfloat* verticesArray = new GLfloat[verticesSize];
+	verticesArray = new GLfloat[verticesSize];
 
 	float x;
 	float y;
@@ -24,7 +24,7 @@ MeshCylinder::MeshCylinder() : Mesh()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	indicesSize = 36;
-	unsigned int* indicesArray = new unsigned int[indicesSize] {
+	indicesArray = new unsigned int[indicesSize] {
 			2, 1, 0,
 			3, 2, 0,
 			2, 5, 1,

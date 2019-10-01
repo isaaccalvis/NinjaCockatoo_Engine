@@ -5,6 +5,8 @@
 
 #include "mmgr/mmgr.h"
 
+// TODO, PREGUNTA: EL MODUL HARDWARE NO ES UN MODUL, EL TREC ?
+
 ModuleHardware::ModuleHardware(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "hardware";
