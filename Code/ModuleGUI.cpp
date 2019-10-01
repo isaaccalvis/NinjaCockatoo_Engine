@@ -87,16 +87,6 @@ bool ModuleGUI::CleanUp()
 	return true;
 }
 
-bool ModuleGUI::Save(JSON_Object* root_object)
-{
-	return true;
-}
-
-bool ModuleGUI::Load(JSON_Object* root_object)
-{
-	return true;
-}
-
 GUI_Panel* ModuleGUI::GetGUIPanel(GUI_WINDOWS type)
 {
 	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)

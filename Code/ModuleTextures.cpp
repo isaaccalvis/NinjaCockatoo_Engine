@@ -3,6 +3,10 @@
 
 #include "mmgr/mmgr.h"
 
+// =========================================================================================
+// =======================================  TEXTURES =======================================
+// =========================================================================================
+
 Texture::Texture()
 {
 
@@ -43,6 +47,10 @@ int Texture::GetHeigh() const
 	return heigh;
 }
 
+// =========================================================================================
+// ==================================== MODULE TEXTURES ====================================
+// =========================================================================================
+
 ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleTextures";
@@ -50,6 +58,11 @@ ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(ap
 
 bool ModuleTextures::CleanUp()
 {
+	// TODO, PREGUNTA: COM NETEJAR BE LES TEXTURES ?
+	for (std::list<Texture*>::iterator item = textures.begin(); item != textures.end(); item++)
+	{
+		delete (*item);
+	}
 	textures.clear();
 
 	if (last_texture != nullptr)

@@ -14,9 +14,6 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
-
 	GUI_Panel* GetGUIPanel(GUI_WINDOWS type);
 
 private:

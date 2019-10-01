@@ -13,9 +13,6 @@ public:
 
 	update_status Update(float dt);
 	bool CleanUp();
-
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
 	
 	void AddMesh(Mesh* mesh);
 	void DeleteMesh(Mesh* mesh);

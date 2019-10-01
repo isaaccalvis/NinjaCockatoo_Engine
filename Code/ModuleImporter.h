@@ -13,7 +13,6 @@ public:
 	ModuleImporter(Application* app, bool start_enabled = true);
 
 	bool Start();
-	update_status Update(float dt);
 	bool CleanUp();
 
 	bool Save(JSON_Object* root_object);

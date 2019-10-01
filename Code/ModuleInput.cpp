@@ -141,16 +141,6 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
-bool ModuleInput::Save(JSON_Object* root_object)
-{
-	return true;
-}
-
-bool ModuleInput::Load(JSON_Object* root_object)
-{
-	return true;
-}
-
 KEY_STATE ModuleInput::GetKey(int id) const
 {
 	return keyboard[id];

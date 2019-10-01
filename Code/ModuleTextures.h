@@ -12,6 +12,7 @@ public:
 	void SetBufferPos(unsigned int nBufferPos);
 	void SetWidth(int nWidth);
 	void SetHeigh(int nHeigh);
+
 	unsigned int GetBufferPos() const;
 	int GetWidth() const;
 	int GetHeigh() const;

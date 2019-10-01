@@ -43,16 +43,6 @@ bool ModuleMeshes::CleanUp()
 	return true;
 }
 
-bool ModuleMeshes::Save(JSON_Object* root_object)
-{
-	return true;
-}
-
-bool ModuleMeshes::Load(JSON_Object* root_object)
-{
-	return true;
-}
-
 void ModuleMeshes::AddMesh(Mesh* mesh)
 {
 	if (mesh != nullptr)

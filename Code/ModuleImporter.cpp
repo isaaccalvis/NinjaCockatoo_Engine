@@ -55,11 +55,6 @@ bool ModuleImporter::Start()
 	return ret;
 }
 
-update_status ModuleImporter::Update(float dt)
-{
-	return update_status::UPDATE_CONTINUE;
-}
-
 bool ModuleImporter::CleanUp()
 {
 	return true;

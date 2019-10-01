@@ -28,9 +28,6 @@ public:
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
-
 	KEY_STATE GetKey(int id) const;
 	KEY_STATE GetMouseButton(int id) const;
 	int GetMouseX() const;
@@ -38,6 +35,7 @@ public:
 	int GetMouseZ() const;
 	int GetMouseXMotion() const;
 	int GetMouseYMotion() const;
+
 	void LoadPCGSeed(int argc, char** argv);
 
 private:
