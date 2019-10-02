@@ -13,6 +13,7 @@ Application::Application()
 	meshes = new ModuleMeshes(this);
 	importer = new ModuleImporter(this);
 	textures = new ModuleTextures(this);
+	scene = new ModuleScene(this);
 
 	console = new Console(this);
 
@@ -23,6 +24,7 @@ Application::Application()
 	AddModule(meshes);
 	AddModule(importer);
 	AddModule(textures);
+	AddModule(scene);
 
 	AddModule(console);
 
