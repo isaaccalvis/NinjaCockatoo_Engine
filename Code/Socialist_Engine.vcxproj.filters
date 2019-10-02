@@ -76,6 +76,12 @@
     <Filter Include="Engine\GUI\Panels">
       <UniqueIdentifier>{1e86572b-b042-4e03-a870-f81e435a6eab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{96dad777-55b7-41bf-a15f-f175b23b1d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components">
+      <UniqueIdentifier>{a75f07ae-9f6e-4b8e-b3c8-f7ec84708d90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -436,6 +442,9 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -650,6 +659,9 @@
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
