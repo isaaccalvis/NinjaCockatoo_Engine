@@ -24,8 +24,8 @@ public:
 
 	void Update(float dt);
 
-	Component* CreateComponent(COMPONENT_TYPE type, std::string name);
-	Component* GetComponent(COMPONENT_TYPE type, std::string name);
+	Component* CreateComponent(COMPONENT_TYPE type, std::string name = nullptr);
+	Component* GetComponent(COMPONENT_TYPE type, std::string name = nullptr);
 public:
 
 private:

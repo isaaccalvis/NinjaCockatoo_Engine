@@ -74,27 +74,34 @@ bool ModuleImporter::Load(JSON_Object* root_object)
 
 void ModuleImporter::DistributeObjectToLoad(const char* path)
 {
-	std::string name_extension(path);
-	name_extension = name_extension.substr(name_extension.find_last_of(92) + 1);
-	std::string extension = name_extension;
+	std::string direction_without_name(path);
+	direction_without_name = direction_without_name.substr(0, direction_without_name.find_last_of(92) + 1);
+	std::string name_and_extension(path);
+	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+	std::string extension = name_and_extension;
 	extension = extension.substr(extension.find_last_of('.') + 1);
-	std::string finalPath = resources_directory + name_extension;
+	std::string toSavePath = resources_directory + name_and_extension;
 
-	CopyFile(path, finalPath.c_str(), true);
+	CopyFile(path, toSavePath.c_str(), true);
 
 	if (extension == "fbx")
 	{
-		LoadMesh(finalPath.c_str());
+		LoadMesh(toSavePath.c_str(), direction_without_name.c_str());
 	}
 	else if (extension == "dds" || extension == "png")
 	{
-		LoadTexture(finalPath.c_str());
+		LoadTexture(toSavePath.c_str());
 	}
 }
 
 // TODO: Carregar la mesh aqui
-void ModuleImporter::LoadMesh(const char* path)
+void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 {
+	//LOG_CONSOLE(path);
+	//std::string name_extension(path);
+	//name_extension = name_extension.substr(name_extension.find_last_of(92) + 1);
+	//LOG_CONSOLE(name_extension.c_str());
+
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
 	if (!scene)
@@ -106,6 +113,17 @@ void ModuleImporter::LoadMesh(const char* path)
 	{
 		MeshCustom* mesh = new MeshCustom(scene, i);
 		App->meshes->AddMesh(mesh);
+
+		// TODO, PREGUNTA : buscar al path original i a la carpeta resources ??
+		if (scene->HasMaterials() > i)
+		{
+			aiString str;
+			scene->mMaterials[i]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
+			std::string tmp_texture_path(originalPath);
+			tmp_texture_path.append(str.C_Str());
+			App->importer->LoadTexture(tmp_texture_path.c_str());
+			str.Clear();
+		}
 	}
 }
 

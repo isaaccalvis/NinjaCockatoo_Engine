@@ -20,7 +20,7 @@ public:
 
 	void DistributeObjectToLoad(const char* path);
 
-	void LoadMesh(const char* path);
+	void LoadMesh(const char* path, const char* originalPath = nullptr);
 	Texture* LoadTexture(const char* path);
 
 	const std::string GetResourcesDirectory() const;
