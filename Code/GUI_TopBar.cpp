@@ -24,6 +24,7 @@ void GUI_TopBar::Draw()
 			{
 				// TODO: FIX THAT
 				//ret = false;
+				App->gui->CloseEngineFromGui();
 			}
 			ImGui::EndMenu();
 		}

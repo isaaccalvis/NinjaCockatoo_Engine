@@ -46,7 +46,7 @@ bool ModuleGUI::Start()
 	return true;
 }
 
-update_status ModuleGUI::Update(float dt)
+update_status ModuleGUI::PostUpdate(float dt)
 {
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->GetWindow());
@@ -76,6 +76,10 @@ update_status ModuleGUI::Update(float dt)
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
+	if (closeEngine)
+	{
+		return update_status::UPDATE_STOP;
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -95,4 +99,9 @@ GUI_Panel* ModuleGUI::GetGUIPanel(GUI_WINDOWS type)
 			return (*it);
 	}
 	return nullptr;
+}
+
+void ModuleGUI::CloseEngineFromGui()
+{
+	closeEngine = true;
 }

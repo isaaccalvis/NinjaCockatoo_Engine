@@ -11,14 +11,16 @@ public:
 	ModuleGUI(Application* app, bool start_enabled = true);
 
 	bool Start();
-	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 	GUI_Panel* GetGUIPanel(GUI_WINDOWS type);
 
+	void CloseEngineFromGui();
 private:
 	SDL_version sdl_version;
 	std::list<GUI_Panel*> guiPanels;
+	bool closeEngine = false;
 };
 
 #endif
