@@ -1,16 +1,12 @@
 #include "Component.h"
 
-Component::Component()
+Component::Component(GameObject* parent, COMPONENT_TYPE type)
 {
-
+	this->parent = parent;
+	this->type = type;
 }
 
 Component::~Component()
-{
-
-}
-
-void Component::Update(float dt)
 {
 
 }

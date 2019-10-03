@@ -80,6 +80,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="C_Transform.h" />
     <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="DevIL\include\IL\devil_internal_exports.h" />
     <ClInclude Include="DevIL\include\IL\il.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="C_Transform.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gpudetect\DeviceId.cpp" />

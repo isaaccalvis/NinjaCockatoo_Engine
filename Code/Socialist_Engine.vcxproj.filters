@@ -448,6 +448,9 @@
     <ClInclude Include="Component.h">
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
+    <ClInclude Include="C_Transform.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -667,6 +670,9 @@
       <Filter>Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Transform.cpp">
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
   </ItemGroup>

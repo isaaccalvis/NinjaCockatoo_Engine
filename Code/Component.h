@@ -6,10 +6,10 @@
 class Component
 {
 public:
-	Component();
+	Component(GameObject* parent, COMPONENT_TYPE type);
 	~Component();
 
-	void Update(float dt);
+	virtual void Update(float dt) = 0;
 
 	void SetEnable(bool set);
 	bool GetEnabled();

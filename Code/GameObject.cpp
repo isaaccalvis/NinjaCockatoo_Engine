@@ -21,6 +21,26 @@ void GameObject::Update(float dt)
 
 }
 
+void GameObject::SetName(const char* name)
+{
+	this->name = name;
+}
+
+void GameObject::SetParent(GameObject* parent)
+{
+	this->parent = parent;
+}
+
+std::string GameObject::GetName() const
+{
+	return name;
+}
+
+GameObject* GameObject::GetParent() const
+{
+	return parent;
+}
+
 Component* GameObject::CreateComponent(COMPONENT_TYPE type, std::string name)
 {
 	return nullptr;

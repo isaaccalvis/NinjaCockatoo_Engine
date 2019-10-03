@@ -12,9 +12,9 @@ public:
 	ModuleWindow(Application* app, bool start_enabled = true);
 	virtual ~ModuleWindow();
 
-	bool Init(JSON_Object* root_object);
-	update_status Update(float dt);
-	bool CleanUp();
+	bool			Init(JSON_Object* root_object);
+	update_status	Update(float dt);
+	bool			CleanUp();
 
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
@@ -45,14 +45,14 @@ public:
 	SDL_Window*	GetWindow() const;
 	void		SetWindow(SDL_Window* nWindow);
 
-public: // TODO: MILLOR PASSAR TOTES LES VARIABLES A PRIVATE ???
+public:
 	int		screenWidth = 0;
 	int		screenHeight = 0;
 	int		screenSize = 1;
 
 private:
-	SDL_Window* window = nullptr;
-	SDL_Surface* screen_surface = nullptr;
+	SDL_Window*		window = nullptr;
+	SDL_Surface*	screen_surface = nullptr;
 
 	char*	winTitle = nullptr;
 	char*	organization = nullptr;
@@ -64,9 +64,9 @@ private:
 	bool	winVsync = false;
 	int		winBrightness = 255;
 
-	int maxScreenWidth;
-	int maxScreenHeight;
-	int refreshRate;
+	int		maxScreenWidth;
+	int		maxScreenHeight;
+	int		refreshRate;
 };
 
 #endif

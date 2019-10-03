@@ -24,9 +24,14 @@ public:
 
 	void Update(float dt);
 
+	void SetName(const char* name);
+	void SetParent(GameObject* parent);
+
+	std::string GetName() const;
+	GameObject* GetParent() const;
+
 	Component* CreateComponent(COMPONENT_TYPE type, std::string name = nullptr);
 	Component* GetComponent(COMPONENT_TYPE type, std::string name = nullptr);
-public:
 
 private:
 	std::string name;
