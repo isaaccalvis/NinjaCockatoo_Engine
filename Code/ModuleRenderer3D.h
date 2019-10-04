@@ -1,6 +1,8 @@
-#pragma once
-#include "Module.h"
+#ifndef __ModuleRenderer3D_H__
+#define __ModuleRenderer3D_H__
+
 #include "Globals.h"
+#include "Module.h"
 #include "Light.h"
 #include "Mesh.h"
 
@@ -44,11 +46,7 @@ public:
 	void AddMesh(Mesh* mesh);
 	void ClearMeshes();
 	void DeleteMesh(Mesh* mesh);
-	Mesh* AddCube();
-	Mesh* AddPlane();
-	Mesh* AddSphere();
-	Mesh* AddFrustrum();
-	Mesh* AddCylinder();
+	Mesh* AddPrimitive(PRIMITIVE_MESHES type);
 
 private:
 	SDL_GLContext context;
@@ -68,3 +66,5 @@ public:
 	bool renderGlAlphaTest = false;
 	bool renderGlLineSmooth = false;
 };
+
+#endif

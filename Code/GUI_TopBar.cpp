@@ -43,23 +43,23 @@ void GUI_TopBar::Draw()
 		{
 			if (ImGui::MenuItem("Cube"))
 			{
-				App->renderer3D->AddCube();
+				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CUBE);
 			}
 			if (ImGui::MenuItem("Plane"))
 			{
-				App->renderer3D->AddPlane();
+				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_PLANE);
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
-				App->renderer3D->AddSphere();
+				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_SPHERE);
 			}
 			if (ImGui::MenuItem("Frustrum"))
 			{
-				App->renderer3D->AddFrustrum();
+				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_FRUSTRUM);
 			}
 			if (ImGui::MenuItem("Cylinder"))
 			{
-				App->renderer3D->AddCylinder();
+				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CYLINDER);
 			}
 			ImGui::EndMenu();
 		}

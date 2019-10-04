@@ -27,9 +27,9 @@ public:
 
 protected:
 	// Transform
-	math::float3 position = { 0,0,0 };
+	math::float3 position = math::float3::zero;
 	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
-	math::float3 scale = { 1,1,1 };
+	math::float3 scale = math::float3::one;
 
 	// Vertices
 	unsigned int vertices = 0u;

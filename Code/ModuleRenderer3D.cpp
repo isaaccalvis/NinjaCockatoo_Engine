@@ -4,12 +4,8 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
 
-#include "MeshCube.h"
-#include "MeshPlane.h"
-#include "MeshSphere.h"
+#include "Primitive.h"
 #include "MeshCustom.h"
-#include "MeshFrustrum.h"
-#include "MeshCylinder.h"
 
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
@@ -337,37 +333,9 @@ void ModuleRenderer3D::DeleteMesh(Mesh* mesh)
 	}
 }
 
-Mesh* ModuleRenderer3D::AddCube()
+Mesh* ModuleRenderer3D::AddPrimitive(PRIMITIVE_MESHES type)
 {
-	Mesh *tmp_mesh = new MeshCube();
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}
-
-Mesh* ModuleRenderer3D::AddFrustrum()
-{
-	Mesh *tmp_mesh = new MeshFrustrum();
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}
-
-Mesh* ModuleRenderer3D::AddCylinder()
-{
-	Mesh *tmp_mesh = new MeshCylinder();
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}
-
-Mesh* ModuleRenderer3D::AddPlane()
-{
-	Mesh *tmp_mesh = new MeshPlane();
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}
-
-Mesh* ModuleRenderer3D::AddSphere()
-{
-	Mesh *tmp_mesh = new MeshSphere(12, 24);
+	Mesh *tmp_mesh = new MeshPrimitive(type);
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }

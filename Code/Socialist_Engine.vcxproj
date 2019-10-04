@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>Socialist_Engine</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -173,14 +173,9 @@
     <ClInclude Include="MathGeoLib-1.5\src\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib-1.5\src\Time\Clock.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshCube.h" />
     <ClInclude Include="MeshCustom.h" />
-    <ClInclude Include="MeshCylinder.h" />
     <ClInclude Include="DebugArrow.h" />
     <ClInclude Include="DebugCube.h" />
-    <ClInclude Include="MeshFrustrum.h" />
-    <ClInclude Include="MeshPlane.h" />
-    <ClInclude Include="MeshSphere.h" />
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleCamera3D.h" />
@@ -197,6 +192,7 @@
     <ClInclude Include="pcg-c-0.94\extras\entropy.h" />
     <ClInclude Include="pcg-c-0.94\extras\pcg_spinlock.h" />
     <ClInclude Include="pcg-c-0.94\include\pcg_variants.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
@@ -255,14 +251,9 @@
     <ClCompile Include="MathGeoLib-1.5\src\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib-1.5\src\Time\Clock.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshCube.cpp" />
     <ClCompile Include="MeshCustom.cpp" />
-    <ClCompile Include="MeshCylinder.cpp" />
     <ClCompile Include="DebugArrow.cpp" />
     <ClCompile Include="DebugCube.cpp" />
-    <ClCompile Include="MeshFrustrum.cpp" />
-    <ClCompile Include="MeshPlane.cpp" />
-    <ClCompile Include="MeshSphere.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleGUI.cpp" />
@@ -275,6 +266,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson\parson.c" />
     <ClCompile Include="pcg-c-0.94\extras\entropy.c" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
