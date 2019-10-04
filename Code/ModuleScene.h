@@ -12,6 +12,7 @@ public:
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
+	bool Init();
 	update_status Update(float dt);
 	bool CleanUp();
 
@@ -20,7 +21,7 @@ public:
 	void DeleteGameObject(GameObject* go);
 	GameObject* SearchGameObject(std::string name);
 
-private:
+public: // TODO: PASSAR A PRIVAT
 	GameObject* root = nullptr;
 	std::vector<GameObject*> gameObjects;
 

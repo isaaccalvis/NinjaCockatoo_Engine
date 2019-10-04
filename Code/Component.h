@@ -3,6 +3,10 @@
 
 #include "GameObject.h"
 
+class C_Transform;
+class C_Mesh;
+class C_Material;
+
 class Component
 {
 public:
@@ -13,6 +17,10 @@ public:
 
 	void SetEnable(bool set);
 	bool GetEnabled();
+
+	C_Transform* GetComponentTransform() const;
+	C_Mesh* GetComponentMesh() const;
+	C_Material* GetComponentMaterial() const;
 
 public:
 	COMPONENT_TYPE type;

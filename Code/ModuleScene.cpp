@@ -10,6 +10,13 @@ ModuleScene::~ModuleScene()
 
 }
 
+bool ModuleScene::Init()
+{
+	root = new GameObject();
+	root->parent = nullptr;
+	return true;
+}
+
 update_status ModuleScene::Update(float dt)
 {
 
@@ -35,8 +42,9 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 	GameObject* go = new GameObject(name);
 	if (parent != nullptr)
 	{
-		go->SetParent(go);
+		go->SetParent(root);
 	}
+	go->CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 	AddGameObject(go);
 	return go;
 }

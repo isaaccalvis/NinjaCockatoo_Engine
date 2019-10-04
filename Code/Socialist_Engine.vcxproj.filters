@@ -442,6 +442,9 @@
     <ClInclude Include="Primitive.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
+    <ClInclude Include="GUI_Hireachy.h">
+      <Filter>Engine\GUI\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -656,6 +659,9 @@
     </ClCompile>
     <ClCompile Include="Primitive.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Hireachy.cpp">
+      <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

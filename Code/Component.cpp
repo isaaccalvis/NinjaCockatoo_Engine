@@ -20,3 +20,18 @@ bool Component::GetEnabled()
 {
 	return active;
 }
+
+C_Transform* Component::GetComponentTransform() const
+{
+	return (C_Transform*)this;
+}
+
+C_Mesh* Component::GetComponentMesh() const
+{
+	return (C_Mesh*)this;
+}
+
+C_Material* Component::GetComponentMaterial() const
+{
+	return (C_Material*)this;
+}

@@ -33,8 +33,8 @@ public:
 	Component* CreateComponent(COMPONENT_TYPE type, std::string name = nullptr);
 	Component* GetComponent(COMPONENT_TYPE type, std::string name = nullptr);
 
-private:
-	std::string name;
+public:
+	std::string name = "";
 	GameObject* parent = nullptr;
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;

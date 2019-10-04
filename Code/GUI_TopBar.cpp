@@ -41,6 +41,10 @@ void GUI_TopBar::Draw()
 		}
 		if (ImGui::BeginMenu("GameObject"))
 		{
+			if (ImGui::MenuItem("Empty"))
+			{
+				App->scene->CreateGameObject("Empty");
+			}
 			if (ImGui::MenuItem("Cube"))
 			{
 				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CUBE);

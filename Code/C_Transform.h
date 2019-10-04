@@ -7,7 +7,7 @@
 #include "MathGeoLib-1.5/src/Math/Quat.h"
 #include "MathGeoLib-1.5/src/Math/float4x4.h"
 
-class C_Transform : Component
+class C_Transform : public Component
 {
 public:
 	C_Transform(GameObject* parent);

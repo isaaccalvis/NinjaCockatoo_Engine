@@ -3,7 +3,7 @@
 
 #include "Component.h"
 
-class C_Material : Component
+class C_Material : public Component
 {
 public:
 	C_Material(GameObject* parent);
