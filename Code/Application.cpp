@@ -10,7 +10,6 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	gui = new ModuleGUI(this);
 	hardware = new ModuleHardware(this);
-	meshes = new ModuleMeshes(this);
 	importer = new ModuleImporter(this);
 	textures = new ModuleTextures(this);
 	scene = new ModuleScene(this);
@@ -21,7 +20,6 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(gui);
-	AddModule(meshes);
 	AddModule(importer);
 	AddModule(textures);
 	AddModule(scene);

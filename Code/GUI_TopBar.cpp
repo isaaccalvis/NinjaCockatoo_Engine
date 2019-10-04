@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "GUI_TopBar.h"
 
-#include "ModuleMeshes.h"
+#include "ModuleRenderer3D.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
@@ -43,27 +43,27 @@ void GUI_TopBar::Draw()
 		{
 			if (ImGui::MenuItem("Cube"))
 			{
-				App->meshes->AddCube();
+				App->renderer3D->AddCube();
 			}
 			if (ImGui::MenuItem("Plane"))
 			{
-				App->meshes->AddPlane();
+				App->renderer3D->AddPlane();
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
-				App->meshes->AddSphere();
+				App->renderer3D->AddSphere();
 			}
 			if (ImGui::MenuItem("Frustrum"))
 			{
-				App->meshes->AddFrustrum();
+				App->renderer3D->AddFrustrum();
 			}
 			if (ImGui::MenuItem("Cylinder"))
 			{
-				App->meshes->AddCylinder();
+				App->renderer3D->AddCylinder();
 			}
 			if (ImGui::MenuItem("DebugCube"))
 			{
-				App->meshes->AddDebugCube();
+				App->renderer3D->AddDebugCube();
 			}
 			ImGui::EndMenu();
 		}

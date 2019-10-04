@@ -112,7 +112,7 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		MeshCustom* mesh = new MeshCustom(scene, i);
-		App->meshes->AddMesh(mesh);
+		App->renderer3D->AddMesh(mesh);
 
 		// TODO, PREGUNTA : buscar al path original i a la carpeta resources ??
 		if (scene->HasMaterials() > i)

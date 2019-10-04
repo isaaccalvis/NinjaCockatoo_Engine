@@ -16,27 +16,27 @@ void GUI_Properties::Draw()
 
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-		if (App->meshes->lastMesh != nullptr)
+		if (App->renderer3D->lastMesh != nullptr)
 		{
-			float auxPos[3] = { App->meshes->lastMesh->GetPosition().x, App->meshes->lastMesh->GetPosition().y, App->meshes->lastMesh->GetPosition().z };
+			float auxPos[3] = { App->renderer3D->lastMesh->GetPosition().x, App->renderer3D->lastMesh->GetPosition().y, App->renderer3D->lastMesh->GetPosition().z };
 			if (ImGui::InputFloat3("Position", auxPos))
 			{
-				App->meshes->lastMesh->SetPosition(math::float3(auxPos[0], auxPos[1], auxPos[2]));
+				App->renderer3D->lastMesh->SetPosition(math::float3(auxPos[0], auxPos[1], auxPos[2]));
 			}
 			ImGui::Text("Rotation:\t - , - , -");
-			static float auxScale[3] = { App->meshes->lastMesh->GetScale().x, App->meshes->lastMesh->GetScale().y, App->meshes->lastMesh->GetScale().z };
+			static float auxScale[3] = { App->renderer3D->lastMesh->GetScale().x, App->renderer3D->lastMesh->GetScale().y, App->renderer3D->lastMesh->GetScale().z };
 			if (ImGui::InputFloat3("Scale", auxScale))
 			{
-				App->meshes->lastMesh->SetScale(math::float3(auxScale[0], auxScale[1], auxScale[2]));
+				App->renderer3D->lastMesh->SetScale(math::float3(auxScale[0], auxScale[1], auxScale[2]));
 			}
 		}
 	}
 	if (ImGui::CollapsingHeader("Geometry"))
 	{
-		if (App->meshes->lastMesh != nullptr)
+		if (App->renderer3D->lastMesh != nullptr)
 		{
-			ImGui::Text("Triangles:\t %i", App->meshes->lastMesh->GetIndicesSize() / 3);
-			ImGui::Text("Vertex:\t\t%i ", App->meshes->lastMesh->GetVerticesSize() / 3);
+			ImGui::Text("Triangles:\t %i", App->renderer3D->lastMesh->GetIndicesSize() / 3);
+			ImGui::Text("Vertex:\t\t%i ", App->renderer3D->lastMesh->GetVerticesSize() / 3);
 		}
 	}
 	if (ImGui::CollapsingHeader("Texture"))

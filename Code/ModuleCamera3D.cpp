@@ -76,8 +76,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// TODO: TREURE LAST MESH D'AQUI
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) 
-		if (App->meshes->lastMesh != nullptr)
-			LookAt(App->meshes->lastMesh->GetPosition());
+		if (App->renderer3D->lastMesh != nullptr)
+			LookAt(App->renderer3D->lastMesh->GetPosition());
 
 	if (App->input->GetMouseZ() != 0)
 	{

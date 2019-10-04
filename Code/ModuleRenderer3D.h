@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Light.h"
+#include "Mesh.h"
 
 #define MAX_LIGHTS 8
 
@@ -40,16 +41,26 @@ public:
 	//bool GetGlTexture();
 	//bool GetGlAlphaTest();
 	//bool GetGlLineSmooth();
+	void AddMesh(Mesh* mesh);
+	void ClearMeshes();
+	void DeleteMesh(Mesh* mesh);
+	Mesh* AddCube();
+	Mesh* AddPlane();
+	Mesh* AddSphere();
+	Mesh* AddFrustrum();
+	Mesh* AddCylinder();
+	Mesh* AddDebugCube();
+
 private:
 	SDL_GLContext context;
 	bool renderWireframeMode = false;
 
 public:
+	std::list<Mesh*> meshes;
+	Mesh* lastMesh = nullptr;
+
 	Light lights[MAX_LIGHTS];
 	
-	//math::float3x3 NormalMatrix;
-	//math::float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
-
 	bool renderGlDepthTest = true;
 	bool renderGlCullFace = true;
 	bool renderGlLighting = true;

@@ -348,9 +348,6 @@
     <ClInclude Include="glew-2.1.0\include\GL\wglew.h">
       <Filter>External Tools\glew</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleMeshes.h">
-      <Filter>Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Engine\Meshes</Filter>
     </ClInclude>
@@ -611,9 +608,6 @@
     </ClCompile>
     <ClCompile Include="gpudetect\DeviceId.cpp">
       <Filter>External Tools\gpudetect</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleMeshes.cpp">
-      <Filter>Engine\Modules</Filter>
     </ClCompile>
     <ClCompile Include="MeshCube.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
