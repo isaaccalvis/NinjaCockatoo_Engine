@@ -33,6 +33,11 @@ DebugArrow::DebugArrow(math::float3 origin, math::float3 end)
 
 DebugArrow::~DebugArrow()
 {
+	CleanUp();
+}
+
+void DebugArrow::CleanUp()
+{
 	glDeleteBuffers(1, (GLuint*)&vertices);
 	glDeleteBuffers(1, (GLuint*)&indices);
 	if (verticesArray != nullptr)
@@ -57,15 +62,11 @@ void DebugArrow::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-}           
+}
 
 void DebugArrow::SetDebugArrow(math::float3 origin, math::float3 end)
 {
-	// Clean old Arrow
-	delete[] verticesArray;
-	delete[] indicesArray;
-	glDeleteBuffers(1, (GLuint*)&vertices);
-	glDeleteBuffers(1, (GLuint*)&indices);
+	CleanUp();
 
 	// Set new Arrow
 	verticesSize = 6;

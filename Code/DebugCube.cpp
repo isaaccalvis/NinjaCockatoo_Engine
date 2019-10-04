@@ -1,6 +1,6 @@
-#include "MeshDebugCube.h"
+#include "DebugCube.h"
 
-MeshDebugCube::MeshDebugCube(math::float3 center, math::float3 resize) : Mesh()
+DebugCube::DebugCube(math::float3 center, math::float3 resize)
 {
 	position = center;
 	scale = resize;
@@ -46,7 +46,18 @@ MeshDebugCube::MeshDebugCube(math::float3 center, math::float3 resize) : Mesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void MeshDebugCube::Render()
+DebugCube::~DebugCube()
+{
+	glDeleteBuffers(1, (GLuint*)&vertices);
+	glDeleteBuffers(1, (GLuint*)&indices);
+	if (verticesArray != nullptr)
+		delete[] verticesArray;
+	if (indicesArray != nullptr)
+		delete[] indicesArray;
+}
+
+
+void DebugCube::Render()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 

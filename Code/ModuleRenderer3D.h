@@ -49,7 +49,6 @@ public:
 	Mesh* AddSphere();
 	Mesh* AddFrustrum();
 	Mesh* AddCylinder();
-	Mesh* AddDebugCube();
 
 private:
 	SDL_GLContext context;

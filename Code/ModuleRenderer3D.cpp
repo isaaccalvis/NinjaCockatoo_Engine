@@ -11,7 +11,6 @@
 #include "MeshFrustrum.h"
 #include "MeshCylinder.h"
 
-#include "MeshDebugCube.h"
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glew-2.1.0/libx86/Win32/glew32.lib")
@@ -355,14 +354,6 @@ Mesh* ModuleRenderer3D::AddFrustrum()
 Mesh* ModuleRenderer3D::AddCylinder()
 {
 	Mesh *tmp_mesh = new MeshCylinder();
-	AddMesh(tmp_mesh);
-	return tmp_mesh;
-}
-
-
-Mesh* ModuleRenderer3D::AddDebugCube()
-{
-	Mesh *tmp_mesh = new MeshDebugCube();
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }

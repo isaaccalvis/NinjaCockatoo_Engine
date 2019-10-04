@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "MeshCustom.h"
-#include "MeshDebugCube.h"
+#include "DebugCube.h"
 
 MeshCustom::MeshCustom()
 {}
@@ -76,7 +76,7 @@ MeshCustom::MeshCustom(const aiScene* scene, int num) : Mesh()
 	// Bounding Box
 	boundingBox.SetNegativeInfinity();
 	boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
-	boundingBoxCube = new MeshDebugCube(boundingBox.CenterPoint(), boundingBox.Size());
+	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 
 	// TODO: PREGUNTA, COM PILLAR TEXTURES
 

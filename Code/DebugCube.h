@@ -1,20 +1,16 @@
-#ifndef __DebugArrow_H__
-#define __DebugArrow_H__
+#ifndef __DebugCube_H__
+#define __DebugCube_H__
 
 #include "MathGeoLib-1.5\src\Math\float3.h"
 #include "glew-2.1.0/include/GL/glew.h"
 
-class DebugArrow
+class DebugCube
 {
 public:
-	DebugArrow();
-	DebugArrow(math::float3 origin, math::float3 end);
-	~DebugArrow();
+	DebugCube(math::float3 center = math::float3(0,0,0), math::float3 resize = math::float3(1, 1, 1));
+	~DebugCube();
 
-	void CleanUp();
 	void Render();
-
-	void SetDebugArrow(math::float3 origin, math::float3 end);
 
 public:
 	// Vertices
@@ -26,6 +22,10 @@ public:
 	unsigned int indices = 0u;
 	unsigned int indicesSize = 0;
 	unsigned int* indicesArray = nullptr;
+
+	math::float3 position = { 0,0,0 };
+	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
+	math::float3 scale = { 1,1,1 };
 };
 
 #endif

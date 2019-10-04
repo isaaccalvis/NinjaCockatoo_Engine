@@ -61,10 +61,6 @@ void GUI_TopBar::Draw()
 			{
 				App->renderer3D->AddCylinder();
 			}
-			if (ImGui::MenuItem("DebugCube"))
-			{
-				App->renderer3D->AddDebugCube();
-			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

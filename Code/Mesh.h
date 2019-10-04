@@ -6,8 +6,7 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
 #include "DebugArrow.h"
-
-class MeshDebugCube;
+#include "DebugCube.h"
 
 class Mesh
 {
@@ -52,7 +51,7 @@ protected:
 
 	// Bounding Box & AABB
 	AABB boundingBox;
-	MeshDebugCube* boundingBoxCube = nullptr;
+	DebugCube* boundingBoxCube = nullptr;
 };
 
 #endif
