@@ -5,8 +5,8 @@
 #include "ModuleTextures.h"
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
+#include "DebugArrow.h"
 
-class MeshDebugArrow;
 class MeshDebugCube;
 
 class Mesh
@@ -48,7 +48,7 @@ protected:
 	Texture* texture = nullptr;
 
 	// Normals
-	MeshDebugArrow* normals = nullptr;
+	DebugArrow* normals = nullptr;
 
 	// Bounding Box & AABB
 	AABB boundingBox;

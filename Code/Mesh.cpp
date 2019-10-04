@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Mesh.h"
 
-#include "mmgr/mmgr.h"
-
 Mesh::Mesh()
 {}
 

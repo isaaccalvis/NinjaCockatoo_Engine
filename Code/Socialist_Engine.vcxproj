@@ -176,7 +176,7 @@
     <ClInclude Include="MeshCube.h" />
     <ClInclude Include="MeshCustom.h" />
     <ClInclude Include="MeshCylinder.h" />
-    <ClInclude Include="MeshDebugArrow.h" />
+    <ClInclude Include="DebugArrow.h" />
     <ClInclude Include="MeshDebugCube.h" />
     <ClInclude Include="MeshFrustrum.h" />
     <ClInclude Include="MeshPlane.h" />
@@ -258,7 +258,7 @@
     <ClCompile Include="MeshCube.cpp" />
     <ClCompile Include="MeshCustom.cpp" />
     <ClCompile Include="MeshCylinder.cpp" />
-    <ClCompile Include="MeshDebugArrow.cpp" />
+    <ClCompile Include="DebugArrow.cpp" />
     <ClCompile Include="MeshDebugCube.cpp" />
     <ClCompile Include="MeshFrustrum.cpp" />
     <ClCompile Include="MeshPlane.cpp" />

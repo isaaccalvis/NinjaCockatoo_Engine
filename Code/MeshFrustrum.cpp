@@ -1,7 +1,5 @@
 #include "MeshFrustrum.h"
 
-#include "mmgr/mmgr.h"
-
 MeshFrustrum::MeshFrustrum() : Mesh()
 {
 	verticesSize = 24;

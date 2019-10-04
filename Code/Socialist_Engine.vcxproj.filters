@@ -369,9 +369,6 @@
     <ClInclude Include="MeshFrustrum.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
-    <ClInclude Include="MeshDebugArrow.h">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
-    </ClInclude>
     <ClInclude Include="MeshDebugCube.h">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClInclude>
@@ -453,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="C_Material.h">
       <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugArrow.h">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -630,9 +630,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="MeshDebugArrow.cpp">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
-    </ClCompile>
     <ClCompile Include="MeshDebugCube.cpp">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClCompile>
@@ -680,6 +677,9 @@
     </ClCompile>
     <ClCompile Include="C_Material.cpp">
       <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugArrow.cpp">
+      <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

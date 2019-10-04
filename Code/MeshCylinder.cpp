@@ -1,7 +1,5 @@
 #include "MeshCylinder.h"
 
-#include "mmgr/mmgr.h"
-
 MeshCylinder::MeshCylinder() : Mesh()
 {
 	verticesSize = 24;

@@ -2,6 +2,7 @@
 #define __C_Mesh_H__
 
 #include "Component.h"
+#include "Mesh.h"
 
 class C_Mesh : Component
 {
@@ -11,6 +12,8 @@ public:
 
 	void Update(float dt);
 
+public:
+	Mesh* mesh;
 };
 
 #endif

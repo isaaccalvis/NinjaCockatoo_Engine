@@ -10,7 +10,7 @@ class ModuleWindow : public Module
 {
 public:
 	ModuleWindow(Application* app, bool start_enabled = true);
-	virtual ~ModuleWindow();
+	~ModuleWindow();
 
 	bool			Init(JSON_Object* root_object);
 	update_status	Update(float dt);

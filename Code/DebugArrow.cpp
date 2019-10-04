@@ -1,13 +1,11 @@
-#include "MeshDebugArrow.h"
+#include "DebugArrow.h"
 
-#include "mmgr/mmgr.h"
-
-MeshDebugArrow::MeshDebugArrow()
+DebugArrow::DebugArrow()
 {
 
 }
 
-MeshDebugArrow::MeshDebugArrow(math::float3 origin, math::float3 end) : Mesh()
+DebugArrow::DebugArrow(math::float3 origin, math::float3 end)
 {
 	verticesSize = 6;
 	verticesArray = new GLfloat[verticesSize]{
@@ -33,12 +31,22 @@ MeshDebugArrow::MeshDebugArrow(math::float3 origin, math::float3 end) : Mesh()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void MeshDebugArrow::Render()
+DebugArrow::~DebugArrow()
+{
+	glDeleteBuffers(1, (GLuint*)&vertices);
+	glDeleteBuffers(1, (GLuint*)&indices);
+	if (verticesArray != nullptr)
+		delete[] verticesArray;
+	if (indicesArray != nullptr)
+		delete[] indicesArray;
+}
+
+void DebugArrow::Render()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glTranslatef(position.x, position.y, position.z);
-	glScalef(scale.x, scale.y, scale.z);
+	//glTranslatef(position.x, position.y, position.z);
+	//glScalef(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -51,7 +59,7 @@ void MeshDebugArrow::Render()
 	glDisableClientState(GL_VERTEX_ARRAY);
 }           
 
-void MeshDebugArrow::SetDebugArrow(math::float3 origin, math::float3 end)
+void DebugArrow::SetDebugArrow(math::float3 origin, math::float3 end)
 {
 	// Clean old Arrow
 	delete[] verticesArray;

@@ -3,9 +3,6 @@
 
 #include "Mesh.h"
 
-#include "MeshDebugArrow.h"
-#include "MeshDebugCube.h"
-
 #include "Assimp/include/Importer.hpp"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"

@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "MeshCustom.h"
-
-#include "mmgr/mmgr.h"
+#include "MeshDebugCube.h"
 
 MeshCustom::MeshCustom()
 {}
@@ -67,7 +66,7 @@ MeshCustom::MeshCustom(const aiScene* scene, int num) : Mesh()
 	// Normals TODO: MAKE IT WORK
 	if (scene->mMeshes[num]->HasNormals())
 	{
-		normals = new MeshDebugArrow[scene->mMeshes[num]->mNumVertices];
+		normals = new DebugArrow[scene->mMeshes[num]->mNumVertices];
 		for (int i = 0; i < scene->mMeshes[num]->mNumVertices; i++)
 		{
 			normals[i].SetDebugArrow(math::float3(scene->mMeshes[num]->mVertices[i].x, scene->mMeshes[num]->mVertices[i].y, scene->mMeshes[num]->mVertices[i].z), math::float3(scene->mMeshes[num]->mVertices[i].x + scene->mMeshes[num]->mNormals[i].x, scene->mMeshes[num]->mVertices[i].y + scene->mMeshes[num]->mNormals[i].y, scene->mMeshes[num]->mVertices[i].z + scene->mMeshes[num]->mNormals[i].z));

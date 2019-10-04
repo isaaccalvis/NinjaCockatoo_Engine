@@ -1,7 +1,5 @@
 #include "MeshPlane.h"
 
-#include "mmgr/mmgr.h"
-
 MeshPlane::MeshPlane()
 {
 	verticesSize = 12;

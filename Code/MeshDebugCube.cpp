@@ -1,7 +1,5 @@
 #include "MeshDebugCube.h"
 
-#include "mmgr/mmgr.h"
-
 MeshDebugCube::MeshDebugCube(math::float3 center, math::float3 resize) : Mesh()
 {
 	position = center;
