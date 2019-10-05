@@ -23,6 +23,7 @@ public:
 
 public: // TODO: PASSAR A PRIVAT
 	GameObject* root = nullptr;
+	GameObject* goSelected = nullptr;
 	std::vector<GameObject*> gameObjects;
 
 };
