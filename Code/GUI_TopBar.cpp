@@ -3,6 +3,9 @@
 
 #include "ModuleRenderer3D.h"
 
+#include "Component.h"
+#include "C_Mesh.h"
+
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
@@ -47,23 +50,33 @@ void GUI_TopBar::Draw()
 			}
 			if (ImGui::MenuItem("Cube"))
 			{
-				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CUBE);
+				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CUBE);
 			}
 			if (ImGui::MenuItem("Plane"))
 			{
-				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_PLANE);
+				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_PLANE);
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
-				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_SPHERE);
+				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_SPHERE);
 			}
 			if (ImGui::MenuItem("Frustrum"))
 			{
-				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_FRUSTRUM);
+				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_FRUSTRUM);
 			}
 			if (ImGui::MenuItem("Cylinder"))
 			{
-				App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CYLINDER);
+				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CYLINDER);
 			}
 			ImGui::EndMenu();
 		}
