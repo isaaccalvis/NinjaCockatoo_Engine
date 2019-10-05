@@ -18,9 +18,9 @@ public:
 	void SetEnable(bool set);
 	bool GetEnabled();
 
-	C_Transform* GetComponentTransform() const;
-	C_Mesh* GetComponentMesh() const;
-	C_Material* GetComponentMaterial() const;
+	C_Transform* GetComponentAsTransform() const;
+	C_Mesh* GetComponentAsMesh() const;
+	C_Material* GetComponentAsMaterial() const;
 
 public:
 	COMPONENT_TYPE type;

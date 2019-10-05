@@ -42,7 +42,7 @@ GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 	GameObject* go = new GameObject(name);
 	if (parent != nullptr)
 	{
-		go->SetParent(root);
+		go->parent = root;
 	}
 	go->CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 	AddGameObject(go);
@@ -64,7 +64,7 @@ GameObject* ModuleScene::SearchGameObject(std::string name)
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		if (gameObjects[i]->GetName() == name)
+		if (gameObjects[i]->name == name)
 		{
 			return gameObjects[i];
 		}

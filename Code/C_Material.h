@@ -2,6 +2,7 @@
 #define __C_Material_H__
 
 #include "Component.h"
+#include "ModuleTextures.h"
 
 class C_Material : public Component
 {
@@ -11,6 +12,8 @@ public:
 
 	void Update(float dt);
 
+public:
+	Texture* texture = nullptr;
 };
 
 #endif

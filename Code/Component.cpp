@@ -21,17 +21,17 @@ bool Component::GetEnabled()
 	return active;
 }
 
-C_Transform* Component::GetComponentTransform() const
+C_Transform* Component::GetComponentAsTransform() const
 {
 	return (C_Transform*)this;
 }
 
-C_Mesh* Component::GetComponentMesh() const
+C_Mesh* Component::GetComponentAsMesh() const
 {
 	return (C_Mesh*)this;
 }
 
-C_Material* Component::GetComponentMaterial() const
+C_Material* Component::GetComponentAsMaterial() const
 {
 	return (C_Material*)this;
 }
