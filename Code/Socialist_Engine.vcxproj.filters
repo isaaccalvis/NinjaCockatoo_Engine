@@ -442,7 +442,7 @@
     <ClInclude Include="Primitive.h">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClInclude>
-    <ClInclude Include="GUI_Hireachy.h">
+    <ClInclude Include="GUI_Hierachy.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
   </ItemGroup>
@@ -660,7 +660,7 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
-    <ClCompile Include="GUI_Hireachy.cpp">
+    <ClCompile Include="GUI_Hierachy.cpp">
       <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
   </ItemGroup>

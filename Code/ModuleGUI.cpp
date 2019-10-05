@@ -7,6 +7,7 @@
 #include "GUI_Configuration.h"
 #include "GUI_Properties.h"
 #include "GUI_TopBar.h"
+#include "GUI_Hierachy.h"
 
 #include "Console.h"
 
@@ -41,6 +42,8 @@ bool ModuleGUI::Start()
 	guiPanels.push_back(gui_configuration);
 	GUI_Panel* gui_properties = new GUI_Properties(SDL_SCANCODE_F2);
 	guiPanels.push_back(gui_properties);
+	GUI_Panel* gui_hierachy = new GUI_Hierachy(SDL_SCANCODE_F4);
+	guiPanels.push_back(gui_hierachy);
 	GUI_Panel* gui_about = new GUI_About(SDL_SCANCODE_F9);
 	guiPanels.push_back(gui_about);
 	return true;

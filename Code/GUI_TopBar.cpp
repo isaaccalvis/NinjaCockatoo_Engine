@@ -40,6 +40,8 @@ void GUI_TopBar::Draw()
 				App->console->SwitchActive();
 			if (ImGui::MenuItem("Properties"))
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PROPERTIES)->SwitchActive();
+			if (ImGui::MenuItem("Hierachy"))
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_HIERACHY)->SwitchActive();
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("GameObject"))
