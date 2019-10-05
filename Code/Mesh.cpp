@@ -19,10 +19,9 @@ Mesh::~Mesh()
 		delete[] normals;
 	if (boundingBoxCube != nullptr)
 		delete boundingBoxCube;
-	texture = nullptr;
 }
 
-void Mesh::Render()
+void Mesh::Render(Texture* texture)
 {
 	glPushMatrix();
 

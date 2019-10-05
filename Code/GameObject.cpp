@@ -56,6 +56,11 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 
 Component* GameObject::GetComponent(COMPONENT_TYPE type, const char* name)
 {
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type)
+			return components[i];
+	}
 	return nullptr;
 }
 

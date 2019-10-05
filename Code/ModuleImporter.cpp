@@ -123,6 +123,7 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 		GameObject* go = App->scene->CreateGameObject("go", nullptr);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		compMesh->GetComponentAsMesh()->mesh = mesh;
+		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 
 		// TODO, PREGUNTA : buscar al path original i a la carpeta resources ??
 		if (scene->HasMaterials() > i)
@@ -131,7 +132,19 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 			scene->mMaterials[i]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
 			std::string tmp_texture_path(originalPath);
 			tmp_texture_path.append(str.C_Str());
-			App->importer->LoadTexture(tmp_texture_path.c_str());
+			comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+			str.Clear();
+		}
+		else
+		{
+			// TODO: TREURE AIXO, NOMES ES PER LA CASA
+			aiString str;
+			if (!scene->mMaterials[0]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str))
+			{
+				std::string tmp_texture_path(originalPath);
+				tmp_texture_path.append(str.C_Str());
+				comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+			}
 			str.Clear();
 		}
 	}

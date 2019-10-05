@@ -136,10 +136,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 	
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_STATE::KEY_DOWN)
-	{
-		ClearMeshes();
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_C) == KEY_STATE::KEY_DOWN)
+	//{
+	//	ClearMeshes();
+	//}
 
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{

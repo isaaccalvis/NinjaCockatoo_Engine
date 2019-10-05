@@ -14,7 +14,7 @@ public:
 	Mesh();
 	virtual ~Mesh();
 
-	virtual void Render();
+	virtual void Render(Texture* texture = nullptr);
 
 	void SetPosition(const math::float3 nPosition);
 	void SetScale(const math::float3 nScale);
@@ -44,7 +44,6 @@ protected:
 	// Texture
 	unsigned int textureIndex = 0u;
 	GLfloat* textureCoords = nullptr;
-	Texture* texture = nullptr;
 
 	// Normals
 	DebugArrow* normals = nullptr;

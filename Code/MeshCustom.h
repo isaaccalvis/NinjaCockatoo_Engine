@@ -13,7 +13,7 @@ public:
 	MeshCustom();
 	MeshCustom(const aiScene* scene, int num);
 
-	void Render();
+	void Render(Texture* texture = nullptr);
 };
 
 #endif

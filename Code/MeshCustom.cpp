@@ -77,15 +77,9 @@ MeshCustom::MeshCustom(const aiScene* scene, int num) : Mesh()
 	boundingBox.SetNegativeInfinity();
 	boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
 	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
-
-	// TODO: PREGUNTA, COM PILLAR TEXTURES
-
-	// Set texture
-	if (App->textures->last_texture != nullptr)
-		texture = App->textures->last_texture;
 }
 
-void MeshCustom::Render()
+void MeshCustom::Render(Texture* texture)
 {
 	glPushMatrix();
 
