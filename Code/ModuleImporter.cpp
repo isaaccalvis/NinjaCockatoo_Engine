@@ -3,6 +3,12 @@
 #include "MeshCustom.h"
 #include "Console.h"
 
+#include "GameObject.h"
+#include "Component.h"
+#include "C_Transform.h"
+#include "C_Mesh.h"
+#include "C_Material.h"
+
 #include "Assimp/include/Importer.hpp"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -113,6 +119,10 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 	{
 		MeshCustom* mesh = new MeshCustom(scene, i);
 		App->renderer3D->AddMesh(mesh);
+
+		GameObject* go = App->scene->CreateGameObject("go", nullptr);
+		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+		compMesh->GetComponentAsMesh()->mesh = mesh;
 
 		// TODO, PREGUNTA : buscar al path original i a la carpeta resources ??
 		if (scene->HasMaterials() > i)

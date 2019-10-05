@@ -7,6 +7,10 @@
 #include "Primitive.h"
 #include "MeshCustom.h"
 
+#include "Component.h"
+#include "C_Transform.h"
+#include "C_Mesh.h"
+
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glew-2.1.0/libx86/Win32/glew32.lib")
@@ -136,11 +140,16 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	{
 		ClearMeshes();
 	}
-	// Print Geometry
-	std::list<Mesh*>::iterator it = meshes.begin();
-	for (; it != meshes.end(); it++)
+
+	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{
-		(*it)->Render();
+		for (int e = 0; e < App->scene->gameObjects[i]->components.size(); e++)
+		{
+			if (App->scene->gameObjects[i]->components[e]->type == COMPONENT_TYPE::COMPONENT_MESH)
+			{
+				App->scene->gameObjects[i]->components[e]->Update(dt);
+			}
+		}
 	}
 
 	// Print Debug Draw

@@ -11,7 +11,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(std::string name, GameObject* parent)
 {
-	this->name = name;
+	this->name = name.c_str();
 	if (parent == nullptr)
 		parent = App->scene->root;
 	else
@@ -20,7 +20,7 @@ GameObject::GameObject(std::string name, GameObject* parent)
 
 GameObject::~GameObject()
 {
-
+	
 }
 
 void GameObject::Update(float dt)
@@ -28,7 +28,7 @@ void GameObject::Update(float dt)
 
 }
 
-Component* GameObject::CreateComponent(COMPONENT_TYPE type, std::string name)
+Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 {
 	Component* component = nullptr;
 	switch (type)
@@ -54,7 +54,17 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, std::string name)
 	return component;
 }
 
-Component* GameObject::GetComponent(COMPONENT_TYPE type, std::string name)
+Component* GameObject::GetComponent(COMPONENT_TYPE type, const char* name)
 {
 	return nullptr;
+}
+
+GameObject* GameObject::GetParent() const
+{
+	return parent;
+}
+
+void GameObject::SetParent(GameObject* parent)
+{
+	this->parent = parent;
 }

@@ -43,7 +43,7 @@ void GUI_TopBar::Draw()
 		{
 			if (ImGui::MenuItem("Empty"))
 			{
-				App->scene->CreateGameObject("Empty");
+				App->scene->CreateGameObject("Empty", App->scene->root);
 			}
 			if (ImGui::MenuItem("Cube"))
 			{

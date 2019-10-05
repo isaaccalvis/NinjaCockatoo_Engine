@@ -13,7 +13,7 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Init()
 {
 	root = new GameObject();
-	root->parent = nullptr;
+	root->SetParent(nullptr);
 	return true;
 }
 
@@ -39,11 +39,7 @@ void ModuleScene::AddGameObject(GameObject* go)
 
 GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
 {
-	GameObject* go = new GameObject(name);
-	if (parent != nullptr)
-	{
-		go->parent = root;
-	}
+	GameObject* go = new GameObject(name, parent);
 	go->CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 	AddGameObject(go);
 	return go;
@@ -64,9 +60,10 @@ GameObject* ModuleScene::SearchGameObject(std::string name)
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		if (gameObjects[i]->name == name)
+		if (gameObjects[i]->name == name.c_str())
 		{
 			return gameObjects[i];
 		}
 	}
+	return nullptr;
 }
