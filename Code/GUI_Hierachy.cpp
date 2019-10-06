@@ -42,6 +42,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
+			GameObjectPopUp(child);
 
 			if (treeNodeOpened)
 			{
@@ -61,7 +62,20 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 			ImGui::TreePop();
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
-
+			GameObjectPopUp(child);
 		}
+	}
+}
+
+void GUI_Hierachy::GameObjectPopUp(GameObject* go) const
+{
+	if (ImGui::BeginPopupContextItem())
+	{
+		if (ImGui::Selectable("Create Empty"))
+		{
+			App->scene->CreateGameObject("Empty", go);
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
 	}
 }
