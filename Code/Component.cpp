@@ -16,7 +16,7 @@ void Component::SetEnable(bool set)
 	active = set;
 }
 
-bool Component::GetEnabled()
+bool Component::GetEnabled() const
 {
 	return active;
 }

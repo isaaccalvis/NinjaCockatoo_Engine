@@ -16,7 +16,7 @@ public:
 	virtual void Update(float dt) = 0;
 
 	void SetEnable(bool set);
-	bool GetEnabled();
+	bool GetEnabled() const;
 
 	C_Transform* GetComponentAsTransform() const;
 	C_Mesh* GetComponentAsMesh() const;
