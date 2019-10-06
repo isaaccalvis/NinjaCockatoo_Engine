@@ -19,7 +19,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(std::string name, GameObject* parent);
+	GameObject(const char* name, GameObject* parent);
 	~GameObject();
 
 	void Update(float dt);

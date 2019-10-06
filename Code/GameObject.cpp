@@ -1,4 +1,3 @@
-#include "Application.h"
 #include "GameObject.h"
 #include "C_Transform.h"
 #include "C_Mesh.h"
@@ -9,13 +8,14 @@ GameObject::GameObject()
 
 }
 
-GameObject::GameObject(std::string name, GameObject* parent)
+GameObject::GameObject(const char* name, GameObject* parent)
 {
-	this->name = name.c_str();
-	if (parent == nullptr)
-		parent = App->scene->root;
-	else
+	this->name = name;
+	if (parent != nullptr)
+	{
 		this->parent = parent;
+		this->parent->children.push_back(this);
+	}
 }
 
 GameObject::~GameObject()

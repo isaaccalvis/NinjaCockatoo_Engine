@@ -17,7 +17,7 @@ public:
 	bool CleanUp();
 
 	void AddGameObject(GameObject* go);
-	GameObject* CreateGameObject(std::string name, GameObject* parent = nullptr);
+	GameObject* CreateGameObject(const char* name, GameObject* parent = nullptr);
 	void DeleteGameObject(GameObject* go);
 	GameObject* SearchGameObject(std::string name);
 

@@ -36,7 +36,7 @@ void ModuleScene::AddGameObject(GameObject* go)
 	}
 }
 
-GameObject* ModuleScene::CreateGameObject(std::string name, GameObject* parent)
+GameObject* ModuleScene::CreateGameObject(const char* name, GameObject* parent)
 {
 	GameObject* go = new GameObject(name, parent);
 	go->CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
