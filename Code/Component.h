@@ -25,6 +25,7 @@ public:
 public:
 	COMPONENT_TYPE type;
 	bool active = true;
+	bool isUnique = false;
 	GameObject* parent;
 	const char* name;
 };

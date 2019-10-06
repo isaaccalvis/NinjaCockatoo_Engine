@@ -65,6 +65,16 @@ void GameObject::SetActive(bool set)
 
 Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 {
+	// See if exist an unique component
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type && components[i]->isUnique == true)
+		{
+			LOG_CONSOLE("Can't add component, it already exist and is unique for gameobject");
+			return nullptr;
+		}
+	}
+
 	Component* component = nullptr;
 	switch (type)
 	{

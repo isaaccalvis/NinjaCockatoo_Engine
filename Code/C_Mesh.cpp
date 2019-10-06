@@ -4,7 +4,7 @@
 
 C_Mesh::C_Mesh(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_MESH)
 {
-
+	isUnique = true;
 }
 
 C_Mesh::~C_Mesh()

@@ -2,7 +2,7 @@
 
 C_Material::C_Material(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_MATERIAL)
 {
-
+	isUnique = true;
 }
 
 C_Material::~C_Material()

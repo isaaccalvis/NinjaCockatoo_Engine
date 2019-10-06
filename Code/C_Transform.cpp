@@ -1,7 +1,9 @@
 #include "C_Transform.h"
 
 C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_TRANSFORM)
-{}
+{
+	isUnique = true;
+}
 
 C_Transform::~C_Transform()
 {
