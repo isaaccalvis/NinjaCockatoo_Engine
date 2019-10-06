@@ -47,6 +47,15 @@ GameObject* ModuleScene::CreateGameObject(const char* name, GameObject* parent)
 
 void ModuleScene::DeleteGameObject(GameObject* go)
 {
+	// Delete at parent 
+	for (int i = 0; i < go->GetParent()->CountChild(); i++)
+	{
+		if (go->GetParent()->children[i] == go)
+		{
+			go->GetParent()->children.erase(go->GetParent()->children.begin() + i);
+		}
+	}
+	// Delete from gameObjects vector
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
 		if (gameObjects[i] == go)
