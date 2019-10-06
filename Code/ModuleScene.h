@@ -12,18 +12,16 @@ public:
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
-	bool Init(JSON_Object* root_object = nullptr);
-	update_status Update(float dt);
-	bool CleanUp();
+	bool			Init(JSON_Object* root_object = nullptr);
+	bool			CleanUp();
 
-	void AddGameObject(GameObject* go);
-	GameObject* CreateGameObject(const char* name, GameObject* parent = nullptr);
-	void DeleteGameObject(GameObject* go);
-	GameObject* SearchGameObject(std::string name);
+	void			DeleteGameObject(GameObject* go);
+	GameObject*		CreateGameObject(const char* name, GameObject* parent = nullptr);
+	GameObject*		SearchGameObject(std::string name);
 
 public: // TODO: PASSAR A PRIVAT
-	GameObject* root = nullptr;
-	GameObject* goSelected = nullptr;
+	GameObject*		root = nullptr;
+	GameObject*		goSelected = nullptr;
 	std::vector<GameObject*> gameObjects;
 
 };

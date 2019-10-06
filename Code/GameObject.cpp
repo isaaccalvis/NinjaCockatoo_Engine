@@ -16,16 +16,51 @@ GameObject::GameObject(const char* name, GameObject* parent)
 		this->parent = parent;
 		this->parent->children.push_back(this);
 	}
+	// Component transform is always necessary
+	CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 }
 
 GameObject::~GameObject()
 {
-	
+	// Delete Children
+	for (int i = 0; i < children.size(); i++)
+	{
+		delete children[i];
+		children.erase(children.begin() + i);
+	}
+	children.clear();
+	// Delete from parent vector
+	if (parent != nullptr)
+	{
+		parent->QuitChildFromVector(this);
+	}
+	// Delete Components
+	for (int i = 0; i < components.size(); i++)
+	{
+		delete components[i];
+		components.erase(components.begin() + i);
+	}
+	components.clear();
 }
 
-void GameObject::Update(float dt)
+const char* GameObject::GetName() const
 {
+	return name;
+}
 
+void GameObject::SetName(const char* name)
+{
+	this->name = name;
+}
+
+bool GameObject::IsActive() const
+{
+	return active;
+}
+
+void GameObject::SetActive(bool set)
+{
+	this->active = set;
 }
 
 Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
@@ -64,14 +99,83 @@ Component* GameObject::GetComponent(COMPONENT_TYPE type, const char* name)
 	return nullptr;
 }
 
+Component* GameObject::GetComponent(int num) const
+{
+	return components[num];
+}
+
+void GameObject::DeleteComponent(COMPONENT_TYPE type, const char* name)
+{
+	for (int i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type)
+		{
+			if (name != nullptr)
+			{
+				if (components[i]->name == name)
+				{
+					delete components[i];
+					components.erase(components.begin() + i);
+				}
+			}
+			else
+			{
+				delete components[i];
+				components.erase(components.begin() + i);
+			}
+		}
+	}
+}
+
+int GameObject::CountComponents() const
+{
+	return components.size();
+}
+
 GameObject* GameObject::GetParent() const
 {
 	return parent;
 }
 
+void GameObject::AddChildren(GameObject* child)
+{
+	if (child != nullptr)
+	{
+		children.push_back(child);
+	}
+}
+
 void GameObject::SetParent(GameObject* parent)
 {
 	this->parent = parent;
+}
+
+void GameObject::DeleteChild(GameObject* child)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (children[i] == child)
+		{
+			delete children[i];
+			children.erase(children.begin() + i);
+		}
+	}
+}
+
+void GameObject::QuitChildFromVector(GameObject* child)
+{
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (children[i] == child)
+		{
+			children.erase(children.begin() + i);
+		}
+	}
+}
+
+GameObject* GameObject::GetChild(int num) const
+{
+	return children[num];
 }
 
 int GameObject::CountChild()

@@ -25,9 +25,9 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 
 	for (int i = 0; i < parent->CountChild(); i++)
 	{
-		GameObject* child = parent->children[i];
+		GameObject* child = parent->GetChild(i);
 		char name[256];
-		sprintf_s(name, 256, child->name);
+		sprintf_s(name, 256, child->GetName());
 		if (child->CountChild() != 0)
 		{
 			treeNodeFlags = 0;

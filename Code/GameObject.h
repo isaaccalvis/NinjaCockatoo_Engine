@@ -22,24 +22,38 @@ public:
 	GameObject(const char* name, GameObject* parent);
 	~GameObject();
 
-	void Update(float dt);
+	const char* GetName() const;
+	void SetName(const char* name);
 
-	Component* CreateComponent(COMPONENT_TYPE type, const char* name = nullptr);
-	Component* GetComponent(COMPONENT_TYPE type, const char* name = nullptr);
+	bool IsActive() const;
+	void SetActive(bool set);
 
-	GameObject* GetParent() const;
-	void SetParent(GameObject* parent);
 
-	int CountChild();
+	// Parent
+	GameObject*		GetParent() const;
+	void			SetParent(GameObject* parent);
 
-public:
-	const char* name = nullptr;
-	std::vector<GameObject*> children;
-	std::vector<Component*> components;
-	bool active = true;
+	// Children
+	void			AddChildren(GameObject* child);
+	void			DeleteChild(GameObject* child);
+	void			QuitChildFromVector(GameObject* child);
+	GameObject*		GetChild(int num) const;
+	int				CountChild();
+
+	// Components
+	Component*		CreateComponent(COMPONENT_TYPE type, const char* name = nullptr);
+	Component*		GetComponent(COMPONENT_TYPE type, const char* name = nullptr);
+	Component*		GetComponent(int num) const;
+	void			DeleteComponent(COMPONENT_TYPE type, const char* name = nullptr);
+	int				CountComponents() const;
 
 private:
 	GameObject* parent = nullptr;
+	const char* name = nullptr;
+	bool active = true;
+
+	std::vector<GameObject*> children;
+	std::vector<Component*> components;
 };
 
 #endif

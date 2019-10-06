@@ -20,9 +20,9 @@ void GUI_Properties::Draw()
 
 	if (App->scene->goSelected != nullptr)
 	{
-		for (int i = 0; i < App->scene->goSelected->components.size(); i++)
+		for (int i = 0; i < App->scene->goSelected->CountComponents(); i++)
 		{
-			switch (App->scene->goSelected->components[i]->type)
+			switch (App->scene->goSelected->GetComponent(i)->type)
 			{
 			case COMPONENT_TYPE::COMPONENT_TRANSFORM:
 			{

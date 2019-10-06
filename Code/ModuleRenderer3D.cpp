@@ -135,19 +135,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-	
-	//if (App->input->GetKey(SDL_SCANCODE_C) == KEY_STATE::KEY_DOWN)
-	//{
-	//	ClearMeshes();
-	//}
 
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{
-		for (int e = 0; e < App->scene->gameObjects[i]->components.size(); e++)
+		for (int e = 0; e < App->scene->gameObjects[i]->CountComponents(); e++)
 		{
-			if (App->scene->gameObjects[i]->components[e]->type == COMPONENT_TYPE::COMPONENT_MESH)
+			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_MESH)
 			{
-				App->scene->gameObjects[i]->components[e]->Update(dt);
+				App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
 			}
 		}
 	}
