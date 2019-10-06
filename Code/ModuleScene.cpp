@@ -10,10 +10,9 @@ ModuleScene::~ModuleScene()
 
 }
 
-bool ModuleScene::Init()
+bool ModuleScene::Init(JSON_Object* root_object)
 {
-	root = new GameObject();
-	root->SetParent(nullptr);
+	root = new GameObject("_root", nullptr);
 	return true;
 }
 

@@ -12,7 +12,7 @@ public:
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
-	bool Init();
+	bool Init(JSON_Object* root_object = nullptr);
 	update_status Update(float dt);
 	bool CleanUp();
 

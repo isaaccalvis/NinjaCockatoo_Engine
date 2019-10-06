@@ -73,3 +73,8 @@ void GameObject::SetParent(GameObject* parent)
 {
 	this->parent = parent;
 }
+
+int GameObject::CountChild()
+{
+	return children.size();
+}

@@ -10,6 +10,8 @@ public:
 	GUI_Hierachy(SDL_Scancode shortcut = SDL_SCANCODE_UNKNOWN);
 
 	void Draw();
+
+	void RecursiveTakeChilds(GameObject* parent) const;
 };
 
 #endif

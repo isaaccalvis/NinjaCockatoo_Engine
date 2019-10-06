@@ -30,6 +30,8 @@ public:
 	GameObject* GetParent() const;
 	void SetParent(GameObject* parent);
 
+	int CountChild();
+
 public:
 	const char* name = nullptr;
 	std::vector<GameObject*> children;
