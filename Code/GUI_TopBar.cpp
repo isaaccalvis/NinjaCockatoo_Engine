@@ -52,31 +52,31 @@ void GUI_TopBar::Draw()
 			}
 			if (ImGui::MenuItem("Cube"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Cube", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CUBE);
 			}
 			if (ImGui::MenuItem("Plane"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Plane", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_PLANE);
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Sphere", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_SPHERE);
 			}
 			if (ImGui::MenuItem("Frustrum"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Frustum", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_FRUSTRUM);
 			}
 			if (ImGui::MenuItem("Cylinder"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Empty", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Cylinder", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(PRIMITIVE_MESHES::PRIMITIVE_CYLINDER);
 			}
