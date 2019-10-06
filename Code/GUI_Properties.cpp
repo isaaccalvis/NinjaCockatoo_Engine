@@ -47,7 +47,7 @@ void GUI_Properties::Draw()
 			break;
 			case COMPONENT_TYPE::COMPONENT_MESH:
 			{
-				if (ImGui::CollapsingHeader("Geometry"))
+				if (ImGui::CollapsingHeader("Mesh"))
 				{
 					if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMesh() != nullptr)
 					{
@@ -59,7 +59,7 @@ void GUI_Properties::Draw()
 			break;
 			case COMPONENT_TYPE::COMPONENT_MATERIAL:
 			{
-				if (ImGui::CollapsingHeader("Texture"))
+				if (ImGui::CollapsingHeader("Material"))
 				{
 					if (App->scene->goSelected != nullptr)
 					{

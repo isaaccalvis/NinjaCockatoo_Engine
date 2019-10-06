@@ -82,6 +82,24 @@ void GUI_TopBar::Draw()
 			}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Components"))
+		{
+			if (ImGui::MenuItem("Mesh"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				}
+			}
+			if (ImGui::MenuItem("Material"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
+				}
+			}
+			ImGui::EndMenu();
+		}
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Documentation"))
