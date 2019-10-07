@@ -120,7 +120,23 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * Position.Length();
 	}
+	
+	//Mouse centered Rotation
 
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		if (App->scene->goSelected != nullptr)
+		{
+			// Look Around (target position)
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			float deltaX = (float)dx * mouse_sensitivity * dt;
+			float deltaY = (float)dy * mouse_sensitivity * dt;
+			Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
+		}
+	}
+	
 	// Recalculate matrix
 	CalculateViewMatrix();
 
@@ -160,6 +176,30 @@ void ModuleCamera3D::Move(const math::float3 &Movement)
 {
 	Position += Movement;
 	Reference += Movement;
+
+	CalculateViewMatrix();
+}
+
+void ModuleCamera3D::Orbit(math::float3 target, float deltaX, float deltaY)
+{
+	Position -= target;
+
+	if (deltaY != 0.0f)
+	{
+		math::float3x3 rotationMatrix = math::float3x3::RotateY(deltaY);
+		X = rotationMatrix * X;
+		Y = rotationMatrix * Y;
+		Z = rotationMatrix * Z;
+	}
+
+	if (deltaX != 0.0f)
+	{
+		math::float3x3 rotationMatrix = math::float3x3::RotateAxisAngle(X, deltaX);
+		Y = rotationMatrix * Y;
+		Z = rotationMatrix * Z;
+	}
+
+	Position = target + (Z * Position.Length());
 
 	CalculateViewMatrix();
 }
@@ -220,3 +260,4 @@ float* Camera::GetProjectionMatrix() const
 
 	return (float*)matrix.v;
 }
+

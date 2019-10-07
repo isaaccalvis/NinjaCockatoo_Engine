@@ -1,6 +1,9 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "C_Transform.h"
+#include "Component.h"
+#include "GameObject.h"
 #include "MathGeoLib-1.5\src\MathGeoLib.h"
 
 class Camera {
@@ -46,7 +49,9 @@ public:
 	void Look(const math::float3 &Position, const math::float3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const math::float3 &Spot);
 	void Move(const math::float3 &Movement);
+	void Orbit(math::float3 target, float deltaX, float deltaY);
 	float* GetViewMatrix();
+
 
 private:
 
