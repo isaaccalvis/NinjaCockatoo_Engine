@@ -40,9 +40,12 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 			if (ImGui::TreeNodeEx(name, treeNodeFlags))
 				treeNodeOpened = true;
 
+			GameObjectPopUp(child);
+
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
-			GameObjectPopUp(parent);
+
+			
 
 			if (treeNodeOpened)
 			{
@@ -60,9 +63,12 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 
 			ImGui::TreeNodeEx(name, treeNodeFlags);
 			ImGui::TreePop();
+			
+			GameObjectPopUp(child);
+
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
-			GameObjectPopUp(child);
+			
 		}
 	}
 }

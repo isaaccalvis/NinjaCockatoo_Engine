@@ -39,7 +39,6 @@ GameObject::~GameObject()
 	// Delete Children
 	for (int i = 0; i < children.size(); i++)
 	{
-		// TODO : fer servir això per netejar tots els vectors
 		children.erase(std::remove(children.begin(), children.end(), children[i]), children.end());
 		//delete children[i];
 		//children.erase(children.begin() + i);
