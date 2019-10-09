@@ -19,6 +19,8 @@ void GUI_Hierachy::Draw()
 	ImGui::End();
 }
 
+// TODO, PREGUNTA, aixo em dona problemes... i no se que fer ...
+
 void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 {
 	ImGuiTreeNodeFlags treeNodeFlags;
@@ -31,7 +33,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 		if (child->CountChild() != 0)
 		{
 			treeNodeFlags = 0;
-			treeNodeFlags |= ImGuiTreeNodeFlags_Leaf;
+			treeNodeFlags |= ImGuiTreeNodeFlags_OpenOnArrow;
 
 			if (App->scene->goSelected == child)
 				treeNodeFlags |= ImGuiTreeNodeFlags_Selected;
@@ -44,8 +46,6 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
-
-			
 
 			if (treeNodeOpened)
 			{

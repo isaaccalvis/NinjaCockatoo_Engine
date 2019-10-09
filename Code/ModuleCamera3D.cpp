@@ -88,7 +88,22 @@ update_status ModuleCamera3D::Update(float dt)
 	Reference += newPos;
 
 	// Mouse motion
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	//Mouse centered Rotation
+
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		if (App->scene->goSelected != nullptr)
+		{
+			// Look Around (target position)
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			float deltaX = (float)dx * mouse_sensitivity * dt;
+			float deltaY = (float)dy * mouse_sensitivity * dt;
+			Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
+		}
+	}
+	else if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -121,23 +136,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * Position.Length();
 	}
 	
-	//Mouse centered Rotation
-
-	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
-	{
-		if (App->scene->goSelected != nullptr)
-		{
-			// Look Around (target position)
-			int dx = -App->input->GetMouseXMotion();
-			int dy = -App->input->GetMouseYMotion();
-
-			float deltaX = (float)dx * mouse_sensitivity * dt;
-			float deltaY = (float)dy * mouse_sensitivity * dt;
-			Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
-		}
-	}
-	
-	// Recalculate matrix
+		// Recalculate matrix
 	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
