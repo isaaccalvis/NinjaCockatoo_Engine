@@ -11,16 +11,16 @@ public:
 
 	void SetBufferPos(unsigned int nBufferPos);
 	void SetWidth(int nWidth);
-	void SetHeigh(int nHeigh);
+	void SetHeight(int nHeigh);
 
 	unsigned int GetBufferPos() const;
 	int GetWidth() const;
-	int GetHeigh() const;
+	int GetHeight() const;
 
 private:
 	unsigned int BufferPos = 0u;
 	int width = 0;
-	int heigh = 0;
+	int height = 0;
 };
 
 class ModuleTextures : public Module

@@ -27,9 +27,9 @@ void Texture::SetWidth(int nWidth)
 	this->width = nWidth;
 }
 
-void Texture::SetHeigh(int nHeigh)
+void Texture::SetHeight(int nHeigh)
 {
-	this->heigh = nHeigh;
+	this->height = nHeigh;
 }
 
 unsigned int Texture::GetBufferPos() const
@@ -42,9 +42,9 @@ int Texture::GetWidth() const
 	return width;
 }
 
-int Texture::GetHeigh() const
+int Texture::GetHeight() const
 {
-	return heigh;
+	return height;
 }
 
 // =========================================================================================

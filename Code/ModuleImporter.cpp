@@ -115,6 +115,9 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 		LOG_CONSOLE_IDE("Mesh can not be loaded");
 		return;
 	}
+
+
+
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		MeshCustom* mesh = new MeshCustom(scene, i);
@@ -166,7 +169,7 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		ILinfo imageInfo;
 		iluGetImageInfo(&imageInfo);
 		texture->SetWidth(imageInfo.Width);
-		texture->SetHeigh(imageInfo.Height);
+		texture->SetHeight(imageInfo.Height);
 		if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 			iluFlipImage();
 
