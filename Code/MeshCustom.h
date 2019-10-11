@@ -11,7 +11,7 @@ class MeshCustom : public Mesh
 {
 public:
 	MeshCustom();
-	MeshCustom(const aiScene* scene, int num);
+	MeshCustom(const aiScene* scene, const aiNode* node, const int num = 0);
 
 	void Render(Texture* texture = nullptr);
 };

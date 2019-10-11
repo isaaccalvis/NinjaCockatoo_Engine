@@ -9,12 +9,6 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 
-#include "Assimp/include/Importer.hpp"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/cimport.h"
-
 #include "DevIL/include/IL/il.h"
 #include "DevIL/include/IL/ilu.h"
 #include "DevIL/include/IL/ilut.h"
@@ -92,7 +86,7 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 
 	if (extension == "fbx")
 	{
-		LoadMesh(toSavePath.c_str(), direction_without_name.c_str());
+		LoadScene(toSavePath.c_str(), direction_without_name.c_str());
 	}
 	else if (extension == "dds" || extension == "png")
 	{
@@ -116,11 +110,9 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 		return;
 	}
 
-
-
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
-		MeshCustom* mesh = new MeshCustom(scene, i);
+		MeshCustom* mesh = new MeshCustom(scene, scene->mRootNode);
 		App->renderer3D->AddMesh(mesh);
 
 		GameObject* go = App->scene->CreateGameObject("go", nullptr);
@@ -151,6 +143,76 @@ void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
 			str.Clear();
 		}
 	}
+}
+
+void ModuleImporter::LoadScene(const char* path, const char* originalPath)
+{
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	if (!scene)
+	{
+		LOG_CONSOLE_IDE("Mesh can not be loaded");
+		return;
+	}
+
+	IterateSceneLoading(scene, scene->mRootNode, App->scene->root, originalPath);
+}
+
+void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath)
+{
+	// Create GameObject
+	GameObject* go = App->scene->CreateGameObject(node->mName.C_Str(), parent);
+
+
+	// Create & Load Mesh
+	if (node->mMeshes != nullptr)
+	{
+		MeshCustom* mesh = new MeshCustom(scene, node);
+		App->renderer3D->AddMesh(mesh);
+		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
+		compMesh->GetComponentAsMesh()->mesh = mesh;
+
+		aiString str;
+		scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
+		std::string tmp_texture_path(originalPath);
+		tmp_texture_path.append(str.C_Str());
+		comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+		str.Clear();
+	}
+
+
+
+	// Iterate Childs
+	for (int i = 0; i < node->mNumChildren; i++)
+	{
+		IterateSceneLoading(scene, node->mChildren[i], go, originalPath);
+	}
+
+	// Look if there are more meshes at same Node
+	for (int i = 1; i < node->mNumMeshes; i++)
+	{
+		// Create GameObject
+		GameObject* auxGo = App->scene->CreateGameObject(node->mName.C_Str(), go);
+
+		// Create & Load Mesh
+		if (node->mMeshes != nullptr)
+		{
+			MeshCustom* mesh = new MeshCustom(scene, node, i);
+			App->renderer3D->AddMesh(mesh);
+			Component* compMesh = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+			compMesh->GetComponentAsMesh()->mesh = mesh;
+			Component* comTexture = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
+
+			aiString str;
+			scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
+			std::string tmp_texture_path(originalPath);
+			tmp_texture_path.append(str.C_Str());
+			comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+			str.Clear();
+		}
+	}
+
 }
 
 Texture* ModuleImporter::LoadTexture(const char* path)
