@@ -18,6 +18,7 @@ public:
 	void			DeleteGameObject(GameObject* go);
 	GameObject*		CreateGameObject(const char* name, GameObject* parent = nullptr);
 	GameObject*		SearchGameObject(std::string name);
+	void			MakeCameraLookThisGOSelected();
 
 public: // TODO: PASSAR A PRIVAT
 	GameObject*		root = nullptr;

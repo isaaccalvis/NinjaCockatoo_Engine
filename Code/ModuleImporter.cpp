@@ -106,6 +106,8 @@ void ModuleImporter::LoadScene(const char* path, const char* originalPath)
 	}
 
 	IterateSceneLoading(scene, scene->mRootNode, App->scene->root, originalPath);
+
+	App->scene->MakeCameraLookThisGOSelected();
 }
 
 void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath)

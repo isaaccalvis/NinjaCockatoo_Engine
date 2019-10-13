@@ -73,3 +73,8 @@ unsigned int Mesh::GetVerticesSize() const
 {
 	return verticesSize;
 }
+
+AABB Mesh::GetBoundingBox()
+{
+	return boundingBox;
+}

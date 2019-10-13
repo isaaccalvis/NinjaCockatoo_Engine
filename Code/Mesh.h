@@ -25,6 +25,8 @@ public:
 	unsigned int GetIndicesSize() const;
 	unsigned int GetVerticesSize() const;
 
+	AABB GetBoundingBox();
+
 protected:
 	// Transform
 	math::float3 position = math::float3::zero;
