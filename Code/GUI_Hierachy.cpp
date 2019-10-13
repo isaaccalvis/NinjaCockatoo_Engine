@@ -32,6 +32,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 		sprintf_s(name, 256, child->GetName());
 		if (child->CountChild() != 0)
 		{
+			ImGui::PushID(child);
 			treeNodeFlags = 0;
 			treeNodeFlags |= ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -52,9 +53,12 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 				RecursiveTakeChilds(child);
 				ImGui::TreePop();
 			}
+			ImGui::PopID();
 		}
 		else
 		{
+			ImGui::PushID(child);
+
 			treeNodeFlags = 0;
 			treeNodeFlags |= ImGuiTreeNodeFlags_Leaf;
 
@@ -68,7 +72,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
 				App->scene->goSelected = child;
-			
+			ImGui::PopID();
 		}
 	}
 }
