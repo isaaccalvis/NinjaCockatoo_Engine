@@ -32,9 +32,6 @@ public:
 
 	void AddTexture(Texture* texture);
 	void DeleteTexture(Texture* texture);
-
-public:
-	Texture* last_texture = nullptr;
 	 
 private:
 	std::list<Texture*> textures;

@@ -1,9 +1,8 @@
 #include "Globals.h"
+
 #include "ModuleHardware.h"
 #include "gpudetect/DeviceId.h"
 #include "SDL/include/SDL.h"
-
-#include "mmgr/mmgr.h"
 
 // TODO, PREGUNTA: EL MODUL HARDWARE NO ES UN MODUL, EL TREC ?
 

@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Console.h"
 
-#include "mmgr/mmgr.h"
 
 Console::Console(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

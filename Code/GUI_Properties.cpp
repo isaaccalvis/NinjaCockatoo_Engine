@@ -9,8 +9,6 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 
-#include "mmgr/mmgr.h"
-
 GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_PROPERTIES)
 {}
 

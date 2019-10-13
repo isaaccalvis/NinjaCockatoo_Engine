@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+
 #include "ModuleRenderer3D.h"
 #include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -14,8 +15,6 @@
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glew-2.1.0/libx86/Win32/glew32.lib")
-
-#include "mmgr/mmgr.h"
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

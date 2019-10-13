@@ -1,5 +1,4 @@
 #include "Application.h"
-
 #include "mmgr/mmgr.h"
 
 Application::Application()

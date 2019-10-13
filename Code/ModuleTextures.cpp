@@ -1,7 +1,7 @@
 #include "Application.h"
-#include "ModuleTextures.h"
-
 #include "mmgr/mmgr.h"
+
+#include "ModuleTextures.h"
 
 // =========================================================================================
 // =======================================  TEXTURES =======================================
@@ -65,9 +65,6 @@ bool ModuleTextures::CleanUp()
 	}
 	textures.clear();
 
-	if (last_texture != nullptr)
-		delete last_texture;
-
 	return true;
 }
 
@@ -76,8 +73,6 @@ void ModuleTextures::AddTexture(Texture* texture)
 	if (texture != nullptr)
 	{
 		textures.push_back(texture);
-		// TODO: Treure que el last texture sigui assignat aqui
-		last_texture = texture;
 	}
 }
 

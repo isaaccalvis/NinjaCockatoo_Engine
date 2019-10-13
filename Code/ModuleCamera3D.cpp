@@ -2,8 +2,6 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 
-#include "mmgr/mmgr.h"
-
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleCamera3D";

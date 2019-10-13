@@ -1,11 +1,11 @@
 #include "Application.h"
+#include "mmgr/mmgr.h"
+
 #include "GUI_Configuration.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
-
-#include "mmgr/mmgr.h"
 
 GUI_Configuration::GUI_Configuration(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_CONFIGURATION)
 {}

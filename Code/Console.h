@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "imgui/imgui.h"
+#include "mmgr/mmgr.h"
+
 
 class Console : public Module
 {
