@@ -26,7 +26,6 @@ public:
 
 	void DistributeObjectToLoad(const char* path);
 
-	void LoadMesh(const char* path, const char* originalPath = nullptr);
 	void LoadScene(const char* path, const char* originalPath = nullptr);
 	void IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
 

@@ -94,57 +94,6 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 	}
 }
 
-// TODO: Carregar la mesh aqui
-void ModuleImporter::LoadMesh(const char* path, const char* originalPath)
-{
-	//LOG_CONSOLE(path);
-	//std::string name_extension(path);
-	//name_extension = name_extension.substr(name_extension.find_last_of(92) + 1);
-	//LOG_CONSOLE(name_extension.c_str());
-
-	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
-	if (!scene)
-	{
-		LOG_CONSOLE_IDE("Mesh can not be loaded");
-		return;
-	}
-
-	for (int i = 0; i < scene->mNumMeshes; i++)
-	{
-		MeshCustom* mesh = new MeshCustom(scene, scene->mRootNode);
-		App->renderer3D->AddMesh(mesh);
-
-		GameObject* go = App->scene->CreateGameObject("go", nullptr);
-		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-		compMesh->GetComponentAsMesh()->mesh = mesh;
-		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
-
-		// TODO, PREGUNTA : buscar al path original i a la carpeta resources ??
-		if (scene->HasMaterials() > i)
-		{
-			aiString str;
-			scene->mMaterials[i]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
-			std::string tmp_texture_path(originalPath);
-			tmp_texture_path.append(str.C_Str());
-			comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
-			str.Clear();
-		}
-		else
-		{
-			// TODO: TREURE AIXO, NOMES ES PER LA CASA
-			aiString str;
-			if (!scene->mMaterials[0]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str))
-			{
-				std::string tmp_texture_path(originalPath);
-				tmp_texture_path.append(str.C_Str());
-				comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
-			}
-			str.Clear();
-		}
-	}
-}
-
 void ModuleImporter::LoadScene(const char* path, const char* originalPath)
 {
 	Assimp::Importer importer;
@@ -180,8 +129,6 @@ void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* nod
 		comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
 		str.Clear();
 	}
-
-
 
 	// Iterate Childs
 	for (int i = 0; i < node->mNumChildren; i++)

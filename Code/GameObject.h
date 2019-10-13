@@ -49,7 +49,7 @@ public:
 
 private:
 	GameObject* parent = nullptr;
-	const char* name = nullptr;
+	std::string name = "";
 	bool active = true;
 
 	std::vector<GameObject*> children;

@@ -55,7 +55,7 @@ GameObject::~GameObject()
 
 const char* GameObject::GetName() const
 {
-	return name;
+	return name.c_str();
 }
 
 void GameObject::SetName(const char* name)
