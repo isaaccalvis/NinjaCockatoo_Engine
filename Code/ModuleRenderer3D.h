@@ -59,6 +59,7 @@ public:
 	Light lights[MAX_LIGHTS];
 
 	bool renderNormals = true;
+	bool renderBoudingBox = true;
 	
 	bool renderGlDepthTest = true;
 	bool renderGlCullFace = true;

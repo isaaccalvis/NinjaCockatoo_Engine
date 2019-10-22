@@ -121,6 +121,10 @@ void MeshCustom::Render(Texture* texture)
 			if (normals != nullptr)
 				normals[i].Render();
 		}
+	}
+
+	if (App->renderer3D->renderBoudingBox)
+	{
 		boundingBoxCube->Render();
 	}
 

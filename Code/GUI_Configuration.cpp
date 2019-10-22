@@ -199,6 +199,12 @@ void GUI_Configuration::Draw()
 			App->renderer3D->renderNormals = normalsAux;
 		}
 
+		static bool boundingBoxDrawAux = App->renderer3D->renderBoudingBox;
+		if (ImGui::Checkbox("BoundingBox", &boundingBoxDrawAux))
+		{
+			App->renderer3D->renderBoudingBox = boundingBoxDrawAux;
+		}
+
 		ImGui::Separator();
 
 		if (ImGui::Checkbox("GL DEPTH TEST", &App->renderer3D->renderGlDepthTest))
