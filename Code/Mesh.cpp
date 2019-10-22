@@ -28,6 +28,7 @@ void Mesh::Render(Texture* texture)
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glTranslatef(position.x, position.y, position.z);
+	glRotated(rotation.Angle() , rotation.x, rotation.y, rotation.z);
 	glScaled(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
@@ -47,6 +48,11 @@ void Mesh::Render(Texture* texture)
 void Mesh::SetPosition(math::float3 nPosition)
 {
 	this->position = nPosition;
+}
+
+void Mesh::SetRotation(const math::Quat nRotation)
+{
+	this->rotation = nRotation;
 }
 
 void Mesh::SetScale(math::float3 nScale)

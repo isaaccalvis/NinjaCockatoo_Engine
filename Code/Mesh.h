@@ -17,6 +17,7 @@ public:
 	virtual void Render(Texture* texture = nullptr);
 
 	void SetPosition(const math::float3 nPosition);
+	void SetRotation(const math::Quat nRotation);
 	void SetScale(const math::float3 nScale);
 
 	math::float3 GetPosition() const;
@@ -30,7 +31,7 @@ public:
 protected:
 	// Transform
 	math::float3 position = math::float3::zero;
-	//math::float3 rotation = { 0,0,0 }; 	// TODO: MAKE ROTATION
+	math::Quat rotation = math::Quat::identity;
 	math::float3 scale = math::float3::one;
 
 	// Vertices
