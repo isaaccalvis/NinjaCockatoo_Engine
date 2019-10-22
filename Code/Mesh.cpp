@@ -28,7 +28,7 @@ void Mesh::Render(Texture* texture)
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glTranslatef(position.x, position.y, position.z);
-	glRotated(rotation.Angle() , rotation.x, rotation.y, rotation.z);
+	glRotated(rotation.Angle() * RADTODEG, rotation.x, rotation.y, rotation.z);
 	glScaled(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);

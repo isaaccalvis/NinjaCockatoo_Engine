@@ -91,7 +91,7 @@ void MeshCustom::Render(Texture* texture)
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glTranslatef(position.x, position.y, position.z);
-	glRotated(rotation.Angle() * RADTODEG, rotation.x * RADTODEG, rotation.y * RADTODEG, rotation.z * RADTODEG);
+	glRotated(rotation.Angle() * RADTODEG, rotation.x, rotation.y, rotation.z);
 	glScalef(scale.x, scale.y, scale.z);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
