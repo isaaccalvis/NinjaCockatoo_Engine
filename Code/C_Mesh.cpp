@@ -1,3 +1,5 @@
+#include "Application.h"
+
 #include "C_Mesh.h"
 #include "C_Material.h"
 #include "C_Transform.h"
@@ -9,7 +11,8 @@ C_Mesh::C_Mesh(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT
 
 C_Mesh::~C_Mesh()
 {
-
+	App->renderer3D->DeleteMesh(mesh);
+	mesh = nullptr;
 }
 
 void C_Mesh::Update(float dt)

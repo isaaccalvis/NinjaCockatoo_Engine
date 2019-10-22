@@ -32,16 +32,16 @@ GameObject::~GameObject()
 	for (int i = 0; i < components.size(); i++)
 	{
 		delete components[i];
-		components.erase(components.begin() + i);
+		//components.erase(components.begin() + i);
 	}
 	components.clear();
 
 	// Delete Children
-	for (int i = 0; i < children.size(); i++)
+	for (int i = children.size() - 1; i >= 0 ; i--)
 	{
 		// TODO : fer servir això per netejar tots els vectors
-		children.erase(std::remove(children.begin(), children.end(), children[i]), children.end());
-		//delete children[i];
+		//children.erase(std::remove(children.begin(), children.end(), children[i]), children.end());
+		delete children[i];
 		//children.erase(children.begin() + i);
 	}
 	children.clear();

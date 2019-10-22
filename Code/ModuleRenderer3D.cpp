@@ -319,21 +319,22 @@ void ModuleRenderer3D::ClearMeshes()
 	lastMesh = nullptr;
 	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
 	{
-		delete (*item);
+		if ((*item) != nullptr)
+			delete (*item);
 	}
 	meshes.clear();
 }
 
 void ModuleRenderer3D::DeleteMesh(Mesh* mesh)
 {
-	for (std::list<Mesh*>::iterator item = meshes.end(); item != meshes.begin();)
-	{
-		if ((*item) == mesh)
-		{
-			item--;
-			meshes.erase(item++);
-		}
-	}
+	//for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
+	//{
+	//	if ((*item) == mesh)
+	//	{
+	delete mesh;
+	meshes.remove(mesh);
+	//	}
+	//}
 }
 
 Mesh* ModuleRenderer3D::AddPrimitive(PRIMITIVE_MESHES type)

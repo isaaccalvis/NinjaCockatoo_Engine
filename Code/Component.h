@@ -11,7 +11,7 @@ class Component
 {
 public:
 	Component(GameObject* parent, COMPONENT_TYPE type);
-	~Component();
+	virtual ~Component();
 
 	virtual void Update(float dt) = 0;
 

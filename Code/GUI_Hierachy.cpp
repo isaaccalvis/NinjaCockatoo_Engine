@@ -15,11 +15,8 @@ void GUI_Hierachy::Draw()
 {
 	ImGui::Begin("Hierachy", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 	RecursiveTakeChilds(App->scene->root);
-
 	ImGui::End();
 }
-
-// TODO, PREGUNTA, aixo em dona problemes... i no se que fer ...
 
 void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 {
@@ -81,6 +78,7 @@ void GUI_Hierachy::GameObjectPopUp(GameObject* go) const
 {
 	if (ImGui::BeginPopupContextItem())
 	{
+		App->scene->goSelected = go;
 		if (ImGui::Selectable("Create Empty"))
 		{
 			App->scene->CreateGameObject("Empty", go);
