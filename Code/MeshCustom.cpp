@@ -114,12 +114,15 @@ void MeshCustom::Render(Texture* texture)
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	// Draw Normals
-	for (int i = 0; i < verticesSize; i++)
+	if (App->renderer3D->renderNormals)
 	{
-		if (normals != nullptr)
-			normals[i].Render();
+		for (int i = 0; i < verticesSize; i++)
+		{
+			if (normals != nullptr)
+				normals[i].Render();
+		}
+		boundingBoxCube->Render();
 	}
-	boundingBoxCube->Render();
 
 	glPopMatrix();
 }

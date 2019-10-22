@@ -57,6 +57,8 @@ public:
 	Mesh* lastMesh = nullptr;
 
 	Light lights[MAX_LIGHTS];
+
+	bool renderNormals = true;
 	
 	bool renderGlDepthTest = true;
 	bool renderGlCullFace = true;

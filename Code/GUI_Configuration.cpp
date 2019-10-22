@@ -193,6 +193,12 @@ void GUI_Configuration::Draw()
 			App->renderer3D->SetWireframeMode(wireframeAux);
 		}
 
+		static bool normalsAux = App->renderer3D->renderNormals;
+		if (ImGui::Checkbox("Normals", &normalsAux))
+		{
+			App->renderer3D->renderNormals = normalsAux;
+		}
+
 		ImGui::Separator();
 
 		if (ImGui::Checkbox("GL DEPTH TEST", &App->renderer3D->renderGlDepthTest))
