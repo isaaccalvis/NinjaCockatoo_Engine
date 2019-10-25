@@ -1,7 +1,6 @@
 #include "Application.h"
 
 #include "ModuleImporter.h"
-#include "MeshCustom.h"
 #include "Console.h"
 
 #include "GameObject.h"
@@ -119,7 +118,7 @@ void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* nod
 	// Create & Load Mesh
 	if (node->mMeshes != nullptr)
 	{
-		MeshCustom* mesh = new MeshCustom(scene, node);
+		Mesh* mesh = new Mesh(scene, node);
 		App->renderer3D->AddMesh(mesh);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
@@ -152,7 +151,7 @@ void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* nod
 		// Create & Load Mesh & Load Texture
 		if (node->mMeshes != nullptr)
 		{
-			MeshCustom* mesh = new MeshCustom(scene, node, i);
+			Mesh* mesh = new Mesh(scene, node, i);
 			App->renderer3D->AddMesh(mesh);
 			Component* compMesh = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 			compMesh->GetComponentAsMesh()->mesh = mesh;

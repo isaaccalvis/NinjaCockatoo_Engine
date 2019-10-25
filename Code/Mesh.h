@@ -8,11 +8,17 @@
 #include "DebugArrow.h"
 #include "DebugCube.h"
 
+#include "Assimp/include/Importer.hpp"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+
 class Mesh
 {
 public:
 	Mesh();
 	Mesh(MESH_TYPE type);
+	Mesh(const aiScene* scene, const aiNode* node, const int num = 0);
+
 	virtual ~Mesh();
 
 	virtual void Render(Texture* texture = nullptr);

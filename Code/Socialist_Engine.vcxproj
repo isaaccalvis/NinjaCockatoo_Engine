@@ -175,7 +175,6 @@
     <ClInclude Include="MathGeoLib-1.5\src\Math\TransformOps.h" />
     <ClInclude Include="MathGeoLib-1.5\src\Time\Clock.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshCustom.h" />
     <ClInclude Include="DebugArrow.h" />
     <ClInclude Include="DebugCube.h" />
     <ClInclude Include="mmgr\mmgr.h" />
@@ -254,7 +253,6 @@
     <ClCompile Include="MathGeoLib-1.5\src\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib-1.5\src\Time\Clock.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshCustom.cpp" />
     <ClCompile Include="DebugArrow.cpp" />
     <ClCompile Include="DebugCube.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
