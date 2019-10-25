@@ -1,28 +1,42 @@
 # Socialist Engine
 
-  
-
 Welcome to the repository of Socialist Engine !
 
-Socialist Engine is project constistent of creating a 3D game engine using C++. It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
+Socialist Engine is project constistent of creating a 3D game engine using C++ & OpenGL.
 
-  
+ - GitHub repository: [Socialist Engine](https://github.com/isaaccalvis/Socialist_Engine)
+
+## About our team
+
+It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
+ - Isaac's GitHub page: [isaaccalvis](https://github.com/isaaccalvis)
+ - Aitor's GitHub page: [aitorvelez](https://github.com/AitorVelez)
 
 ## Controls
 
-- WASD: Navigation forward, backward and sides.
-- ER: Navigation with keys up and down.
-- F: Center the camera in the selected object.
+ - WASD: Navigation forward, backward and sides.
+ - ER: Navigation with keys up and down.
+ - F: Center the camera in the selected object.
+ - LeftAlt: Orbital camera around selected game object
+ - Mouse Wheel: Zoom in, zoom out
+ - Hold Shift: Camera moves x2 fast
 
 ## Window Shortcuts
 
-- F1: Shows configuration window.
-- F2: Shows  object propierties window.
-- F3: Shows console window.
-- F4: Shows hirearchy.
-- F9: Shows the about window.
+ - Esc: Quit
+ - F1: Shows configuration window.
+ - F2: Shows  object propierties window.
+ - F3: Shows console window.
+ - F4: Shows hirearchy.
+ - F9: Shows the about window.
 
 ## Features
+ - Drag&Drop 3D models & textures from your pc to the GameEngine, it will be added to the project at folder resources
+ - Create & Delete GameObjects at Hierachy Panel
+ - Create Primitives &/or add components to game objects (at top bar, gameobjects & components)
+ - At configuration window can manage render & window options, also draw in wireframe mode or draw imported meshes normals, with a lot more features !
+ - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material component
+
 ##  Tools used 
 
 #### Code editor
@@ -31,21 +45,20 @@ Socialist Engine is project constistent of creating a 3D game engine using C++. 
 
 #### Libraries used
 
-- Assimp
-- DevIL
-- Glew 2.1.0
-- Imgui
-- MathGeoLib 1.5
-- Parson
-- SDL
-- MMGR
-- Par Shapes
-  
+ - SDL
+ - OpenGL
+ - Glew
+ - Assimp
+ - DevIL
+ - Imgui
+ - MathGeoLib
+ - Parson
+ - MMGR
+ - PCG Random
+ - Par Shapes
   
 
 ## License
-
-  
 
 Copyright <2019> <Socialist_Engine>
 
