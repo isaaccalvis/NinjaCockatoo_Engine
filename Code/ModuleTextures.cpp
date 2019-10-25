@@ -58,7 +58,7 @@ ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(ap
 
 bool ModuleTextures::CleanUp()
 {
-	// TODO, PREGUNTA: COM NETEJAR BE LES TEXTURES ?
+	// TODO, PREGUNTA: HOW CAN WE CLEAN THE TEXTURES ?
 	for (std::list<Texture*>::iterator item = textures.begin(); item != textures.end(); item++)
 	{
 		delete (*item);

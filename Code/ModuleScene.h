@@ -20,7 +20,7 @@ public:
 	GameObject*		SearchGameObject(std::string name);
 	void			MakeCameraLookThisGOSelected();
 
-public: // TODO: PASSAR A PRIVAT
+public: // TODO: THIS COULD BE PRIVATE
 	GameObject*		root = nullptr;
 	GameObject*		goSelected = nullptr;
 	std::vector<GameObject*> gameObjects;
