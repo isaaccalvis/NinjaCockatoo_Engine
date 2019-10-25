@@ -43,6 +43,7 @@ extern "C" {
 # endif
 #endif
 
+
 #ifndef PAR_SHAPES_T
 #define PAR_SHAPES_T uint16_t
 #endif
@@ -215,6 +216,7 @@ extern "C" {
 #include <string.h>
 #include <math.h>
 #include <errno.h>
+
 
 static float par_shapes__epsilon_welded_normals = 0.001;
 static float par_shapes__epsilon_degenerate_sphere = 0.0001;

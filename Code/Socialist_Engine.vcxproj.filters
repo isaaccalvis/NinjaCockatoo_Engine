@@ -55,9 +55,6 @@
     <Filter Include="Engine\Meshes">
       <UniqueIdentifier>{de965c2a-d3d6-40a4-8791-bee895b76b90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Meshes\BasicMeshes">
-      <UniqueIdentifier>{08295fc5-fef4-4d49-b47b-bc308871d049}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GUI">
       <UniqueIdentifier>{db56e3a7-9cb7-4404-aeba-075b18c07ce3}</UniqueIdentifier>
     </Filter>
@@ -442,9 +439,6 @@
     <ClInclude Include="DebugCube.h">
       <Filter>Engine\Meshes\DebugMesh</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Engine\Meshes\BasicMeshes</Filter>
-    </ClInclude>
     <ClInclude Include="GUI_Hierachy.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
@@ -662,9 +656,6 @@
     </ClCompile>
     <ClCompile Include="DebugCube.cpp">
       <Filter>Engine\Meshes\DebugMesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Engine\Meshes\BasicMeshes</Filter>
     </ClCompile>
     <ClCompile Include="GUI_Hierachy.cpp">
       <Filter>Engine\GUI\Panels</Filter>

@@ -12,6 +12,7 @@ class Mesh
 {
 public:
 	Mesh();
+	Mesh(MESH_TYPE type);
 	virtual ~Mesh();
 
 	virtual void Render(Texture* texture = nullptr);
@@ -27,6 +28,8 @@ public:
 	unsigned int GetVerticesSize() const;
 
 	AABB GetBoundingBox();
+
+	MESH_TYPE type;
 
 protected:
 	// Transform

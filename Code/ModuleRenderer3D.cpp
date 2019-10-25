@@ -5,7 +5,6 @@
 #include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
 
-#include "Primitive.h"
 #include "MeshCustom.h"
 
 #include "Component.h"
@@ -369,9 +368,9 @@ void ModuleRenderer3D::DeleteMesh(Mesh* mesh)
 	//}
 }
 
-Mesh* ModuleRenderer3D::AddPrimitive(PRIMITIVE_MESHES type)
+Mesh* ModuleRenderer3D::AddPrimitive(MESH_TYPE type)
 {
-	Mesh *tmp_mesh = new MeshPrimitive(type);
+	Mesh *tmp_mesh = new Mesh(type);
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
 }

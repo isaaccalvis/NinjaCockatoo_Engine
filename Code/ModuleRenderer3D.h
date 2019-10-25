@@ -46,7 +46,7 @@ public:
 	void AddMesh(Mesh* mesh);
 	void ClearMeshes();
 	void DeleteMesh(Mesh* mesh);
-	Mesh* AddPrimitive(PRIMITIVE_MESHES type);
+	Mesh* AddPrimitive(MESH_TYPE type);
 
 private:
 	SDL_GLContext context;
