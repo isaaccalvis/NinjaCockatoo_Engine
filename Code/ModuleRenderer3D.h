@@ -5,6 +5,7 @@
 #include "Module.h"
 #include "Light.h"
 #include "Mesh.h"
+#include "Grid.h"
 
 #define MAX_LIGHTS 8
 
@@ -68,6 +69,8 @@ public:
 	bool renderGlTexture = true;
 	bool renderGlAlphaTest = false;
 	bool renderGlLineSmooth = false;
+
+	Grid* grid = nullptr;
 };
 
 #endif

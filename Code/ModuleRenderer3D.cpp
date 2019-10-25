@@ -114,6 +114,8 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 	// Projection matrix for
 	OnResize(App->window->screenWidth, App->window->screenHeight);
 
+	grid = new Grid(2);
+
 	return ret;
 }
 
@@ -143,39 +145,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		}
 	}
 
-	// TODO: TREURE AIXO !!
-
 	// Print Debug Draw
-
-	//GRID
-	
-	float x_start = -10.0;
-	float z_start = -10.0;
-
-	float x_end = 10.0f;  
-	float z_end = 10.0f;
-				  
-	float dx = 1.0; //step
-	float dz = 1.0;
-
-	float x;
-	float z;
-
-	glBegin(GL_LINES);
-
-	for (x = x_start; x <= x_end; x += dx)
-	{
-		for (z = z_start; z <= z_end; z += dz)
-		{
-			glVertex3f(x, 0.0, z_start);
-			glVertex3f(x, 0.0, z_end);
-
-			glVertex3f(x_start, 0.0, z);
-			glVertex3f(x_end, 0.0, z);
-		}
-	}
-	glEnd();
-
+	grid->Render();
 
 	return UPDATE_CONTINUE;
 }

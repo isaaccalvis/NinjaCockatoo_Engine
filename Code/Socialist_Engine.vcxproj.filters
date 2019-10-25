@@ -58,9 +58,6 @@
     <Filter Include="Engine\GUI">
       <UniqueIdentifier>{db56e3a7-9cb7-4404-aeba-075b18c07ce3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Meshes\DebugMesh">
-      <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
-    </Filter>
     <Filter Include="External Tools\Devil">
       <UniqueIdentifier>{214677e4-d998-43f6-9748-d52a4af50021}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="External Tools\par_shapes">
       <UniqueIdentifier>{5eb90319-c2fa-4616-bec4-e3054cbb17ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Meshes\DebugDraw">
+      <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -428,16 +428,19 @@
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
     <ClInclude Include="DebugArrow.h">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClInclude>
     <ClInclude Include="DebugCube.h">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClInclude>
     <ClInclude Include="GUI_Hierachy.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
     <ClInclude Include="par_shapes.h">
       <Filter>External Tools\par_shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -643,13 +646,16 @@
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
     <ClCompile Include="DebugArrow.cpp">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClCompile>
     <ClCompile Include="DebugCube.cpp">
-      <Filter>Engine\Meshes\DebugMesh</Filter>
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClCompile>
     <ClCompile Include="GUI_Hierachy.cpp">
       <Filter>Engine\GUI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
