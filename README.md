@@ -39,6 +39,7 @@ Socialist Engine is project constistent of creating a 3D game engine using C++. 
 - Parson
 - SDL
 - MMGR
+- Par Shapes
   
   
 

@@ -11,6 +11,8 @@ Mesh::Mesh(MESH_TYPE type)
 	verticesSize = 0;
 	indicesSize = 0;
 	par_shapes_mesh* primitive;
+	this->type = type;
+
 	switch (type)
 	{
 	case MESH_TYPE::PRIMITIVE_CUBE:
@@ -95,6 +97,7 @@ Mesh::Mesh(MESH_TYPE type)
 
 Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 {
+	this->type = MESH_TYPE::CUSTOM_MESH;
 	// Vertices
 	verticesArray = new GLfloat[scene->mMeshes[node->mMeshes[num]]->mNumVertices * 3];
 	int auxCounterVertex = 0;

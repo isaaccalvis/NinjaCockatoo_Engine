@@ -104,6 +104,11 @@ void GUI_About::Draw()
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/kgabis/parson", NULL, NULL, SW_SHOWNORMAL);
 		}
+
+		if (ImGui::Button("Par Shapes"))
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/prideout/par/blob/master/par_shapes.h", NULL, NULL, SW_SHOWNORMAL);
+		}
 	}
 
 	if (ImGui::CollapsingHeader("Licenses"))
