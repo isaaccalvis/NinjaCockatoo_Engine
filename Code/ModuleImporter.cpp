@@ -128,6 +128,10 @@ void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* nod
 		aiString str;
 		scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
 		std::string tmp_texture_path(originalPath);
+		if (sizeof(originalPath) <= 4) // Thats to check if originalPath exist
+		{
+			tmp_texture_path = "Resources/";
+		}
 		tmp_texture_path.append(str.C_Str());
 		comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
 		str.Clear();
@@ -145,7 +149,7 @@ void ModuleImporter::IterateSceneLoading(const aiScene* scene, const aiNode* nod
 		// Create GameObject
 		GameObject* auxGo = App->scene->CreateGameObject(node->mName.C_Str(), go);
 
-		// Create & Load Mesh
+		// Create & Load Mesh & Load Texture
 		if (node->mMeshes != nullptr)
 		{
 			MeshCustom* mesh = new MeshCustom(scene, node, i);

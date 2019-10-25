@@ -13,6 +13,7 @@ public:
 	~ModuleScene();
 
 	bool			Init(JSON_Object* root_object = nullptr);
+	bool			Start();
 	bool			CleanUp();
 
 	void			DeleteGameObject(GameObject* go);

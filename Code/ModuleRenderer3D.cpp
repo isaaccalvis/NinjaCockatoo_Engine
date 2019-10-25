@@ -146,6 +146,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		}
 	}
 
+	// TODO: TREURE AIXO !!
+
 	// Print Debug Draw
 
 	//GRID
@@ -175,7 +177,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 			glVertex3f(x_end, 0.0, z);
 		}
 	}
-
 	glEnd();
 
 
