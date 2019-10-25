@@ -148,6 +148,37 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	// Print Debug Draw
 
+	//GRID
+	
+	float x_start = -10.0;
+	float z_start = -10.0;
+
+	float x_end = 10.0f;  
+	float z_end = 10.0f;
+				  
+	float dx = 1.0; //step
+	float dz = 1.0;
+
+	float x;
+	float z;
+
+	glBegin(GL_LINES);
+
+	for (x = x_start; x <= x_end; x += dx)
+	{
+		for (z = z_start; z <= z_end; z += dz)
+		{
+			glVertex3f(x, 0.0, z_start);
+			glVertex3f(x, 0.0, z_end);
+
+			glVertex3f(x_start, 0.0, z);
+			glVertex3f(x_end, 0.0, z);
+		}
+	}
+
+	glEnd();
+
+
 	return UPDATE_CONTINUE;
 }
 
