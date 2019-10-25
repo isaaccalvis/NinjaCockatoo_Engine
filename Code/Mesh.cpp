@@ -21,6 +21,12 @@ Mesh::Mesh(MESH_TYPE type)
 	case MESH_TYPE::PRIMITIVE_PLANE:
 		primitive = par_shapes_create_plane(5, 5);
 		break;
+	case MESH_TYPE::PRIMITIVE_CYLINDER:
+		primitive = par_shapes_create_cylinder(16, 8);
+		break;
+	case MESH_TYPE::PRIMITIVE_SPHERE:
+		primitive = par_shapes_create_subdivided_sphere(3);
+		break;
 	case MESH_TYPE::PRIMITIVE_FRUSTRUM:
 	{
 		verticesSize = 24;
@@ -52,30 +58,27 @@ Mesh::Mesh(MESH_TYPE type)
 		};
 	}
 	break;
-	case MESH_TYPE::PRIMITIVE_CYLINDER:
-		primitive = par_shapes_create_cylinder(16, 8);
-		break;
-	case MESH_TYPE::PRIMITIVE_SPHERE:
-		primitive = par_shapes_create_subdivided_sphere(3);
-		break;
 	}
 
-	verticesSize = primitive->npoints * 3;
-	verticesArray = new GLfloat[verticesSize];
-	for (int i = 0; i < verticesSize; i++)
+	if (type != MESH_TYPE::PRIMITIVE_FRUSTRUM)
 	{
-		verticesArray[i] = primitive->points[i];
-	}
+		verticesSize = primitive->npoints * 3;
+		verticesArray = new GLfloat[verticesSize];
+		for (int i = 0; i < verticesSize; i++)
+		{
+			verticesArray[i] = primitive->points[i];
+		}
 
-	indicesSize = primitive->ntriangles * 3;
-	indicesArray = new unsigned int[indicesSize];
-	for (int i = 0; i < indicesSize; i++)
-	{
-		indicesArray[i] = primitive->triangles[i];
-	}
+		indicesSize = primitive->ntriangles * 3;
+		indicesArray = new unsigned int[indicesSize];
+		for (int i = 0; i < indicesSize; i++)
+		{
+			indicesArray[i] = primitive->triangles[i];
+		}
 
-	textureCoords = new GLfloat[primitive->npoints * 2];
-	textureCoords = primitive->tcoords;
+		textureCoords = new GLfloat[primitive->npoints * 2];
+		textureCoords = primitive->tcoords;
+	}
 
 	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));
