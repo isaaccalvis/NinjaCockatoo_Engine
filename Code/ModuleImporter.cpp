@@ -210,6 +210,21 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 	texture->SetBufferPos(textureNum);
 
 	App->textures->AddTexture(texture);
+
+	// Add loaded texture to selected mesh
+	if (App->scene->goSelected != nullptr)
+	{
+		if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL) != nullptr)
+		{
+			App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture = texture;
+		}
+		else
+		{
+			App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
+			App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture = texture;
+		}
+	}
+
 	return texture;
 }
 
