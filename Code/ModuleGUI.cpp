@@ -71,7 +71,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 		}
 	}
 
-	// Console //TODO: CANVIAR AIXO
+	// Console //TODO: CHANGE EVERYTHING
 	if (App->console->IsActive())
 		App->console->Draw("Console", &App->console->p_open);
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_STATE::KEY_DOWN)

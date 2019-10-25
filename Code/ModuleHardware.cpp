@@ -4,7 +4,8 @@
 #include "gpudetect/DeviceId.h"
 #include "SDL/include/SDL.h"
 
-// TODO, PREGUNTA: EL MODUL HARDWARE NO ES UN MODUL, EL TREC ?
+
+// TODO, QUESTION: MOUDLE HARDWARE IS NOT A MODULE SHOULD WE REMOVE IT?
 
 ModuleHardware::ModuleHardware(Application* app, bool start_enabled) : Module(app, start_enabled)
 {

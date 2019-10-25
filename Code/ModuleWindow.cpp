@@ -77,7 +77,7 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 
 update_status ModuleWindow::Update(float dt)
 {
-	// TODO: FICAR EL BRIGHTNESS AQUI
+	// TODO: PUT HERE BRIGTHNESS
 	return update_status::UPDATE_CONTINUE;
 }
 

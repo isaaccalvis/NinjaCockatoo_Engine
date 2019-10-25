@@ -33,7 +33,7 @@ public:
 	void SetGlAlphaTest(bool set);
 	void SetGlLineSmooth(bool set);
 
-	// TODO, PREGUTNA, ES MOLT GUARRO TENIR LES VARIABLES EN PUBLIC ?
+
 
 	bool GetWireframeMode();
 	//bool GetGlDepthTest();

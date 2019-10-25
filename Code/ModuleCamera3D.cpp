@@ -72,7 +72,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-	// TODO: TREURE LAST MESH D'AQUI
+	// TODO: REMOVE LAST MESH 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		if (App->scene->goSelected != nullptr)
 			App->scene->MakeCameraLookThisGOSelected();
@@ -220,7 +220,7 @@ Camera::Camera()
 void Camera::Init()
 {
 	/* Set camera vars*/
-	width = 16; // TODO, PREGUNTA, LA ASPECT RATIO ESTA BE ARA ??
+	width = 16; // TODO, QUESTION, IS ASPECT RATIO GOOD NOW ??
 	height = 9;
 	aspect_ratio = width / height; // We set aspect ratio 16:9 by now
 

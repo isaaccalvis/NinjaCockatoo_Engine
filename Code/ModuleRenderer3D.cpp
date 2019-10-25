@@ -238,7 +238,7 @@ void ModuleRenderer3D::SetWireframeMode(bool set)
 	}
 }
 
-// TODO: repassar que vagin be les opcions de opengl següents
+// TODO: CHECK THAT THESE OPENGL OPTIONS ARE WORKING WELL
 
 void ModuleRenderer3D::SetGlDepthTest(bool set)
 {
@@ -341,7 +341,7 @@ void ModuleRenderer3D::AddMesh(Mesh* mesh)
 	if (mesh != nullptr)
 	{
 		meshes.push_back(mesh);
-		// TODO: TREURE LAST MESH
+		// TODO: DELETE LAST MESH
 		lastMesh = mesh;
 	}
 }
