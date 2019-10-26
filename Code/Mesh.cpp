@@ -59,9 +59,18 @@ Mesh::Mesh(MESH_TYPE type)
 	}
 	break;
 	}
+	std::vector<float3> vectorVertex;
 
 	if (type != MESH_TYPE::PRIMITIVE_FRUSTRUM)
 	{
+		vectorVertex.resize(primitive->npoints);
+		int a = 0;
+		for (int i = 0; i < primitive->npoints * 3; i++)
+		{
+			vectorVertex[a].Set(primitive->points[i], primitive->points[i++], primitive->points[i++]);
+			a++;
+		}
+
 		verticesSize = primitive->npoints * 3;
 		verticesArray = new GLfloat[verticesSize];
 		for (int i = 0; i < verticesSize; i++)
@@ -79,6 +88,16 @@ Mesh::Mesh(MESH_TYPE type)
 		textureCoords = new GLfloat[primitive->npoints * 2];
 		textureCoords = primitive->tcoords;
 	}
+	else // Only need to calculate VectorVertices for aabb
+	{
+		vectorVertex.resize(verticesSize);
+		int a = 0;
+		for (int i = 0; i < verticesSize * 3; i++)
+		{
+			vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
+			a++;
+		}
+	}
 
 	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));
@@ -93,9 +112,11 @@ Mesh::Mesh(MESH_TYPE type)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// Bounding Box
-	//boundingBox.SetNegativeInfinity();
+	boundingBox.SetNegativeInfinity();
+	//boundingBox.SetFromCenterAndSize(math::float3::zero, math::float3::one);
+	boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
 	//boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
-	//boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
+	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 }
 
 Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
@@ -234,13 +255,13 @@ void Mesh::Render(Texture* texture)
 		}
 	}
 
+	glPopMatrix();
+
 	if (App->renderer3D->renderBoudingBox)
 	{
 		if (boundingBoxCube != nullptr)
 			boundingBoxCube->Render();
 	}
-
-	glPopMatrix();
 }
 
 void Mesh::SetPosition(math::float3 nPosition)
@@ -255,6 +276,8 @@ void Mesh::SetRotation(const math::Quat nRotation)
 
 void Mesh::SetScale(math::float3 nScale)
 {
+	
+
 	this->scale = nScale;
 }
 
