@@ -59,7 +59,6 @@ Mesh::Mesh(MESH_TYPE type)
 	}
 	break;
 	}
-	std::vector<float3> vectorVertex;
 
 	if (type != MESH_TYPE::PRIMITIVE_FRUSTRUM)
 	{
@@ -90,11 +89,11 @@ Mesh::Mesh(MESH_TYPE type)
 	}
 	else // Only need to calculate VectorVertices for aabb
 	{
-		vectorVertex.resize(verticesSize);
+		vectorVertex.resize(verticesSize / 3);
 		int a = 0;
-		for (int i = 0; i < verticesSize * 3; i++)
+		for (int i = 0; i < verticesSize; i++)
 		{
-			vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
+			vectorVertex[a].Set((float)verticesArray[i], (float)verticesArray[i++], (float)verticesArray[i++]);
 			a++;
 		}
 	}

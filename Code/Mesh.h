@@ -47,6 +47,7 @@ protected:
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
 	GLfloat* verticesArray = nullptr;
+	std::vector<float3> vectorVertex;
 
 	// Indices
 	unsigned int indices = 0u;
