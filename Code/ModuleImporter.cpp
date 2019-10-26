@@ -97,7 +97,7 @@ void ModuleImporter::DistributeObjectToLoad(const char* path)
 void ModuleImporter::LoadScene(const char* path, const char* originalPath)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType| aiProcess_FlipUVs);
 	if (!scene)
 	{
 		LOG_CONSOLE_IDE("Mesh can not be loaded");
@@ -185,8 +185,9 @@ Texture* ModuleImporter::LoadTexture(const char* path)
 		iluGetImageInfo(&imageInfo);
 		texture->SetWidth(imageInfo.Width);
 		texture->SetHeight(imageInfo.Height);
-		if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-			iluFlipImage();
+		// TODO: If extension is TGA you'll have to flip this concrete texture
+		//if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+		//	iluFlipImage();
 
 		if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 		{
