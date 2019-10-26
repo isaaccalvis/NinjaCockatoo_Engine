@@ -48,13 +48,6 @@ void GUI_TopBar::Draw()
 			{
 				App->scene->CreateGameObject("Empty", App->scene->root);
 			}
-			if (ImGui::MenuItem("Cube"))
-			{
-				GameObject* go = App->scene->CreateGameObject("Cube", App->scene->root);
-				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CUBE);
-				App->scene->MakeCameraLookThisGOSelected();
-			}
 			if (ImGui::MenuItem("Plane"))
 			{
 				GameObject* go = App->scene->CreateGameObject("Plane", App->scene->root);
@@ -62,11 +55,11 @@ void GUI_TopBar::Draw()
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_PLANE);
 				App->scene->MakeCameraLookThisGOSelected();
 			}
-			if (ImGui::MenuItem("Sphere"))
+			if (ImGui::MenuItem("Cube"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Sphere", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Cube", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_SPHERE);
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CUBE);
 				App->scene->MakeCameraLookThisGOSelected();
 			}
 			if (ImGui::MenuItem("Frustrum"))
@@ -76,11 +69,11 @@ void GUI_TopBar::Draw()
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_FRUSTRUM);
 				App->scene->MakeCameraLookThisGOSelected();
 			}
-			if (ImGui::MenuItem("Cylinder"))
+			if (ImGui::MenuItem("Sphere"))
 			{
-				GameObject* go = App->scene->CreateGameObject("Cylinder", App->scene->root);
+				GameObject* go = App->scene->CreateGameObject("Sphere", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CYLINDER);
+				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_SPHERE);
 				App->scene->MakeCameraLookThisGOSelected();
 			}
 			ImGui::EndMenu();

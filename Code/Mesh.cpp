@@ -19,13 +19,10 @@ Mesh::Mesh(MESH_TYPE type)
 		primitive = par_shapes_create_cube();
 		break;
 	case MESH_TYPE::PRIMITIVE_PLANE:
-		primitive = par_shapes_create_plane(5, 5);
-		break;
-	case MESH_TYPE::PRIMITIVE_CYLINDER:
-		primitive = par_shapes_create_cylinder(16, 8);
+		primitive = par_shapes_create_plane(1, 1);
 		break;
 	case MESH_TYPE::PRIMITIVE_SPHERE:
-		primitive = par_shapes_create_subdivided_sphere(3);
+		primitive = par_shapes_create_parametric_sphere(10,10);
 		break;
 	case MESH_TYPE::PRIMITIVE_FRUSTRUM:
 	{
@@ -85,9 +82,26 @@ Mesh::Mesh(MESH_TYPE type)
 		}
 
 		textureCoords = new GLfloat[primitive->npoints * 2];
-		for (int i = 0; i < primitive->npoints * 2; i++)
+		if (primitive->tcoords != nullptr)
 		{
-			textureCoords[i] = primitive->tcoords[i];
+			for (int i = 0; i < primitive->npoints * 2; i++)
+			{
+				textureCoords[i] = primitive->tcoords[i];
+			}
+		}
+		else
+		{
+			for (int i = 0; i < primitive->npoints * 2; i++)
+			{
+				textureCoords[i] = 0;
+				textureCoords[i++] = 0;
+				textureCoords[i++] = 1;
+				textureCoords[i++] = 0;
+				textureCoords[i++] = 1;
+				textureCoords[i++] = 1;
+				textureCoords[i++] = 0;
+				textureCoords[i++] = 1;
+			}
 		}
 	}
 	else // Only need to calculate VectorVertices for aabb
@@ -120,8 +134,8 @@ Mesh::Mesh(MESH_TYPE type)
 
 	// Bounding Box
 	boundingBox.SetNegativeInfinity();
-	boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
-	//boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
+	//boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
+	boundingBox.Enclose(/*(const math::float3*)verticesArray*/&vectorVertex[0], /*verticesSize*/vectorVertex.size());
 	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 }
 
