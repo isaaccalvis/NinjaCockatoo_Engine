@@ -85,7 +85,10 @@ Mesh::Mesh(MESH_TYPE type)
 		}
 
 		textureCoords = new GLfloat[primitive->npoints * 2];
-		textureCoords = primitive->tcoords;
+		for (int i = 0; i < primitive->npoints * 2; i++)
+		{
+			textureCoords[i] = primitive->tcoords[i];
+		}
 	}
 	else // Only need to calculate VectorVertices for aabb
 	{
@@ -110,9 +113,13 @@ Mesh::Mesh(MESH_TYPE type)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+	glGenBuffers(1, (GLuint*)&textureIndex);
+	glBindBuffer(GL_ARRAY_BUFFER, textureIndex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * verticesSize * 2, textureCoords, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	// Bounding Box
 	boundingBox.SetNegativeInfinity();
-	//boundingBox.SetFromCenterAndSize(math::float3::zero, math::float3::one);
 	boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
 	//boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
 	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
