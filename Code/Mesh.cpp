@@ -24,41 +24,7 @@ Mesh::Mesh(MESH_TYPE type)
 	case MESH_TYPE::PRIMITIVE_SPHERE:
 		primitive = par_shapes_create_parametric_sphere(10,10);
 		break;
-	case MESH_TYPE::PRIMITIVE_FRUSTRUM:
-	{
-		verticesSize = 24;
-		verticesArray = new GLfloat[verticesSize]{
-			-0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f,  0.5f,
-			-0.5f, -0.5f,  0.5f,
-			-0.25f, 0.5f, -0.25f,
-			 0.25f, 0.5f, -0.25f,
-			 0.25f, 0.5f,  0.25f,
-			-0.25f, 0.5f,  0.25f
-		};
-
-		indicesSize = 36;
-		indicesArray = new unsigned int[indicesSize] {
-			2, 1, 0,
-				3, 2, 0,
-				2, 5, 1,
-				5, 2, 6,
-				3, 7, 2,
-				2, 7, 6,
-				5, 6, 4,
-				6, 7, 4,
-				3, 0, 4,
-				7, 3, 4,
-				0, 1, 4,
-				1, 5, 4
-		};
 	}
-	break;
-	}
-
-	if (type != MESH_TYPE::PRIMITIVE_FRUSTRUM)
-	{
 		vectorVertex.resize(primitive->npoints);
 		int a = 0;
 		for (int i = 0; i < primitive->npoints * 3; i++)
@@ -81,39 +47,33 @@ Mesh::Mesh(MESH_TYPE type)
 			indicesArray[i] = primitive->triangles[i];
 		}
 
-		textureCoords = new GLfloat[primitive->npoints * 2];
+		textureCoords = new GLfloat[primitive->ntriangles * 2];
 		if (primitive->tcoords != nullptr)
 		{
-			for (int i = 0; i < primitive->npoints * 2; i++)
+			for (int i = 0; i < primitive->ntriangles * 2; i++)
 			{
 				textureCoords[i] = primitive->tcoords[i];
 			}
 		}
 		else
 		{
-			for (int i = 0; i < primitive->npoints * 2; i++)
+			for (int i = 0; i < primitive->ntriangles * 2; i++)
 			{
 				textureCoords[i] = 0;
 				textureCoords[i++] = 0;
 				textureCoords[i++] = 1;
 				textureCoords[i++] = 0;
+				textureCoords[i++] = 0;
+				textureCoords[i++] = 1;
+
+				textureCoords[i++] = 0;
 				textureCoords[i++] = 1;
 				textureCoords[i++] = 1;
 				textureCoords[i++] = 0;
 				textureCoords[i++] = 1;
+				textureCoords[i++] = 1;
 			}
 		}
-	}
-	else // Only need to calculate VectorVertices for aabb
-	{
-		vectorVertex.resize(verticesSize / 3);
-		int a = 0;
-		for (int i = 0; i < verticesSize; i++)
-		{
-			vectorVertex[a].Set((float)verticesArray[i], (float)verticesArray[i++], (float)verticesArray[i++]);
-			a++;
-		}
-	}
 
 	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));

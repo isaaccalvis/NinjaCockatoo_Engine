@@ -62,13 +62,6 @@ void GUI_TopBar::Draw()
 				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CUBE);
 				App->scene->MakeCameraLookThisGOSelected();
 			}
-			if (ImGui::MenuItem("Frustrum"))
-			{
-				GameObject* go = App->scene->CreateGameObject("Frustum", App->scene->root);
-				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->mesh = App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_FRUSTRUM);
-				App->scene->MakeCameraLookThisGOSelected();
-			}
 			if (ImGui::MenuItem("Sphere"))
 			{
 				GameObject* go = App->scene->CreateGameObject("Sphere", App->scene->root);
