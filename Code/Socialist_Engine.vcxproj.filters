@@ -357,9 +357,6 @@
     <ClInclude Include="Console.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleImporter.h">
-      <Filter>Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleTextures.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
@@ -620,9 +617,6 @@
     </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Engine\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleImporter.cpp">
-      <Filter>Engine\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Meshes</Filter>

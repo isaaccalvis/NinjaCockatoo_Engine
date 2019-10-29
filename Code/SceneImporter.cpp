@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "SceneImporter.h"
-#include "ModuleImporter.h"
 
 #include "Mesh.h"
 #include "C_Mesh.h"
@@ -75,7 +74,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		}
 		tmp_texture_path.append(str.C_Str());
 		// Load texture
-		App->importer->LoadTexture(tmp_texture_path.c_str());
+		App->fs->materialImporter->Import(tmp_texture_path.c_str());
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
@@ -109,7 +108,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			std::string tmp_texture_path(originalPath);
 			tmp_texture_path.append(str.C_Str());
 			// Load texture
-			App->importer->LoadTexture(tmp_texture_path.c_str());
+			App->fs->materialImporter->Import(tmp_texture_path.c_str());
 			// Search it
 			std::string texture_name_and_extension(tmp_texture_path);
 			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);

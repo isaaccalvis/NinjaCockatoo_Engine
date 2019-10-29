@@ -28,6 +28,9 @@ public:
 
 public:
 	std::string resources_directory;
+
+	SceneImporter* sceneImporter = nullptr;
+	MaterialImporter* materialImporter = nullptr;
 };
 
 #endif

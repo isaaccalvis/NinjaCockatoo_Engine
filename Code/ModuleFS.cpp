@@ -8,6 +8,9 @@ ModuleFS::ModuleFS(Application* app, bool start_enabled) : Module(app, start_ena
 
 bool ModuleFS::Start()
 {
+	sceneImporter = new SceneImporter();
+	materialImporter = new MaterialImporter();
+
 	CheckAndGenerateResourcesFolders();
 	return true;
 }
@@ -47,7 +50,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	}
 	else if (extension == "dds" || extension == "png")
 	{
-		App->importer->LoadTexture(toSavePath.c_str());
+		materialImporter->Import(toSavePath.c_str());
 	}
 }
 
@@ -55,7 +58,7 @@ void ModuleFS::LoadScene(const char* path, const char* originalPath)
 {
 	SceneImporterSettings* settings = new SceneImporterSettings();
 	settings->originalPath = originalPath;
-	App->importer->sceneImporter->Import(path, settings);
+	sceneImporter->Import(path, settings);
 	delete settings;
 }
 

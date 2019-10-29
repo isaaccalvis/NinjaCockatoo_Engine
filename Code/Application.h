@@ -11,7 +11,6 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "ModuleHardware.h"
-#include "ModuleImporter.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
 #include "ModuleFS.h"
@@ -44,7 +43,6 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	ModuleHardware* hardware;
-	ModuleImporter* importer;
 	ModuleTextures* textures;
 	ModuleScene* scene;
 	ModuleFS* fs;
