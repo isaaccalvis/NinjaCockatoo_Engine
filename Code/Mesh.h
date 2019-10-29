@@ -30,6 +30,9 @@ public:
 	math::float3 GetPosition() const;
 	math::float3 GetScale() const;
 
+	unsigned int* GetIndicesArray() const;
+	GLfloat* GetVerticesArray() const;
+
 	unsigned int GetIndicesSize() const;
 	unsigned int GetVerticesSize() const;
 

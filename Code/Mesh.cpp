@@ -271,6 +271,16 @@ math::float3 Mesh::GetScale() const
 	return scale;
 }
 
+unsigned int* Mesh::GetIndicesArray() const
+{
+	return indicesArray;
+}
+
+GLfloat* Mesh::GetVerticesArray() const
+{
+	return verticesArray;
+}
+
 unsigned int Mesh::GetIndicesSize() const
 {
 	return indicesSize;

@@ -83,7 +83,7 @@
       <UniqueIdentifier>{797016bf-cfd7-4842-9698-06e392dee340}</UniqueIdentifier>
     </Filter>
     <Filter Include="External Tools\PhysFS">
-      <UniqueIdentifier>{3b8ebfcb-ed79-4e1e-b91b-266a6e3f4c09}</UniqueIdentifier>
+      <UniqueIdentifier>{c6138635-b859-4fda-b958-e73aeb5c6ffd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -454,11 +454,11 @@
     <ClInclude Include="MaterialImporter.h">
       <Filter>Engine\Importers</Filter>
     </ClInclude>
-    <ClInclude Include="physfs\include\physfs.h">
-      <Filter>External Tools\PhysFS</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFS.h">
       <Filter>Engine\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="physfs\include\physfs.h">
+      <Filter>External Tools\PhysFS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

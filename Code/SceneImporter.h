@@ -3,6 +3,7 @@
 
 #include "Importer.h"
 #include "GameObject.h"
+#include "Mesh.h"
 
 struct aiScene;
 struct aiNode;
@@ -24,6 +25,8 @@ public:
 	void IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
 
 	void Load(const char* exportedFile);
+
+	void CreateOwnMesh(Mesh* mesh);
 };
 
 #endif

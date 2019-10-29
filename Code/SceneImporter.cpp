@@ -6,6 +6,8 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 
+#include "physfs/include/physfs.h"
+
 #include "Assimp/include/Importer.hpp"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -14,6 +16,9 @@
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Assimp/libx86/zlibstatic.lib")
+
+// TODO : AQUESTA LIB POTSER NO S'HA D'INCLOURE AQUI
+#pragma comment (lib, "physfs/libx86/physfs.lib")
 
 void myCallback(const char* msg, char* userData)
 {
@@ -55,12 +60,12 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 	// Create GameObject
 	GameObject* go = App->scene->CreateGameObject(node->mName.C_Str(), parent);
 
-
 	// Create & Load Mesh
 	if (node->mMeshes != nullptr)
 	{
 		Mesh* mesh = new Mesh(scene, node);
 		App->renderer3D->AddMesh(mesh);
+		CreateOwnMesh(mesh);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 		compMesh->GetComponentAsMesh()->mesh = mesh;
@@ -122,4 +127,38 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 void SceneImporter::Load(const char* exportedFile)
 {
 
+}
+
+void SceneImporter::CreateOwnMesh(Mesh* mesh)
+{
+	// Header
+	unsigned int ranges[2] = {mesh->GetIndicesSize(), mesh->GetVerticesSize()};
+
+	// Body
+	unsigned int size = sizeof(ranges) + sizeof(unsigned int) * mesh->GetIndicesSize() + sizeof(GLfloat) * mesh->GetVerticesSize();
+	
+	// Data & Cursor
+	char* data = new char[size]; // Contenidor
+	char* cursor = data; // Apuntador
+
+	// Add header
+	unsigned int bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+
+	cursor += bytes;
+	bytes = sizeof(unsigned int) * mesh->GetIndicesSize();
+	memcpy(cursor, mesh->GetIndicesArray(), bytes);
+
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize();
+	memcpy(cursor, mesh->GetVerticesArray(), bytes);
+
+
+	PHYSFS_file* filehandle = nullptr;
+	const char* dir = "demo.cc";
+	//filehandle = PHYSFS_openAppend(dir);
+	//PHYSFS_writeBytes(filehandle, (const void*)data, size);
+
+	cursor = nullptr;
+	delete[] data;
 }
