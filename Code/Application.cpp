@@ -12,6 +12,7 @@ Application::Application()
 	importer = new ModuleImporter(this);
 	textures = new ModuleTextures(this);
 	scene = new ModuleScene(this);
+	fs = new ModuleFS(this);
 
 	console = new Console(this);
 
@@ -22,6 +23,7 @@ Application::Application()
 	AddModule(importer);
 	AddModule(textures);
 	AddModule(scene);
+	AddModule(fs);
 
 	AddModule(console);
 

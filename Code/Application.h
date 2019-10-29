@@ -14,6 +14,7 @@
 #include "ModuleImporter.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "ModuleFS.h"
 #include "Console.h"
 
 class Application
@@ -46,6 +47,7 @@ public:
 	ModuleImporter* importer;
 	ModuleTextures* textures;
 	ModuleScene* scene;
+	ModuleFS* fs;
 
 	Console* console;
 

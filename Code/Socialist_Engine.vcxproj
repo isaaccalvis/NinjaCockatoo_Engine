@@ -183,6 +183,7 @@
     <ClInclude Include="mmgr\mmgr.h" />
     <ClInclude Include="mmgr\nommgr.h" />
     <ClInclude Include="ModuleCamera3D.h" />
+    <ClInclude Include="ModuleFS.h" />
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleHardware.h" />
     <ClInclude Include="ModuleImporter.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="pcg-c-0.94\extras\entropy.h" />
     <ClInclude Include="pcg-c-0.94\extras\pcg_spinlock.h" />
     <ClInclude Include="pcg-c-0.94\include\pcg_variants.h" />
+    <ClInclude Include="physfs\include\physfs.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SceneImporter.h" />
     <ClInclude Include="Timer.h" />
@@ -264,6 +266,7 @@
     <ClCompile Include="DebugCube.cpp" />
     <ClCompile Include="mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
+    <ClCompile Include="ModuleFS.cpp" />
     <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleImporter.cpp" />
