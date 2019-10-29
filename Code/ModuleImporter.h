@@ -5,13 +5,9 @@
 #include "ModuleTextures.h"
 #include "Mesh.h"
 
-#include "Assimp/include/Importer.hpp"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/cimport.h"
-
-void myCallback(const char* msg, char* userData);
+#include "Importer.h"
+#include "SceneImporter.h"
+#include "MaterialImporter.h"
 
 class ModuleImporter : public Module
 {
@@ -27,15 +23,16 @@ public:
 	void DistributeObjectToLoad(const char* path);
 
 	void LoadScene(const char* path, const char* originalPath = nullptr);
-	void IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
 
 	Texture* LoadTexture(const char* path);
 
 	const std::string GetResourcesDirectory() const;
 	void SetResourcesDirectory(const std::string str);
 
-private:
+public:
 	std::string resources_directory;
+	SceneImporter* sceneImporter = nullptr;
+	MaterialImporter* materialImporter = nullptr;
 
 };
 

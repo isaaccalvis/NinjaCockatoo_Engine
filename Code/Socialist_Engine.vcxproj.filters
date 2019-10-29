@@ -79,6 +79,9 @@
     <Filter Include="Engine\Meshes\DebugDraw">
       <UniqueIdentifier>{62457934-8093-4dc8-babd-dafa2e56b561}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Importers">
+      <UniqueIdentifier>{797016bf-cfd7-4842-9698-06e392dee340}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -442,6 +445,15 @@
     <ClInclude Include="Grid.h">
       <Filter>Engine\Meshes\DebugDraw</Filter>
     </ClInclude>
+    <ClInclude Include="SceneImporter.h">
+      <Filter>Engine\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="Importer.h">
+      <Filter>Engine\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialImporter.h">
+      <Filter>Engine\Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -656,6 +668,15 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Engine\Meshes\DebugDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneImporter.cpp">
+      <Filter>Engine\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="Importer.cpp">
+      <Filter>Engine\Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialImporter.cpp">
+      <Filter>Engine\Importers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

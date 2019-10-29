@@ -21,9 +21,6 @@ bool ModuleScene::Init(JSON_Object* root_object)
 
 bool ModuleScene::Start()
 {
-	// Load baker house when engine opens
-	App->importer->DistributeObjectToLoad("BakerHouse.fbx");
-
 	return true;
 }
 
