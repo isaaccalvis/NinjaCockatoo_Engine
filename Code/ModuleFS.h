@@ -25,6 +25,8 @@ public:
 	void LoadScene(const char* path, const char* originalPath = nullptr);
 
 	void CheckAndGenerateResourcesFolders();
+	bool CheckExistingFolder(const char* path);
+	void CreateFolder(const char* path);
 
 public:
 	std::string resources_directory;

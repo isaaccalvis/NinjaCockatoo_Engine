@@ -11,6 +11,8 @@ bool ModuleFS::Start()
 	sceneImporter = new SceneImporter();
 	materialImporter = new MaterialImporter();
 
+	CheckExistingFolder("Resources");
+
 	CheckAndGenerateResourcesFolders();
 	return true;
 }
@@ -64,42 +66,28 @@ void ModuleFS::LoadScene(const char* path, const char* originalPath)
 
 void ModuleFS::CheckAndGenerateResourcesFolders()
 {
-	DWORD resDir = GetFileAttributesA(resources_directory.c_str());
-	DWORD assDir = GetFileAttributesA((resources_directory + "Assets").c_str());
-	DWORD libDir = GetFileAttributesA((resources_directory + "Library").c_str());
-	DWORD libMeshDir = GetFileAttributesA((resources_directory + "Library/" + "Meshes").c_str());
-	DWORD libMatDir = GetFileAttributesA((resources_directory + "Library/" + "Materials").c_str());
+	if (!CheckExistingFolder(resources_directory.c_str()))
+		CreateFolder(resources_directory.c_str());
+	if (!CheckExistingFolder((resources_directory + "Assets").c_str()))
+		CreateFolder((resources_directory + "Assets").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library").c_str()))
+		CreateFolder((resources_directory + "Library").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library/" + "Meshes").c_str()))
+		CreateFolder((resources_directory + "Library/" + "Meshes").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library/" + "Materials").c_str()))
+		CreateFolder((resources_directory + "Library/" + "Materials").c_str());
+}
 
-	if (resDir != INVALID_FILE_ATTRIBUTES)
-	{
-		if (assDir == INVALID_FILE_ATTRIBUTES)
-		{
-			CreateDirectory((resources_directory + "Assets").c_str(), NULL);
-		}
-		if (libDir != INVALID_FILE_ATTRIBUTES)
-		{
-			if (libMeshDir == INVALID_FILE_ATTRIBUTES)
-			{
-				CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
-			}
-			if (libMatDir == INVALID_FILE_ATTRIBUTES)
-			{
-				CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
-			}
-		}
-		else
-		{
-			CreateDirectory((resources_directory + "Library").c_str(), NULL);
-			CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
-			CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
-		}
-	}
-	else if (resDir == INVALID_FILE_ATTRIBUTES)
-	{
-		CreateDirectory((resources_directory).c_str(), NULL);
-		CreateDirectory((resources_directory + "Assets").c_str(), NULL);
-		CreateDirectory((resources_directory + "Library").c_str(), NULL);
-		CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
-		CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
-	}
+bool ModuleFS::CheckExistingFolder(const char* path)
+{
+	DWORD dir = GetFileAttributesA(path);
+	if (dir != INVALID_FILE_ATTRIBUTES)
+		if (dir & FILE_ATTRIBUTE_DIRECTORY)
+			return true;
+	return false;
+}
+
+void ModuleFS::CreateFolder(const char* path)
+{
+	CreateDirectory(path, NULL);
 }
