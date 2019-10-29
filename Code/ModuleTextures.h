@@ -7,6 +7,7 @@
 class Texture {
 public:
 	Texture();
+	Texture(const char* name);
 	~Texture();
 
 	void SetBufferPos(unsigned int nBufferPos);
@@ -16,6 +17,9 @@ public:
 	unsigned int GetBufferPos() const;
 	int GetWidth() const;
 	int GetHeight() const;
+
+public:
+	const char* name = nullptr;
 
 private:
 	unsigned int BufferPos = 0u;
@@ -31,6 +35,7 @@ public:
 	bool CleanUp();
 
 	void AddTexture(Texture* texture);
+	Texture* SearchTexture(const char* name);
 	void DeleteTexture(Texture* texture);
 	 
 private:

@@ -12,6 +12,11 @@ Texture::Texture()
 
 }
 
+Texture::Texture(const char* name)
+{
+	this->name = name;
+}
+
 Texture::~Texture()
 {
 
@@ -74,6 +79,18 @@ void ModuleTextures::AddTexture(Texture* texture)
 	{
 		textures.push_back(texture);
 	}
+}
+
+Texture* ModuleTextures::SearchTexture(const char* name)
+{
+	for (std::list<Texture*>::iterator item = textures.begin(); item != textures.end(); item++)
+	{
+		if ((*item)->name == name)
+		{
+			return (*item);
+		}
+	}
+	return nullptr;
 }
 
 void ModuleTextures::DeleteTexture(Texture* texture)

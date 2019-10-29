@@ -148,10 +148,10 @@ void GUI_Configuration::Draw()
 	if (ImGui::CollapsingHeader("File System"))
 	{
 		static char gui_resources_directory[256];
-		strcpy_s(gui_resources_directory, 256, App->importer->GetResourcesDirectory().c_str());
+		strcpy_s(gui_resources_directory, 256, App->fs->resources_directory.c_str());
 		if (ImGui::InputText("Resources Path: ", gui_resources_directory, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
-			App->importer->SetResourcesDirectory(gui_resources_directory);
+			App->fs->resources_directory = gui_resources_directory;
 		}
 	}
 

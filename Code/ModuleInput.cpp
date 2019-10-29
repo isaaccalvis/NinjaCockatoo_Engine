@@ -109,7 +109,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case (SDL_DROPFILE): {
 				char* dropped_filedir = e.drop.file;
-				App->importer->DistributeObjectToLoad(dropped_filedir);
+				App->fs->DistributeObjectToLoad(dropped_filedir);
 				SDL_free(dropped_filedir);		// Free dropped_filedir memory
 			}
 			break;

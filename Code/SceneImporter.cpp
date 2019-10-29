@@ -71,10 +71,15 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		std::string tmp_texture_path(originalPath);
 		if (sizeof(originalPath) <= 4) // Thats to check if originalPath exist
 		{
-			tmp_texture_path = App->importer->resources_directory;
+			tmp_texture_path = App->fs->resources_directory;
 		}
 		tmp_texture_path.append(str.C_Str());
-		comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+		// Load texture
+		App->importer->LoadTexture(tmp_texture_path.c_str());
+		// Search it
+		std::string texture_name_and_extension(tmp_texture_path);
+		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
+		comTexture->GetComponentAsMaterial()->texture = App->textures->SearchTexture(texture_name_and_extension.c_str());
 		str.Clear();
 	}
 
@@ -103,7 +108,13 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
 			std::string tmp_texture_path(originalPath);
 			tmp_texture_path.append(str.C_Str());
-			comTexture->GetComponentAsMaterial()->texture = App->importer->LoadTexture(tmp_texture_path.c_str());
+			// Load texture
+			App->importer->LoadTexture(tmp_texture_path.c_str());
+			// Search it
+			std::string texture_name_and_extension(tmp_texture_path);
+			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
+			comTexture->GetComponentAsMaterial()->texture = App->textures->SearchTexture(texture_name_and_extension.c_str());
+			str.Clear();
 			str.Clear();
 		}
 	}
