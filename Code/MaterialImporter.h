@@ -10,6 +10,7 @@ public:
 	~MaterialImporter();
 
 	void Import(const char* path, const ImporterSettings* settings = nullptr);
+	void Load(const char* exportedFile);
 };
 
 #endif

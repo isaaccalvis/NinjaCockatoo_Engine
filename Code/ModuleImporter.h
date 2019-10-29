@@ -29,6 +29,8 @@ public:
 	const std::string GetResourcesDirectory() const;
 	void SetResourcesDirectory(const std::string str);
 
+	void CheckAndGenerateResourcesFolders();
+
 public:
 	std::string resources_directory;
 	SceneImporter* sceneImporter = nullptr;

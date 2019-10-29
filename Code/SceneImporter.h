@@ -4,11 +4,8 @@
 #include "Importer.h"
 #include "GameObject.h"
 
-#include "Assimp/include/Importer.hpp"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#include "Assimp/include/cfileio.h"
-#include "Assimp/include/cimport.h"
+struct aiScene;
+struct aiNode;
 
 void myCallback(const char* msg, char* userData);
 
@@ -25,7 +22,7 @@ public:
 
 	void Import(const char* path, const ImporterSettings* settings = nullptr);
 	void IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
-
+	void Load(const char* exportedFile);
 };
 
 #endif

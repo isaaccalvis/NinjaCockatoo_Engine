@@ -7,6 +7,12 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 
+#include "Assimp/include/Importer.hpp"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+#include "Assimp/include/cfileio.h"
+#include "Assimp/include/cimport.h"
+
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 #pragma comment (lib, "Assimp/libx86/zlibstatic.lib")
 
@@ -101,5 +107,9 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			str.Clear();
 		}
 	}
+}
+
+void SceneImporter::Load(const char* exportedFile)
+{
 
 }

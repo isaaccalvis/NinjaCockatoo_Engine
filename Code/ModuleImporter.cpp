@@ -1,3 +1,5 @@
+#include <Windows.h>
+
 #include "Application.h"
 
 #include "ModuleImporter.h"
@@ -41,6 +43,8 @@ bool ModuleImporter::Start()
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
 	ilutEnable(ILUT_OPENGL_CONV);
+
+	CheckAndGenerateResourcesFolders();
 
 	return ret;
 }
@@ -164,4 +168,46 @@ const std::string ModuleImporter::GetResourcesDirectory() const
 void ModuleImporter::SetResourcesDirectory(const std::string str)
 {
 	resources_directory = str;
+}
+
+void ModuleImporter::CheckAndGenerateResourcesFolders()
+{
+	DWORD resDir = GetFileAttributesA(resources_directory.c_str());
+	DWORD assDir = GetFileAttributesA((resources_directory + "Assets").c_str());
+	DWORD libDir = GetFileAttributesA((resources_directory + "Library").c_str());
+	DWORD libMeshDir = GetFileAttributesA((resources_directory + "Library/" + "Meshes").c_str());
+	DWORD libMatDir = GetFileAttributesA((resources_directory + "Library/" + "Materials").c_str());
+
+	if (resDir != INVALID_FILE_ATTRIBUTES)
+	{
+		if (assDir == INVALID_FILE_ATTRIBUTES)
+		{
+			CreateDirectory((resources_directory + "Assets").c_str(), NULL);
+		}
+		if (libDir != INVALID_FILE_ATTRIBUTES)
+		{
+			if (libMeshDir == INVALID_FILE_ATTRIBUTES)
+			{
+				CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
+			}
+			if (libMatDir == INVALID_FILE_ATTRIBUTES)
+			{
+				CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
+			}
+		}
+		else
+		{
+			CreateDirectory((resources_directory + "Library").c_str(), NULL);
+			CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
+			CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
+		}
+	}
+	else if (resDir == INVALID_FILE_ATTRIBUTES)
+	{
+		CreateDirectory((resources_directory).c_str(), NULL);
+		CreateDirectory((resources_directory + "Assets").c_str(), NULL);
+		CreateDirectory((resources_directory + "Library").c_str(), NULL);
+		CreateDirectory((resources_directory + "Library/" + "Meshes").c_str(), NULL);
+		CreateDirectory((resources_directory + "Library/" + "Material").c_str(), NULL);
+	}
 }
