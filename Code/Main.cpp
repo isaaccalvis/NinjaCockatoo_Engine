@@ -4,8 +4,13 @@
 
 #include "SDL/include/SDL.h"
 
+#include "physfs/include/physfs.h"
+
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
+
+// TODO : AQUESTA LIB POTSER NO S'HA D'INCLOURE AQUI
+#pragma comment (lib, "physfs/libx86/physfs.lib")
 
 enum main_states
 {	
@@ -22,6 +27,8 @@ int main(int argc, char ** argv)
 {
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
+
+	PHYSFS_init(*argv);
 
 	while (state != MAIN_EXIT)
 	{

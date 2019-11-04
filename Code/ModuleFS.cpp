@@ -11,9 +11,17 @@ bool ModuleFS::Start()
 	sceneImporter = new SceneImporter();
 	materialImporter = new MaterialImporter();
 
-	CheckExistingFolder("Resources");
+	if (!CheckExistingFolder(resources_directory.c_str()))
+		CreateFolder(resources_directory.c_str());
+	if (!CheckExistingFolder((resources_directory + "Assets").c_str()))
+		CreateFolder((resources_directory + "Assets").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library").c_str()))
+		CreateFolder((resources_directory + "Library").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library/" + "Meshes").c_str()))
+		CreateFolder((resources_directory + "Library/" + "Meshes").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library/" + "Materials").c_str()))
+		CreateFolder((resources_directory + "Library/" + "Materials").c_str());
 
-	CheckAndGenerateResourcesFolders();
 	return true;
 }
 
@@ -64,20 +72,6 @@ void ModuleFS::LoadScene(const char* path, const char* originalPath)
 	delete settings;
 }
 
-void ModuleFS::CheckAndGenerateResourcesFolders()
-{
-	if (!CheckExistingFolder(resources_directory.c_str()))
-		CreateFolder(resources_directory.c_str());
-	if (!CheckExistingFolder((resources_directory + "Assets").c_str()))
-		CreateFolder((resources_directory + "Assets").c_str());
-	if (!CheckExistingFolder((resources_directory + "Library").c_str()))
-		CreateFolder((resources_directory + "Library").c_str());
-	if (!CheckExistingFolder((resources_directory + "Library/" + "Meshes").c_str()))
-		CreateFolder((resources_directory + "Library/" + "Meshes").c_str());
-	if (!CheckExistingFolder((resources_directory + "Library/" + "Materials").c_str()))
-		CreateFolder((resources_directory + "Library/" + "Materials").c_str());
-}
-
 bool ModuleFS::CheckExistingFolder(const char* path)
 {
 	DWORD dir = GetFileAttributesA(path);
@@ -90,4 +84,40 @@ bool ModuleFS::CheckExistingFolder(const char* path)
 void ModuleFS::CreateFolder(const char* path)
 {
 	CreateDirectory(path, NULL);
+}
+
+void ModuleFS::CreateOwnMesh(Mesh* mesh)
+{
+	// Header
+	unsigned int ranges[2] = { mesh->GetIndicesSize(), mesh->GetVerticesSize() };
+
+	// Body
+	unsigned int size = sizeof(ranges) + sizeof(unsigned int) * mesh->GetIndicesSize() + sizeof(GLfloat) * mesh->GetVerticesSize();
+
+	// Data & Cursor
+	char* data = new char[size]; // Contenidor
+	char* cursor = data; // Apuntador
+
+	// Add header
+	unsigned int bytes = sizeof(ranges);
+	memcpy(cursor, ranges, bytes);
+
+	// Get indices
+	cursor += bytes;
+	bytes = sizeof(unsigned int) * mesh->GetIndicesSize();
+	memcpy(cursor, mesh->GetIndicesArray(), bytes);
+
+	// Get vertices
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize();
+	memcpy(cursor, mesh->GetVerticesArray(), bytes);
+
+	FILE* file = fopen("Resources/demo.mesh", "w");
+	fwrite(data, sizeof(char), size, file);
+	fclose(file);
+	//PHYSFS_file* filehandle = PHYSFS_openWrite("demo.txt");
+	//PHYSFS_writeBytes(filehandle, (const void*)data, size);
+
+	cursor = nullptr;
+	delete[] data;
 }
