@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
@@ -200,4 +202,14 @@ void ModuleInput::LoadPCGSeed(int argc, char** argv)
 		// Seed with a fixed constant
 		pcg32_srandom_r(&rng, 42u, 54u);
 	}
+}
+
+unsigned int ModuleInput::GenerateUUID()
+{
+	uint64_t seeds[2];
+	entropy_getbytes((void*)seeds, sizeof(seeds));
+	pcg32_srandom_r(&rng, seeds[0], seeds[1]);
+
+	uint32_t a = pcg_output_rxs_m_xs_32_32(rng.state);
+	return a;
 }
