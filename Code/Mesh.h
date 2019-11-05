@@ -32,21 +32,12 @@ public:
 	math::float3 GetScale() const;
 
 	// Indices, Vertices, TextureCoords, Normals
-	void SetIndicesArray(unsigned int* indices);
-	void SetVerticesArray(GLfloat* vertices);
-	void SetTextureCoorArray(GLfloat* textureCoor);
-	void SetNormalsArray(DebugArrow* normals);
-
-	unsigned int* GetIndicesArray() const;
-	GLfloat* GetVerticesArray() const;
-	GLfloat* GetTextureCoorArray() const;
-	DebugArrow* GetNormalsArray() const;
-
 	void ClearIndicesArray();
 	void ClearVerticesArray();
 	void ClearTextureCoorArray();
 	void ClearNormalsArray();
 
+	// Buffers
 	void GenerateIndicesBuffer();
 	void GenerateVerticesBuffer();
 	void GenerateTextureCoorBuffer();
@@ -69,6 +60,11 @@ public:
 
 	MESH_TYPE type;
 
+	GLfloat* verticesArray = nullptr;
+	unsigned int* indicesArray = nullptr;
+	GLfloat* textureCoords = nullptr;
+	DebugArrow* normals = nullptr;
+
 protected:
 	// Transform
 	math::float3 position = math::float3::zero;
@@ -78,22 +74,18 @@ protected:
 	// Vertices
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
-	GLfloat* verticesArray = nullptr;
 	std::vector<float3> vectorVertex;
 
 	// Indices
 	unsigned int indices = 0u;
 	unsigned int indicesSize = 0;
-	unsigned int* indicesArray = nullptr;
 	
 	// Texture
 	unsigned int textureIndex = 0u;
 	unsigned int textureCoorSize = 0u;
-	GLfloat* textureCoords = nullptr;
 
 	// Normals
 	unsigned int normalsSize = 0u;
-	DebugArrow* normals = nullptr;
 
 	// Bounding Box & AABB
 	AABB boundingBox;

@@ -107,12 +107,12 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	// Get indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize();
-	memcpy(cursor, mesh->GetIndicesArray(), bytes);
+	memcpy(cursor, mesh->indicesArray, bytes);
 
 	// Get vertices
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize();
-	memcpy(cursor, mesh->GetVerticesArray(), bytes);
+	memcpy(cursor, mesh->verticesArray, bytes);
 
 	unsigned int nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;

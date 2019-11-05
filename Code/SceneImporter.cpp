@@ -142,9 +142,9 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	unsigned int ranged[2];
 	unsigned int bytes = sizeof(ranged);
 	memcpy(ranged, cursor, bytes);
-	cursor += bytes;
 
 	// Get Indices
-
+	cursor += bytes;
+	
 	return nullptr;
 }

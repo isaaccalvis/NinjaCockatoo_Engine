@@ -117,10 +117,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 
 	verticesSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
 
-	glGenBuffers(1, (GLuint*) &(vertices));
-	glBindBuffer(GL_ARRAY_BUFFER, vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize * 3, verticesArray, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GenerateVerticesBuffer();
 
 	// Indices
 	indicesArray = new uint[scene->mMeshes[node->mMeshes[num]]->mNumFaces * 3];
@@ -137,10 +134,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 
 	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces * 3;
 
-	glGenBuffers(1, (GLuint*) &(indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indicesSize, indicesArray, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	GenerateIndicesBuffer();
 
 	// Texture
 	textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices * 2;
@@ -153,10 +147,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 			textureCoords[(i * 2) + 1] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].y;
 		}
 
-		glGenBuffers(1, (GLuint*)&textureIndex);
-		glBindBuffer(GL_ARRAY_BUFFER, textureIndex);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * scene->mMeshes[node->mMeshes[num]]->mNumVertices * 2, textureCoords, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		GenerateTextureCoorBuffer();
 	}
 
 	// Normals TODO: MAKE IT WORK
@@ -274,50 +265,6 @@ math::Quat Mesh::GetRotation() const
 math::float3 Mesh::GetScale() const
 {
 	return scale;
-}
-
-void Mesh::SetIndicesArray(unsigned int* indices)
-{
-	ClearIndicesArray();
-	this->indicesArray = indices;
-}
-
-void Mesh::SetVerticesArray(GLfloat* vertices)
-{
-	ClearVerticesArray();
-	this->verticesArray = vertices;
-}
-
-void Mesh::SetTextureCoorArray(GLfloat* textureCoor)
-{
-	ClearTextureCoorArray();
-	this->textureCoords = textureCoor;
-}
-
-void Mesh::SetNormalsArray(DebugArrow* normals)
-{
-	ClearNormalsArray();
-	this->normals = normals;
-}
-
-unsigned int* Mesh::GetIndicesArray() const
-{
-	return indicesArray;
-}
-
-GLfloat* Mesh::GetVerticesArray() const
-{
-	return verticesArray;
-}
-
-GLfloat* Mesh::GetTextureCoorArray() const
-{
-	return textureCoords;
-}
-
-DebugArrow* Mesh::GetNormalsArray() const
-{
-	return normals;
 }
 
 void Mesh::ClearIndicesArray()
