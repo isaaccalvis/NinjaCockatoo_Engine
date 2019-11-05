@@ -16,6 +16,7 @@ public:
 	void Update(float dt);
 
 	math::float4x4& GetMatrix() const;
+	math::float4x4& GetGlobalMatrix() const;
 
 public:
 	math::float3 position = math::float3::zero;

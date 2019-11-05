@@ -153,6 +153,9 @@ int GameObject::CountComponents() const
 	return components.size();
 }
 
+void CalculateOwnBoundingBox();
+void CalculateChilldBoundingBox();
+
 GameObject* GameObject::GetParent() const
 {
 	return parent;
