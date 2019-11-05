@@ -40,9 +40,9 @@ Mesh::Mesh(MESH_TYPE type)
 			verticesArray[i] = primitive->points[i];
 		}
 
-		indicesSize = primitive->ntriangles * 3;
-		indicesArray = new unsigned int[indicesSize];
-		for (int i = 0; i < indicesSize; i++)
+		indicesSize = primitive->ntriangles;
+		indicesArray = new unsigned int[indicesSize * 3];
+		for (int i = 0; i < indicesSize * 3; i++)
 		{
 			indicesArray[i] = primitive->triangles[i];
 		}
@@ -84,7 +84,7 @@ Mesh::Mesh(MESH_TYPE type)
 	indices = 0u;
 	glGenBuffers(1, (GLuint*) &(indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize, indicesArray, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize * 3, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, (GLuint*)&textureIndex);
@@ -132,7 +132,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterIndex++;
 	}
 
-	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces * 3;
+	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces;
 
 	GenerateIndicesBuffer();
 
@@ -210,7 +210,7 @@ void Mesh::Render(Texture* texture)
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, indicesSize * 3, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -296,7 +296,7 @@ void Mesh::GenerateIndicesBuffer()
 	ClearIndicesBuffer();
 	glGenBuffers(1, (GLuint*) &(indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indicesSize, indicesArray, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indicesSize * 3, indicesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 

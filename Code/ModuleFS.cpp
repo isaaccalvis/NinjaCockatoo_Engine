@@ -94,7 +94,7 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	unsigned int ranges[2] = { mesh->GetIndicesSize(), mesh->GetVerticesSize() };
 
 	// Body
-	unsigned int size = sizeof(ranges) + sizeof(unsigned int) * mesh->GetIndicesSize() + sizeof(GLfloat) * mesh->GetVerticesSize();
+	unsigned int size = sizeof(ranges) + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
 
 	// Data & Cursor
 	char* data = new char[size]; // Contenidor
@@ -106,12 +106,12 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 
 	// Get indices
 	cursor += bytes;
-	bytes = sizeof(unsigned int) * mesh->GetIndicesSize();
+	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
 
 	// Get vertices
 	cursor += bytes;
-	bytes = sizeof(GLfloat) * mesh->GetVerticesSize();
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
 	memcpy(cursor, mesh->verticesArray, bytes);
 
 	unsigned int nUUID = App->input->GenerateUUID();
