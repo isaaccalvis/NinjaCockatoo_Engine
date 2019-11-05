@@ -123,6 +123,11 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 
 void SceneImporter::Load(const char* exportedFile)
 {
+
+}
+
+Mesh* SceneImporter::LoadMesh(const char* exportedFile)
+{
 	// Process of read it
 	FILE* nFile = fopen(exportedFile, "r");
 	fseek(nFile, 0L, SEEK_END);
@@ -133,8 +138,13 @@ void SceneImporter::Load(const char* exportedFile)
 	cursor = new char[size];
 	fread(cursor, sizeof(char), size, nFile);
 
+	// Get Header
 	unsigned int ranged[2];
 	unsigned int bytes = sizeof(ranged);
 	memcpy(ranged, cursor, bytes);
 	cursor += bytes;
+
+	// Get Indices
+
+	return nullptr;
 }

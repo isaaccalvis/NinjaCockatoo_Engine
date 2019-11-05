@@ -18,23 +18,52 @@ public:
 	Mesh();
 	Mesh(MESH_TYPE type);
 	Mesh(const aiScene* scene, const aiNode* node, const int num = 0);
-
 	virtual ~Mesh();
 
 	virtual void Render(Texture* texture = nullptr);
 
+	// Transform
 	void SetPosition(const math::float3 nPosition);
 	void SetRotation(const math::Quat nRotation);
 	void SetScale(const math::float3 nScale);
 
 	math::float3 GetPosition() const;
+	math::Quat GetRotation() const;
 	math::float3 GetScale() const;
+
+	// Indices, Vertices, TextureCoords, Normals
+	void SetIndicesArray(unsigned int* indices);
+	void SetVerticesArray(GLfloat* vertices);
+	void SetTextureCoorArray(GLfloat* textureCoor);
+	void SetNormalsArray(DebugArrow* normals);
 
 	unsigned int* GetIndicesArray() const;
 	GLfloat* GetVerticesArray() const;
+	GLfloat* GetTextureCoorArray() const;
+	DebugArrow* GetNormalsArray() const;
+
+	void ClearIndicesArray();
+	void ClearVerticesArray();
+	void ClearTextureCoorArray();
+	void ClearNormalsArray();
+
+	void GenerateIndicesBuffer();
+	void GenerateVerticesBuffer();
+	void GenerateTextureCoorBuffer();
+
+	void ClearIndicesBuffer();
+	void ClearVerticesBuffer();
+	void ClearTextureCoorBuffer();
+
+	void SetIndicesSize(unsigned int size);
+	void SetVerticesSize(unsigned int size);
+	void SetTextureCoorSize(unsigned int size);
+	void SetNormalsSize(unsigned int size);
 
 	unsigned int GetIndicesSize() const;
 	unsigned int GetVerticesSize() const;
+	unsigned int GetTextureCoorSize() const;
+	unsigned int GetNormalsSize() const;
 
 	AABB GetBoundingBox();
 
@@ -59,9 +88,11 @@ protected:
 	
 	// Texture
 	unsigned int textureIndex = 0u;
+	unsigned int textureCoorSize = 0u;
 	GLfloat* textureCoords = nullptr;
 
 	// Normals
+	unsigned int normalsSize = 0u;
 	DebugArrow* normals = nullptr;
 
 	// Bounding Box & AABB

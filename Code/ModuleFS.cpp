@@ -8,6 +8,8 @@ ModuleFS::ModuleFS(Application* app, bool start_enabled) : Module(app, start_ena
 
 bool ModuleFS::Start()
 {
+	mesh_file_extension = ".smesh";
+
 	sceneImporter = new SceneImporter();
 	materialImporter = new MaterialImporter();
 
@@ -86,7 +88,7 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
-void ModuleFS::CreateOwnMesh(Mesh* mesh)
+unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 {
 	// Header
 	unsigned int ranges[2] = { mesh->GetIndicesSize(), mesh->GetVerticesSize() };
@@ -112,12 +114,14 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh)
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize();
 	memcpy(cursor, mesh->GetVerticesArray(), bytes);
 
-	FILE* file = fopen("Resources/demo.mesh", "w");
+	unsigned int nUUID = App->input->GenerateUUID();
+	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
+	FILE* file = fopen(newDirection.c_str(), "w");
 	fwrite(data, sizeof(char), size, file);
 	fclose(file);
-	//PHYSFS_file* filehandle = PHYSFS_openWrite("demo.txt");
-	//PHYSFS_writeBytes(filehandle, (const void*)data, size);
 
 	cursor = nullptr;
 	delete[] data;
+
+	return nUUID;
 }

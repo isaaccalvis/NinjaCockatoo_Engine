@@ -143,9 +143,10 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	// Texture
+	textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices * 2;
 	if (scene->mMeshes[node->mMeshes[num]]->HasTextureCoords(0))
 	{
-		textureCoords = new GLfloat[scene->mMeshes[node->mMeshes[num]]->mNumVertices * 2];
+		textureCoords = new GLfloat[textureCoorSize];
 		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumVertices; i++)
 		{
 			textureCoords[i * 2] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].x;
@@ -159,6 +160,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	}
 
 	// Normals TODO: MAKE IT WORK
+	normalsSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
 	if (scene->mMeshes[node->mMeshes[num]]->HasNormals())
 	{
 		normals = new DebugArrow[scene->mMeshes[node->mMeshes[num]]->mNumVertices];
@@ -256,8 +258,6 @@ void Mesh::SetRotation(const math::Quat nRotation)
 
 void Mesh::SetScale(math::float3 nScale)
 {
-	
-
 	this->scale = nScale;
 }
 
@@ -266,9 +266,38 @@ math::float3 Mesh::GetPosition() const
 	return position;
 }
 
+math::Quat Mesh::GetRotation() const
+{
+	return rotation;
+}
+
 math::float3 Mesh::GetScale() const
 {
 	return scale;
+}
+
+void Mesh::SetIndicesArray(unsigned int* indices)
+{
+	ClearIndicesArray();
+	this->indicesArray = indices;
+}
+
+void Mesh::SetVerticesArray(GLfloat* vertices)
+{
+	ClearVerticesArray();
+	this->verticesArray = vertices;
+}
+
+void Mesh::SetTextureCoorArray(GLfloat* textureCoor)
+{
+	ClearTextureCoorArray();
+	this->textureCoords = textureCoor;
+}
+
+void Mesh::SetNormalsArray(DebugArrow* normals)
+{
+	ClearNormalsArray();
+	this->normals = normals;
 }
 
 unsigned int* Mesh::GetIndicesArray() const
@@ -281,6 +310,102 @@ GLfloat* Mesh::GetVerticesArray() const
 	return verticesArray;
 }
 
+GLfloat* Mesh::GetTextureCoorArray() const
+{
+	return textureCoords;
+}
+
+DebugArrow* Mesh::GetNormalsArray() const
+{
+	return normals;
+}
+
+void Mesh::ClearIndicesArray()
+{
+	if (verticesArray != nullptr)
+		delete[] verticesArray;
+}
+
+void Mesh::ClearVerticesArray()
+{
+	if (indicesArray != nullptr)
+		delete[] indicesArray;
+}
+
+void Mesh::ClearTextureCoorArray()
+{
+	if (textureCoords != nullptr)
+		delete[] textureCoords;
+}
+
+void Mesh::ClearNormalsArray()
+{
+	if (normals != nullptr)
+		delete[] normals;
+}
+
+void Mesh::GenerateIndicesBuffer()
+{
+	ClearIndicesBuffer();
+	glGenBuffers(1, (GLuint*) &(indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indicesSize, indicesArray, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Mesh::GenerateVerticesBuffer()
+{
+	ClearVerticesBuffer();
+	glGenBuffers(1, (GLuint*) &(vertices));
+	glBindBuffer(GL_ARRAY_BUFFER, vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize * 3, verticesArray, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Mesh::GenerateTextureCoorBuffer()
+{
+	ClearTextureCoorBuffer();
+	glGenBuffers(1, (GLuint*)&textureIndex);
+	glBindBuffer(GL_ARRAY_BUFFER, textureIndex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * textureCoorSize, textureCoords, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Mesh::ClearIndicesBuffer()
+{
+	glDeleteBuffers(1, (GLuint*)&indices);
+}
+
+void Mesh::ClearVerticesBuffer()
+{
+	glDeleteBuffers(1, (GLuint*)&vertices);
+}
+
+void Mesh::ClearTextureCoorBuffer()
+{
+	glDeleteBuffers(1, (GLuint*)&textureIndex);
+}
+
+void Mesh::SetIndicesSize(unsigned int size)
+{
+	this->indicesSize = size;
+}
+
+void Mesh::SetVerticesSize(unsigned int size)
+{
+	this->verticesSize = size;
+}
+
+void Mesh::SetTextureCoorSize(unsigned int size)
+{
+	this->textureCoorSize = size;
+}
+
+void Mesh::SetNormalsSize(unsigned int size)
+{
+	this->normalsSize = size;
+}
+
 unsigned int Mesh::GetIndicesSize() const
 {
 	return indicesSize;
@@ -289,6 +414,16 @@ unsigned int Mesh::GetIndicesSize() const
 unsigned int Mesh::GetVerticesSize() const
 {
 	return verticesSize;
+}
+
+unsigned int Mesh::GetTextureCoorSize() const
+{
+	return textureCoorSize;
+}
+
+unsigned int Mesh::GetNormalsSize() const
+{
+	return normalsSize;
 }
 
 AABB Mesh::GetBoundingBox()

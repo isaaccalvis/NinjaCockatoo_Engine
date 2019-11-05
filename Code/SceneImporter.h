@@ -25,6 +25,7 @@ public:
 	void IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
 
 	void Load(const char* exportedFile);
+	Mesh* LoadMesh(const char* exportedFile);
 };
 
 #endif

@@ -27,10 +27,11 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
-	void CreateOwnMesh(Mesh* mesh);
+	unsigned int CreateOwnMesh(Mesh* mesh);
 
 public:
 	std::string resources_directory;
+	std::string mesh_file_extension;
 
 	SceneImporter* sceneImporter = nullptr;
 	MaterialImporter* materialImporter = nullptr;
