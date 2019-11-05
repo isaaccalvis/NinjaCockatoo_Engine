@@ -103,9 +103,11 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 {
 	this->type = MESH_TYPE::CUSTOM_MESH;
 	// Vertices
-	verticesArray = new GLfloat[scene->mMeshes[node->mMeshes[num]]->mNumVertices * 3];
+	verticesSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
+
+	verticesArray = new GLfloat[verticesSize * 3];
 	int auxCounterVertex = 0;
-	for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumVertices; i++)
+	for (int i = 0; i < verticesSize; i++)
 	{
 		verticesArray[auxCounterVertex] = scene->mMeshes[node->mMeshes[num]]->mVertices[i].x;
 		auxCounterVertex++;
@@ -115,14 +117,14 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterVertex++;
 	}
 
-	verticesSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
-
 	GenerateVerticesBuffer();
 
 	// Indices
-	indicesArray = new uint[scene->mMeshes[node->mMeshes[num]]->mNumFaces * 3];
+	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces;
+
+	indicesArray = new uint[indicesSize * 3];
 	int auxCounterIndex = 0;
-	for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumFaces; i++)
+	for (int i = 0; i < indicesSize; i++)
 	{
 		indicesArray[auxCounterIndex] = scene->mMeshes[node->mMeshes[num]]->mFaces[i].mIndices[0];
 		auxCounterIndex++;
@@ -132,7 +134,6 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterIndex++;
 	}
 
-	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces;
 
 	GenerateIndicesBuffer();
 
@@ -294,6 +295,7 @@ void Mesh::ClearNormalsArray()
 void Mesh::GenerateIndicesBuffer()
 {
 	ClearIndicesBuffer();
+	indices = 0u;
 	glGenBuffers(1, (GLuint*) &(indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indicesSize * 3, indicesArray, GL_STATIC_DRAW);
@@ -303,6 +305,7 @@ void Mesh::GenerateIndicesBuffer()
 void Mesh::GenerateVerticesBuffer()
 {
 	ClearVerticesBuffer();
+	vertices = 0u;
 	glGenBuffers(1, (GLuint*) &(vertices));
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize * 3, verticesArray, GL_STATIC_DRAW);

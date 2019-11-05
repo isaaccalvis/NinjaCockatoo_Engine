@@ -104,12 +104,12 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	unsigned int bytes = sizeof(ranges);
 	memcpy(cursor, ranges, bytes);
 
-	// Get indices
+	// Put indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
 
-	// Get vertices
+	// Put vertices
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
 	memcpy(cursor, mesh->verticesArray, bytes);
@@ -122,6 +122,8 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 
 	cursor = nullptr;
 	delete[] data;
+
+	//sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
 
 	return nUUID;
 }

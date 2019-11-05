@@ -128,23 +128,41 @@ void SceneImporter::Load(const char* exportedFile)
 
 Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 {
+	Mesh* mesh = new Mesh();
+
 	// Process of read it
 	FILE* nFile = fopen(exportedFile, "r");
 	fseek(nFile, 0L, SEEK_END);
 	const unsigned int size = ftell(nFile);
 	fseek(nFile, 0L, SEEK_SET);
 
-	char* cursor;
-	cursor = new char[size];
+	char* cursor = new char[size];
 	fread(cursor, sizeof(char), size, nFile);
 
 	// Get Header
 	unsigned int ranged[2];
 	unsigned int bytes = sizeof(ranged);
 	memcpy(ranged, cursor, bytes);
+	mesh->SetIndicesSize(ranged[0]);
+	mesh->SetVerticesSize(ranged[1]);
 
 	// Get Indices
 	cursor += bytes;
+	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
+	mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
+	memcpy(mesh->indicesArray, cursor, bytes);
+	mesh->GenerateIndicesBuffer();
 	
-	return nullptr;
+	// Get Vertices
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
+	mesh->verticesArray = new GLfloat[mesh->GetVerticesSize() * 3];
+	memcpy(mesh->verticesArray, cursor, bytes);
+	mesh->GenerateVerticesBuffer();
+
+	GameObject* go = App->scene->CreateGameObject("tmp");
+	go->CreateComponent(COMPONENT_MESH);
+	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh = mesh;
+
+	return mesh;
 }
