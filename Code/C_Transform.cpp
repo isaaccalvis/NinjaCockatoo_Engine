@@ -24,7 +24,7 @@ math::float4x4& C_Transform::GetMatrix() const
 
 math::float4x4& C_Transform::GetGlobalMatrix() const
 {
-	std::list<GameObject*> parentsList;
+	/*std::list<GameObject*> parentsList;
 	GameObject* nextParent = parent;
 	while (parent->GetParent() != nullptr)
 	{
@@ -38,7 +38,27 @@ math::float4x4& C_Transform::GetGlobalMatrix() const
 		math::float4x4 parentMatrix = (*it)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetMatrix();
 		globalMatrix = globalMatrix * parentMatrix;
 	}
-	math::float4x4 localMatrix = GetMatrix();
+	*/
+	if (parent->GetParent() != nullptr)
+	{
+		if (parent->GetParent()->GetComponent(COMPONENT_TRANSFORM) != nullptr)
+		{
+			math::float4x4 tmpGlobalMatrix = parent->GetParent()->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+			return tmpGlobalMatrix * GetMatrix();
+		}
+	}
+	return GetMatrix();
+}
 
-	return globalMatrix * localMatrix;
+void C_Transform::UpdateGlobalMatrix()
+{
+	globalMatrix.Set(GetGlobalMatrix());
+}
+
+void C_Transform::UpdateGlobalMatrixOfChilds()
+{
+	for (int i = 0; i < parent->CountChild(); i++)
+	{
+		parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+	}
 }

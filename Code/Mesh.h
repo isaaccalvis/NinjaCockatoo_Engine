@@ -65,11 +65,13 @@ public:
 	GLfloat* textureCoords = nullptr;
 	DebugArrow* normals = nullptr;
 
-protected:
+public:
 	// Transform
 	math::float3 position = math::float3::zero;
 	math::Quat rotation = math::Quat::identity;
 	math::float3 scale = math::float3::one;
+
+protected:
 
 	// Vertices
 	unsigned int vertices = 0u;

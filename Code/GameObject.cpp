@@ -7,7 +7,7 @@
 
 GameObject::GameObject()
 {
-
+	CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 }
 
 GameObject::GameObject(const char* name, GameObject* parent)
@@ -152,9 +152,6 @@ int GameObject::CountComponents() const
 {
 	return components.size();
 }
-
-void CalculateOwnBoundingBox();
-void CalculateChilldBoundingBox();
 
 GameObject* GameObject::GetParent() const
 {

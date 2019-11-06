@@ -17,11 +17,15 @@ public:
 
 	math::float4x4& GetMatrix() const;
 	math::float4x4& GetGlobalMatrix() const;
+	void UpdateGlobalMatrix();
+	void UpdateGlobalMatrixOfChilds();
 
 public:
 	math::float3 position = math::float3::zero;
 	math::Quat rotation = math::Quat::identity;
 	math::float3 scale = math::float3::one;
+
+	math::float4x4 globalMatrix = math::float4x4::identity;
 };
 
 #endif

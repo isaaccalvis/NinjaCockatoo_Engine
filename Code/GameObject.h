@@ -47,9 +47,6 @@ public:
 	void			DeleteComponent(COMPONENT_TYPE type, const char* name = nullptr);
 	int				CountComponents() const;
 
-	void CalculateOwnBoundingBox();
-	void CalculateChilldBoundingBox();
-
 private:
 	GameObject* parent = nullptr;
 	std::string name = "";
@@ -57,10 +54,6 @@ private:
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
-
-public:
-	math::AABB ownBoundingBox;
-	math::AABB childBoundingBox;
 };
 
 #endif
