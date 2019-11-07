@@ -28,7 +28,11 @@ int main(int argc, char ** argv)
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
 
-	PHYSFS_init(*argv);
+	PHYSFS_init(argv[0]);
+	char full[_MAX_PATH];
+	_fullpath(full, ".\\", _MAX_PATH);
+	PHYSFS_addToSearchPath(full, 1);
+	PHYSFS_setWriteDir(full);
 
 	while (state != MAIN_EXIT)
 	{

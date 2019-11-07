@@ -131,14 +131,14 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	Mesh* mesh = new Mesh();
 	mesh->type = MESH_TYPE::CUSTOM_MESH;
 
-	// Process of read it
-	FILE* nFile = fopen(exportedFile, "r");
-	fseek(nFile, 0L, SEEK_END);
-	const unsigned int size = ftell(nFile);
-	fseek(nFile, 0L, SEEK_SET);
+	PHYSFS_File* file = PHYSFS_openRead(exportedFile);
+	unsigned int size = PHYSFS_fileLength(file);
+	char* data2 = new char[size];
 
 	char* data = new char[size];
-	fread(data, sizeof(char), size, nFile);
+	PHYSFS_readBytes(file, data, size);
+	PHYSFS_close(file);
+
 	char* cursor = data;
 
 	// Get Header

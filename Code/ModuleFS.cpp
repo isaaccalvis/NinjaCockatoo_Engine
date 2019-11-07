@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleFS.h"
 
+#include "physfs/include/physfs.h"
+
 ModuleFS::ModuleFS(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleFileSystem";
@@ -125,44 +127,19 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 		LOG_CONSOLE("INDICES BEFORE: %u", mesh->indicesArray[i]);
 	}
 
-	// =============================================
-	//mesh->ClearIndicesArray();
-	//mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
-	//memcpy(mesh->indicesArray, cursor, bytes);
-	//mesh->GenerateIndicesBuffer();
-
-	//LOG_CONSOLE("AFTER 1.0 !!")
-	//	for (int i = 0; i < mesh->GetIndicesSize(); i++)
-	//	{
-	//		LOG_CONSOLE("%u", mesh->indicesArray[i]);
-	//	}
-	// =============================================
-
 	unsigned int nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
-	FILE* file = fopen(newDirection.c_str(), "w");
-	fwrite(data, sizeof(char), size, file);
-	fclose(file);
+
+	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
+	if (file != nullptr)
+		PHYSFS_writeBytes(file, data, size);
+	LOG_CONSOLE("%s",PHYSFS_getLastError());
+	PHYSFS_close(file);
 
 	cursor = nullptr;
 	delete[] data;
 
-	//sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
-
-	/////// COMPARATOR
-	//FILE* nFile = fopen(newDirection.c_str(), "r");
-	//fseek(nFile, 0L, SEEK_END);
-	//const unsigned int size2 = ftell(nFile) - 2;
-	//fseek(nFile, 0L, SEEK_SET);
-
-	//char* data2 = new char[size2];
-	//fread(data, sizeof(char), size2, nFile);
-
-	//for (int i = 0; i < size; i++)
-	//{
-	//	LOG_CONSOLE("%c , %c", data[i], data2[i]);
-	//}
-
+	sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
 
 	return nUUID;
 }
