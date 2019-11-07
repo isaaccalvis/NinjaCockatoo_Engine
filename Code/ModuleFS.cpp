@@ -90,29 +90,39 @@ void ModuleFS::CreateFolder(const char* path)
 
 unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 {
+	if (mesh == nullptr)
+		return 0;
+
 	// Header
-	unsigned int ranges[2] = { mesh->GetIndicesSize(), mesh->GetVerticesSize() };
+	unsigned int ranges[2] = { mesh->GetVerticesSize(), mesh->GetIndicesSize() };
 
 	// Body
-	unsigned int size = sizeof(ranges) + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
+	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 
 	// Data & Cursor
-	char* data = new char[size]; // Contenidor
-	char* cursor = data; // Apuntador
+	char* data = new char[size];	// Contenidor
+	char* cursor = data;			// Apuntador
 
 	// Add header
 	unsigned int bytes = sizeof(ranges);
 	memcpy(cursor, ranges, bytes);
 
+	// Put vertices
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
+	memcpy(cursor, mesh->verticesArray, bytes);
+	for (int i = 0; i < mesh->GetVerticesSize() * 3; i++)
+	{
+		LOG_CONSOLE("VERTICES BEFORE: %f", mesh->verticesArray[i]);
+	}
+
 	// Put indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
-
-	LOG_CONSOLE("BEFORE !!");
 	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
 	{
-		LOG_CONSOLE("%u", mesh->indicesArray[i]);
+		LOG_CONSOLE("INDICES BEFORE: %u", mesh->indicesArray[i]);
 	}
 
 	// =============================================
@@ -128,11 +138,6 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	//	}
 	// =============================================
 
-	// Put vertices
-	cursor += bytes;
-	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
-	memcpy(cursor, mesh->verticesArray, bytes);
-
 	unsigned int nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
 	FILE* file = fopen(newDirection.c_str(), "w");
@@ -143,6 +148,21 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	delete[] data;
 
 	//sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
+
+	/////// COMPARATOR
+	//FILE* nFile = fopen(newDirection.c_str(), "r");
+	//fseek(nFile, 0L, SEEK_END);
+	//const unsigned int size2 = ftell(nFile) - 2;
+	//fseek(nFile, 0L, SEEK_SET);
+
+	//char* data2 = new char[size2];
+	//fread(data, sizeof(char), size2, nFile);
+
+	//for (int i = 0; i < size; i++)
+	//{
+	//	LOG_CONSOLE("%c , %c", data[i], data2[i]);
+	//}
+
 
 	return nUUID;
 }

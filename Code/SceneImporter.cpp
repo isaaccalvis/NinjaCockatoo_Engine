@@ -145,30 +145,33 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	unsigned int ranged[2];
 	unsigned int bytes = sizeof(ranged);
 	memcpy(ranged, cursor, bytes);
-	mesh->SetIndicesSize(ranged[0]);
-	mesh->SetVerticesSize(ranged[1]);
+	mesh->SetVerticesSize(ranged[0]);
+	mesh->SetIndicesSize(ranged[1]);
+
+	// Get Vertices
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
+	mesh->verticesArray = new GLfloat[mesh->GetVerticesSize() * 3];
+	memcpy(mesh->verticesArray, cursor, bytes);
+	for (int i = 0; i < mesh->GetVerticesSize() * 3; i++)
+	{
+		LOG_CONSOLE("VERTICES AFTER: %f", mesh->verticesArray[i]);
+	}
 
 	// Get Indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
 	memcpy(mesh->indicesArray, cursor, bytes);
-	mesh->GenerateIndicesBuffer();
-
-	LOG_CONSOLE("--- AFTER !! ---")
 	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
 	{
-		LOG_CONSOLE("%u", mesh->indicesArray[i]);
+		LOG_CONSOLE("INDICES AFTER: %u", mesh->indicesArray[i]);
 	}
-	
-	// Get Vertices
-	cursor += bytes;
-	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
-	mesh->verticesArray = new GLfloat[mesh->GetVerticesSize() * 3];
-	memcpy(mesh->verticesArray, cursor, bytes);
+
+	mesh->GenerateIndicesBuffer();
 	mesh->GenerateVerticesBuffer();
 
-	GameObject* go = App->scene->CreateGameObject("tmp");
+	GameObject* go = App->scene->CreateGameObject("tmp", App->scene->root);
 	go->CreateComponent(COMPONENT_MESH);
 	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh = mesh;
 
