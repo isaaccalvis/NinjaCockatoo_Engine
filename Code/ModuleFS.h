@@ -28,6 +28,7 @@ public:
 	void CreateFolder(const char* path);
 
 	unsigned int CreateOwnMesh(Mesh* mesh);
+	unsigned int CreateOwnTexture(Texture* texture);
 
 public:
 	std::string resources_directory;

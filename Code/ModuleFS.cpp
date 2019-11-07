@@ -109,6 +109,25 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
 
+	LOG_CONSOLE("BEFORE !!");
+	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
+	{
+		LOG_CONSOLE("%u", mesh->indicesArray[i]);
+	}
+
+	// =============================================
+	//mesh->ClearIndicesArray();
+	//mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
+	//memcpy(mesh->indicesArray, cursor, bytes);
+	//mesh->GenerateIndicesBuffer();
+
+	//LOG_CONSOLE("AFTER 1.0 !!")
+	//	for (int i = 0; i < mesh->GetIndicesSize(); i++)
+	//	{
+	//		LOG_CONSOLE("%u", mesh->indicesArray[i]);
+	//	}
+	// =============================================
+
 	// Put vertices
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
@@ -124,6 +143,13 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	delete[] data;
 
 	//sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
+
+	return nUUID;
+}
+
+unsigned int ModuleFS::CreateOwnTexture(Texture* texture)
+{
+	unsigned int nUUID = App->input->GenerateUUID();
 
 	return nUUID;
 }

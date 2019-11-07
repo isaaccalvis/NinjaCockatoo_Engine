@@ -34,8 +34,6 @@ public:
 	void SetGlAlphaTest(bool set);
 	void SetGlLineSmooth(bool set);
 
-
-
 	bool GetWireframeMode();
 	//bool GetGlDepthTest();
 	//bool GetGlCullFace();

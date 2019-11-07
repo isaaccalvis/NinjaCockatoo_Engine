@@ -75,36 +75,23 @@ Mesh::Mesh(MESH_TYPE type)
 			}
 		}
 
-	vertices = 0u;
-	glGenBuffers(1, (GLuint*) &(vertices));
-	glBindBuffer(GL_ARRAY_BUFFER, vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize, verticesArray, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	indices = 0u;
-	glGenBuffers(1, (GLuint*) &(indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indicesSize * 3, indicesArray, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, (GLuint*)&textureIndex);
-	glBindBuffer(GL_ARRAY_BUFFER, textureIndex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * verticesSize * 2, textureCoords, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+		GenerateVerticesBuffer();
+		GenerateIndicesBuffer();
+		GenerateTextureCoorBuffer();
 
 	// Bounding Box
 	boundingBox.SetNegativeInfinity();
 	//boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
-	boundingBox.Enclose(/*(const math::float3*)verticesArray*/&vectorVertex[0], /*verticesSize*/vectorVertex.size());
+	boundingBox.Enclose(&vectorVertex[0], vectorVertex.size());
 	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 }
 
 Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 {
 	this->type = MESH_TYPE::CUSTOM_MESH;
+
 	// Vertices
 	verticesSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
-
 	verticesArray = new GLfloat[verticesSize * 3];
 	int auxCounterVertex = 0;
 	for (int i = 0; i < verticesSize; i++)
@@ -117,11 +104,8 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterVertex++;
 	}
 
-	GenerateVerticesBuffer();
-
 	// Indices
 	indicesSize = scene->mMeshes[(*node->mMeshes)]->mNumFaces;
-
 	indicesArray = new uint[indicesSize * 3];
 	int auxCounterIndex = 0;
 	for (int i = 0; i < indicesSize; i++)
@@ -134,7 +118,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterIndex++;
 	}
 
-
+	GenerateVerticesBuffer();
 	GenerateIndicesBuffer();
 
 	// Texture
@@ -270,14 +254,14 @@ math::float3 Mesh::GetScale() const
 
 void Mesh::ClearIndicesArray()
 {
-	if (verticesArray != nullptr)
-		delete[] verticesArray;
+	if (indicesArray != nullptr)
+		delete[] indicesArray;
 }
 
 void Mesh::ClearVerticesArray()
 {
-	if (indicesArray != nullptr)
-		delete[] indicesArray;
+	if (verticesArray != nullptr)
+		delete[] verticesArray;
 }
 
 void Mesh::ClearTextureCoorArray()

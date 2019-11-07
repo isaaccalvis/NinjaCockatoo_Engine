@@ -62,7 +62,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 	{
 		Mesh* mesh = new Mesh(scene, node);
 		App->renderer3D->AddMesh(mesh);
-		//App->fs->CreateOwnMesh(mesh);
+		App->fs->CreateOwnMesh(mesh);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 		compMesh->GetComponentAsMesh()->mesh = mesh;
@@ -129,6 +129,7 @@ void SceneImporter::Load(const char* exportedFile)
 Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 {
 	Mesh* mesh = new Mesh();
+	mesh->type = MESH_TYPE::CUSTOM_MESH;
 
 	// Process of read it
 	FILE* nFile = fopen(exportedFile, "r");
@@ -136,8 +137,9 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	const unsigned int size = ftell(nFile);
 	fseek(nFile, 0L, SEEK_SET);
 
-	char* cursor = new char[size];
-	fread(cursor, sizeof(char), size, nFile);
+	char* data = new char[size];
+	fread(data, sizeof(char), size, nFile);
+	char* cursor = data;
 
 	// Get Header
 	unsigned int ranged[2];
@@ -152,6 +154,12 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
 	memcpy(mesh->indicesArray, cursor, bytes);
 	mesh->GenerateIndicesBuffer();
+
+	LOG_CONSOLE("--- AFTER !! ---")
+	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
+	{
+		LOG_CONSOLE("%u", mesh->indicesArray[i]);
+	}
 	
 	// Get Vertices
 	cursor += bytes;
@@ -163,6 +171,8 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	GameObject* go = App->scene->CreateGameObject("tmp");
 	go->CreateComponent(COMPONENT_MESH);
 	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh = mesh;
+
+	delete[] data;
 
 	return mesh;
 }
