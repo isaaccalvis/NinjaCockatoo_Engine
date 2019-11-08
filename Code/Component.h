@@ -23,7 +23,7 @@ public:
 	C_Material* GetComponentAsMaterial() const;
 
 public:
-	COMPONENT_TYPE type;
+	COMPONENT_TYPE type = COMPONENT_NONE;
 	bool active = true;
 	bool isUnique = false;
 	GameObject* parent = nullptr;

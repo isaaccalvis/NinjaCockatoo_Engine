@@ -161,8 +161,10 @@ void GameObject::UpdateAABB()
 	{
 		boundingBox.Enclose((const math::float3*)GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->verticesArray,
 			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetVerticesSize());
-		boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position,
+
+		boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position,
 			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale));
+
 		if (boundingBoxCube != nullptr)
 		{
 			delete boundingBoxCube;

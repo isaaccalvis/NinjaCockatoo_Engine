@@ -145,7 +145,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		}
 		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)
 		{
-			App->scene->gameObjects[i]->boundingBoxCube->Render();
+			if (App->scene->gameObjects[i]->GetComponent(COMPONENT_MESH) != nullptr)
+			{
+				App->scene->gameObjects[i]->boundingBoxCube->Render();
+			}
 		}
 	}
 
