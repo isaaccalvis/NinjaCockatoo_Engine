@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include "Globals.h"
+#include "MathGeoLib-1.5/src/Geometry/AABB.h"
+#include "DebugCube.h"
 
 enum COMPONENT_TYPE
 {
@@ -47,6 +49,12 @@ public:
 	void			DeleteComponent(COMPONENT_TYPE type, const char* name = nullptr);
 	int				CountComponents() const;
 
+	void UpdateAABB();
+
+public:
+
+	math::AABB boundingBox;
+	DebugCube* boundingBoxCube = nullptr;
 private:
 	GameObject* parent = nullptr;
 	std::string name = "";
@@ -54,6 +62,7 @@ private:
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
+
 };
 
 #endif

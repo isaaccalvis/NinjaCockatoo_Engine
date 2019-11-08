@@ -33,6 +33,7 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = math::float3(auxPos[0], auxPos[1], auxPos[2]);
 						// TODO: AQUI ACTIVAR QUE ELS FILLS SEGUEIXIN AL PARE
 						//App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+						App->scene->goSelected->UpdateAABB();
 					}
 
 					math::float3 tmpRot = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation.ToEulerXYZ();
@@ -47,6 +48,7 @@ void GUI_Properties::Draw()
 					if (ImGui::InputFloat3("Scale", auxScale))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale = math::float3(auxScale[0], auxScale[1], auxScale[2]);
+						App->scene->goSelected->UpdateAABB();
 					}
 				}
 			}

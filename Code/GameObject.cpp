@@ -8,6 +8,7 @@
 GameObject::GameObject()
 {
 	CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
+	boundingBox.SetNegativeInfinity();
 }
 
 GameObject::GameObject(const char* name, GameObject* parent)
@@ -20,6 +21,7 @@ GameObject::GameObject(const char* name, GameObject* parent)
 	}
 	// Component transform is always necessary
 	CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
+	boundingBox.SetNegativeInfinity();
 }
 
 GameObject::~GameObject()
@@ -151,6 +153,32 @@ void GameObject::DeleteComponent(COMPONENT_TYPE type, const char* name)
 int GameObject::CountComponents() const
 {
 	return components.size();
+}
+
+void GameObject::UpdateAABB()
+{
+	if (GetComponent(COMPONENT_MESH) != nullptr)
+	{
+		boundingBox.Enclose((const math::float3*)GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->verticesArray,
+			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetVerticesSize());
+		boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position,
+			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale));
+		if (boundingBoxCube != nullptr)
+		{
+			delete boundingBoxCube;
+			boundingBoxCube = nullptr;
+		}
+		boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
+	}
+	else
+	{
+		boundingBox.SetNegativeInfinity();
+		if (boundingBoxCube != nullptr)
+		{
+			delete boundingBoxCube;
+			boundingBoxCube = nullptr;
+		}
+	}
 }
 
 GameObject* GameObject::GetParent() const

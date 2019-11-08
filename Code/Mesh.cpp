@@ -215,11 +215,11 @@ void Mesh::Render(Texture* texture)
 
 	glPopMatrix();
 
-	if (App->renderer3D->renderBoudingBox)
-	{
-		if (boundingBoxCube != nullptr)
-			boundingBoxCube->Render();
-	}
+	//if (App->renderer3D->renderBoudingBox)
+	//{
+	//	if (boundingBoxCube != nullptr)
+	//		boundingBoxCube->Render();
+	//}
 }
 
 void Mesh::SetPosition(math::float3 nPosition)

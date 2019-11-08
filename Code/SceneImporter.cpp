@@ -66,6 +66,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 		compMesh->GetComponentAsMesh()->mesh = mesh;
+		go->UpdateAABB();
 
 		aiString str;
 		scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);

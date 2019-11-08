@@ -143,6 +143,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 				App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
 			}
 		}
+		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)
+		{
+			App->scene->gameObjects[i]->boundingBoxCube->Render();
+		}
 	}
 
 	// Print Debug Draw
