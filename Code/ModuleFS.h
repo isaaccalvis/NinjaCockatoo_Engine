@@ -29,10 +29,12 @@ public:
 
 	unsigned int CreateOwnMesh(Mesh* mesh);
 	unsigned int CreateOwnTexture(Texture* texture);
+	unsigned int CreateScene(GameObject* gameObject);
 
 public:
 	std::string resources_directory;
 	std::string mesh_file_extension;
+	std::string scene_file_extension;
 
 	SceneImporter* sceneImporter = nullptr;
 	MaterialImporter* materialImporter = nullptr;

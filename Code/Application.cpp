@@ -150,7 +150,10 @@ bool Application::LoadModulesInfo()
 	{
 		ret = (*item)->Load(json_object_get_object(root_object, (*item)->name));
 	}
-	if (root_value) { json_value_free(root_value); }
+	if (root_value)
+	{
+		json_value_free(root_value);
+	}
 	return ret;
 }
 
