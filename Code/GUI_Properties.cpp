@@ -37,7 +37,7 @@ void GUI_Properties::Draw()
 					}
 
 					math::float3 tmpRot = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation.ToEulerXYZ();
-					static float auxRot[3] = { tmpRot.x * RADTODEG, tmpRot.y * RADTODEG, tmpRot.z * RADTODEG};
+					static float auxRot[3] = { tmpRot.x * RADTODEG, tmpRot.y * RADTODEG, tmpRot.z * RADTODEG };
 					if (ImGui::InputFloat3("Rotation", auxRot))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = math::Quat::FromEulerXYZ(auxRot[0] * DEGTORAD, auxRot[1] * DEGTORAD, auxRot[2] * DEGTORAD);
@@ -74,13 +74,23 @@ void GUI_Properties::Draw()
 						if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr)
 						{
 							ImGui::Text("Image (witdth/ heigh): %i , %i", App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetWidth(), App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetHeight());
-							
-							ImGui::Image((void*)(intptr_t)App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetBufferPos() , ImVec2(512, 512));
+
+							ImGui::Image((void*)(intptr_t)App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetBufferPos(), ImVec2(512, 512));
 						}
 					}
 					else
 					{
 						ImGui::Text("Image (witdth/ heigh): - , -");
+					}
+				}
+			}
+			break;
+			case COMPONENT_TYPE::COMPONENT_CAMERA:
+			{
+				if (ImGui::CollapsingHeader("Camera"))
+				{
+					if (App->scene->goSelected != nullptr)
+					{
 					}
 				}
 			}

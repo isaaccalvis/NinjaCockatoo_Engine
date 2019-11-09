@@ -3,6 +3,7 @@
 
 #include "MathGeoLib-1.5\src\Math\float3.h"
 #include "glew-2.1.0/include/GL/glew.h"
+#include "Color.h"
 
 class DebugCube
 {
@@ -11,6 +12,7 @@ public:
 	~DebugCube();
 
 	void Render();
+	void DirectRender(const math::float3* vertices, Color color);
 
 public:
 	// Vertices

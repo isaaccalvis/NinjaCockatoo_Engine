@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "C_Transform.h"
 #include "C_Mesh.h"
+#include "C_Camera.h"
 
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
@@ -46,14 +47,29 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
+		LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
+		ret = false;
+		}
+		else
+		{
+		//Initialize Modelview Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		//Check for error
+		error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
 			LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		else
 		{
-			//Initialize Modelview Matrix
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
+			glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+			glClearDepth(1.0f);
+
+			//Initialize clear color
+			glClearColor(0.f, 0.f, 0.f, 1.f);
 
 			//Check for error
 			error = glGetError();
@@ -64,50 +80,35 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 			}
 			else
 			{
-				glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-				glClearDepth(1.0f);
+				GLfloat LightModelAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+				glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 
-				//Initialize clear color
-				glClearColor(0.f, 0.f, 0.f, 1.f);
+				lights[0].ref = GL_LIGHT0;
+				lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+				lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+				lights[0].SetPos(0.0f, 0.0f, 2.5f);
+				lights[0].Init();
 
-				//Check for error
-				error = glGetError();
-				if (error != GL_NO_ERROR)
+				GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
+
+				GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
+
+				glEnable(GL_DEPTH_TEST);
+				glEnable(GL_CULL_FACE);
+				lights[0].Active(true);
+				glEnable(GL_LIGHTING);
+				glEnable(GL_COLOR_MATERIAL);
+
+				GLenum glewError = glewInit();
+				if (glewError != GL_NO_ERROR)
 				{
-					LOG_IDE("Error initializing OpenGL! %s\n", gluErrorString(error));
 					ret = false;
-				}
-				else
-				{
-					GLfloat LightModelAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-					glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-
-					lights[0].ref = GL_LIGHT0;
-					lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-					lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-					lights[0].SetPos(0.0f, 0.0f, 2.5f);
-					lights[0].Init();
-
-					GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-					glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
-
-					GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-					glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-
-					glEnable(GL_DEPTH_TEST);
-					glEnable(GL_CULL_FACE);
-					lights[0].Active(true);
-					glEnable(GL_LIGHTING);
-					glEnable(GL_COLOR_MATERIAL);
-
-					GLenum glewError = glewInit();
-					if (glewError != GL_NO_ERROR)
-					{
-						ret = false;
-						LOG_CONSOLE_IDE("Error opening glew %s", glewGetErrorString(glewError));
-					}
+					LOG_CONSOLE_IDE("Error opening glew %s", glewGetErrorString(glewError));
 				}
 			}
+		}
 		}
 	}
 
@@ -131,7 +132,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
@@ -141,6 +142,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_MESH)
 			{
 				App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
+			}
+			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_CAMERA)
+			{
+				App->scene->gameObjects[i]->GetComponent(e)->GetComponentAsCamera()->RenderCamera();
 			}
 		}
 		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)

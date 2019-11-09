@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "DebugCube.h"
 
 DebugCube::DebugCube(math::float3 center, math::float3 resize)
@@ -81,4 +82,58 @@ void DebugCube::Render()
 	glPopMatrix();
 
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void DebugCube::DirectRender(const math::float3* vertices, Color color)
+{
+	glPushMatrix();
+
+	glColor3f(color.r, color.g, color.b);
+	glLineWidth(3);
+
+	glBegin(GL_LINES);
+
+	glVertex3fv((const GLfloat*)&vertices[1]);
+	glVertex3fv((const GLfloat*)&vertices[5]);
+	glVertex3fv((const GLfloat*)&vertices[7]);
+	glVertex3fv((const GLfloat*)&vertices[3]);
+
+	glVertex3fv((const GLfloat*)&vertices[4]);
+	glVertex3fv((const GLfloat*)&vertices[0]);
+	glVertex3fv((const GLfloat*)&vertices[0]);
+	glVertex3fv((const GLfloat*)&vertices[2]);
+	glVertex3fv((const GLfloat*)&vertices[2]);
+	glVertex3fv((const GLfloat*)&vertices[6]);
+	glVertex3fv((const GLfloat*)&vertices[6]);
+	glVertex3fv((const GLfloat*)&vertices[4]);
+
+	glVertex3fv((const GLfloat*)&vertices[5]);
+	glVertex3fv((const GLfloat*)&vertices[4]);
+	glVertex3fv((const GLfloat*)&vertices[4]);
+	glVertex3fv((const GLfloat*)&vertices[6]);
+	glVertex3fv((const GLfloat*)&vertices[6]);
+	glVertex3fv((const GLfloat*)&vertices[7]);
+	glVertex3fv((const GLfloat*)&vertices[7]);
+	glVertex3fv((const GLfloat*)&vertices[5]);
+
+	glVertex3fv((const GLfloat*)&vertices[0]);
+	glVertex3fv((const GLfloat*)&vertices[1]);
+	glVertex3fv((const GLfloat*)&vertices[3]);
+	glVertex3fv((const GLfloat*)&vertices[2]);
+
+	glVertex3fv((const GLfloat*)&vertices[3]);
+	glVertex3fv((const GLfloat*)&vertices[7]);
+	glVertex3fv((const GLfloat*)&vertices[6]);
+	glVertex3fv((const GLfloat*)&vertices[2]);
+
+	glVertex3fv((const GLfloat*)&vertices[0]);
+	glVertex3fv((const GLfloat*)&vertices[4]);
+	glVertex3fv((const GLfloat*)&vertices[5]);
+	glVertex3fv((const GLfloat*)&vertices[1]);
+
+	glEnd();
+
+	glLineWidth(1);
+
+	glPopMatrix();
 }

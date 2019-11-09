@@ -87,6 +87,13 @@ void GUI_TopBar::Draw()
 					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 				}
 			}
+			if (ImGui::MenuItem("Camera"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_CAMERA, "Camera");
+				}
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

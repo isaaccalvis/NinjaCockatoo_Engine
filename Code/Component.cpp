@@ -35,3 +35,8 @@ C_Material* Component::GetComponentAsMaterial() const
 {
 	return (C_Material*)this;
 }
+
+C_Camera* Component::GetComponentAsCamera() const
+{
+	return (C_Camera*)this;
+}

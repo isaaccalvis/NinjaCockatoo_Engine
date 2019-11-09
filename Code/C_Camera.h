@@ -11,11 +11,14 @@ public:
 	~C_Camera();
 
 	void InitFrustum();
+	void RenderCamera();
 
 	void Update(float dt);
 
 public:
 	Frustum frustum;
+	bool renderCameraFrustum = true;
+	DebugCube* debugCube = nullptr;
 
 private:
 	bool culling = false;

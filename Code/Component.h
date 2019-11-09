@@ -6,6 +6,7 @@
 class C_Transform;
 class C_Mesh;
 class C_Material;
+class C_Camera;
 
 class Component
 {
@@ -21,6 +22,7 @@ public:
 	C_Transform* GetComponentAsTransform() const;
 	C_Mesh* GetComponentAsMesh() const;
 	C_Material* GetComponentAsMaterial() const;
+	C_Camera* GetComponentAsCamera() const;
 
 public:
 	COMPONENT_TYPE type = COMPONENT_NONE;

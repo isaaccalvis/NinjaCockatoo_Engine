@@ -4,6 +4,7 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Material.h"
+#include "C_Camera.h"
 
 GameObject::GameObject()
 {
@@ -104,6 +105,11 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 	case COMPONENT_TYPE::COMPONENT_MATERIAL:
 	{
 		component = new C_Material(this);
+	}
+	break;
+	case COMPONENT_TYPE::COMPONENT_CAMERA:
+	{
+		component = new C_Camera(this);
 	}
 	break;
 	}
