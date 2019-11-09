@@ -460,6 +460,9 @@
     <ClInclude Include="physfs\include\physfs.h">
       <Filter>External Tools\PhysFS</Filter>
     </ClInclude>
+    <ClInclude Include="C_Camera.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -683,6 +686,9 @@
     </ClCompile>
     <ClCompile Include="ModuleFS.cpp">
       <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Camera.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

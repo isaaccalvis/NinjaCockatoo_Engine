@@ -257,4 +257,3 @@ float* Camera::GetProjectionMatrix() const
 
 	return (float*)matrix.v;
 }
-
