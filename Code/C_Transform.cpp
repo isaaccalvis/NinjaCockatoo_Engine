@@ -22,32 +22,18 @@ math::float4x4& C_Transform::GetMatrix() const
 	return math::float4x4::FromTRS(position, rotation, scale);
 }
 
-math::float4x4& C_Transform::GetGlobalMatrix() const
+math::float4x4 C_Transform::GetGlobalMatrix() const
 {
-	/*std::list<GameObject*> parentsList;
-	GameObject* nextParent = parent;
-	while (parent->GetParent() != nullptr)
-	{
-		parentsList.push_back(nextParent);
-		nextParent = nextParent->GetParent();
-	}
+	math::float4x4 localMatrix = GetMatrix();
 
-	math::float4x4 globalMatrix = math::float4x4::identity;
-	for (std::list<GameObject*>::iterator it = parentsList.end(); it != parentsList.begin(); it++)
-	{
-		math::float4x4 parentMatrix = (*it)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetMatrix();
-		globalMatrix = globalMatrix * parentMatrix;
-	}
-	*/
 	if (parent->GetParent() != nullptr)
 	{
-		if (parent->GetParent()->GetComponent(COMPONENT_TRANSFORM) != nullptr)
-		{
-			math::float4x4 tmpGlobalMatrix = parent->GetParent()->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
-			return tmpGlobalMatrix * GetMatrix();
-		}
+		math::float4x4 tmpGlobalMatrix = math::float4x4::identity;
+		tmpGlobalMatrix = parent->GetParent()->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+		return tmpGlobalMatrix * localMatrix;
 	}
-	return GetMatrix();
+
+	return localMatrix;
 }
 
 void C_Transform::UpdateGlobalMatrix()

@@ -22,7 +22,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(const char* name, GameObject* parent);
+	GameObject(const char* name, GameObject* parent = nullptr);
 	~GameObject();
 
 	const char* GetName() const;

@@ -16,7 +16,7 @@ public:
 	void Update(float dt);
 
 	math::float4x4& GetMatrix() const;
-	math::float4x4& GetGlobalMatrix() const;
+	math::float4x4 GetGlobalMatrix() const;
 	void UpdateGlobalMatrix();
 	void UpdateGlobalMatrixOfChilds();
 

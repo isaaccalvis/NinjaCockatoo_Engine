@@ -19,11 +19,14 @@ void C_Mesh::Update(float dt)
 {
 	if (mesh != nullptr)
 	{
+		parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+		//parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+
 		// TODO: AQUI ACTIVAR QUE ELS FILLS SEGUEIXIN AL PARE
-		//parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix.Decompose(mesh->position, mesh->rotation, mesh->scale);
-		mesh->SetPosition(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position);
-		mesh->SetRotation(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation);
-		mesh->SetScale(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale);
+		parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix.Decompose(mesh->position, mesh->rotation, mesh->scale);
+		//mesh->SetPosition(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position);
+		//mesh->SetRotation(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation);
+		//mesh->SetScale(parent->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale);
 
 		if (parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr
 			&& parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture != nullptr)

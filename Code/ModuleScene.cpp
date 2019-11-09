@@ -15,7 +15,7 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init(JSON_Object* root_object)
 {
-	root = new GameObject("_root", nullptr);
+	root = new GameObject("root", nullptr);
 	return true;
 }
 
