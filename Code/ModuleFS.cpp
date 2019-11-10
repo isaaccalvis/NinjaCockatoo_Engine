@@ -55,7 +55,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
 	std::string extension = name_and_extension;
 	extension = extension.substr(extension.find_last_of('.') + 1);
-	std::string toSavePath = resources_directory + name_and_extension;
+	std::string toSavePath = resources_directory + "Assets/"  + name_and_extension;
 
 	CopyFile(path, toSavePath.c_str(), true);
 
@@ -115,19 +115,11 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
 	memcpy(cursor, mesh->verticesArray, bytes);
-	for (int i = 0; i < mesh->GetVerticesSize() * 3; i++)
-	{
-		LOG_CONSOLE("VERTICES BEFORE: %f", mesh->verticesArray[i]);
-	}
 
 	// Put indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
-	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
-	{
-		LOG_CONSOLE("INDICES BEFORE: %u", mesh->indicesArray[i]);
-	}
 
 	unsigned int nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
@@ -135,13 +127,10 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
 	if (file != nullptr)
 		PHYSFS_writeBytes(file, data, size);
-	LOG_CONSOLE("%s",PHYSFS_getLastError());
 	PHYSFS_close(file);
 
 	cursor = nullptr;
 	delete[] data;
-
-	sceneImporter->LoadMesh((App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension).c_str());
 
 	return nUUID;
 }

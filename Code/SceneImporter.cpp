@@ -72,7 +72,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		std::string tmp_texture_path(originalPath);
 		if (sizeof(originalPath) <= 4) // Thats to check if originalPath exist
 		{
-			tmp_texture_path = App->fs->resources_directory;
+			tmp_texture_path = App->fs->resources_directory + "Assets/";
 		}
 		tmp_texture_path.append(str.C_Str());
 		// Load texture
@@ -152,20 +152,12 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	bytes = sizeof(GLfloat) * mesh->GetVerticesSize() * 3;
 	mesh->verticesArray = new GLfloat[mesh->GetVerticesSize() * 3];
 	memcpy(mesh->verticesArray, cursor, bytes);
-	for (int i = 0; i < mesh->GetVerticesSize() * 3; i++)
-	{
-		LOG_CONSOLE("VERTICES AFTER: %f", mesh->verticesArray[i]);
-	}
 
 	// Get Indices
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
 	memcpy(mesh->indicesArray, cursor, bytes);
-	for (int i = 0; i < mesh->GetIndicesSize() * 3; i++)
-	{
-		LOG_CONSOLE("INDICES AFTER: %u", mesh->indicesArray[i]);
-	}
 
 	mesh->GenerateIndicesBuffer();
 	mesh->GenerateVerticesBuffer();

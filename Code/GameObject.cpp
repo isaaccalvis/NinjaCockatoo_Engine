@@ -181,12 +181,10 @@ void GameObject::UpdateAABB()
 
 		boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
 
-		boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-			boundingBox.Size());
+		boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
 
 		delete[] verticesArray;
 
-		// TODO: Change this
 		if (boundingBoxCube != nullptr)
 		{
 			boundingBoxCube->position = boundingBox.CenterPoint();
