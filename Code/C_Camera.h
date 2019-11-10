@@ -16,13 +16,14 @@ public:
 	void RenderCamera();
 	void UpdateTransform();
 	void BecomeMainCamera();
-
+	bool IsInsideFrustumCulling(GameObject* go);
 
 public:
 	Frustum frustum;
 	bool renderCameraFrustum = true;
 	DebugCube* debugCube = nullptr;
 	bool isMainCamera = false;
+	bool frustumCulling = false;
 
 private:
 	bool culling = false;

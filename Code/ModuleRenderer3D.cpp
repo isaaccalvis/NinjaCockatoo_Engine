@@ -139,15 +139,35 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	{
 		for (int e = 0; e < App->scene->gameObjects[i]->CountComponents(); e++)
 		{
+			// Render Meshes
 			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_MESH)
 			{
-				App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
+				if (App->scene->camera != nullptr)
+				{
+					if (App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustumCulling)
+					{
+						if (App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->IsInsideFrustumCulling(App->scene->gameObjects[i]))
+						{
+							App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
+						}
+					}
+					else
+					{
+						App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
+					}
+				}
+				else
+				{
+					App->scene->gameObjects[i]->GetComponent(e)->Update(dt);
+				}
 			}
+			// Render Camera
 			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_CAMERA)
 			{
 				App->scene->gameObjects[i]->GetComponent(e)->GetComponentAsCamera()->Update(dt);
 			}
 		}
+		// Render AABB
 		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)
 		{
 			if (App->scene->gameObjects[i]->GetComponent(COMPONENT_MESH) != nullptr)

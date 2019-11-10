@@ -98,6 +98,12 @@ void GUI_Properties::Draw()
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->BecomeMainCamera();
 					}
+
+					bool frustumCulling = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustumCulling;
+					if (ImGui::Checkbox("Frustum Culling", &frustumCulling))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustumCulling = frustumCulling;
+					}
 				}
 			}
 			break;

@@ -85,3 +85,20 @@ void C_Camera::BecomeMainCamera()
 	App->scene->camera = parent;
 	isMainCamera = true;
 }
+
+bool C_Camera::IsInsideFrustumCulling(GameObject* go)
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		if (frustum.Contains(go->boundingBox.CornerPoint(i)))
+		{
+			return true;
+		}
+	}
+	return false;
+	//if (frustum.Contains(go->boundingBox))
+	//{
+	//	return true;
+	//}
+	//return false;
+}
