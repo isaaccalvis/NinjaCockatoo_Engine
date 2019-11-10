@@ -23,6 +23,7 @@ public:
 
 public: // TODO: THIS COULD BE PRIVATE
 	GameObject*		root = nullptr;
+	GameObject*		camera = nullptr;
 	GameObject*		goSelected = nullptr;
 	std::vector<GameObject*> gameObjects;
 

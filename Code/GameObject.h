@@ -53,9 +53,9 @@ public:
 	void UpdateAABB();
 
 public:
-
 	math::AABB boundingBox;
 	DebugCube* boundingBoxCube = nullptr;
+
 private:
 	GameObject* parent = nullptr;
 	std::string name = "";

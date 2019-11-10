@@ -8,6 +8,7 @@
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Material.h"
+#include "C_Camera.h"
 
 GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_PROPERTIES)
 {}
@@ -75,19 +76,16 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("Material"))
 				{
-					if (App->scene->goSelected != nullptr)
+					if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr)
 					{
-						if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr)
-						{
-							ImGui::Text("Image (witdth/ heigh): %i , %i", App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetWidth(), App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetHeight());
+						ImGui::Text("Image (witdth/ heigh): %i , %i", App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetWidth(), App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetHeight());
 
-							ImGui::Image((void*)(intptr_t)App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetBufferPos(), ImVec2(512, 512));
-						}
+						ImGui::Image((void*)(intptr_t)App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture->GetBufferPos(), ImVec2(512, 512));
 					}
-					else
-					{
-						ImGui::Text("Image (witdth/ heigh): - , -");
-					}
+				}
+				else
+				{
+					ImGui::Text("Image (witdth/ heigh): - , -");
 				}
 			}
 			break;
@@ -95,8 +93,10 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("Camera"))
 				{
-					if (App->scene->goSelected != nullptr)
+					bool isMainCamera = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->isMainCamera;
+					if (ImGui::Checkbox("Principal Camera", &isMainCamera))
 					{
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->BecomeMainCamera();
 					}
 				}
 			}

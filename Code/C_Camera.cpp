@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "C_Camera.h"
 #include "C_Transform.h"
 #include "MathGeoLib-1.5\src\MathGeoLib.h"
@@ -7,6 +8,15 @@ C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPO
 	isUnique = true;
 	InitFrustum();
 	debugCube = new DebugCube();
+	if (App->scene->camera == nullptr)
+	{
+		App->scene->camera = parent;
+		isMainCamera = true;
+	}
+	else
+	{
+		isMainCamera = false;
+	}
 }
 
 C_Camera::~C_Camera()
@@ -61,4 +71,17 @@ void C_Camera::UpdateTransform()
 	frustum.pos = matrix.TranslatePart();
 	frustum.front = matrix.WorldZ();
 	frustum.up = matrix.WorldY();
+}
+
+void C_Camera::BecomeMainCamera()
+{
+	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+	{
+		if (App->scene->gameObjects[i]->GetComponent(COMPONENT_CAMERA) != nullptr)
+		{
+			App->scene->gameObjects[i]->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->isMainCamera = false;
+		}
+	}
+	App->scene->camera = parent;
+	isMainCamera = true;
 }

@@ -15,12 +15,14 @@ public:
 	void InitFrustum();
 	void RenderCamera();
 	void UpdateTransform();
+	void BecomeMainCamera();
 
 
 public:
 	Frustum frustum;
 	bool renderCameraFrustum = true;
 	DebugCube* debugCube = nullptr;
+	bool isMainCamera = false;
 
 private:
 	bool culling = false;
