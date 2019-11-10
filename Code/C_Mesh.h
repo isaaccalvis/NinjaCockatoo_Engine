@@ -11,8 +11,11 @@ public:
 	~C_Mesh();
 
 	void Update(float dt);
-	
-public:
+
+	void SetMesh(Mesh* mesh);
+	Mesh* GetMesh();
+
+private:
 	Mesh* mesh = nullptr;
 };
 

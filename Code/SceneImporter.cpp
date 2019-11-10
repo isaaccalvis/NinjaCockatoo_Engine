@@ -65,8 +65,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		App->fs->CreateOwnMesh(mesh);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
-		compMesh->GetComponentAsMesh()->mesh = mesh;
-		go->UpdateAABB();
+		compMesh->GetComponentAsMesh()->SetMesh(mesh);
 
 		aiString str;
 		scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
@@ -103,7 +102,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			Mesh* mesh = new Mesh(scene, node, i);
 			App->renderer3D->AddMesh(mesh);
 			Component* compMesh = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-			compMesh->GetComponentAsMesh()->mesh = mesh;
+			compMesh->GetComponentAsMesh()->SetMesh(mesh);
 			Component* comTexture = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 
 			aiString str;
@@ -173,7 +172,7 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 
 	GameObject* go = App->scene->CreateGameObject("tmp", App->scene->root);
 	go->CreateComponent(COMPONENT_MESH);
-	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh = mesh;
+	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->SetMesh(mesh);
 
 	delete[] data;
 

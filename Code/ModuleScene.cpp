@@ -81,9 +81,9 @@ void ModuleScene::MakeCameraLookThisGOSelected()
 	// Set camera pos
 	if (goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH) != nullptr)
 	{
-		App->camera->Position.x = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.x + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Diagonal().x * 2;
-		App->camera->Position.y = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.y + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Diagonal().y * 2;
-		App->camera->Position.z = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.z + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Diagonal().z * 2;
+		App->camera->Position.x = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.x + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().Diagonal().x * 2;
+		App->camera->Position.y = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.y + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().Diagonal().y * 2;
+		App->camera->Position.z = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.z + goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().Diagonal().z * 2;
 	}
 	else
 	{

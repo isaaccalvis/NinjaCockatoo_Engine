@@ -32,3 +32,14 @@ void C_Mesh::Update(float dt)
 		}
 	}
 }
+
+void C_Mesh::SetMesh(Mesh* mesh)
+{
+	this->mesh = mesh;
+	parent->UpdateAABB();
+}
+
+Mesh* C_Mesh::GetMesh()
+{
+	return mesh;
+}

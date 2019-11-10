@@ -165,19 +165,20 @@ void GameObject::UpdateAABB()
 {
 	if (GetComponent(COMPONENT_MESH) != nullptr)
 	{
-		boundingBox.Enclose((const math::float3*)GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->verticesArray,
-			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetVerticesSize());
+		boundingBox.Enclose((const math::float3*)GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray,
+			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize());
 
-		math::OBB obb;
-		obb.SetFrom(boundingBox);
-		math::float4x4 globalTransformMatrix = GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix;
-		obb.Transform(globalTransformMatrix);
+		//math::OBB obb;
+		//obb.SetFrom(boundingBox);
 
-		if (obb.IsFinite())
-			boundingBox = obb.MinimalEnclosingAABB();
+		//math::float4x4 globalTransformMatrix = GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix;
+		//obb.Transform(globalTransformMatrix);
 
-		//boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-		//	GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->mesh->GetBoundingBox().Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale));
+		//if (obb.IsFinite())
+		//	boundingBox = obb.MinimalEnclosingAABB();
+
+		boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
+			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale));
 
 		if (boundingBoxCube != nullptr)
 		{
