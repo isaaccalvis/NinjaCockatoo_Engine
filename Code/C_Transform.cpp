@@ -39,6 +39,8 @@ math::float4x4 C_Transform::GetGlobalMatrix() const
 void C_Transform::UpdateGlobalMatrix()
 {
 	globalMatrix.Set(GetGlobalMatrix());
+	globalMatrix.Decompose(globalPosition, globalRotation, globalScale);
+	//globalMatrix.Decompose(globalPosition, globalRotation, globalRotation);
 }
 
 void C_Transform::UpdateGlobalMatrixOfChilds()
@@ -46,5 +48,9 @@ void C_Transform::UpdateGlobalMatrixOfChilds()
 	for (int i = 0; i < parent->CountChild(); i++)
 	{
 		parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+		if (parent[i].CountChild() > 0)
+		{
+			parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+		}
 	}
 }

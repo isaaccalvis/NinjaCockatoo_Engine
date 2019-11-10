@@ -1,4 +1,5 @@
 #include "C_Camera.h"
+#include "C_Transform.h"
 #include "MathGeoLib-1.5\src\MathGeoLib.h"
 
 C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_CAMERA)
@@ -11,6 +12,15 @@ C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPO
 C_Camera::~C_Camera()
 {
 
+}
+
+void C_Camera::Update(float dt)
+{
+	UpdateTransform();
+	if (renderCameraFrustum)
+	{
+		RenderCamera();
+	}
 }
 
 void C_Camera::InitFrustum()
@@ -37,18 +47,18 @@ void C_Camera::InitFrustum()
 
 void C_Camera::RenderCamera()
 {
-	if (renderCameraFrustum)
+	if (debugCube != nullptr)
 	{
-		if (debugCube != nullptr)
-		{
-			static math::float3 frustumToDraw[8];
-			frustum.GetCornerPoints(frustumToDraw);
-			debugCube->DirectRender(frustumToDraw, White );
-		}
+		static math::float3 frustumToDraw[8];
+		frustum.GetCornerPoints(frustumToDraw);
+		debugCube->DirectRender(frustumToDraw, White);
 	}
 }
 
-void C_Camera::Update(float dt)
+void C_Camera::UpdateTransform()
 {
-
+	math::float4x4 matrix = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+	frustum.pos = matrix.TranslatePart();
+	frustum.front = matrix.WorldZ();
+	frustum.up = matrix.WorldY();
 }

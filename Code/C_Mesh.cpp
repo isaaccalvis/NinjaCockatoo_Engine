@@ -19,7 +19,6 @@ void C_Mesh::Update(float dt)
 {
 	if (mesh != nullptr)
 	{
-		parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 		//parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 
 		// TODO: AQUI ACTIVAR QUE ELS FILLS SEGUEIXIN AL PARE

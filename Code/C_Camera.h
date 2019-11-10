@@ -10,10 +10,12 @@ public:
 	C_Camera(GameObject* parent);
 	~C_Camera();
 
+	void Update(float dt);
+
 	void InitFrustum();
 	void RenderCamera();
+	void UpdateTransform();
 
-	void Update(float dt);
 
 public:
 	Frustum frustum;

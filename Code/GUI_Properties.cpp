@@ -33,6 +33,8 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = math::float3(auxPos[0], auxPos[1], auxPos[2]);
 						// TODO: AQUI ACTIVAR QUE ELS FILLS SEGUEIXIN AL PARE
 						//App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 						App->scene->goSelected->UpdateAABB();
 					}
 
@@ -41,6 +43,8 @@ void GUI_Properties::Draw()
 					if (ImGui::InputFloat3("Rotation", auxRot))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = math::Quat::FromEulerXYZ(auxRot[0] * DEGTORAD, auxRot[1] * DEGTORAD, auxRot[2] * DEGTORAD);
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 					}
 
 					math::float3 tmpScale = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale;
@@ -48,6 +52,8 @@ void GUI_Properties::Draw()
 					if (ImGui::InputFloat3("Scale", auxScale))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale = math::float3(auxScale[0], auxScale[1], auxScale[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 						App->scene->goSelected->UpdateAABB();
 					}
 				}

@@ -145,7 +145,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 			}
 			if (App->scene->gameObjects[i]->GetComponent(e)->type == COMPONENT_TYPE::COMPONENT_CAMERA)
 			{
-				App->scene->gameObjects[i]->GetComponent(e)->GetComponentAsCamera()->RenderCamera();
+				App->scene->gameObjects[i]->GetComponent(e)->GetComponentAsCamera()->Update(dt);
 			}
 		}
 		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)

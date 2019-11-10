@@ -25,6 +25,10 @@ public:
 	math::Quat rotation = math::Quat::identity;
 	math::float3 scale = math::float3::one;
 
+	math::float3 globalPosition = math::float3::zero;
+	math::Quat globalRotation = math::Quat::identity;
+	math::float3 globalScale = math::float3::one;
+
 	math::float4x4 globalMatrix = math::float4x4::identity;
 };
 
