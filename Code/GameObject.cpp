@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "Application.h"
 #include "GameObject.h"
+
 #include "C_Transform.h"
 #include "C_Mesh.h"
 #include "C_Material.h"
@@ -165,27 +166,36 @@ void GameObject::UpdateAABB()
 {
 	if (GetComponent(COMPONENT_MESH) != nullptr)
 	{
-		boundingBox.Enclose((const math::float3*)GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray,
-			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize());
+		// TODO: Pregunta, això és massa lent ??
+		unsigned int verticesSize = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize();
+		GLfloat* verticesArray = new GLfloat[verticesSize * 3];
+		memcpy(verticesArray, GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray, verticesSize * sizeof(GLfloat) * 3);
+		for (int i = 0; i < verticesSize * 3; i++)
+		{
+			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.x;
+			i++;
+			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.y;
+			i++;
+			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.z;
+		}
 
-		//math::OBB obb;
-		//obb.SetFrom(boundingBox);
-
-		//math::float4x4 globalTransformMatrix = GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix;
-		//obb.Transform(globalTransformMatrix);
-
-		//if (obb.IsFinite())
-		//	boundingBox = obb.MinimalEnclosingAABB();
+		boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
 
 		boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-			boundingBox.Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale));
+			boundingBox.Size());
 
+		delete[] verticesArray;
+
+		// TODO: Change this
 		if (boundingBoxCube != nullptr)
 		{
-			delete boundingBoxCube;
-			boundingBoxCube = nullptr;
+			boundingBoxCube->position = boundingBox.CenterPoint();
+			boundingBoxCube->scale = boundingBox.Size();
 		}
-		boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
+		else
+		{
+			boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
+		}
 	}
 	else
 	{
