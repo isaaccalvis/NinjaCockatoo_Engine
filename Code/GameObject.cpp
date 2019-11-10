@@ -177,8 +177,8 @@ void GameObject::UpdateAABB()
 		//if (obb.IsFinite())
 		//	boundingBox = obb.MinimalEnclosingAABB();
 
-		boundingBox.SetFromCenterAndSize(GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-			GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetBoundingBox().Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale));
+		boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
+			boundingBox.Size().Mul(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale));
 
 		if (boundingBoxCube != nullptr)
 		{

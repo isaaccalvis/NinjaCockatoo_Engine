@@ -7,15 +7,9 @@ C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 	isUnique = true;
 }
 
-C_Transform::~C_Transform()
-{
+C_Transform::~C_Transform() {}
 
-}
-
-void C_Transform::Update(float dt)
-{
-
-}
+void C_Transform::Update(float dt) {}
 
 math::float4x4& C_Transform::GetMatrix() const
 {
@@ -40,7 +34,6 @@ void C_Transform::UpdateGlobalMatrix()
 {
 	globalMatrix.Set(GetGlobalMatrix());
 	globalMatrix.Decompose(globalPosition, globalRotation, globalScale);
-	//globalMatrix.Decompose(globalPosition, globalRotation, globalRotation);
 }
 
 void C_Transform::UpdateGlobalMatrixOfChilds()

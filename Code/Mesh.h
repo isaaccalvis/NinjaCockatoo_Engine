@@ -20,16 +20,15 @@ public:
 	Mesh(const aiScene* scene, const aiNode* node, const int num = 0);
 	virtual ~Mesh();
 
-	virtual void Render(Texture* texture = nullptr);
+	virtual void Render(Texture* texture = nullptr, math::float4x4 globalMatrix = math::float4x4::identity);
 
-	// Transform
-	void SetPosition(const math::float3 nPosition);
-	void SetRotation(const math::Quat nRotation);
-	void SetScale(const math::float3 nScale);
-
-	math::float3 GetPosition() const;
-	math::Quat GetRotation() const;
-	math::float3 GetScale() const;
+	// Buffers
+	void GenerateIndicesBuffer();
+	void GenerateVerticesBuffer();
+	void GenerateTextureCoorBuffer();
+	void ClearIndicesBuffer();
+	void ClearVerticesBuffer();
+	void ClearTextureCoorBuffer();
 
 	// Indices, Vertices, TextureCoords, Normals
 	void ClearIndicesArray();
@@ -37,27 +36,17 @@ public:
 	void ClearTextureCoorArray();
 	void ClearNormalsArray();
 
-	// Buffers
-	void GenerateIndicesBuffer();
-	void GenerateVerticesBuffer();
-	void GenerateTextureCoorBuffer();
-
-	void ClearIndicesBuffer();
-	void ClearVerticesBuffer();
-	void ClearTextureCoorBuffer();
-
+	// Indices, Vertices, TextureCoords, Normals Size
 	void SetIndicesSize(unsigned int size);
 	void SetVerticesSize(unsigned int size);
 	void SetTextureCoorSize(unsigned int size);
 	void SetNormalsSize(unsigned int size);
-
 	unsigned int GetIndicesSize() const;
 	unsigned int GetVerticesSize() const;
 	unsigned int GetTextureCoorSize() const;
 	unsigned int GetNormalsSize() const;
 
-	AABB GetBoundingBox();
-
+public:
 	MESH_TYPE type;
 
 	GLfloat* verticesArray = nullptr;
@@ -65,14 +54,7 @@ public:
 	GLfloat* textureCoords = nullptr;
 	DebugArrow* normals = nullptr;
 
-public:
-	// Transform
-	math::float3 position = math::float3::zero;
-	math::Quat rotation = math::Quat::identity;
-	math::float3 scale = math::float3::one;
-
 protected:
-
 	// Vertices
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
@@ -88,10 +70,6 @@ protected:
 
 	// Normals
 	unsigned int normalsSize = 0u;
-
-	// Bounding Box & AABB
-	AABB boundingBox;
-	DebugCube* boundingBoxCube = nullptr;
 };
 
 #endif

@@ -88,17 +88,14 @@ void C_Camera::BecomeMainCamera()
 
 bool C_Camera::IsInsideFrustumCulling(GameObject* go)
 {
-	for (int i = 0; i < 8; ++i)
-	{
-		if (frustum.Contains(go->boundingBox.CornerPoint(i)))
-		{
-			return true;
-		}
-	}
-	return false;
-	//if (frustum.Contains(go->boundingBox))
+	//for (int i = 0; i < 8; ++i)
 	//{
-	//	return true;
+		// This is faster, but have some problems
+		//if (frustum.Contains(go->boundingBox.CornerPoint(i)))
+	if (frustum.Intersects(go->boundingBox))
+	{
+		return true;
+	}
 	//}
-	//return false;
+	return false;
 }

@@ -19,16 +19,13 @@ void C_Mesh::Update(float dt)
 {
 	if (mesh != nullptr)
 	{
-		parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix.Decompose(mesh->position, mesh->rotation, mesh->scale);
-
-		if (parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr
-			&& parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture != nullptr)
+		if (parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr)
 		{
-			mesh->Render(parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture);
+			mesh->Render(parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture, parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
 		}
 		else
 		{
-			mesh->Render();
+			mesh->Render(nullptr, parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
 		}
 	}
 }

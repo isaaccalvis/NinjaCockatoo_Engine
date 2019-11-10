@@ -20,15 +20,12 @@ public:
 
 public:
 	Frustum frustum;
-	bool renderCameraFrustum = true;
 	DebugCube* debugCube = nullptr;
+	bool renderCameraFrustum = true;
 	bool isMainCamera = false;
 	bool frustumCulling = false;
 
 private:
-	bool culling = false;
-	bool cull_dynamics = true;
-	bool is_main = false;
 	float width = 0.0f;
 	float height = 0.0f;
 	float aspect_ratio = 0.0f;

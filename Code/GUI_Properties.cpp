@@ -32,15 +32,13 @@ void GUI_Properties::Draw()
 					if (ImGui::InputFloat3("Position", auxPos))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = math::float3(auxPos[0], auxPos[1], auxPos[2]);
-						// TODO: AQUI ACTIVAR QUE ELS FILLS SEGUEIXIN AL PARE
-						//App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 						App->scene->goSelected->UpdateAABB();
 					}
 
 					math::float3 tmpRot = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation.ToEulerXYZ();
-					static float auxRot[3] = { tmpRot.x * RADTODEG, tmpRot.y * RADTODEG, tmpRot.z * RADTODEG };
+					float auxRot[3] = { tmpRot.x * RADTODEG, tmpRot.y * RADTODEG, tmpRot.z * RADTODEG };
 					if (ImGui::InputFloat3("Rotation", auxRot))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = math::Quat::FromEulerXYZ(auxRot[0] * DEGTORAD, auxRot[1] * DEGTORAD, auxRot[2] * DEGTORAD);
@@ -49,7 +47,7 @@ void GUI_Properties::Draw()
 					}
 
 					math::float3 tmpScale = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale;
-					static float auxScale[3] = { tmpScale.x, tmpScale.y, tmpScale.z };
+					float auxScale[3] = { tmpScale.x, tmpScale.y, tmpScale.z };
 					if (ImGui::InputFloat3("Scale", auxScale))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale = math::float3(auxScale[0], auxScale[1], auxScale[2]);

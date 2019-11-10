@@ -78,12 +78,6 @@ Mesh::Mesh(MESH_TYPE type)
 		GenerateVerticesBuffer();
 		GenerateIndicesBuffer();
 		GenerateTextureCoorBuffer();
-
-	// Bounding Box
-	boundingBox.SetNegativeInfinity();
-	//boundingBox.SetFrom(&vectorVertex[0] , vectorVertex.size());
-	boundingBox.Enclose(&vectorVertex[0], vectorVertex.size());
-	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 }
 
 Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
@@ -145,11 +139,6 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 			normals[i].SetDebugArrow(math::float3(scene->mMeshes[node->mMeshes[num]]->mVertices[i].x, scene->mMeshes[node->mMeshes[num]]->mVertices[i].y, scene->mMeshes[node->mMeshes[num]]->mVertices[i].z), math::float3(scene->mMeshes[node->mMeshes[num]]->mVertices[i].x + scene->mMeshes[node->mMeshes[num]]->mNormals[i].x, scene->mMeshes[node->mMeshes[num]]->mVertices[i].y + scene->mMeshes[node->mMeshes[num]]->mNormals[i].y, scene->mMeshes[node->mMeshes[num]]->mVertices[i].z + scene->mMeshes[node->mMeshes[num]]->mNormals[i].z));
 		}
 	}
-
-	// Bounding Box
-	boundingBox.SetNegativeInfinity();
-	boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
-	boundingBoxCube = new DebugCube(boundingBox.CenterPoint(), boundingBox.Size());
 }
 
 Mesh::~Mesh()
@@ -165,11 +154,9 @@ Mesh::~Mesh()
 		delete[] textureCoords;
 	if (normals != nullptr)
 		delete[] normals;
-	if (boundingBoxCube != nullptr)
-		delete boundingBoxCube;
 }
 
-void Mesh::Render(Texture* texture)
+void Mesh::Render(Texture* texture, math::float4x4 globalMatrix)
 {
 	glPushMatrix();
 
@@ -178,11 +165,10 @@ void Mesh::Render(Texture* texture)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture->GetBufferPos());
 	}
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glTranslatef(position.x, position.y, position.z);
-	glRotated(rotation.Angle() * RADTODEG, rotation.x, rotation.y, rotation.z);
-	glScalef(scale.x, scale.y, scale.z);
+	glMultMatrixf(globalMatrix.Transposed().ptr());
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -212,44 +198,7 @@ void Mesh::Render(Texture* texture)
 				normals[i].Render();
 		}
 	}
-
 	glPopMatrix();
-
-	//if (App->renderer3D->renderBoudingBox)
-	//{
-	//	if (boundingBoxCube != nullptr)
-	//		boundingBoxCube->Render();
-	//}
-}
-
-void Mesh::SetPosition(math::float3 nPosition)
-{
-	this->position = nPosition;
-}
-
-void Mesh::SetRotation(const math::Quat nRotation)
-{
-	this->rotation = nRotation;
-}
-
-void Mesh::SetScale(math::float3 nScale)
-{
-	this->scale = nScale;
-}
-
-math::float3 Mesh::GetPosition() const
-{
-	return position;
-}
-
-math::Quat Mesh::GetRotation() const
-{
-	return rotation;
-}
-
-math::float3 Mesh::GetScale() const
-{
-	return scale;
 }
 
 void Mesh::ClearIndicesArray()
@@ -358,9 +307,4 @@ unsigned int Mesh::GetTextureCoorSize() const
 unsigned int Mesh::GetNormalsSize() const
 {
 	return normalsSize;
-}
-
-AABB Mesh::GetBoundingBox()
-{
-	return boundingBox;
 }
