@@ -168,29 +168,33 @@ void GameObject::UpdateAABB()
 	{
 		// TODO: Pregunta, això és massa lent ??
 		unsigned int verticesSize = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize();
-		GLfloat* verticesArray = new GLfloat[verticesSize * 3];
-		memcpy(verticesArray, GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray, verticesSize * sizeof(GLfloat) * 3);
+		std::vector<float3> verticesVertex;
+		verticesVertex.resize(verticesSize);
+		int count = 0;
 		for (int i = 0; i < verticesSize * 3; i++)
 		{
-			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.x;
+			verticesVertex[count].x = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.x;
 			i++;
-			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.y;
+			verticesVertex[count].y = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.y;
 			i++;
-			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.z;
+			verticesVertex[count].z = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.z;
+			count++;
 		}
 
 		if (GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->type == MESH_TYPE::CUSTOM_MESH)
 		{
-			boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
+			boundingBox.SetNegativeInfinity();
+			boundingBox.Enclose(&verticesVertex[0], verticesSize);
 			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
 		}
 		else
 		{
-			boundingBox.SetFrom(&GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
+			boundingBox.SetFrom(&verticesVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
 			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
 		}
 
-		delete[] verticesArray;
+		//delete[] verticesArray;
+		verticesVertex.clear();
 
 		if (boundingBoxCube != nullptr)
 		{
