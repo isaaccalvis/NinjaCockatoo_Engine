@@ -16,6 +16,7 @@ public:
 
 	void InsertGameObject(GameObject* go);
 	void SubdivideNode();
+	void RedistributeChilds();
 
 public:
 	math::AABB boundingBox;
@@ -38,6 +39,9 @@ public:
 	void Insert(GameObject* go);
 	void Remove(GameObject* go);
 	//void Interesct(std::vector<GameObject*>& objectColliding, );
+
+public:
+	QT_Node* root = nullptr;
 };
 
 #endif

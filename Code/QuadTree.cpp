@@ -1,7 +1,7 @@
 #include "QuadTree.h"
 
 #define MAX_DIVISIONS 10
-#define MARX_ELEMENTS_AT_DIVISION 3
+#define MAX_ELEMENTS_AT_DIVISION 1
 
 QT_Node::QT_Node(math::AABB& boundingBox)
 {
@@ -37,6 +37,14 @@ bool QT_Node::HaveChildNode() const
 void QT_Node::InsertGameObject(GameObject* go)
 {
 	objects.push_back(go);
+	if (HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
+	{
+		if (subidivision < MAX_DIVISIONS)
+		{
+			SubdivideNode();
+			RedistributeChilds();
+		}
+	}
 }
 
 void QT_Node::SubdivideNode()
@@ -66,6 +74,42 @@ void QT_Node::SubdivideNode()
 	children[3] = new QT_Node(quarter);
 }
 
+void QT_Node::RedistributeChilds()
+{
+	std::list<GameObject*>::iterator it = objects.begin();
+
+	while (it != objects.end())
+	{
+		uint totalIntersections = 0u;
+		uint lastIntersection = 0u;
+		for (int i = 0; i < 4; i++)
+		{
+			if ((*it)->boundingBox.Intersects(children[i]->boundingBox))
+			{
+				totalIntersections++;
+				lastIntersection = i;
+			}
+		}
+		if (totalIntersections == 4)
+		{
+			parent->InsertGameObject((*it));
+			parent->RedistributeChilds();
+			it = objects.erase(it);
+		}
+		else
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				if ((*it)->boundingBox.Intersects(children[i]->boundingBox))
+				{
+					children[i]->InsertGameObject((*it));
+				}
+			}
+			it = objects.erase(it);
+		}
+	}
+}
+
 QuadTree::QuadTree()
 {
 
@@ -78,17 +122,24 @@ QuadTree::~QuadTree()
 
 void QuadTree::Create(math::AABB limits)
 {
-
+	Clear();
+	root = new QT_Node(limits);
 }
 
 void QuadTree::Clear()
 {
-
+	if (root != nullptr)
+	{
+		delete root;
+	}
 }
 
 void QuadTree::Insert(GameObject* go)
 {
-
+	if (go->boundingBox.Intersects(root->boundingBox))
+	{
+		root->InsertGameObject(go);
+	}
 }
 
 void QuadTree::Remove(GameObject* go)
