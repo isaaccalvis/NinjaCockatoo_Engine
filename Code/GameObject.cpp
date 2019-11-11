@@ -179,9 +179,16 @@ void GameObject::UpdateAABB()
 			verticesArray[i] *= GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.z;
 		}
 
-		boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
-
-		boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
+		if (GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->type == MESH_TYPE::CUSTOM_MESH)
+		{
+			boundingBox.Enclose((const math::float3*)verticesArray, verticesSize);
+			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
+		}
+		else
+		{
+			boundingBox.SetFrom(&GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
+			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
+		}
 
 		delete[] verticesArray;
 

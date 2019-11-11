@@ -55,11 +55,12 @@ public:
 	GLfloat* textureCoords = nullptr;
 	DebugArrow* normals = nullptr;
 
+	std::vector<float3> vectorVertex;
+
 protected:
 	// Vertices
 	unsigned int vertices = 0u;
 	unsigned int verticesSize = 0;
-	std::vector<float3> vectorVertex;
 
 	// Indices
 	unsigned int indices = 0u;

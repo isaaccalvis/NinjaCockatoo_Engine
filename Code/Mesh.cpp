@@ -22,62 +22,62 @@ Mesh::Mesh(MESH_TYPE type)
 		primitive = par_shapes_create_plane(1, 1);
 		break;
 	case MESH_TYPE::PRIMITIVE_SPHERE:
-		primitive = par_shapes_create_parametric_sphere(10,10);
+		primitive = par_shapes_create_parametric_sphere(10, 10);
 		break;
 	}
-		vectorVertex.resize(primitive->npoints);
-		int a = 0;
-		for (int i = 0; i < primitive->npoints * 3; i++)
-		{
-			vectorVertex[a].Set(primitive->points[i], primitive->points[i++], primitive->points[i++]);
-			a++;
-		}
+	vectorVertex.resize(primitive->npoints);
+	int a = 0;
+	for (int i = 0; i < primitive->npoints * 3; i++)
+	{
+		vectorVertex[a].Set(primitive->points[i], primitive->points[i++], primitive->points[i++]);
+		a++;
+	}
 
-		verticesSize = primitive->npoints * 3;
-		verticesArray = new GLfloat[verticesSize];
-		for (int i = 0; i < verticesSize; i++)
-		{
-			verticesArray[i] = primitive->points[i];
-		}
+	verticesSize = primitive->npoints * 3;
+	verticesArray = new GLfloat[verticesSize];
+	for (int i = 0; i < verticesSize; i++)
+	{
+		verticesArray[i] = primitive->points[i];
+	}
 
-		indicesSize = primitive->ntriangles;
-		indicesArray = new unsigned int[indicesSize * 3];
-		for (int i = 0; i < indicesSize * 3; i++)
-		{
-			indicesArray[i] = primitive->triangles[i];
-		}
+	indicesSize = primitive->ntriangles;
+	indicesArray = new unsigned int[indicesSize * 3];
+	for (int i = 0; i < indicesSize * 3; i++)
+	{
+		indicesArray[i] = primitive->triangles[i];
+	}
 
-		textureCoords = new GLfloat[primitive->ntriangles * 2];
-		if (primitive->tcoords != nullptr)
+	textureCoords = new GLfloat[primitive->ntriangles * 2];
+	if (primitive->tcoords != nullptr)
+	{
+		for (int i = 0; i < primitive->ntriangles * 2; i++)
 		{
-			for (int i = 0; i < primitive->ntriangles * 2; i++)
-			{
-				textureCoords[i] = primitive->tcoords[i];
-			}
+			textureCoords[i] = primitive->tcoords[i];
 		}
-		else
+	}
+	else
+	{
+		for (int i = 0; i < primitive->ntriangles * 2; i++)
 		{
-			for (int i = 0; i < primitive->ntriangles * 2; i++)
-			{
-				textureCoords[i] = 0;
-				textureCoords[i++] = 0;
-				textureCoords[i++] = 1;
-				textureCoords[i++] = 0;
-				textureCoords[i++] = 0;
-				textureCoords[i++] = 1;
+			textureCoords[i] = 0;
+			textureCoords[i++] = 0;
+			textureCoords[i++] = 1;
+			textureCoords[i++] = 0;
+			textureCoords[i++] = 0;
+			textureCoords[i++] = 1;
 
-				textureCoords[i++] = 0;
-				textureCoords[i++] = 1;
-				textureCoords[i++] = 1;
-				textureCoords[i++] = 0;
-				textureCoords[i++] = 1;
-				textureCoords[i++] = 1;
-			}
+			textureCoords[i++] = 0;
+			textureCoords[i++] = 1;
+			textureCoords[i++] = 1;
+			textureCoords[i++] = 0;
+			textureCoords[i++] = 1;
+			textureCoords[i++] = 1;
 		}
+	}
 
-		GenerateVerticesBuffer();
-		GenerateIndicesBuffer();
-		GenerateTextureCoorBuffer();
+	GenerateVerticesBuffer();
+	GenerateIndicesBuffer();
+	GenerateTextureCoorBuffer();
 }
 
 Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)

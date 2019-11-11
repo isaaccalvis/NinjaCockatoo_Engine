@@ -161,6 +161,8 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	mesh->indicesArray = new unsigned int[mesh->GetIndicesSize() * 3];
 	memcpy(mesh->indicesArray, cursor, bytes);
 
+	// TODO: mmgr give (i think) problems with that
+
 	// Get Texture Coords
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetTextureCoorSize() * 2;

@@ -168,11 +168,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 			}
 		}
 		// Render AABB
-		if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)
+		if (App->renderer3D->renderBoudingBox)
 		{
-			if (App->scene->gameObjects[i]->GetComponent(COMPONENT_MESH) != nullptr)
+			if (App->scene->gameObjects[i]->boundingBoxCube != nullptr)
 			{
-				App->scene->gameObjects[i]->boundingBoxCube->Render();
+				if (App->scene->gameObjects[i]->GetComponent(COMPONENT_MESH) != nullptr)
+				{
+					App->scene->gameObjects[i]->boundingBoxCube->Render();
+				}
 			}
 		}
 	}
