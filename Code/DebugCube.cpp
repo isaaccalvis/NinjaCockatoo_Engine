@@ -95,8 +95,12 @@ void DebugCube::DirectRender(const math::float3* vertices, Color color)
 
 	glVertex3fv((const GLfloat*)&vertices[1]);
 	glVertex3fv((const GLfloat*)&vertices[5]);
+	glVertex3fv((const GLfloat*)&vertices[5]);
+	glVertex3fv((const GLfloat*)&vertices[7]);
 	glVertex3fv((const GLfloat*)&vertices[7]);
 	glVertex3fv((const GLfloat*)&vertices[3]);
+	glVertex3fv((const GLfloat*)&vertices[3]);
+	glVertex3fv((const GLfloat*)&vertices[1]);
 
 	glVertex3fv((const GLfloat*)&vertices[4]);
 	glVertex3fv((const GLfloat*)&vertices[0]);

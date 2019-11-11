@@ -13,14 +13,11 @@ ModuleScene::~ModuleScene()
 	CleanUp();
 }
 
-bool ModuleScene::Init(JSON_Object* root_object)
-{
-	root = new GameObject("root", nullptr);
-	return true;
-}
-
 bool ModuleScene::Start()
 {
+	root = new GameObject("root", nullptr);
+	quadTree = new QuadTree_d();
+	quadTree->Create(math::AABB(math::float3(-10, -10, -10), math::float3(10, 10, 10)));
 	return true;
 }
 

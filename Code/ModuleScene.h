@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "GameObject.h"
+#include "QuadTree.h"
 
 class ModuleScene : public Module
 {
@@ -12,7 +13,6 @@ public:
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
-	bool			Init(JSON_Object* root_object = nullptr);
 	bool			Start();
 	bool			CleanUp();
 
@@ -22,9 +22,10 @@ public:
 	void			MakeCameraLookThisGOSelected();
 
 public: // TODO: THIS COULD BE PRIVATE
-	GameObject*		root = nullptr;
-	GameObject*		camera = nullptr;
-	GameObject*		goSelected = nullptr;
+	GameObject*		root		= nullptr;
+	GameObject*		camera		= nullptr;
+	GameObject*		goSelected	= nullptr;
+	QuadTree_d*		quadTree	= nullptr;
 	std::vector<GameObject*> gameObjects;
 
 };

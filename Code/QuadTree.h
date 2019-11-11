@@ -26,12 +26,14 @@ public:
 	std::list<GameObject*> objects;
 	unsigned int subidivision = 0;
 };
-
-class QuadTree
+// QuadTree is a fusion between QuadTree & Red, because QuadTree already exists at MathGeolib
+class QuadTree_d
 {
 public:
-	QuadTree();
-	~QuadTree();
+	QuadTree_d();
+	~QuadTree_d();
+
+	void Render();
 
 	void Create(math::AABB limits);
 	void Clear();
@@ -42,6 +44,7 @@ public:
 
 public:
 	QT_Node* root = nullptr;
+	DebugCube* debugCube = nullptr;
 };
 
 #endif

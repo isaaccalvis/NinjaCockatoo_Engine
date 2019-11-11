@@ -110,23 +110,31 @@ void QT_Node::RedistributeChilds()
 	}
 }
 
-QuadTree::QuadTree()
+QuadTree_d::QuadTree_d()
 {
-
+	debugCube = new DebugCube();
 }
 
-QuadTree::~QuadTree()
+QuadTree_d::~QuadTree_d()
 {
 	Clear();
 }
 
-void QuadTree::Create(math::AABB limits)
+void QuadTree_d::Render()
+{
+	QT_Node* ptr = root;
+	static math::float3 frustumToDraw[8];
+	ptr->boundingBox.GetCornerPoints(frustumToDraw);
+	debugCube->DirectRender(frustumToDraw, White);
+}
+
+void QuadTree_d::Create(math::AABB limits)
 {
 	Clear();
 	root = new QT_Node(limits);
 }
 
-void QuadTree::Clear()
+void QuadTree_d::Clear()
 {
 	if (root != nullptr)
 	{
@@ -134,7 +142,7 @@ void QuadTree::Clear()
 	}
 }
 
-void QuadTree::Insert(GameObject* go)
+void QuadTree_d::Insert(GameObject* go)
 {
 	if (go->boundingBox.Intersects(root->boundingBox))
 	{
@@ -142,7 +150,7 @@ void QuadTree::Insert(GameObject* go)
 	}
 }
 
-void QuadTree::Remove(GameObject* go)
+void QuadTree_d::Remove(GameObject* go)
 {
 
 }
