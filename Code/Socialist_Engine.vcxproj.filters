@@ -463,6 +463,9 @@
     <ClInclude Include="C_Camera.h">
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Engine\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -689,6 +692,9 @@
     </ClCompile>
     <ClCompile Include="C_Camera.cpp">
       <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Engine\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

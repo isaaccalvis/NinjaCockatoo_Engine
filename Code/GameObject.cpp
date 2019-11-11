@@ -167,6 +167,7 @@ void GameObject::UpdateAABB()
 	if (GetComponent(COMPONENT_MESH) != nullptr)
 	{
 		// TODO: Pregunta, això és massa lent ??
+		// TODO: Pulir aixo
 		unsigned int verticesSize = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize();
 		std::vector<float3> verticesVertex;
 		verticesVertex.resize(verticesSize);
@@ -193,7 +194,6 @@ void GameObject::UpdateAABB()
 			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
 		}
 
-		//delete[] verticesArray;
 		verticesVertex.clear();
 
 		if (boundingBoxCube != nullptr)
