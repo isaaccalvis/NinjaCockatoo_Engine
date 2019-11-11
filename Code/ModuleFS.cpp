@@ -55,17 +55,23 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
 	std::string extension = name_and_extension;
 	extension = extension.substr(extension.find_last_of('.') + 1);
-	std::string toSavePath = resources_directory + "Assets/"  + name_and_extension;
-
-	CopyFile(path, toSavePath.c_str(), true);
+	std::string toSavePathAssets = resources_directory + "Assets/"  + name_and_extension;
+	std::string toSavePathLibraryMesh = resources_directory + "Library/" + "Meshes/" + name_and_extension;
 
 	if (extension == "fbx")
 	{
-		LoadScene(toSavePath.c_str(), direction_without_name.c_str());
+		CopyFile(path, toSavePathAssets.c_str(), true);
+		LoadScene(toSavePathAssets.c_str(), direction_without_name.c_str());
 	}
 	else if (extension == "dds" || extension == "png")
 	{
-		materialImporter->Import(toSavePath.c_str());
+		CopyFile(path, toSavePathAssets.c_str(), true);
+		materialImporter->Import(toSavePathAssets.c_str());
+	}
+	else if (extension == "smesh")
+	{
+		CopyFile(path, toSavePathLibraryMesh.c_str(), true);
+		sceneImporter->LoadMesh(toSavePathLibraryMesh.c_str());
 	}
 }
 
@@ -98,10 +104,10 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 		return 0;
 
 	// Header
-	unsigned int ranges[2] = { mesh->GetVerticesSize(), mesh->GetIndicesSize() };
+	unsigned int ranges[4] = { mesh->GetVerticesSize(), mesh->GetIndicesSize(), mesh->GetTextureCoorSize(), mesh->GetNormalsSize() };
 
 	// Body
-	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
+	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + mesh->GetTextureCoorSize() * sizeof(GLfloat) * 2 + mesh->GetNormalsSize() * sizeof(DebugArrow);
 
 	// Data & Cursor
 	char* data = new char[size];	// Contenidor
@@ -120,6 +126,17 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	cursor += bytes;
 	bytes = sizeof(unsigned int) * mesh->GetIndicesSize() * 3;
 	memcpy(cursor, mesh->indicesArray, bytes);
+
+	// Put texture coords
+	cursor += bytes;
+	bytes = sizeof(GLfloat) * mesh->GetTextureCoorSize() * 2;
+	memcpy(cursor, mesh->textureCoords, bytes);
+
+	// Put Normals
+	cursor += bytes;
+	bytes = sizeof(DebugArrow) * mesh->GetNormalsSize();
+	memcpy(cursor, mesh->normals, bytes);
+
 
 	unsigned int nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;

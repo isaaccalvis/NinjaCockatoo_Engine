@@ -16,6 +16,9 @@ public:
 
 	void SetDebugArrow(math::float3 origin, math::float3 end);
 
+	void GenerateBuffers();
+	void ClearBuffers();
+
 public:
 	// Vertices
 	unsigned int vertices = 0u;

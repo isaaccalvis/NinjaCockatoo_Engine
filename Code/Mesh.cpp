@@ -192,7 +192,7 @@ void Mesh::Render(Texture* texture, math::float4x4 globalMatrix)
 	// Draw Normals
 	if (App->renderer3D->renderNormals)
 	{
-		for (int i = 0; i < verticesSize; i++)
+		for (int i = 0; i < normalsSize; i++)
 		{
 			if (normals != nullptr)
 				normals[i].Render();
@@ -252,6 +252,15 @@ void Mesh::GenerateTextureCoorBuffer()
 	glBindBuffer(GL_ARRAY_BUFFER, textureIndex);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat*) * textureCoorSize, textureCoords, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Mesh::GenerateNormalsBuffers()
+{
+	for (int i = 0; i < GetNormalsSize(); i++)
+	{
+		normals[i].ClearBuffers();
+		normals[i].GenerateBuffers();
+	}
 }
 
 void Mesh::ClearIndicesBuffer()

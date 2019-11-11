@@ -26,6 +26,7 @@ public:
 	void GenerateIndicesBuffer();
 	void GenerateVerticesBuffer();
 	void GenerateTextureCoorBuffer();
+	void GenerateNormalsBuffers();
 	void ClearIndicesBuffer();
 	void ClearVerticesBuffer();
 	void ClearTextureCoorBuffer();
