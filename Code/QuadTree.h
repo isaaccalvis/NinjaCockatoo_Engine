@@ -33,7 +33,7 @@ public:
 	QuadTree_d();
 	~QuadTree_d();
 
-	void Render();
+	void Render(QT_Node* node);
 
 	void Create(math::AABB limits);
 	void Clear();

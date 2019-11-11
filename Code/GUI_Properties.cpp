@@ -19,6 +19,13 @@ void GUI_Properties::Draw()
 
 	if (App->scene->goSelected != nullptr)
 	{
+		// Active & Static
+		bool isStatic = App->scene->goSelected->GetIsStatic();
+		if (ImGui::Checkbox("Is Static", &isStatic))
+		{
+			App->scene->goSelected->SetIsStatic(isStatic);
+		}
+
 		for (int i = 0; i < App->scene->goSelected->CountComponents(); i++)
 		{
 			switch (App->scene->goSelected->GetComponent(i)->type)

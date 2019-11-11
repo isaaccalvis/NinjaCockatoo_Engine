@@ -136,7 +136,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		lights[i].Render();
 
 	// Draw QuadTree_d
-	App->scene->quadTree->Render();
+	App->scene->quadTree->Render(App->scene->quadTree->root);
 
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{

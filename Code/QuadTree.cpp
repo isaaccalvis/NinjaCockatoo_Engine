@@ -37,7 +37,7 @@ bool QT_Node::HaveChildNode() const
 void QT_Node::InsertGameObject(GameObject* go)
 {
 	objects.push_back(go);
-	if (HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
+	if (!HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
 	{
 		if (subidivision < MAX_DIVISIONS)
 		{
@@ -120,12 +120,18 @@ QuadTree_d::~QuadTree_d()
 	Clear();
 }
 
-void QuadTree_d::Render()
+void QuadTree_d::Render(QT_Node* node)
 {
-	QT_Node* ptr = root;
-	static math::float3 frustumToDraw[8];
-	ptr->boundingBox.GetCornerPoints(frustumToDraw);
-	debugCube->DirectRender(frustumToDraw, White);
+	math::float3 cubeToDraw[8];
+	node->boundingBox.GetCornerPoints(cubeToDraw);
+	debugCube->DirectRender(cubeToDraw, White);
+	if (node->HaveChildNode())
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			Render(node->children[i]);
+		}
+	}
 }
 
 void QuadTree_d::Create(math::AABB limits)

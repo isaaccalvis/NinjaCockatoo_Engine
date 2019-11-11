@@ -217,6 +217,28 @@ void GameObject::UpdateAABB()
 	}
 }
 
+bool GameObject::GetIsStatic() const
+{
+	return isStatic;
+}
+
+void GameObject::SetIsStatic(bool set)
+{
+	isStatic = set;
+	// Add at quadtree
+	if (App->scene->quadTree != nullptr)
+	{
+		if (isStatic)
+		{
+			App->scene->quadTree->Insert(this);
+		}
+		else
+		{
+			App->scene->quadTree->Remove(this);
+		}
+	}
+}
+
 GameObject* GameObject::GetParent() const
 {
 	return parent;

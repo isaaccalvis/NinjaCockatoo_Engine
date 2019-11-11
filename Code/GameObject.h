@@ -52,6 +52,9 @@ public:
 
 	void UpdateAABB();
 
+	// Static
+	bool GetIsStatic() const;
+	void SetIsStatic(bool set);
 public:
 	math::AABB boundingBox;
 	DebugCube* boundingBoxCube = nullptr;
@@ -60,6 +63,7 @@ private:
 	GameObject* parent = nullptr;
 	std::string name = "";
 	bool active = true;
+	bool isStatic = false;
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
