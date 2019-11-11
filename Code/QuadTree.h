@@ -17,6 +17,7 @@ public:
 	void InsertGameObject(GameObject* go);
 	void SubdivideNode();
 	void RedistributeChilds();
+	void RemoveGameObject(GameObject* go);
 
 public:
 	math::AABB boundingBox;

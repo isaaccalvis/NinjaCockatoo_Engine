@@ -76,6 +76,10 @@ void QT_Node::SubdivideNode()
 
 void QT_Node::RedistributeChilds()
 {
+	if (objects.empty())
+	{
+		return;
+	}
 	std::list<GameObject*>::iterator it = objects.begin();
 
 	while (it != objects.end())
@@ -183,5 +187,5 @@ void QuadTree_d::Insert(GameObject* go)
 
 void QuadTree_d::Remove(GameObject* go)
 {
-	//root->RemoveGameObject(go);
+	root->RemoveGameObject(go);
 }
