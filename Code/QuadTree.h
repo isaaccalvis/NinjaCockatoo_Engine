@@ -15,7 +15,7 @@ public:
 	bool HaveChildNode() const;
 
 	void InsertGameObject(GameObject* go);
-	void CreateSubdivision();
+	void SubdivideNode();
 
 public:
 	math::AABB boundingBox;
