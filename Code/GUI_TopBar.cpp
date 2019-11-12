@@ -2,6 +2,7 @@
 #include "GUI_TopBar.h"
 
 #include "ModuleRenderer3D.h"
+#include "ModuleFS.h"
 
 #include "Component.h"
 #include "C_Mesh.h"
@@ -23,9 +24,17 @@ void GUI_TopBar::Draw()
 		{
 			if (ImGui::MenuItem("Quit"))
 			{
-				// TODO: FIX THAT
-				//ret = false;
 				App->gui->CloseEngineFromGui();
+			}
+			if (ImGui::MenuItem("SaveScene"))
+			{
+				saveWindowActive = !saveWindowActive;
+				loadWindowActive = false;
+			}
+			if (ImGui::MenuItem("LoadScene"))
+			{
+				loadWindowActive = !loadWindowActive;
+				saveWindowActive = false;
 			}
 			ImGui::EndMenu();
 		}
@@ -117,5 +126,33 @@ void GUI_TopBar::Draw()
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
+	}
+
+	static char gui_saveName[256];
+	if (saveWindowActive)
+	{
+		ImGui::SetNextWindowSize(ImVec2(300, 70));
+		ImGui::SetNextWindowPosCenter();
+		ImGui::Begin("Save Scen", &saveWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+		if (ImGui::InputText("Save Name", gui_saveName, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->fs->OnSaveScene(App->scene->root, gui_saveName);
+			saveWindowActive = false;
+		}
+		ImGui::End();
+	}
+
+	static char gui_loadName[256];
+	if (loadWindowActive)
+	{
+		ImGui::SetNextWindowSize(ImVec2(300, 70));
+		ImGui::SetNextWindowPosCenter();
+		ImGui::Begin("Load Scene", &loadWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+		if (ImGui::InputText("Load Name", gui_loadName, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			App->fs->OnLoadScene(gui_loadName);
+			loadWindowActive = false;
+		}
+		ImGui::End();
 	}
 }

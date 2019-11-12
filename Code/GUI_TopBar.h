@@ -10,6 +10,11 @@ public:
 	GUI_TopBar(SDL_Scancode shortcut = SDL_SCANCODE_UNKNOWN);
 
 	void Draw();
+
+private:
+	bool saveWindowActive = false;
+	bool loadWindowActive = false;
+
 };
 
 #endif

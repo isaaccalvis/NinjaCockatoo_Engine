@@ -29,8 +29,8 @@ public:
 
 	uuid_unit CreateOwnMesh(Mesh* mesh);
 	uuid_unit CreateOwnTexture(Texture* texture);
-	void SaveScene(GameObject* gameObject);
-
+	void OnSaveScene(GameObject* gameObject, std::string name);
+	void OnLoadScene(const char* path);
 public:
 	std::string resources_directory;
 	std::string mesh_file_extension;
