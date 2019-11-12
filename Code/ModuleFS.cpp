@@ -98,7 +98,7 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
-unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
+uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 {
 	if (mesh == nullptr)
 		return 0;
@@ -138,7 +138,7 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	memcpy(cursor, mesh->normals, bytes);
 
 
-	unsigned int nUUID = App->input->GenerateUUID();
+	uuid_unit nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
 
 	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
@@ -152,16 +152,15 @@ unsigned int ModuleFS::CreateOwnMesh(Mesh* mesh)
 	return nUUID;
 }
 
-unsigned int ModuleFS::CreateOwnTexture(Texture* texture)
+uuid_unit ModuleFS::CreateOwnTexture(Texture* texture)
 {
-	unsigned int nUUID = App->input->GenerateUUID();
+	uuid_unit nUUID = App->input->GenerateUUID();
 
 	return nUUID;
 }
 
-unsigned int ModuleFS::SaveScene(GameObject* gameObject)
+void ModuleFS::SaveScene(GameObject* gameObject)
 {
-	unsigned int nUUID = App->input->GenerateUUID();
 	// TODO : FER EL SAVE DE L'ESCENA, AQUI UN EXEMPLE DE PARSON	
 	//JSON_Value *root_value = json_value_init_object();
 	//JSON_Object *root_object = json_value_get_object(root_value);
@@ -175,6 +174,4 @@ unsigned int ModuleFS::SaveScene(GameObject* gameObject)
 	//json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + std::to_string(nUUID) + scene_file_extension).c_str());
 	//json_free_serialized_string(serialized_string);
 	//json_value_free(root_value);
-
-	return nUUID;
 }

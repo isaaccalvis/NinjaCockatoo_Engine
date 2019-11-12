@@ -27,9 +27,9 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
-	unsigned int CreateOwnMesh(Mesh* mesh);
-	unsigned int CreateOwnTexture(Texture* texture);
-	unsigned int SaveScene(GameObject* gameObject);
+	uuid_unit CreateOwnMesh(Mesh* mesh);
+	uuid_unit CreateOwnTexture(Texture* texture);
+	void SaveScene(GameObject* gameObject);
 
 public:
 	std::string resources_directory;
