@@ -1,6 +1,8 @@
 #ifndef __ModuleRenderer3D_H__
 #define __ModuleRenderer3D_H__
 
+#include "ImGuizmo/ImGuizmo.h"
+
 #include "Globals.h"
 #include "Module.h"
 #include "Light.h"
@@ -69,6 +71,10 @@ public:
 	bool renderGlLineSmooth = false;
 
 	Grid* grid = nullptr;
+
+	// Guizmo
+	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
 };
 
 #endif

@@ -10,6 +10,8 @@
 #include "C_Mesh.h"
 #include "C_Camera.h"
 
+#include "imgui/imgui.h"
+
 #pragma comment (lib, "glu32.lib")
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glew-2.1.0/libx86/Win32/glew32.lib")
@@ -192,6 +194,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	// GUIZMO
+
 	SDL_GL_SwapWindow(App->window->GetWindow());
 	return UPDATE_CONTINUE;
 }

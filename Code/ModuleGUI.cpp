@@ -16,6 +16,8 @@
 #include "imgui\imgui_impl_opengl2.h"
 #include "imgui\imgui_impl_sdl.h"
 
+#include "ImGuizmo/ImGuizmo.h"
+
 ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleGUI";
@@ -55,6 +57,8 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->GetWindow());
 	ImGui::NewFrame();
+
+	ImGuizmo::BeginFrame();
 
 	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
 	{

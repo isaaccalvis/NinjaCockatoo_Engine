@@ -85,6 +85,9 @@
     <Filter Include="External Tools\PhysFS">
       <UniqueIdentifier>{c6138635-b859-4fda-b958-e73aeb5c6ffd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External Tools\ImGuizmo">
+      <UniqueIdentifier>{b0375c30-9b28-4b13-8392-88353e0ae525}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -466,6 +469,9 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Engine\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ImGuizmo\ImGuizmo.h">
+      <Filter>External Tools\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -695,6 +701,9 @@
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>Engine\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
+      <Filter>External Tools\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
