@@ -24,14 +24,9 @@ QT_Node::~QT_Node()
 
 bool QT_Node::HaveChildNode() const
 {
-	for (int i = 0; i < 4; i++)
-	{
-		if (children[i] != nullptr)
-		{
-			return true;
-		}
-	}
-	return false;
+	if (children[0] == nullptr)
+		return false;
+	return true;
 }
 
 void QT_Node::InsertGameObject(GameObject* go)
@@ -44,6 +39,10 @@ void QT_Node::InsertGameObject(GameObject* go)
 			SubdivideNode();
 			RedistributeChilds();
 		}
+	}
+	else if (HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
+	{
+		RedistributeChilds();
 	}
 }
 
@@ -92,9 +91,7 @@ void QT_Node::RedistributeChilds()
 		}
 		if (totalIntersections == 4)
 		{
-			parent->InsertGameObject((*it));
-			parent->RedistributeChilds();
-			it = objects.erase(it);
+			it++;
 		}
 		else
 		{
