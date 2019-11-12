@@ -29,7 +29,7 @@ public:
 
 	unsigned int CreateOwnMesh(Mesh* mesh);
 	unsigned int CreateOwnTexture(Texture* texture);
-	unsigned int CreateScene(GameObject* gameObject);
+	unsigned int SaveScene(GameObject* gameObject);
 
 public:
 	std::string resources_directory;

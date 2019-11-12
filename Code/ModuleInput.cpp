@@ -204,12 +204,12 @@ void ModuleInput::LoadPCGSeed(int argc, char** argv)
 	}
 }
 
-unsigned int ModuleInput::GenerateUUID()
+uuid_unit ModuleInput::GenerateUUID()
 {
 	uint64_t seeds[2];
 	entropy_getbytes((void*)seeds, sizeof(seeds));
 	pcg32_srandom_r(&rng, seeds[0], seeds[1]);
 
-	uint32_t a = pcg_output_rxs_m_xs_32_32(rng.state);
+	uuid_unit a = pcg_output_rxs_m_xs_32_32(rng.state);
 	return a;
 }

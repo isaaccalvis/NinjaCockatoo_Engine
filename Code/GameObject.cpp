@@ -9,6 +9,7 @@
 
 GameObject::GameObject()
 {
+	uuid = App->input->GenerateUUID();
 	CreateComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM);
 	boundingBox.SetNegativeInfinity();
 }
@@ -237,6 +238,16 @@ void GameObject::SetIsStatic(bool set)
 			App->scene->quadTree->Remove(this);
 		}
 	}
+}
+
+uuid_unit GameObject::GetUUID() const
+{
+	return uuid;
+}
+
+void GameObject::SetUUID(uuid_unit nUUID)
+{
+	this->uuid = nUUID;
 }
 
 GameObject* GameObject::GetParent() const

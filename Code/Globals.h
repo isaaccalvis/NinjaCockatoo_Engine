@@ -26,6 +26,7 @@ void logConsole(const char file[], int line, const char* format, ...);
 
 
 typedef unsigned int uint;
+typedef unsigned int uuid_unit;
 
 enum update_status
 {

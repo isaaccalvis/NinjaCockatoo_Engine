@@ -55,6 +55,9 @@ public:
 	// Static
 	bool GetIsStatic() const;
 	void SetIsStatic(bool set);
+
+	uuid_unit GetUUID() const;
+	void SetUUID(uuid_unit nUUID);
 public:
 	math::AABB boundingBox;
 	DebugCube* boundingBoxCube = nullptr;
@@ -67,6 +70,8 @@ private:
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
+
+	uuid_unit uuid = 0u;
 
 };
 

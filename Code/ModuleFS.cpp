@@ -80,7 +80,7 @@ void ModuleFS::LoadScene(const char* path, const char* originalPath)
 	SceneImporterSettings* settings = new SceneImporterSettings();
 	settings->originalPath = originalPath;
 	sceneImporter->Import(path, settings);
-	CreateScene(App->scene->root);
+	SaveScene(App->scene->root);
 	delete settings;
 }
 
@@ -159,7 +159,7 @@ unsigned int ModuleFS::CreateOwnTexture(Texture* texture)
 	return nUUID;
 }
 
-unsigned int ModuleFS::CreateScene(GameObject* gameObject)
+unsigned int ModuleFS::SaveScene(GameObject* gameObject)
 {
 	unsigned int nUUID = App->input->GenerateUUID();
 	// TODO : FER EL SAVE DE L'ESCENA, AQUI UN EXEMPLE DE PARSON	

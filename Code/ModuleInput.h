@@ -37,7 +37,7 @@ public:
 	int GetMouseYMotion() const;
 
 	void LoadPCGSeed(int argc, char** argv);
-	unsigned int GenerateUUID();
+	uuid_unit GenerateUUID();
 
 private:
 	KEY_STATE* keyboard;
