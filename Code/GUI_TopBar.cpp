@@ -132,7 +132,7 @@ void GUI_TopBar::Draw()
 	if (saveWindowActive)
 	{
 		ImGui::SetNextWindowSize(ImVec2(300, 70));
-		ImGui::SetNextWindowPosCenter();
+		ImGui::SetNextWindowPosCenter(ImGuiCond_Always);
 		ImGui::Begin("Save Scen", &saveWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 		if (ImGui::InputText("Save Name", gui_saveName, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
@@ -146,7 +146,7 @@ void GUI_TopBar::Draw()
 	if (loadWindowActive)
 	{
 		ImGui::SetNextWindowSize(ImVec2(300, 70));
-		ImGui::SetNextWindowPosCenter();
+		ImGui::SetNextWindowPosCenter(ImGuiCond_Always);
 		ImGui::Begin("Load Scene", &loadWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 		if (ImGui::InputText("Load Name", gui_loadName, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
