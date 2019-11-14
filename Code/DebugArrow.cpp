@@ -2,7 +2,12 @@
 
 DebugArrow::DebugArrow()
 {
+	verticesSize = 6;
 
+	indicesSize = 2;
+	indicesArray = new unsigned int[indicesSize] {
+		0, 1
+	};
 }
 
 DebugArrow::DebugArrow(math::float3 origin, math::float3 end)

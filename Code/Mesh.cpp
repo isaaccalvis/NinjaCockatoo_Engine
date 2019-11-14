@@ -317,3 +317,13 @@ unsigned int Mesh::GetNormalsSize() const
 {
 	return normalsSize;
 }
+
+float* Mesh::GetNormalsVertices(int a) const
+{
+	float* ret = new float[6];
+	for (int i = 0; i < 6; i++)
+	{
+		ret[i] = normals[a].verticesArray[i];
+	}
+	return ret;
+}

@@ -106,7 +106,7 @@ uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 	unsigned int ranges[4] = { mesh->GetVerticesSize(), mesh->GetIndicesSize(), mesh->GetTextureCoorSize(), mesh->GetNormalsSize() };
 
 	// Body
-	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + mesh->GetTextureCoorSize() * sizeof(GLfloat) * 2 + mesh->GetNormalsSize() * sizeof(DebugArrow);
+	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + mesh->GetTextureCoorSize() * sizeof(GLfloat) * 2 + mesh->GetNormalsSize() * sizeof(float) * 3 * 2;
 
 	// Data & Cursor
 	char* data = new char[size];	// Contenidor
@@ -133,8 +133,16 @@ uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 
 	// Put Normals
 	cursor += bytes;
-	bytes = sizeof(DebugArrow) * mesh->GetNormalsSize();
-	memcpy(cursor, mesh->normals, bytes);
+	bytes = sizeof(GLfloat) * 3 * 2;
+	for (int i = 0; i < mesh->GetNormalsSize(); i++)
+	{
+		memcpy(cursor, mesh->GetNormalsVertices(i), bytes);
+		for (int a = 0; a < 6; a++)
+		{
+			LOG_CONSOLE("%f", mesh->GetNormalsVertices(i)[a]);
+		}
+		cursor += bytes;
+	}
 
 
 	uuid_unit nUUID = App->input->GenerateUUID();
@@ -160,18 +168,17 @@ uuid_unit ModuleFS::CreateOwnTexture(Texture* texture)
 
 void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 {
-	// TODO : FER EL SAVE DE L'ESCENA, AQUI UN EXEMPLE DE PARSON	
 	JSON_Value *root_value = json_value_init_object();
 	JSON_Object *root_object = json_value_get_object(root_value);
-	//char *serialized_string = NULL;
-	json_object_set_string(root_object, "name", "John Smith");
-	json_object_set_number(root_object, "age", 25);
+	
 	json_object_dotset_string(root_object, "address.city", "Cupertino");
-	json_object_dotset_value(root_object, "contact.emails", json_parse_string("[\"email@example.com\",\"email2@example.com\"]"));
-	//serialized_string = json_serialize_to_string_pretty(root_value);
-	//puts(serialized_string);
+	JSON_Object* child_object = json_object_get_object(root_object, "city");
+
+	json_object_set_string(child_object, "name", "John Smith");
+	json_object_set_number(child_object, "age", 25);
+	json_object_dotset_value(child_object, "contact.emails", json_parse_string("[\"email@example.com\",\"email2@example.com\"]"));
+
 	json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
-	//json_free_serialized_string(serialized_string);
 	json_value_free(root_value);
 }
 

@@ -61,7 +61,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGuizmo::BeginFrame();
 
 	// GUIZMO
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_STATE::KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_STATE::KEY_DOWN)
 		{

@@ -47,6 +47,8 @@ public:
 	unsigned int GetTextureCoorSize() const;
 	unsigned int GetNormalsSize() const;
 
+	float* GetNormalsVertices(int a) const;
+
 public:
 	MESH_TYPE type;
 
