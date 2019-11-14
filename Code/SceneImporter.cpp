@@ -171,27 +171,19 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 
 	// Get Normals
 	cursor += bytes;
-	//bytes = sizeof(float) * mesh->GetNormalsSize() * 3 * 2;
 	mesh->normals = new DebugArrow[mesh->GetNormalsSize()];
-	//bytes = sizeof(float) * 3 * 2 * mesh->GetNormalsSize();
 	bytes = sizeof(GLfloat) * 3 * 2;
 	for (int i = 0; i < mesh->GetNormalsSize(); i++)
 	{
 		mesh->normals[i].verticesArray = new GLfloat[6];
 		memcpy(mesh->normals[i].verticesArray , cursor, bytes);
 		mesh->normals[i].GenerateBuffers();
-		for (int a = 0; a < 6; a++)
-		{
-			LOG_CONSOLE("%f", mesh->normals[i].verticesArray[a]);
-		}
 		cursor += bytes;
 	}
 
 	mesh->GenerateIndicesBuffer();
 	mesh->GenerateVerticesBuffer();
 	mesh->GenerateTextureCoorBuffer();
-	// TODO: Load normals
-	//mesh->GenerateNormalsBuffers();
 
 	GameObject* go = App->scene->CreateGameObject("tmp", App->scene->root);
 	go->CreateComponent(COMPONENT_MESH);

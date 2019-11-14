@@ -137,13 +137,8 @@ uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 	for (int i = 0; i < mesh->GetNormalsSize(); i++)
 	{
 		memcpy(cursor, mesh->GetNormalsVertices(i), bytes);
-		for (int a = 0; a < 6; a++)
-		{
-			LOG_CONSOLE("%f", mesh->GetNormalsVertices(i)[a]);
-		}
 		cursor += bytes;
 	}
-
 
 	uuid_unit nUUID = App->input->GenerateUUID();
 	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
@@ -171,13 +166,33 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 	JSON_Value *root_value = json_value_init_object();
 	JSON_Object *root_object = json_value_get_object(root_value);
 	
-	json_object_dotset_string(root_object, "address.city", "Cupertino");
-	JSON_Object* child_object = json_object_get_object(root_object, "city");
+	//json_object_dotset_string(root_object, "address.city", "Cupertino");
+	//json_object_set_string(root_object, "name", "John Smith");
+	//json_object_set_number(root_object, "age", 25);
+	//json_object_dotset_value(root_object, "contact.emails", json_parse_string("[\"email@example.com\",\"email2@example.com\"]"));
+	
+	//JSON_Array *array = json_object_get_array(root_object, "GO");
+	
+	JSON_Value *branch = json_value_init_array();
+	JSON_Array *leaves = json_value_get_array(branch);
+	JSON_Value *leaf_value = json_value_init_object();
+	JSON_Object *leaf_object = json_value_get_object(leaf_value);
+	json_object_set_number(leaf_object, "name1", 123);
+	json_object_set_number(leaf_object, "name2", 456);
+	json_object_set_number(leaf_object, "name3", 789);
+	json_array_append_value(leaves, leaf_value);
 
-	json_object_set_string(child_object, "name", "John Smith");
-	json_object_set_number(child_object, "age", 25);
-	json_object_dotset_value(child_object, "contact.emails", json_parse_string("[\"email@example.com\",\"email2@example.com\"]"));
+	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+	{
+		if (App->scene->gameObjects[i] != nullptr)
+		{
+			json_array_append_value(leaves, App->scene->root->GetChild(i)->OnSaveJSON());
+			//json_object_dotset_value(root_object, "GameObject", App->scene->root->GetChild(i)->OnSaveJSON());
+		}
+	}
+	root_value = json_array_get_value(leaves, App->scene->gameObjects.size());
 
+	
 	json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
 	json_value_free(root_value);
 }

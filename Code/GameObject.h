@@ -5,6 +5,7 @@
 #include <string>
 #include "Globals.h"
 #include "MathGeoLib-1.5/src/Geometry/AABB.h"
+#include "parson/parson.h"
 #include "DebugCube.h"
 
 enum COMPONENT_TYPE
@@ -58,6 +59,9 @@ public:
 
 	uuid_unit GetUUID() const;
 	void SetUUID(uuid_unit nUUID);
+
+	JSON_Value* OnSaveJSON();
+
 public:
 	math::AABB boundingBox;
 	DebugCube* boundingBoxCube = nullptr;

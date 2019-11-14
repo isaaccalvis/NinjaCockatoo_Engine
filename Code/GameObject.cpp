@@ -300,3 +300,15 @@ int GameObject::CountChild()
 {
 	return children.size();
 }
+
+JSON_Value* GameObject::OnSaveJSON()
+{
+	JSON_Value *value = json_value_init_object();
+	JSON_Object *object = json_value_get_object(value);
+
+	json_object_set_number(object, "UUID", uuid);
+	json_object_set_number(object, "Parent UUID", parent->uuid);
+	json_object_set_string(object, "Name", name.c_str());
+
+	return value;
+}
