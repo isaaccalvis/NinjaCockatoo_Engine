@@ -60,6 +60,49 @@ update_status ModuleGUI::PostUpdate(float dt)
 
 	ImGuizmo::BeginFrame();
 
+	// GUIZMO
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_STATE::KEY_REPEAT)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_STATE::KEY_DOWN)
+		{
+			if (guizmoMode == ImGuizmo::MODE::LOCAL)
+			{
+				guizmoMode = ImGuizmo::MODE::WORLD;
+			}
+			else
+			{
+				guizmoMode = ImGuizmo::MODE::LOCAL;
+			}
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_STATE::KEY_DOWN)
+		{
+			guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_STATE::KEY_DOWN)
+		{
+			guizmoOperation = ImGuizmo::OPERATION::ROTATE;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_STATE::KEY_DOWN)
+		{
+			guizmoOperation = ImGuizmo::OPERATION::SCALE;
+		}
+	}
+
+	ImGuiViewport* view_port = ImGui::GetMainViewport();
+	ImGuizmo::SetRect(view_port->Pos.x, view_port->Pos.y, view_port->Size.x, view_port->Size.y);
+	//ImGuiIO& io = ImGui::GetIO();
+	//ImGuizmo::SetRect(0,0,io.DisplaySize.x, io.DisplaySize.y);
+
+	if (App->scene->goSelected != nullptr)
+	{
+		math::float4x4 viewMatrix = App->camera->camera.GetOpenGlViewMatrix();
+		math::float4x4 projectionMatrix = App->camera->camera.GetOpenGlProjectionMatrix();
+		math::float4x4 transformMatrix = App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+		transformMatrix = transformMatrix.Transposed();
+
+		ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), guizmoOperation, guizmoMode, transformMatrix.ptr());
+	}
+
 	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
 	{
 		// Check if shortcut is pressed

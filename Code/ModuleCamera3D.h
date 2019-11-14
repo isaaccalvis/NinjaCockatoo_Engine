@@ -15,8 +15,11 @@ public:
 	float* GetViewMatrix() const;
 	float* GetProjectionMatrix() const;
 
+	math::float4x4 GetOpenGlViewMatrix() const;
+	math::float4x4 GetOpenGlProjectionMatrix() const;
+
 public:
-	Frustum frustum;
+	math::Frustum frustum;
 
 private:
 	bool culling = false;

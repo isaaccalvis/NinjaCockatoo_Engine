@@ -71,10 +71,6 @@ public:
 	bool renderGlLineSmooth = false;
 
 	Grid* grid = nullptr;
-
-	// Guizmo
-	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
 };
 
 #endif

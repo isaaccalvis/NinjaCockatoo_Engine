@@ -242,8 +242,7 @@ void Camera::Init()
 
 float* Camera::GetViewMatrix() const
 {
-	static float4x4 matrix;
-	matrix = frustum.ViewMatrix();
+	float4x4 matrix = frustum.ViewMatrix();
 	matrix.Transpose();
 
 	return (float*)matrix.v;
@@ -251,9 +250,20 @@ float* Camera::GetViewMatrix() const
 
 float* Camera::GetProjectionMatrix() const
 {
-	static float4x4 matrix;
-	matrix = frustum.ProjectionMatrix();
+	float4x4 matrix = frustum.ProjectionMatrix();
 	matrix.Transpose();
 
 	return (float*)matrix.v;
+}
+
+math::float4x4 Camera::GetOpenGlViewMatrix() const
+{
+	math::float4x4 matrix = frustum.ViewMatrix();
+	return matrix.Transposed();
+}
+
+math::float4x4 Camera::GetOpenGlProjectionMatrix() const
+{
+	math::float4x4 matrix = frustum.ProjectionMatrix();
+	return matrix.Transposed();
 }

@@ -21,6 +21,10 @@ private:
 	SDL_version sdl_version;
 	std::list<GUI_Panel*> guiPanels;
 	bool closeEngine = false;
+
+	// Guizmo
+	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
 };
 
 #endif

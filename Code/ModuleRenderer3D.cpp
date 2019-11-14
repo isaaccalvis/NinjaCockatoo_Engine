@@ -194,40 +194,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	// GUIZMO
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_STATE::KEY_REPEAT)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_STATE::KEY_DOWN)
-		{
-			if (guizmoMode == ImGuizmo::MODE::LOCAL)
-			{
-				guizmoMode = ImGuizmo::MODE::WORLD;
-			}
-			else
-			{
-				guizmoMode = ImGuizmo::MODE::LOCAL;
-			}
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_STATE::KEY_DOWN)
-		{
-			guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_STATE::KEY_DOWN)
-		{
-			guizmoOperation = ImGuizmo::OPERATION::ROTATE;
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_R) == KEY_STATE::KEY_DOWN)
-		{
-			guizmoOperation = ImGuizmo::OPERATION::SCALE;
-		}
-	}
-
-	if (App->scene->goSelected != nullptr)
-		ImGuizmo::Manipulate(
-			App->camera->camera.GetViewMatrix(),
-			App->camera->camera.GetProjectionMatrix(), guizmoOperation, guizmoMode,
-			App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix().Transposed().ptr());
-
 	SDL_GL_SwapWindow(App->window->GetWindow());
 	return UPDATE_CONTINUE;
 }
