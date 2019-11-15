@@ -1,5 +1,6 @@
 #include <list>
 
+#include "Application.h"
 #include "C_Transform.h"
 
 C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_TRANSFORM)
@@ -26,8 +27,16 @@ math::float4x4 C_Transform::GetGlobalMatrix() const
 		tmpGlobalMatrix = parent->GetParent()->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
 		return tmpGlobalMatrix * localMatrix;
 	}
-
 	return localMatrix;
+}
+
+void C_Transform::SetMatrixFromGlobal(math::float4x4& globalMatrix)
+{
+	math::float4x4 newMatrix = parent->GetParent()->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix().Inverted();
+	newMatrix = newMatrix * globalMatrix;
+	newMatrix.Decompose(position, rotation, scale);
+	UpdateGlobalMatrix();
+	parent->UpdateAABB();
 }
 
 void C_Transform::UpdateGlobalMatrix()

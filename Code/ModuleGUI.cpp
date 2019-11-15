@@ -61,7 +61,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGuizmo::BeginFrame();
 
 	// GUIZMO
-	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_STATE::KEY_REPEAT)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_STATE::KEY_DOWN)
 		{
@@ -95,12 +95,19 @@ update_status ModuleGUI::PostUpdate(float dt)
 
 	if (App->scene->goSelected != nullptr)
 	{
+		GameObject* go = App->scene->goSelected;
 		math::float4x4 viewMatrix = App->camera->camera.GetOpenGlViewMatrix();
 		math::float4x4 projectionMatrix = App->camera->camera.GetOpenGlProjectionMatrix();
-		math::float4x4 transformMatrix = App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+		math::float4x4 transformMatrix = go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
 		transformMatrix = transformMatrix.Transposed();
 
 		ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), guizmoOperation, guizmoMode, transformMatrix.ptr());
+
+		if (ImGuizmo::IsUsing())
+		{
+			transformMatrix = transformMatrix.Transposed();
+			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->SetMatrixFromGlobal(transformMatrix);
+		}
 	}
 
 	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
