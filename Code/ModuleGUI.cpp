@@ -88,10 +88,11 @@ update_status ModuleGUI::PostUpdate(float dt)
 		}
 	}
 
-	ImGuiViewport* view_port = ImGui::GetMainViewport();
-	ImGuizmo::SetRect(view_port->Pos.x, view_port->Pos.y, view_port->Size.x, view_port->Size.y);
-	//ImGuiIO& io = ImGui::GetIO();
-	//ImGuizmo::SetRect(0,0,io.DisplaySize.x, io.DisplaySize.y);
+	ImGuiIO& io = ImGui::GetIO();
+	ImGuizmo::SetRect(0,0,io.DisplaySize.x, io.DisplaySize.y);
+
+	if (guizmoOperation == ImGuizmo::OPERATION::SCALE)
+		guizmoMode = ImGuizmo::MODE::LOCAL;
 
 	if (App->scene->goSelected != nullptr)
 	{
