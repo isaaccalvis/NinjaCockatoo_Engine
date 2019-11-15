@@ -78,9 +78,9 @@ void ModuleScene::MakeCameraLookThisGOSelected()
 	// Set camera pos
 	if (goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH) != nullptr)
 	{
-		App->camera->Position.x = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.x + goSelected->boundingBox.Diagonal().x * 2;
-		App->camera->Position.y = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.y + goSelected->boundingBox.Diagonal().y * 2;
-		App->camera->Position.z = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.z + goSelected->boundingBox.Diagonal().z * 2;
+		App->camera->Position.y = goSelected->boundingBox.CenterPoint().y + goSelected->boundingBox.Diagonal().y * 2;
+		App->camera->Position.x = goSelected->boundingBox.CenterPoint().x + goSelected->boundingBox.Diagonal().x * 2;
+		App->camera->Position.z = goSelected->boundingBox.CenterPoint().z + goSelected->boundingBox.Diagonal().z * 2;
 	}
 	else
 	{
