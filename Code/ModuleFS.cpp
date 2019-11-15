@@ -163,37 +163,24 @@ uuid_unit ModuleFS::CreateOwnTexture(Texture* texture)
 
 void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 {
-	JSON_Value *root_value = json_value_init_object();
-	JSON_Object *root_object = json_value_get_object(root_value);
-	
-	//json_object_dotset_string(root_object, "address.city", "Cupertino");
-	//json_object_set_string(root_object, "name", "John Smith");
-	//json_object_set_number(root_object, "age", 25);
-	//json_object_dotset_value(root_object, "contact.emails", json_parse_string("[\"email@example.com\",\"email2@example.com\"]"));
-	
-	//JSON_Array *array = json_object_get_array(root_object, "GO");
-	
-	JSON_Value *branch = json_value_init_array();
-	JSON_Array *leaves = json_value_get_array(branch);
-	JSON_Value *leaf_value = json_value_init_object();
-	JSON_Object *leaf_object = json_value_get_object(leaf_value);
-	json_object_set_number(leaf_object, "name1", 123);
-	json_object_set_number(leaf_object, "name2", 456);
-	json_object_set_number(leaf_object, "name3", 789);
-	json_array_append_value(leaves, leaf_value);
+	JSON_Value *root_value = json_value_init_array();
+	JSON_Array *root_array = json_value_get_array(root_value);
 
-	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+	App->scene->root->OnSaveRecursiveJson(root_array);
+
+	int size = json_serialization_size_pretty(root_value);
+	char* buf = new char[size];
+	json_serialize_to_buffer_pretty(root_value, buf, size);
+
+	for (int i = 0; i < size; i++)
 	{
-		if (App->scene->gameObjects[i] != nullptr)
-		{
-			json_array_append_value(leaves, App->scene->root->GetChild(i)->OnSaveJSON());
-			//json_object_dotset_value(root_object, "GameObject", App->scene->root->GetChild(i)->OnSaveJSON());
-		}
+		LOG_CONSOLE("%c", buf[i]);
 	}
-	root_value = json_array_get_value(leaves, App->scene->gameObjects.size());
 
-	
-	json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
+	PHYSFS_file* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
+	PHYSFS_writeBytes(file, (const void*)buf, size);
+
+	//json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
 	json_value_free(root_value);
 }
 

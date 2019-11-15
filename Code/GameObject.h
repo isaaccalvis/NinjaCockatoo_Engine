@@ -60,7 +60,7 @@ public:
 	uuid_unit GetUUID() const;
 	void SetUUID(uuid_unit nUUID);
 
-	JSON_Value* OnSaveJSON();
+	void OnSaveRecursiveJson(JSON_Array* array);
 
 public:
 	math::AABB boundingBox;

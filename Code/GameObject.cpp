@@ -16,6 +16,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(const char* name, GameObject* parent)
 {
+	uuid = App->input->GenerateUUID();
 	this->name = name;
 	if (parent != nullptr)
 	{
@@ -278,14 +279,21 @@ int GameObject::CountChild()
 	return children.size();
 }
 
-JSON_Value* GameObject::OnSaveJSON()
+void GameObject::OnSaveRecursiveJson(JSON_Array* array)
 {
-	JSON_Value *value = json_value_init_object();
-	JSON_Object *object = json_value_get_object(value);
+	JSON_Value* value = json_value_init_object();
+	JSON_Object* object = json_value_get_object(value);
 
-	json_object_set_number(object, "UUID", uuid);
-	json_object_set_number(object, "Parent UUID", parent->uuid);
 	json_object_set_string(object, "Name", name.c_str());
+	json_object_set_number(object, "UUID", uuid);
+	if (parent != nullptr)
+		json_object_set_number(object, "Parent UUID", parent->uuid);
+	else
+		json_object_set_number(object, "Parent UUID", 0);
+	json_array_append_value(array, value);
 
-	return value;
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->OnSaveRecursiveJson(array);
+	}
 }
