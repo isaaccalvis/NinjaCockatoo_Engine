@@ -50,6 +50,7 @@ void C_Transform::UpdateGlobalMatrixOfChilds()
 	for (int i = 0; i < parent->CountChild(); i++)
 	{
 		parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+		parent->GetChild(i)->UpdateAABB();
 		if (parent[i].CountChild() > 0)
 		{
 			parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();

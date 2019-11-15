@@ -167,13 +167,12 @@ void GameObject::UpdateAABB()
 {
 	if (GetComponent(COMPONENT_MESH) != nullptr)
 	{
+		boundingBox.SetNegativeInfinity();
+		boundingBox.SetFrom(&GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
 
-			boundingBox.SetNegativeInfinity();
-			boundingBox.SetFrom(&GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
-
-			math::OBB obb = boundingBox;
-			obb.Transform(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
-			boundingBox = obb.MinimalEnclosingAABB();
+		math::OBB obb = boundingBox;
+		obb.Transform(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
+		boundingBox = obb.MinimalEnclosingAABB();
 
 		if (boundingBoxCube != nullptr)
 		{

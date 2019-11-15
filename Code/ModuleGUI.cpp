@@ -108,6 +108,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 		{
 			transformMatrix = transformMatrix.Transposed();
 			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->SetMatrixFromGlobal(transformMatrix);
+			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 		}
 	}
 
