@@ -167,35 +167,13 @@ void GameObject::UpdateAABB()
 {
 	if (GetComponent(COMPONENT_MESH) != nullptr)
 	{
-		// TODO: Pregunta, això és massa lent ??
-		// TODO: Pulir aixo
-		unsigned int verticesSize = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->GetVerticesSize();
-		std::vector<float3> verticesVertex;
-		verticesVertex.resize(verticesSize);
-		int count = 0;
-		for (int i = 0; i < verticesSize * 3; i++)
-		{
-			verticesVertex[count].x = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.x;
-			i++;
-			verticesVertex[count].y = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.y;
-			i++;
-			verticesVertex[count].z = GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->verticesArray[i] * GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalScale.z;
-			count++;
-		}
 
-		if (GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->type == MESH_TYPE::CUSTOM_MESH)
-		{
 			boundingBox.SetNegativeInfinity();
-			boundingBox.Enclose(&verticesVertex[0], verticesSize);
-			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
-		}
-		else
-		{
-			boundingBox.SetFrom(&verticesVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
-			boundingBox.SetFromCenterAndSize(boundingBox.CenterPoint() + GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, boundingBox.Size());
-		}
+			boundingBox.SetFrom(&GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex[0], GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh()->vectorVertex.size());
 
-		verticesVertex.clear();
+			math::OBB obb = boundingBox;
+			obb.Transform(GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
+			boundingBox = obb.MinimalEnclosingAABB();
 
 		if (boundingBoxCube != nullptr)
 		{

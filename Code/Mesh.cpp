@@ -33,9 +33,9 @@ Mesh::Mesh(MESH_TYPE type)
 		a++;
 	}
 
-	verticesSize = primitive->npoints * 3;
-	verticesArray = new GLfloat[verticesSize];
-	for (int i = 0; i < verticesSize; i++)
+	verticesSize = primitive->npoints;
+	verticesArray = new GLfloat[verticesSize * 3];
+	for (int i = 0; i < verticesSize * 3; i++)
 	{
 		verticesArray[i] = primitive->points[i];
 	}
@@ -96,6 +96,14 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		auxCounterVertex++;
 		verticesArray[auxCounterVertex] = scene->mMeshes[node->mMeshes[num]]->mVertices[i].z;
 		auxCounterVertex++;
+	}
+
+	vectorVertex.resize(verticesSize);
+	int a = 0;
+	for (int i = 0; i < verticesSize; i++)
+	{
+		vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
+		a++;
 	}
 
 	// Indices
@@ -243,6 +251,14 @@ void Mesh::GenerateVerticesBuffer()
 	glBindBuffer(GL_ARRAY_BUFFER, vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * verticesSize * 3, verticesArray, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	vectorVertex.resize(verticesSize);
+	int a = 0;
+	for (int i = 0; i < verticesSize * 3; i++)
+	{
+		vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
+		a++;
+	}
 }
 
 void Mesh::GenerateTextureCoorBuffer()
