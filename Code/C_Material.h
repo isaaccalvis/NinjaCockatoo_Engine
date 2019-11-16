@@ -12,8 +12,11 @@ public:
 
 	void Update(float dt);
 
+	void OnSaveJson(JSON_Object* object);
+
 public:
 	Texture* texture = nullptr;
+	uuid_unit material_resources_uuid = 0;
 };
 
 #endif

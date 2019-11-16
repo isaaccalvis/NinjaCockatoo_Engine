@@ -24,6 +24,8 @@ public:
 	C_Material* GetComponentAsMaterial() const;
 	C_Camera* GetComponentAsCamera() const;
 
+	virtual void OnSaveJson(JSON_Object* object) {};
+
 public:
 	COMPONENT_TYPE type = COMPONENT_NONE;
 	bool active = true;

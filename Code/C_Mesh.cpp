@@ -30,6 +30,14 @@ void C_Mesh::Update(float dt)
 	}
 }
 
+void C_Mesh::OnSaveJson(JSON_Object* object)
+{
+	if (parent != nullptr)
+	{
+		json_object_set_number(object, "MeshUUID", mesh_resources_uuid);
+	}
+}
+
 void C_Mesh::SetMesh(Mesh* mesh)
 {
 	this->mesh = mesh;

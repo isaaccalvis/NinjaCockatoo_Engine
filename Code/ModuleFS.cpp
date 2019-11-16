@@ -97,10 +97,10 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
-uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
+void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 {
 	if (mesh == nullptr)
-		return 0;
+		return;
 
 	// Header
 	unsigned int ranges[4] = { mesh->GetVerticesSize(), mesh->GetIndicesSize(), mesh->GetTextureCoorSize(), mesh->GetNormalsSize() };
@@ -140,8 +140,7 @@ uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 		cursor += bytes;
 	}
 
-	uuid_unit nUUID = App->input->GenerateUUID();
-	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(nUUID) + mesh_file_extension;
+	std::string newDirection = App->fs->resources_directory + "Library/" + "Meshes/" + std::to_string(uuid) + mesh_file_extension;
 
 	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
 	if (file != nullptr)
@@ -150,15 +149,11 @@ uuid_unit ModuleFS::CreateOwnMesh(Mesh* mesh)
 
 	cursor = nullptr;
 	delete[] data;
-
-	return nUUID;
 }
 
-uuid_unit ModuleFS::CreateOwnTexture(Texture* texture)
+void ModuleFS::CreateOwnTexture(Texture* texture, uuid_unit uuid)
 {
-	uuid_unit nUUID = App->input->GenerateUUID();
 
-	return nUUID;
 }
 
 void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
@@ -168,19 +163,14 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 
 	App->scene->root->OnSaveRecursiveJson(root_array);
 
-	int size = json_serialization_size_pretty(root_value);
-	char* buf = new char[size];
-	json_serialize_to_buffer_pretty(root_value, buf, size);
+	//int size = json_serialization_size_pretty(root_value);
+	//char* buf = new char[size];
+	//json_serialize_to_buffer_pretty(root_value, buf, size);
 
-	for (int i = 0; i < size; i++)
-	{
-		LOG_CONSOLE("%c", buf[i]);
-	}
+	//PHYSFS_file* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
+	//PHYSFS_writeBytes(file, (const void*)buf, size);
 
-	PHYSFS_file* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
-	PHYSFS_writeBytes(file, (const void*)buf, size);
-
-	//json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
+	json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
 	json_value_free(root_value);
 }
 

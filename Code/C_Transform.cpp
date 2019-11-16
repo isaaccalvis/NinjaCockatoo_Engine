@@ -12,6 +12,25 @@ C_Transform::~C_Transform() {}
 
 void C_Transform::Update(float dt) {}
 
+void C_Transform::OnSaveJson(JSON_Object* object)
+{
+	if (parent != nullptr)
+	{
+		json_object_set_number(object, "PositionX", position.x);
+		json_object_set_number(object, "PositionY", position.y);
+		json_object_set_number(object, "PositionZ", position.z);
+
+		json_object_set_number(object, "RotationX", rotation.x);
+		json_object_set_number(object, "RotationY", rotation.y);
+		json_object_set_number(object, "RotationZ", rotation.z);
+		json_object_set_number(object, "RotationW", rotation.w);
+
+		json_object_set_number(object, "ScaleX", scale.x);
+		json_object_set_number(object, "ScaleY", scale.y);
+		json_object_set_number(object, "ScaleZ", scale.z);
+	}
+}
+
 math::float4x4& C_Transform::GetMatrix() const
 {
 	return math::float4x4::FromTRS(position, rotation, scale);

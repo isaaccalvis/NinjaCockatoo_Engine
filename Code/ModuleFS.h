@@ -27,8 +27,8 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
-	uuid_unit CreateOwnMesh(Mesh* mesh);
-	uuid_unit CreateOwnTexture(Texture* texture);
+	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
+	void CreateOwnTexture(Texture* texture, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name);
 	void OnLoadScene(const char* path);
 public:

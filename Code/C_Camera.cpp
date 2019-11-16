@@ -33,6 +33,11 @@ void C_Camera::Update(float dt)
 	}
 }
 
+void C_Camera::OnSaveJson(JSON_Object* object)
+{
+
+}
+
 void C_Camera::InitFrustum()
 {
 	width = 16;
