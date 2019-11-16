@@ -40,6 +40,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 			if (ImGui::TreeNodeEx(name, treeNodeFlags))
 				treeNodeOpened = true;
 
+			DragAndDrop(child);
 			GameObjectPopUp(child);
 
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
@@ -65,6 +66,7 @@ void GUI_Hierachy::RecursiveTakeChilds(GameObject* parent) const
 			ImGui::TreeNodeEx(name, treeNodeFlags);
 			ImGui::TreePop();
 			
+			DragAndDrop(child);
 			GameObjectPopUp(child);
 
 			if (ImGui::IsItemClicked() && (ImGui::GetMousePos().x - ImGui::GetItemRectMin().x) > ImGui::GetTreeNodeToLabelSpacing())
@@ -90,5 +92,33 @@ void GUI_Hierachy::GameObjectPopUp(GameObject* go) const
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
+	}
+}
+
+void GUI_Hierachy::DragAndDrop(GameObject* go) const
+{
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+	{
+		ImGui::SetDragDropPayload("GameObject", &go, sizeof(GameObject));
+		ImGui::EndDragDropSource();
+	}
+
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject"))
+		{
+			GameObject* target = *(GameObject**)payload->Data;
+
+			if (target->GetParent() != go)
+			{
+				math::float4x4 globalMatrix = target->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
+				target->GetParent()->QuitChildFromVector(target);
+				go->AddChildren(target);
+				target->SetParent(go);
+
+				target->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->SetMatrixFromGlobal(globalMatrix);
+			}
+		}
+		ImGui::EndDragDropTarget();
 	}
 }

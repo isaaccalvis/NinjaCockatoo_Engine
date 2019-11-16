@@ -13,6 +13,7 @@ public:
 
 	void RecursiveTakeChilds(GameObject* parent) const;
 	void GameObjectPopUp(GameObject* go) const;
+	void DragAndDrop(GameObject* go) const;
 };
 
 #endif
