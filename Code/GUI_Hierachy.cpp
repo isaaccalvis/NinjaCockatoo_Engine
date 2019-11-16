@@ -14,6 +14,8 @@ GUI_Hierachy::GUI_Hierachy(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WIND
 void GUI_Hierachy::Draw()
 {
 	ImGui::Begin("Hierachy", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::SetWindowPos(ImVec2(0.1f, 18.0f), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth/5, App->window->screenHeight*.75), ImGuiCond_Once);
 	RecursiveTakeChilds(App->scene->root);
 	ImGui::End();
 }
