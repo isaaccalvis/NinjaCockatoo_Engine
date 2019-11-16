@@ -105,6 +105,7 @@ void GUI_Hierachy::DragAndDrop(GameObject* go) const
 
 	if (ImGui::BeginDragDropTarget())
 	{
+		int a = 0;
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject"))
 		{
 			GameObject* target = *(GameObject**)payload->Data;

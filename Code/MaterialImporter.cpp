@@ -14,6 +14,8 @@
 #pragma comment (lib, "DevIL/lib/ILU.lib")
 #pragma comment (lib, "DevIL/lib/ILUT.lib")
 
+#include "physfs/include/physfs.h"
+
 MaterialImporter::MaterialImporter()
 {
 	// Init Devil
@@ -50,6 +52,19 @@ void MaterialImporter::Import(const char* path, const ImporterSettings* settings
 	// Loading image
 	if (ilLoadImage(path))
 	{
+		ILubyte *data;
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+		ILuint size = ilSaveL(IL_DDS, NULL, 0);
+		data = new ILubyte[size];
+		if (ilSaveL(IL_DDS, data, size))
+		{
+			texture->textureUUID = App->input->GenerateUUID();
+			PHYSFS_File* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Materials/" + std::to_string(texture->textureUUID) + App->fs->texture_file_extension).c_str());
+			if (file != nullptr)
+				PHYSFS_writeBytes(file, data, size);
+			PHYSFS_close(file);
+		}
+
 		ILinfo imageInfo;
 		iluGetImageInfo(&imageInfo);
 		texture->SetWidth(imageInfo.Width);

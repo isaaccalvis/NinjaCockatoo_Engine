@@ -28,12 +28,12 @@ public:
 	void CreateFolder(const char* path);
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
-	void CreateOwnTexture(Texture* texture, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name);
 	void OnLoadScene(const char* path);
 public:
 	std::string resources_directory;
 	std::string mesh_file_extension;
+	std::string texture_file_extension;
 	std::string scene_file_extension;
 
 	SceneImporter* sceneImporter = nullptr;

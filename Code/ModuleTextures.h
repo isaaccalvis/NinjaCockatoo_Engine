@@ -20,6 +20,7 @@ public:
 
 public:
 	const char* name = nullptr;
+	uuid_unit textureUUID = 0;
 
 private:
 	unsigned int BufferPos = 0u;

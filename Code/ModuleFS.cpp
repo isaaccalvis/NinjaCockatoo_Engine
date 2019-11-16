@@ -11,6 +11,7 @@ ModuleFS::ModuleFS(Application* app, bool start_enabled) : Module(app, start_ena
 bool ModuleFS::Start()
 {
 	mesh_file_extension = ".smesh";
+	texture_file_extension = ".dds";
 	scene_file_extension = ".sscene";
 
 	sceneImporter = new SceneImporter();
@@ -149,11 +150,6 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 
 	cursor = nullptr;
 	delete[] data;
-}
-
-void ModuleFS::CreateOwnTexture(Texture* texture, uuid_unit uuid)
-{
-
 }
 
 void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
