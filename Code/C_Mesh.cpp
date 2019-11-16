@@ -21,7 +21,7 @@ void C_Mesh::Update(float dt)
 	{
 		if (parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial() != nullptr)
 		{
-			mesh->Render(parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->texture, parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
+			mesh->Render(parent->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->GetTexture(), parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalMatrix);
 		}
 		else
 		{

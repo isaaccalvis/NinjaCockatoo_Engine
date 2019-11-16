@@ -22,3 +22,17 @@ void C_Material::OnSaveJson(JSON_Object* object)
 		json_object_set_number(object, "MaterialUUID", material_resources_uuid);
 	}
 }
+
+void C_Material::SetTexture(Texture* tex)
+{
+	if (tex != nullptr)
+	{
+		this->texture = tex;
+		this->material_resources_uuid = tex->textureUUID;
+	}
+}
+
+Texture* C_Material::GetTexture() const
+{
+	return texture;
+}

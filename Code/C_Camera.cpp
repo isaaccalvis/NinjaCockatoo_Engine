@@ -35,7 +35,14 @@ void C_Camera::Update(float dt)
 
 void C_Camera::OnSaveJson(JSON_Object* object)
 {
-
+	if (parent != nullptr)
+	{
+		json_object_set_number(object, "near_plane_distance", frustum.nearPlaneDistance);
+		json_object_set_number(object, "far_plane_distance", frustum.farPlaneDistance);
+		json_object_set_number(object, "vertical_foc", frustum.verticalFov);
+		json_object_set_boolean(object, "is_main_camera", isMainCamera);
+		json_object_set_boolean(object, "frustum_culling", frustumCulling);
+	}
 }
 
 void C_Camera::InitFrustum()

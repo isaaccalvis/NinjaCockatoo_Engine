@@ -82,7 +82,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
-		comTexture->GetComponentAsMaterial()->texture = App->textures->SearchTexture(texture_name_and_extension.c_str());
+		comTexture->GetComponentAsMaterial()->SetTexture(App->textures->SearchTexture(texture_name_and_extension.c_str()));
 		str.Clear();
 	}
 
@@ -116,7 +116,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			// Search it
 			std::string texture_name_and_extension(tmp_texture_path);
 			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
-			comTexture->GetComponentAsMaterial()->texture = App->textures->SearchTexture(texture_name_and_extension.c_str());
+			comTexture->GetComponentAsMaterial()->SetTexture(App->textures->SearchTexture(texture_name_and_extension.c_str()));
 			str.Clear();
 		}
 	}

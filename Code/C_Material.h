@@ -14,9 +14,14 @@ public:
 
 	void OnSaveJson(JSON_Object* object);
 
+	void SetTexture(Texture* tex);
+	Texture* GetTexture() const;
+
 public:
-	Texture* texture = nullptr;
 	uuid_unit material_resources_uuid = 0;
+
+private:
+	Texture* texture = nullptr;
 };
 
 #endif
