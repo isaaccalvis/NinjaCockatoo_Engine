@@ -16,6 +16,9 @@ GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_
 void GUI_Properties::Draw()
 {
 	ImGui::Begin("Properties", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.75), ImGuiCond_Once);
+	ImGui::SetWindowPos(ImVec2(App->window->screenWidth- App->window->screenWidth / 5, 18.0f), ImGuiCond_Once);
+	
 
 	if (App->scene->goSelected != nullptr)
 	{

@@ -52,7 +52,8 @@ void Console::ClearLog()
 
 void Console::Draw(const char* title, bool* p_open)
 {
-	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver/* | ImGuiWindowFlags_NoFocusOnAppearing*/);
+	ImGui::SetWindowPos(ImVec2(0.1f, 18.0f), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight), ImGuiCond_Once/* | ImGuiWindowFlags_NoFocusOnAppearing*/);
 	if (!ImGui::Begin(title, p_open))
 	{
 		ImGui::End();
@@ -95,6 +96,8 @@ void Console::Draw(const char* title, bool* p_open)
 		if (ImGui::Selectable("Clear")) ClearLog();
 		ImGui::EndPopup();
 	}
+
+//	ImGui::SetNextWindowSize
 
 	// Display every line as a separate entry so we can change their color or add custom widgets. If you only want raw text you can use ImGui::TextUnformatted(log.begin(), log.end());
 	// NB- if you have thousands of entries this approach may be too inefficient and may require user-side clipping to only process visible items.

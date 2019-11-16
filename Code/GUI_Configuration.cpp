@@ -50,6 +50,8 @@ void GUI_Configuration::Draw()
 	}
 
 	ImGui::Begin("Configuration", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::SetWindowPos(ImVec2(0.1f, App->window->screenHeight- App->window->screenHeight*.25), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.25), ImGuiCond_Once);
 
 	if (ImGui::BeginMenu("Options"))
 	{
