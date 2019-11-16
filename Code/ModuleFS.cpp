@@ -151,11 +151,9 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 	delete[] data;
 }
 
-uuid_unit ModuleFS::CreateOwnTexture(Texture* texture)
+void ModuleFS::CreateOwnTexture(Texture* texture, uuid_unit uuid)
 {
-	uuid_unit nUUID = App->input->GenerateUUID();
 
-	return nUUID;
 }
 
 void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)

@@ -20,6 +20,8 @@ public:
 
 private:
 	Mesh* mesh = nullptr;
+
+public:
 	uuid_unit mesh_resources_uuid = 0;
 };
 

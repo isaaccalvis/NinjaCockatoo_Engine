@@ -28,7 +28,7 @@ public:
 	void CreateFolder(const char* path);
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
-	uuid_unit CreateOwnTexture(Texture* texture);
+	void CreateOwnTexture(Texture* texture, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name);
 	void OnLoadScene(const char* path);
 public:
