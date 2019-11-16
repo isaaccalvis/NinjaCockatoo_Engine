@@ -62,7 +62,8 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 	{
 		Mesh* mesh = new Mesh(scene, node);
 		App->renderer3D->AddMesh(mesh);
-		App->fs->CreateOwnMesh(mesh);
+		uuid_unit meshUUID = App->input->GenerateUUID();
+		App->fs->CreateOwnMesh(mesh, meshUUID);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		Component* comTexture = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
 		compMesh->GetComponentAsMesh()->SetMesh(mesh);

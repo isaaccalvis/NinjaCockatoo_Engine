@@ -15,6 +15,8 @@ public:
 
 	void Update(float dt);
 
+	void OnSaveJson(JSON_Object* object);
+
 	math::float4x4& GetMatrix() const;
 	math::float4x4 GetGlobalMatrix() const;
 	void SetMatrixFromGlobal(math::float4x4& globalMatrix);

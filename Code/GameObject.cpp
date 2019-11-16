@@ -45,7 +45,6 @@ GameObject::~GameObject()
 	// Delete Children
 	for (int i = children.size() - 1; i >= 0 ; i--)
 	{
-		
 		// TODO: use this to clean all vectors
 		//children.erase(std::remove(children.begin(), children.end(), children[i]), children.end());
 		delete children[i];
@@ -281,6 +280,7 @@ int GameObject::CountChild()
 
 void GameObject::OnSaveRecursiveJson(JSON_Array* array)
 {
+	// GameObject
 	JSON_Value* value = json_value_init_object();
 	JSON_Object* object = json_value_get_object(value);
 
@@ -290,8 +290,24 @@ void GameObject::OnSaveRecursiveJson(JSON_Array* array)
 		json_object_set_number(object, "Parent UUID", parent->uuid);
 	else
 		json_object_set_number(object, "Parent UUID", 0);
+	// ~GameObject
+
+	// Components
+	JSON_Value* compValue = json_value_init_array();
+	JSON_Array* compArray = json_value_get_array(compValue);
+	for (int i = 0; i < components.size(); i++)
+	{
+		JSON_Value* tmpCompValue = json_value_init_object();
+		JSON_Object* tmpCompObj = json_value_get_object(tmpCompValue);
+		components[i]->OnSaveJson(tmpCompObj);
+		json_array_append_value(compArray, tmpCompValue);
+	}
+	json_object_set_value(object, "Components", compValue);
+	// ~Components 
+
 	json_array_append_value(array, value);
 
+	// Recursive call childs
 	for (int i = 0; i < children.size(); i++)
 	{
 		children[i]->OnSaveRecursiveJson(array);

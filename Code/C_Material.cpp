@@ -14,3 +14,8 @@ void C_Material::Update(float dt)
 {
 
 }
+
+void C_Material::OnSaveJson(JSON_Object* object)
+{
+
+}

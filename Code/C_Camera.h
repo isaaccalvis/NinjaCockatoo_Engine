@@ -12,6 +12,8 @@ public:
 
 	void Update(float dt);
 
+	void OnSaveJson(JSON_Object* object);
+
 	void InitFrustum();
 	void RenderCamera();
 	void UpdateTransform();

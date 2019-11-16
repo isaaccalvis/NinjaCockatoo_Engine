@@ -30,6 +30,11 @@ void C_Mesh::Update(float dt)
 	}
 }
 
+void C_Mesh::OnSaveJson(JSON_Object* object)
+{
+
+}
+
 void C_Mesh::SetMesh(Mesh* mesh)
 {
 	this->mesh = mesh;
