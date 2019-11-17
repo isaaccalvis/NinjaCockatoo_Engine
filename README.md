@@ -56,7 +56,9 @@ It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
  - MMGR
  - PCG Random
  - Par Shapes
-  
+ - PhysFS
+ - ImGuizmo
+
 
 ## License
 

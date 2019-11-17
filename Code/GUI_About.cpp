@@ -7,6 +7,7 @@
 
 #include "Assimp/include/version.h"
 #include "DevIL/include/IL/il.h"
+#include "physfs/include/physfs.h"
 
 GUI_About::GUI_About(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_ABOUT)
 {}
@@ -108,6 +109,21 @@ void GUI_About::Draw()
 		if (ImGui::Button("Par Shapes"))
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/prideout/par/blob/master/par_shapes.h", NULL, NULL, SW_SHOWNORMAL);
+		}
+		static PHYSFS_Version physfs_version;
+		PHYSFS_getLinkedVersion(&physfs_version);
+		if (ImGui::Button("PhysFS"))
+		{
+			ShellExecuteA(NULL, "open", "https://icculus.org/physfs/docs/html/index.html", NULL, NULL, SW_SHOWNORMAL);
+		}
+		ImGui::SameLine();
+		ImGui::Text(" version: ");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "%i.%i.%i", physfs_version.major, physfs_version.minor, physfs_version.patch);
+
+		if (ImGui::Button("ImGuizmo"))
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/CedricGuillemet/ImGuizmo", NULL, NULL, SW_SHOWNORMAL);
 		}
 	}
 
