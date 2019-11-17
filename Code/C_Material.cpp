@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "C_Material.h"
 
 C_Material::C_Material(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_MATERIAL)
@@ -26,8 +27,8 @@ void C_Material::OnSaveJson(JSON_Object* object)
 
 void C_Material::OnLoadJson(JSON_Object* object)
 {
-	//material_resources_uuid = json_object_get_number(object, "MaterialUUID");
-
+	material_resources_uuid = json_object_get_number(object, "MaterialUUID");
+	texture = App->fs->materialImporter->LoadTexture(std::string(App->fs->resources_directory + "Library/Materials/" + std::to_string(material_resources_uuid) + App->fs->texture_file_extension).c_str());
 }
 
 void C_Material::SetTexture(Texture* tex)

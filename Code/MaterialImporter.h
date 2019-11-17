@@ -11,6 +11,7 @@ public:
 
 	void Import(const char* path, const ImporterSettings* settings = nullptr);
 	void Load(const char* exportedFile);
+	Texture* LoadTexture(const char* exportedFile);
 };
 
 #endif
