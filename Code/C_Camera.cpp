@@ -46,6 +46,17 @@ void C_Camera::OnSaveJson(JSON_Object* object)
 	}
 }
 
+void C_Camera::OnLoadJson(JSON_Object* object)
+{
+	frustum.nearPlaneDistance = json_object_get_number(object, "near_plane_distance");
+	frustum.farPlaneDistance = json_object_get_number(object, "far_plane_distance");
+	frustum.verticalFov = json_object_get_number(object, "vertical_foc");
+	isMainCamera = json_object_get_boolean(object, "is_main_camera");
+	if (isMainCamera)
+		App->scene->camera = this->parent;
+	frustumCulling = json_object_get_boolean(object, "frustum_culling");
+}
+
 void C_Camera::InitFrustum()
 {
 	width = 16;

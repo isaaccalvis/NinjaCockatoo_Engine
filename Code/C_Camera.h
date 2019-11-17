@@ -13,6 +13,7 @@ public:
 	void Update(float dt);
 
 	void OnSaveJson(JSON_Object* object);
+	void OnLoadJson(JSON_Object* object);
 
 	void InitFrustum();
 	void RenderCamera();
