@@ -206,5 +206,32 @@ void ModuleFS::OnLoadScene(const char* path)
 				obj->SetParent(App->scene->gameObjects[i]);
 			}
 		}
+		// Load Components
+		JSON_Array* array_components = json_object_get_array(tmp_obj, "Components");
+		JSON_Object* c_obj;
+		for (int i = 0; i < json_array_get_count(array_components); i++)
+		{
+			c_obj = json_array_get_object(array_components, i);
+			std::string c_type = json_object_get_string(c_obj, "c_type");
+			if (c_type.compare("c_transform") == 0)
+			{
+				obj->GetComponent(COMPONENT_TRANSFORM)->OnLoadJson(c_obj);
+			}
+			else if (c_type.compare("c_mesh") == 0)
+			{
+				Component* compMesh = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
+				compMesh->OnLoadJson(c_obj);
+			}
+			else if (c_type.compare("c_material") == 0)
+			{
+				Component* compMaterial = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
+				compMaterial->OnLoadJson(c_obj);
+			}
+			else if (c_type.compare("c_camera") == 0)
+			{
+				Component* compCamera = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_CAMERA, "Camera");
+				compCamera->OnLoadJson(c_obj);
+			}
+		}
 	}
 }

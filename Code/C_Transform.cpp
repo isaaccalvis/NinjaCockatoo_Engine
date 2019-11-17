@@ -32,6 +32,22 @@ void C_Transform::OnSaveJson(JSON_Object* object)
 	}
 }
 
+void C_Transform::OnLoadJson(JSON_Object* object)
+{
+	position.x = json_object_get_number(object, "PositionX");
+	position.y = json_object_get_number(object, "PositionY");
+	position.z = json_object_get_number(object, "PositionZ");
+
+	rotation.x = json_object_get_number(object, "RotationX");
+	rotation.y = json_object_get_number(object, "RotationY");
+	rotation.z = json_object_get_number(object, "RotationZ");
+	rotation.w = json_object_get_number(object, "RotationW");
+
+	scale.x = json_object_get_number(object, "ScaleX");
+	scale.y = json_object_get_number(object, "ScaleY");
+	scale.z = json_object_get_number(object, "ScaleZ");
+}
+
 math::float4x4& C_Transform::GetMatrix() const
 {
 	return math::float4x4::FromTRS(position, rotation, scale);

@@ -39,6 +39,12 @@ void C_Mesh::OnSaveJson(JSON_Object* object)
 	}
 }
 
+void C_Mesh::OnLoadJson(JSON_Object* object)
+{
+	mesh_resources_uuid = json_object_get_number(object, "MeshUUID");
+	mesh = App->fs->sceneImporter->LoadMesh(std::string(App->fs->resources_directory + "Library/Meshes/" + std::to_string(mesh_resources_uuid) + App->fs->mesh_file_extension).c_str());
+}
+
 void C_Mesh::SetMesh(Mesh* mesh)
 {
 	this->mesh = mesh;

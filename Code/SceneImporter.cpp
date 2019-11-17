@@ -133,6 +133,8 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	mesh->type = MESH_TYPE::CUSTOM_MESH;
 
 	PHYSFS_File* file = PHYSFS_openRead(exportedFile);
+	if (file == nullptr)
+		return nullptr;
 	unsigned int size = PHYSFS_fileLength(file);
 	char* data2 = new char[size];
 
