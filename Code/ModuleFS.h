@@ -29,7 +29,7 @@ public:
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name);
-	void OnLoadScene(const char* path);
+	void OnLoadScene(const char* originalPath, const bool isFullPath = false);
 public:
 	std::string resources_directory;
 	std::string mesh_file_extension;

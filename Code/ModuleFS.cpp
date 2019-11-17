@@ -76,7 +76,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	}
 	else if (extension == "sscene")
 	{
-		OnLoadScene((direction_without_name + name_and_extension).c_str());
+		OnLoadScene((direction_without_name + name_and_extension).c_str(), true);
 	}
 }
 
@@ -174,8 +174,13 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 	json_value_free(root_value);
 }
 
-void ModuleFS::OnLoadScene(const char* path)
+void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 {
+	std::string tmp_path(originalPath);
+	if (!isFullPath)
+		tmp_path = std::string(resources_directory + "Library/Scenes/" + originalPath);
+	
+	const char* path = tmp_path.c_str();
 	JSON_Value* root_value = json_parse_file(path);
 	//JSON_Object* root_object = json_value_get_object(root_value);
 	JSON_Array* root_array = json_value_get_array(root_value);
