@@ -34,6 +34,7 @@ void C_Mesh::OnSaveJson(JSON_Object* object)
 {
 	if (parent != nullptr)
 	{
+		json_object_set_string(object, "c_type", "c_mesh");
 		json_object_set_number(object, "MeshUUID", mesh_resources_uuid);
 	}
 }

@@ -19,6 +19,7 @@ void C_Material::OnSaveJson(JSON_Object* object)
 {
 	if (parent != nullptr)
 	{
+		json_object_set_string(object, "c_type", "c_material");
 		json_object_set_number(object, "MaterialUUID", material_resources_uuid);
 	}
 }

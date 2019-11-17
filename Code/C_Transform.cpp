@@ -16,6 +16,7 @@ void C_Transform::OnSaveJson(JSON_Object* object)
 {
 	if (parent != nullptr)
 	{
+		json_object_set_string(object, "c_type", "c_transform");
 		json_object_set_number(object, "PositionX", position.x);
 		json_object_set_number(object, "PositionY", position.y);
 		json_object_set_number(object, "PositionZ", position.z);

@@ -66,6 +66,8 @@ public:
 	math::AABB boundingBox;
 	DebugCube* boundingBoxCube = nullptr;
 
+	uuid_unit parent_uuid = 0u;
+
 private:
 	GameObject* parent = nullptr;
 	std::string name = "";

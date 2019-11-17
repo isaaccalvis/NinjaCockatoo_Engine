@@ -74,6 +74,10 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 		CopyFile(path, toSavePathLibraryMesh.c_str(), true);
 		sceneImporter->LoadMesh(toSavePathLibraryMesh.c_str());
 	}
+	else if (extension == "sscene")
+	{
+		OnLoadScene((direction_without_name + name_and_extension).c_str());
+	}
 }
 
 void ModuleFS::LoadScene(const char* path, const char* originalPath)
@@ -172,5 +176,35 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
 
 void ModuleFS::OnLoadScene(const char* path)
 {
+	JSON_Value* root_value = json_parse_file(path);
+	//JSON_Object* root_object = json_value_get_object(root_value);
+	JSON_Array* root_array = json_value_get_array(root_value);
 
+	// Clean Scene
+
+	// Load
+	JSON_Object* tmp_obj;
+	for (int i = 0; i < json_array_get_count(root_array); i++)
+	{
+		tmp_obj = json_array_get_object(root_array, i);
+
+		GameObject* obj = App->scene->CreateGameObject("", nullptr);
+		obj->SetName(json_object_get_string(tmp_obj, "Name"));
+		obj->SetUUID(json_object_get_number(tmp_obj, "UUID"));
+		obj->parent_uuid = json_object_get_number(tmp_obj, "ParentUUID");
+		
+		if (std::string(obj->GetName()).compare("root") == 0)
+		{
+			delete App->scene->root;
+			App->scene->root = obj;
+		}
+		for (int i = 0; i < App->scene->gameObjects.size(); i++)
+		{
+			if (App->scene->gameObjects[i]->GetUUID() == obj->parent_uuid)
+			{
+				App->scene->gameObjects[i]->AddChildren(obj);
+				obj->SetParent(App->scene->gameObjects[i]);
+			}
+		}
+	}
 }

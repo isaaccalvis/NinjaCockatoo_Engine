@@ -287,9 +287,9 @@ void GameObject::OnSaveRecursiveJson(JSON_Array* array)
 	json_object_set_string(object, "Name", name.c_str());
 	json_object_set_number(object, "UUID", uuid);
 	if (parent != nullptr)
-		json_object_set_number(object, "Parent UUID", parent->uuid);
+		json_object_set_number(object, "ParentUUID", parent->uuid);
 	else
-		json_object_set_number(object, "Parent UUID", 0);
+		json_object_set_number(object, "ParentUUID", 0);
 	// ~GameObject
 
 	// Components
