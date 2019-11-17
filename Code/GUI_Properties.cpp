@@ -101,6 +101,24 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("Camera"))
 				{
+					float tmpNearPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.nearPlaneDistance;
+					if (ImGui::InputFloat("NearPlane", &tmpNearPlane))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.nearPlaneDistance = tmpNearPlane;
+					}
+
+					float tmpFarPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.farPlaneDistance;
+					if (ImGui::InputFloat("FarPlane", &tmpFarPlane))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.farPlaneDistance = tmpFarPlane;
+					}
+
+					float tmpVerticalFov = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.verticalFov;
+					if (ImGui::InputFloat("VerticalFov", &tmpVerticalFov))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.verticalFov = tmpVerticalFov;
+					}
+
 					bool isMainCamera = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->isMainCamera;
 					if (ImGui::Checkbox("Principal Camera", &isMainCamera))
 					{

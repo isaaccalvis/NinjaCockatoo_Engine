@@ -197,10 +197,12 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 		obj->SetName(json_object_get_string(tmp_obj, "Name"));
 		obj->SetUUID(json_object_get_number(tmp_obj, "UUID"));
 		obj->parent_uuid = json_object_get_number(tmp_obj, "ParentUUID");
-		
+
+		// TODO: Delete last scene
+		//App->scene->DeleteGameObject(App->scene->root);
+
 		if (std::string(obj->GetName()).compare("root") == 0)
 		{
-			delete App->scene->root;
 			App->scene->root = obj;
 		}
 		for (int i = 0; i < App->scene->gameObjects.size(); i++)
