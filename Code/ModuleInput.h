@@ -39,6 +39,8 @@ public:
 	void LoadPCGSeed(int argc, char** argv);
 	uuid_unit GenerateUUID();
 
+	void MousePicking(int coor_x, int coor_y);
+
 private:
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];

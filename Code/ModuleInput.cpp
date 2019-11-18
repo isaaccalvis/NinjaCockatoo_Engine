@@ -213,3 +213,28 @@ uuid_unit ModuleInput::GenerateUUID()
 	uuid_unit a = pcg_output_rxs_m_xs_32_32(rng.state);
 	return a;
 }
+
+void ModuleInput::MousePicking(int coor_x, int coor_y)
+{
+	int w_width;
+	int w_heigh;
+	int w_size;
+	App->window->GetWindowSize(w_width, w_heigh, w_size);
+
+	float x = -(1.0f - (float(coor_x) * 2.0f) / w_width);
+	float y = 1.0f - (float(coor_y) * 2.0f) / w_heigh;
+
+	math::LineSegment line = App->camera->camera.frustum.UnProjectLineSegment(x,y);
+
+	GameObject* obj = nullptr;
+
+	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+	{
+		if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+		{
+			obj = App->scene->gameObjects[i];
+			LOG_CONSOLE("Intersected with : %i", App->scene->gameObjects[i]->GetName());
+		}
+	}
+	App->scene->goSelected = obj;
+}
