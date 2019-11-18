@@ -102,6 +102,19 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
+//void ModuleFS::GenerateMeta(const char* name, const char* path, uuid_unit uuid)
+//{
+//	std::string newDirection = std::string(path).append(name);
+//
+//	JSON_Value *value = json_value_init_array();
+//	JSON_Object* object = json_value_get_object(value);
+//
+//	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
+//	if (file != nullptr)
+//		PHYSFS_writeBytes(file, data, size);
+//	PHYSFS_close(file);
+//}
+
 void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 {
 	if (mesh == nullptr)
@@ -156,21 +169,14 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 	delete[] data;
 }
 
-void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name)
+void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name, std::string midPath)
 {
 	JSON_Value *root_value = json_value_init_array();
 	JSON_Array *root_array = json_value_get_array(root_value);
 
-	App->scene->root->OnSaveRecursiveJson(root_array);
+	gameObject->OnSaveRecursiveJson(root_array);
 
-	//int size = json_serialization_size_pretty(root_value);
-	//char* buf = new char[size];
-	//json_serialize_to_buffer_pretty(root_value, buf, size);
-
-	//PHYSFS_file* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
-	//PHYSFS_writeBytes(file, (const void*)buf, size);
-
-	json_serialize_to_file(root_value, (App->fs->resources_directory + "Library/" + "Scenes/" + name + scene_file_extension).c_str());
+	json_serialize_to_file(root_value, (App->fs->resources_directory + midPath + name + scene_file_extension).c_str());
 	json_value_free(root_value);
 }
 
@@ -182,10 +188,10 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 	
 	const char* path = tmp_path.c_str();
 	JSON_Value* root_value = json_parse_file(path);
-	//JSON_Object* root_object = json_value_get_object(root_value);
 	JSON_Array* root_array = json_value_get_array(root_value);
 
-	// Clean Scene
+	// TODO: Delete last scene
+	//App->scene->DeleteGameObject(App->scene->root);
 
 	// Load
 	JSON_Object* tmp_obj;
@@ -197,9 +203,6 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 		obj->SetName(json_object_get_string(tmp_obj, "Name"));
 		obj->SetUUID(json_object_get_number(tmp_obj, "UUID"));
 		obj->parent_uuid = json_object_get_number(tmp_obj, "ParentUUID");
-
-		// TODO: Delete last scene
-		//App->scene->DeleteGameObject(App->scene->root);
 
 		if (std::string(obj->GetName()).compare("root") == 0)
 		{

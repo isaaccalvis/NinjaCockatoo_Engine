@@ -61,9 +61,6 @@
     <Filter Include="External Tools\Devil">
       <UniqueIdentifier>{214677e4-d998-43f6-9748-d52a4af50021}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External Tools\Brofiler">
-      <UniqueIdentifier>{6fcadfc2-8d38-41c5-bb42-54c34fc6beea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GUI\Panels">
       <UniqueIdentifier>{1e86572b-b042-4e03-a870-f81e435a6eab}</UniqueIdentifier>
     </Filter>
@@ -395,9 +392,6 @@
     </ClInclude>
     <ClInclude Include="pcg-c-0.94\include\pcg_variants.h">
       <Filter>External Tools\PCG</Filter>
-    </ClInclude>
-    <ClInclude Include="Brofiler\Brofiler.h">
-      <Filter>External Tools\Brofiler</Filter>
     </ClInclude>
     <ClInclude Include="GUI_Panel.h">
       <Filter>Engine\GUI</Filter>

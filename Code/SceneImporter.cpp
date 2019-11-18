@@ -47,12 +47,13 @@ void SceneImporter::Import(const char* path, const ImporterSettings* settings)
 	}
 
 	SceneImporterSettings* sceneSettings = (SceneImporterSettings*)settings;
-	IterateSceneLoading(scene, scene->mRootNode, App->scene->root, sceneSettings->originalPath.c_str());
-
+	GameObject* base_go = IterateSceneLoading(scene, scene->mRootNode, App->scene->root, sceneSettings->originalPath.c_str());
+	uuid_unit base_uuid = App->input->GenerateUUID();
+	App->fs->OnSaveScene(base_go, std::to_string(base_uuid), "Library/Meshes/");
 	App->scene->MakeCameraLookThisGOSelected();
 }
 
-void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath)
+GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath)
 {
 	// Create GameObject
 	GameObject* go = App->scene->CreateGameObject(node->mName.C_Str(), parent);
@@ -120,6 +121,7 @@ void SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNode* node
 			str.Clear();
 		}
 	}
+	return go;
 }
 
 void SceneImporter::Load(const char* exportedFile)

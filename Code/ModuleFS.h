@@ -27,8 +27,10 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
+	//void GenerateMeta(const char* name, const char* path, uuid_unit uuid);
+
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
-	void OnSaveScene(GameObject* gameObject, std::string name);
+	void OnSaveScene(GameObject* gameObject, std::string name, std::string midPath = "Library/Scenes/");
 	void OnLoadScene(const char* originalPath, const bool isFullPath = false);
 public:
 	std::string resources_directory;
