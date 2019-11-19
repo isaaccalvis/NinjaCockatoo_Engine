@@ -208,6 +208,19 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+// We save here max_fps, App don't have own space at config.json
+bool ModuleRenderer3D::Save(JSON_Object* root_object)
+{
+	json_object_set_number(root_object, "max_fps", App->GetMaxFPS());
+	return true;
+}
+
+bool ModuleRenderer3D::Load(JSON_Object* root_object)
+{
+	App->SetMaxFPS((int)json_object_get_number(root_object, "max_fps"));
+	return true;
+}
+
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);

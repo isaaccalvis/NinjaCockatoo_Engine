@@ -83,7 +83,7 @@ void GUI_Configuration::Draw()
 			App->window->SetOrganization(gui_organization_name);
 		}
 
-		static int tmp_max_fps = App->GetMaxFPS();
+		int tmp_max_fps = App->GetMaxFPS();
 		if (ImGui::SliderInt("Max. fps", &tmp_max_fps, 0.0f, 120.0f))
 		{
 			App->SetMaxFPS(tmp_max_fps);
