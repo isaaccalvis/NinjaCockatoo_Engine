@@ -253,17 +253,15 @@ void ModuleInput::MousePicking(int coor_x, int coor_y)
 			for (int a = 0; a < tmp_selected_mesh->GetIndicesSize() * 3;)
 			{
 				unsigned int concreteIndice;
-				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
 				tmp_triangle.a = tmp_selected_mesh->vectorVertex[concreteIndice];
-				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
 				tmp_triangle.b = tmp_selected_mesh->vectorVertex[concreteIndice];
-				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
 				tmp_triangle.c = tmp_selected_mesh->vectorVertex[concreteIndice];
-				LOG_CONSOLE("T: %f %f %f", tmp_triangle.a.x, tmp_triangle.a.y, tmp_triangle.a.z);
-				LOG_CONSOLE("T: %f %f %f", tmp_triangle.b.x, tmp_triangle.b.y, tmp_triangle.b.z);
-				LOG_CONSOLE("T: %f %f %f", tmp_triangle.c.x, tmp_triangle.c.y, tmp_triangle.c.z);
-				LOG_CONSOLE("=====");
-
 
 				float tmp_distance;
 				float3 tmp_intersect_point;

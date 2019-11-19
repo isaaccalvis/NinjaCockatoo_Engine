@@ -25,7 +25,8 @@ update_status ModuleScene::Update(float dt)
 {
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		App->input->MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
+		if (!ImGuizmo::IsOver())
+			App->input->MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
 	}
 
 	return update_status::UPDATE_CONTINUE;
