@@ -6,6 +6,8 @@
 #include "MathGeoLib-1.5/src/Geometry/AABB.h"
 #include "GameObject.h"
 
+class QuadTree_d;
+
 class QT_Node
 {
 public:
@@ -17,7 +19,6 @@ public:
 	void InsertGameObject(GameObject* go);
 	void SubdivideNode();
 	void RedistributeChilds();
-	void RemoveGameObject(GameObject* go);
 
 public:
 	math::AABB boundingBox;
@@ -26,6 +27,7 @@ public:
 
 	std::list<GameObject*> objects;
 	unsigned int subidivision = 0;
+	QuadTree_d* quadtree = nullptr;
 };
 // QuadTree is a fusion between QuadTree & Red, because QuadTree already exists at MathGeolib
 class QuadTree_d
@@ -37,17 +39,19 @@ public:
 	void Render(QT_Node* node);
 
 	void GenerateQuadTree();
-	void Create(math::AABB limits);
+	void Create(math::AABB limits, QuadTree_d* quadtree);
 	void Clear();
 
 	void Insert(GameObject* go);
-	void Remove(GameObject* go);
 	//void Interesct(std::vector<GameObject*>& objectColliding, );
 
 public:
 	QT_Node* root = nullptr;
 	DebugCube* debugCube = nullptr;
 	std::list<GameObject*> static_go_list;
+
+	int maxDivisions = 10;
+	int bucketSize = 1;
 };
 
 #endif

@@ -1,8 +1,5 @@
 #include "QuadTree.h"
 
-#define MAX_DIVISIONS 10
-#define MAX_ELEMENTS_AT_DIVISION 1
-
 QT_Node::QT_Node(math::AABB& boundingBox)
 {
 	this->boundingBox = boundingBox;
@@ -32,15 +29,15 @@ bool QT_Node::HaveChildNode() const
 void QT_Node::InsertGameObject(GameObject* go)
 {
 	objects.push_back(go);
-	if (!HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
+	if (!HaveChildNode() && objects.size() > quadtree->bucketSize)
 	{
-		if (subidivision < MAX_DIVISIONS)
+		if (subidivision < quadtree->maxDivisions)
 		{
 			SubdivideNode();
 			RedistributeChilds();
 		}
 	}
-	else if (HaveChildNode() && objects.size() > MAX_ELEMENTS_AT_DIVISION)
+	else if (HaveChildNode() && objects.size() > quadtree->bucketSize)
 	{
 		RedistributeChilds();
 	}
@@ -71,6 +68,11 @@ void QT_Node::SubdivideNode()
 	quartCenter = { center.x - quartSize.x, center.y, center.z + quartSize.z };
 	quarter.SetFromCenterAndSize(quartCenter, halfSize);
 	children[3] = new QT_Node(quarter);
+
+	for (int i = 0; i < 4; i++)
+	{
+		children[i]->quadtree = quadtree;
+	}
 }
 
 void QT_Node::RedistributeChilds()
@@ -103,31 +105,6 @@ void QT_Node::RedistributeChilds()
 				}
 			}
 			it = objects.erase(it);
-		}
-	}
-}
-
-void QT_Node::RemoveGameObject(GameObject* go)
-{
-	std::list<GameObject*>::iterator it = objects.begin();
-	while (it != objects.end())
-	{
-		if ((*it) == go)
-		{
-			it = objects.erase(it);
-			RedistributeChilds();
-		}
-		else
-		{
-			it++;
-		}
-	}
-	if (HaveChildNode())
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			children[i]->RemoveGameObject(go);
-			children[i]->RedistributeChilds();
 		}
 	}
 }
@@ -176,7 +153,7 @@ void QuadTree_d::GenerateQuadTree()
 	generalBoundingBox.SetFrom(corners, static_go_list.size() * 8);
 
 	// Generate QuadTree
-	Create(generalBoundingBox);
+	Create(generalBoundingBox, this);
 
 	// Add Game Object
 	for (std::list<GameObject*>::iterator it = static_go_list.begin(); it != static_go_list.end(); it++)
@@ -185,10 +162,11 @@ void QuadTree_d::GenerateQuadTree()
 	}
 }
 
-void QuadTree_d::Create(math::AABB limits)
+void QuadTree_d::Create(math::AABB limits, QuadTree_d* quadtree)
 {
 	Clear();
 	root = new QT_Node(limits);
+	root->quadtree = quadtree;
 }
 
 void QuadTree_d::Clear()
@@ -205,9 +183,4 @@ void QuadTree_d::Insert(GameObject* go)
 	{
 		root->InsertGameObject(go);
 	}
-}
-
-void QuadTree_d::Remove(GameObject* go)
-{
-	//root->RemoveGameObject(go);
 }
