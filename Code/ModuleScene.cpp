@@ -28,7 +28,6 @@ update_status ModuleScene::Update(float dt)
 		if (!ImGuizmo::IsOver())
 			App->input->MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
 	}
-
 	return update_status::UPDATE_CONTINUE;
 }
 

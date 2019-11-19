@@ -105,6 +105,14 @@ void GUI_TopBar::Draw()
 			}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("QuadTree"))
+		{
+			if (ImGui::MenuItem("Generate QuadTree"))
+			{
+				App->scene->quadTree->GenerateQuadTree();
+			}
+			ImGui::EndMenu();
+		}
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Documentation"))

@@ -156,6 +156,35 @@ void QuadTree_d::Render(QT_Node* node)
 	}
 }
 
+void QuadTree_d::GenerateQuadTree()
+{
+	// Know size
+	math::AABB generalBoundingBox;
+	generalBoundingBox.SetNegativeInfinity();
+	float3* corners = new float3[static_go_list.size() * 8];
+	float3* pointer = corners;
+	for (std::list<GameObject*>::iterator it = static_go_list.begin(); it != static_go_list.end(); it++)
+	{
+		math::float3 tmpCorners[8];
+		(*it)->boundingBox.GetCornerPoints(tmpCorners);
+		for (int i = 0; i < 8; i++)
+		{
+			*pointer = tmpCorners[i];
+			pointer++;
+		}
+	}
+	generalBoundingBox.SetFrom(corners, static_go_list.size() * 8);
+
+	// Generate QuadTree
+	Create(generalBoundingBox);
+
+	// Add Game Object
+	for (std::list<GameObject*>::iterator it = static_go_list.begin(); it != static_go_list.end(); it++)
+	{
+		Insert((*it));
+	}
+}
+
 void QuadTree_d::Create(math::AABB limits)
 {
 	Clear();

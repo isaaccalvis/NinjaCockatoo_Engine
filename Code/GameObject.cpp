@@ -208,11 +208,13 @@ void GameObject::SetIsStatic(bool set)
 	{
 		if (isStatic)
 		{
-			App->scene->quadTree->Insert(this);
+			App->scene->quadTree->static_go_list.push_back(this);
+			//App->scene->quadTree->Insert(this);
 		}
 		else
 		{
-			App->scene->quadTree->Remove(this);
+			App->scene->quadTree->static_go_list.remove(this);
+			//App->scene->quadTree->Remove(this);
 		}
 	}
 }

@@ -36,6 +36,7 @@ public:
 
 	void Render(QT_Node* node);
 
+	void GenerateQuadTree();
 	void Create(math::AABB limits);
 	void Clear();
 
@@ -46,6 +47,7 @@ public:
 public:
 	QT_Node* root = nullptr;
 	DebugCube* debugCube = nullptr;
+	std::list<GameObject*> static_go_list;
 };
 
 #endif
