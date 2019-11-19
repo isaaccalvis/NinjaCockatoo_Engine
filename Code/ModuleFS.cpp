@@ -191,7 +191,7 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 	JSON_Array* root_array = json_value_get_array(root_value);
 
 	// TODO: Delete last scene
-	//App->scene->DeleteGameObject(App->scene->root);
+	App->scene->CleanUp();
 
 	// Load
 	JSON_Object* tmp_obj;
@@ -231,6 +231,7 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 			{
 				Component* compMesh = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 				compMesh->OnLoadJson(c_obj);
+				obj->UpdateAABB();
 			}
 			else if (c_type.compare("c_material") == 0)
 			{

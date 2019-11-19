@@ -191,10 +191,6 @@ Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 	mesh->GenerateVerticesBuffer();
 	mesh->GenerateTextureCoorBuffer();
 
-	GameObject* go = App->scene->CreateGameObject("tmp", App->scene->root);
-	go->CreateComponent(COMPONENT_MESH);
-	go->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->SetMesh(mesh);
-
 	delete[] data;
 
 	return mesh;
