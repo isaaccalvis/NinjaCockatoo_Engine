@@ -42,6 +42,12 @@ update_status ModuleCamera3D::Update(float dt)
 	math::float3 Z = math::float3(0.0f, 0.0f, 1.0f);
 	math::float3 newPos(0,0,0);
 
+	if (App->input->GetMouseZ() != 0)
+	{
+		camera.frustum.Translate(App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed);
+		Reference += App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed;
+	}
+
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		float speed = camera_mov_speed * dt;
@@ -56,8 +62,6 @@ update_status ModuleCamera3D::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 			if (App->scene->goSelected != nullptr)
 				App->scene->MakeCameraLookThisGOSelected();
-		if (App->input->GetMouseZ() != 0)
-			camera.frustum.Translate(App->input->GetMouseZ() * Z * mouse_wheel_speed);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
