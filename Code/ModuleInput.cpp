@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 
+#include "C_Mesh.h"
+
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_opengl2.h"
 #include "imgui/imgui_impl_sdl.h"
@@ -228,13 +230,54 @@ void ModuleInput::MousePicking(int coor_x, int coor_y)
 
 	GameObject* obj = nullptr;
 
+	std::vector<GameObject*> selectedGO;
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{
 		if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
 		{
 			obj = App->scene->gameObjects[i];
-			LOG_CONSOLE("Intersected with : %i", App->scene->gameObjects[i]->GetName());
+			selectedGO.push_back(obj);
 		}
 	}
-	App->scene->goSelected = obj;
+	obj = nullptr;
+
+	float shortesDistance = FLOAT_INF;
+	for (int i = 0; i < selectedGO.size(); i++)
+	{
+		if (selectedGO[i]->GetComponent(COMPONENT_MESH) != nullptr)
+		{
+			math::Triangle tmp_triangle;
+			math::LineSegment localLine(line);
+			localLine.Transform(selectedGO[i]->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix().Inverted());
+			Mesh* tmp_selected_mesh = selectedGO[i]->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh();
+			for (int a = 0; a < tmp_selected_mesh->GetIndicesSize() * 3;)
+			{
+				unsigned int concreteIndice;
+				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				tmp_triangle.a = tmp_selected_mesh->vectorVertex[concreteIndice];
+				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				tmp_triangle.b = tmp_selected_mesh->vectorVertex[concreteIndice];
+				concreteIndice = tmp_selected_mesh->indicesArray[a]; a++;
+				tmp_triangle.c = tmp_selected_mesh->vectorVertex[concreteIndice];
+				LOG_CONSOLE("T: %f %f %f", tmp_triangle.a.x, tmp_triangle.a.y, tmp_triangle.a.z);
+				LOG_CONSOLE("T: %f %f %f", tmp_triangle.b.x, tmp_triangle.b.y, tmp_triangle.b.z);
+				LOG_CONSOLE("T: %f %f %f", tmp_triangle.c.x, tmp_triangle.c.y, tmp_triangle.c.z);
+				LOG_CONSOLE("=====");
+
+
+				float tmp_distance;
+				float3 tmp_intersect_point;
+				if (localLine.Intersects(tmp_triangle, &tmp_distance, &tmp_intersect_point))
+				{
+					if (tmp_distance < shortesDistance)
+					{
+						shortesDistance = tmp_distance;
+						obj = selectedGO[i];
+					}
+				}
+			}
+		}
+	}
+	if (obj != nullptr)
+		App->scene->goSelected = obj;
 }
