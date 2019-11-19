@@ -51,7 +51,7 @@ public:
 	void Orbit(math::float3 target, float deltaX, float deltaY);
 
 public:
-	math::float3 Position, Reference;
+	math::float3 Reference;
 	Camera camera;
 
 	float camera_mov_speed = 3.0f;

@@ -6,7 +6,6 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 {
 	name = "ModuleCamera3D";
 
-	Position = math::float3(0.0f, 3.0f, 3.0f);
 	Reference = math::float3(0.0f, 0.0f, 0.0f);
 }
 
@@ -48,6 +47,14 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		if (App->scene->goSelected != nullptr)
+		{
+			App->scene->MakeCameraLookThisGOSelected();
+		}
+	}
+
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		float speed = camera_mov_speed * dt;
@@ -59,9 +66,6 @@ update_status ModuleCamera3D::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= camera.frustum.front * speed;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= camera.frustum.WorldRight() * speed;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += camera.frustum.WorldRight() * speed;
-		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-			if (App->scene->goSelected != nullptr)
-				App->scene->MakeCameraLookThisGOSelected();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
@@ -91,8 +95,8 @@ update_status ModuleCamera3D::Update(float dt)
 			camera.frustum.up = finalRotation * camera.frustum.up;
 			camera.frustum.front = finalRotation * camera.frustum.front;
 
-			float distance = (camera.frustum.pos - Reference).Length();
-			camera.frustum.pos = Reference + (-camera.frustum.front * distance);
+			float distance = (camera.frustum.pos - camera.frustum.pos).Length();
+			camera.frustum.pos = camera.frustum.pos + (-camera.frustum.front * distance);
 		}
 	}
 
@@ -108,7 +112,7 @@ void ModuleCamera3D::LookAt( const math::float3 &Spot, float distance)
 	math::float3 Y = math::float3(0.0f, 1.0f, 0.0f);
 	math::float3 Z = math::float3(0.0f, 0.0f, 1.0f);
 
-	Z = -(camera.frustum.pos - Reference).Normalized();
+	Z = -(camera.frustum.pos - Spot).Normalized();
 	X = math::Cross(math::float3(0.0f, 1.0f, 0.0f), Z).Normalized();
 	Y = math::Cross(Z, X);
 
@@ -117,7 +121,7 @@ void ModuleCamera3D::LookAt( const math::float3 &Spot, float distance)
 
 	if (distance != 0.0f)
 	{
-		float d2 = (camera.frustum.pos - Reference).Length();
+		float d2 = (camera.frustum.pos - Spot).Length();
 		d2 -= distance;
 
 		camera.frustum.Translate(camera.frustum.front * d2);
@@ -126,28 +130,15 @@ void ModuleCamera3D::LookAt( const math::float3 &Spot, float distance)
 
 void ModuleCamera3D::Orbit(math::float3 target, float deltaX, float deltaY)
 {
-	math::float3 X = math::float3(1.0f, 0.0f, 0.0f);
-	math::float3 Y = math::float3(0.0f, 1.0f, 0.0f);
-	math::float3 Z = math::float3(0.0f, 0.0f, 1.0f);
+	math::Quat rotationX = math::Quat::RotateAxisAngle({ 0.0f,1.0f,0.0f }, deltaY * mouse_sensitivity);
+	math::Quat rotationY = math::Quat::RotateAxisAngle(camera.frustum.WorldRight(), deltaX * mouse_sensitivity);
+	math::Quat finalRotation = rotationX * rotationY;
 
-	Position -= target;
+	camera.frustum.up = finalRotation * camera.frustum.up;
+	camera.frustum.front = finalRotation * camera.frustum.front;
 
-	if (deltaY != 0.0f)
-	{
-		math::float3x3 rotationMatrix = math::float3x3::RotateY(deltaY);
-		X = rotationMatrix * X;
-		Y = rotationMatrix * Y;
-		Z = rotationMatrix * Z;
-	}
-
-	if (deltaX != 0.0f)
-	{
-		math::float3x3 rotationMatrix = math::float3x3::RotateAxisAngle(X, deltaX);
-		Y = rotationMatrix * Y;
-		Z = rotationMatrix * Z;
-	}
-
-	Position = target + (Z * Position.Length());
+	float distance = (camera.frustum.pos - target).Length();
+	camera.frustum.pos = target + (-camera.frustum.front * distance);
 }
 
 Camera::Camera()
