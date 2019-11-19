@@ -9,6 +9,7 @@
 #include "GUI_Properties.h"
 #include "GUI_TopBar.h"
 #include "GUI_Hierachy.h"
+#include "GUI_QuadTree.h"
 
 #include "Console.h"
 
@@ -49,6 +50,8 @@ bool ModuleGUI::Start()
 	guiPanels.push_back(gui_hierachy);
 	GUI_Panel* gui_about = new GUI_About(SDL_SCANCODE_F9);
 	guiPanels.push_back(gui_about);
+	GUI_Panel* gui_quadtree = new GUI_QuadTree(SDL_SCANCODE_F5);
+	guiPanels.push_back(gui_quadtree);
 	return true;
 }
 

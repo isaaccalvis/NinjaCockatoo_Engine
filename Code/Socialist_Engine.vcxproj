@@ -107,6 +107,7 @@
     <ClInclude Include="GUI_Hierachy.h" />
     <ClInclude Include="GUI_Panel.h" />
     <ClInclude Include="GUI_Properties.h" />
+    <ClInclude Include="GUI_QuadTree.h" />
     <ClInclude Include="GUI_TopBar.h" />
     <ClInclude Include="ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="GUI_Hierachy.cpp" />
     <ClCompile Include="GUI_Panel.cpp" />
     <ClCompile Include="GUI_Properties.cpp" />
+    <ClCompile Include="GUI_QuadTree.cpp" />
     <ClCompile Include="GUI_TopBar.cpp" />
     <ClCompile Include="ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />

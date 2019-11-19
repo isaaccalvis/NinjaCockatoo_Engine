@@ -466,6 +466,9 @@
     <ClInclude Include="ImGuizmo\ImGuizmo.h">
       <Filter>External Tools\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="GUI_QuadTree.h">
+      <Filter>Engine\GUI\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -698,6 +701,9 @@
     </ClCompile>
     <ClCompile Include="ImGuizmo\ImGuizmo.cpp">
       <Filter>External Tools\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_QuadTree.cpp">
+      <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

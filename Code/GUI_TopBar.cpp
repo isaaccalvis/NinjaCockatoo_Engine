@@ -49,6 +49,8 @@ void GUI_TopBar::Draw()
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PROPERTIES)->SwitchActive();
 			if (ImGui::MenuItem("Hierachy"))
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_HIERACHY)->SwitchActive();
+			if (ImGui::MenuItem("QuadTree"))
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_QUADTREE)->SwitchActive();
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("GameObject"))
@@ -105,14 +107,14 @@ void GUI_TopBar::Draw()
 			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("QuadTree"))
-		{
-			if (ImGui::MenuItem("Generate QuadTree"))
-			{
-				App->scene->quadTree->GenerateQuadTree();
-			}
-			ImGui::EndMenu();
-		}
+		//if (ImGui::BeginMenu("Windows"))
+		//{
+		//	if (ImGui::MenuItem("QuadTree"))
+		//	{
+		//		App->scene->quadTree->GenerateQuadTree();
+		//	}
+		//	ImGui::EndMenu();
+		//}
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Documentation"))

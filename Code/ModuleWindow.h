@@ -16,8 +16,8 @@ public:
 	update_status	Update(float dt);
 	bool			CleanUp();
 
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
+	bool			Save(JSON_Object* root_object);
+	bool			Load(JSON_Object* root_object);
 
 	void	SetTitle(const char* title);
 	void	SetOrganization(const char* organization);
