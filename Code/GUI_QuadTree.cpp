@@ -18,10 +18,10 @@ void GUI_QuadTree::Draw()
 	
 	ImGui::InputInt("Max. Division", &App->scene->quadTree->maxDivisions);
 	ImGui::InputInt("Bucket Size", &App->scene->quadTree->bucketSize);
-	if (App->scene->quadTree->maxDivisions <= 0)
-		App->scene->quadTree->maxDivisions = 0;
-	if (App->scene->quadTree->bucketSize <= 0)
-		App->scene->quadTree->bucketSize = 0;
+	if (App->scene->quadTree->maxDivisions < 1)
+		App->scene->quadTree->maxDivisions = 1;
+	if (App->scene->quadTree->bucketSize < 1)
+		App->scene->quadTree->bucketSize = 1;
 
 	bool useQuadTree = App->scene->quadTree->useQuadTree;
 	if (ImGui::Checkbox("Use QuadTree", &useQuadTree))

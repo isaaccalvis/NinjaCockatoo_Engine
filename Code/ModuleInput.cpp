@@ -252,6 +252,17 @@ void ModuleInput::MousePicking(int coor_x, int coor_y)
 				selectedGO.erase(selectedGO.begin() + i);
 			}
 		}
+		for (int i = 0; i < App->scene->gameObjects.size(); i++)
+		{
+			if (!App->scene->gameObjects[i]->GetIsStatic())
+			{
+				if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+				{
+					obj = App->scene->gameObjects[i];
+					selectedGO.push_back(obj);
+				}
+			}
+		}
 	}
 	else
 	{
