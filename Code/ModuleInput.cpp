@@ -229,20 +229,39 @@ void ModuleInput::MousePicking(int coor_x, int coor_y)
 	math::LineSegment line = App->camera->camera.frustum.UnProjectLineSegment(x,y);
 
 	GameObject* obj = nullptr;
-
-	std::list<GameObject*> selGo;
-	if (App->scene->quadTree != nullptr)
-	{
-		App->scene->quadTree->Interesct(line, selGo);
-	}
-
 	std::vector<GameObject*> selectedGO;
-	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+
+	if (App->scene->quadTree->useQuadTree)
 	{
-		if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+		std::list<GameObject*> selGo;
+		if (App->scene->quadTree != nullptr)
 		{
-			obj = App->scene->gameObjects[i];
-			selectedGO.push_back(obj);
+			App->scene->quadTree->Interesct(line, selGo);
+		}
+		selectedGO.resize(selGo.size());
+		unsigned int counter = 0;
+		for (std::list<GameObject*>::iterator it = selGo.begin(); it != selGo.end(); it++)
+		{
+			selectedGO[counter] = (*it);
+			counter++;
+		}
+		for (int i = 0; i < selectedGO.size(); i++)
+		{
+			if (!line.Intersects(selectedGO[i]->boundingBox))
+			{
+				selectedGO.erase(selectedGO.begin() + i);
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < App->scene->gameObjects.size(); i++)
+		{
+			if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+			{
+				obj = App->scene->gameObjects[i];
+				selectedGO.push_back(obj);
+			}
 		}
 	}
 	obj = nullptr;

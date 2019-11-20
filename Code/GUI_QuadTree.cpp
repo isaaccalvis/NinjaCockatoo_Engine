@@ -23,6 +23,18 @@ void GUI_QuadTree::Draw()
 	if (App->scene->quadTree->bucketSize <= 0)
 		App->scene->quadTree->bucketSize = 0;
 
+	bool useQuadTree = App->scene->quadTree->useQuadTree;
+	if (ImGui::Checkbox("Use QuadTree", &useQuadTree))
+	{
+		App->scene->quadTree->useQuadTree = useQuadTree;
+	}
+
+	bool renderQuadTree = App->scene->quadTree->renderQuadTree;
+	if (ImGui::Checkbox("Render QuadTree", &renderQuadTree))
+	{
+		App->scene->quadTree->renderQuadTree = renderQuadTree;
+	}
+
 	ImGui::Text("Static Game Objects: %i", App->scene->quadTree->static_go_list.size());
 
 	ImGui::End();

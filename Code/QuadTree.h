@@ -56,6 +56,9 @@ public:
 
 	int maxDivisions = 10;
 	int bucketSize = 1;
+
+	bool useQuadTree = false;
+	bool renderQuadTree = true;
 };
 
 #endif

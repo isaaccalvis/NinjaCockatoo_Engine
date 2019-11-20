@@ -136,14 +136,17 @@ QuadTree_d::~QuadTree_d()
 
 void QuadTree_d::Render(QT_Node* node)
 {
-	math::float3 cubeToDraw[8];
-	node->boundingBox.GetCornerPoints(cubeToDraw);
-	debugCube->DirectRender(cubeToDraw, White);
-	if (node->HaveChildNode())
+	if (renderQuadTree)
 	{
-		for (int i = 0; i < 4; i++)
+		math::float3 cubeToDraw[8];
+		node->boundingBox.GetCornerPoints(cubeToDraw);
+		debugCube->DirectRender(cubeToDraw, White);
+		if (node->HaveChildNode())
 		{
-			Render(node->children[i]);
+			for (int i = 0; i < 4; i++)
+			{
+				Render(node->children[i]);
+			}
 		}
 	}
 }
@@ -209,7 +212,6 @@ void QuadTree_d::Interesct(math::LineSegment line, std::list<GameObject*>& objec
 		for (std::list<GameObject*>::iterator it2 = (*it)->objects.begin(); it2 != (*it)->objects.end(); it2++)
 		{
 			objectColliding.push_back((*it2));
-			LOG_CONSOLE("Inside : %s", (*it2)->GetName());
 		}
 	}
 }
