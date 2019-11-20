@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include "MathGeoLib-1.5/src/Geometry/AABB.h"
+#include "MathGeoLib-1.5/src/Geometry/LineSegment.h"
 #include "GameObject.h"
 
 class QuadTree_d;
@@ -20,6 +21,8 @@ public:
 	void SubdivideNode();
 	void RedistributeChilds();
 
+	void GetIntersectSections(math::LineSegment line, std::list<QT_Node*> &colectNodes);
+
 public:
 	math::AABB boundingBox;
 	QT_Node* parent = nullptr;
@@ -29,6 +32,7 @@ public:
 	unsigned int subidivision = 0;
 	QuadTree_d* quadtree = nullptr;
 };
+
 // QuadTree is a fusion between QuadTree & Red, because QuadTree already exists at MathGeolib
 class QuadTree_d
 {
@@ -43,7 +47,7 @@ public:
 	void Clear();
 
 	void Insert(GameObject* go);
-	//void Interesct(std::vector<GameObject*>& objectColliding, );
+	void Interesct(math::LineSegment line, std::list<GameObject*>& objectColliding);
 
 public:
 	QT_Node* root = nullptr;

@@ -230,6 +230,12 @@ void ModuleInput::MousePicking(int coor_x, int coor_y)
 
 	GameObject* obj = nullptr;
 
+	std::list<GameObject*> selGo;
+	if (App->scene->quadTree != nullptr)
+	{
+		App->scene->quadTree->Interesct(line, selGo);
+	}
+
 	std::vector<GameObject*> selectedGO;
 	for (int i = 0; i < App->scene->gameObjects.size(); i++)
 	{

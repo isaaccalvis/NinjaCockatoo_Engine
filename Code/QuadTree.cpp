@@ -109,6 +109,21 @@ void QT_Node::RedistributeChilds()
 	}
 }
 
+void QT_Node::GetIntersectSections(math::LineSegment line, std::list<QT_Node*> &colectNodes)
+{
+	if (line.Intersects(boundingBox))
+	{
+		colectNodes.push_back(this);
+		if (HaveChildNode())
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				children[i]->GetIntersectSections(line, colectNodes);
+			}
+		}
+	}
+}
+
 QuadTree_d::QuadTree_d()
 {
 	debugCube = new DebugCube();
@@ -182,5 +197,19 @@ void QuadTree_d::Insert(GameObject* go)
 	if (go->boundingBox.Intersects(root->boundingBox))
 	{
 		root->InsertGameObject(go);
+	}
+}
+
+void QuadTree_d::Interesct(math::LineSegment line, std::list<GameObject*>& objectColliding)
+{
+	std::list<QT_Node*> nodesList;
+	root->GetIntersectSections(line, nodesList);
+	for (std::list<QT_Node*>::iterator it = nodesList.begin(); it != nodesList.end(); it++)
+	{
+		for (std::list<GameObject*>::iterator it2 = (*it)->objects.begin(); it2 != (*it)->objects.end(); it2++)
+		{
+			objectColliding.push_back((*it2));
+			LOG_CONSOLE("Inside : %s", (*it2)->GetName());
+		}
 	}
 }
