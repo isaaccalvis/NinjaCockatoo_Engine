@@ -58,7 +58,6 @@ private:
 
 public:
 	std::list<Mesh*> meshes;
-	Mesh* lastMesh = nullptr;
 
 	Light lights[MAX_LIGHTS];
 

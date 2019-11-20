@@ -26,7 +26,6 @@ ModuleInput::~ModuleInput()
 	delete[] keyboard;
 }
 
-// Called before render is available
 bool ModuleInput::Init(JSON_Object* root_object)
 {
 	LOG_IDE("Init SDL input event system");
@@ -143,6 +142,42 @@ bool ModuleInput::CleanUp()
 	return true;
 }
 
+void ModuleInput::LoadPCGSeed(int argc, char** argv)
+{
+	int rounds = 5;
+	bool nondeterministic_seed = true;
+
+	++argv;
+	--argc;
+	if (argc > 0 && strcmp(argv[0], "-r") == 0) {
+		nondeterministic_seed = true;
+		++argv;
+		--argc;
+	}
+	if (argc > 0) {
+		rounds = atoi(argv[0]);
+	}
+	if (nondeterministic_seed) {
+		// Seed with external entropy
+		uint64_t seeds[2];
+		entropy_getbytes((void*)seeds, sizeof(seeds));
+		pcg32_srandom_r(&rng, seeds[0], seeds[1]);
+	}
+	else {
+		// Seed with a fixed constant
+		pcg32_srandom_r(&rng, 42u, 54u);
+	}
+}
+
+uuid_unit ModuleInput::GenerateUUID()
+{
+	uint64_t seeds[2];
+	entropy_getbytes((void*)seeds, sizeof(seeds));
+	pcg32_srandom_r(&rng, seeds[0], seeds[1]);
+	uuid_unit uuid = pcg_output_rxs_m_xs_32_32(rng.state);
+	return uuid;
+}
+
 KEY_STATE ModuleInput::GetKey(int id) const
 {
 	return keyboard[id];
@@ -176,142 +211,4 @@ int ModuleInput::GetMouseXMotion() const
 int ModuleInput::GetMouseYMotion() const
 {
 	return mouse_y_motion;
-}
-
-void ModuleInput::LoadPCGSeed(int argc, char** argv)
-{
-	int rounds = 5;
-	bool nondeterministic_seed = true;	// en teoria hauria de ser false, pero si ho poso false no s'activa la part
-										// de sota, i els numeros no tenen seed i surten amb el mateix patro sempre
-
-	++argv;
-	--argc;
-	if (argc > 0 && strcmp(argv[0], "-r") == 0) {
-		nondeterministic_seed = true;
-		++argv;
-		--argc;
-	}
-	if (argc > 0) {
-		rounds = atoi(argv[0]);
-	}
-	if (nondeterministic_seed) {
-		// Seed with external entropy
-		uint64_t seeds[2];
-		entropy_getbytes((void*)seeds, sizeof(seeds));
-		pcg32_srandom_r(&rng, seeds[0], seeds[1]);
-	}
-	else {
-		// Seed with a fixed constant
-		pcg32_srandom_r(&rng, 42u, 54u);
-	}
-}
-
-uuid_unit ModuleInput::GenerateUUID()
-{
-	uint64_t seeds[2];
-	entropy_getbytes((void*)seeds, sizeof(seeds));
-	pcg32_srandom_r(&rng, seeds[0], seeds[1]);
-
-	uuid_unit a = pcg_output_rxs_m_xs_32_32(rng.state);
-	return a;
-}
-
-void ModuleInput::MousePicking(int coor_x, int coor_y)
-{
-	int w_width;
-	int w_heigh;
-	int w_size;
-	App->window->GetWindowSize(w_width, w_heigh, w_size);
-
-	float x = -(1.0f - (float(coor_x) * 2.0f) / w_width);
-	float y = 1.0f - (float(coor_y) * 2.0f) / w_heigh;
-
-	math::LineSegment line = App->camera->camera.frustum.UnProjectLineSegment(x,y);
-
-	GameObject* obj = nullptr;
-	std::vector<GameObject*> selectedGO;
-
-	if (App->scene->quadTree->useQuadTree)
-	{
-		std::list<GameObject*> selGo;
-		if (App->scene->quadTree != nullptr)
-		{
-			App->scene->quadTree->Interesct(line, selGo);
-		}
-		selectedGO.resize(selGo.size());
-		unsigned int counter = 0;
-		for (std::list<GameObject*>::iterator it = selGo.begin(); it != selGo.end(); it++)
-		{
-			selectedGO[counter] = (*it);
-			counter++;
-		}
-		for (int i = 0; i < selectedGO.size(); i++)
-		{
-			if (!line.Intersects(selectedGO[i]->boundingBox))
-			{
-				selectedGO.erase(selectedGO.begin() + i);
-			}
-		}
-		for (int i = 0; i < App->scene->gameObjects.size(); i++)
-		{
-			if (!App->scene->gameObjects[i]->GetIsStatic())
-			{
-				if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
-				{
-					obj = App->scene->gameObjects[i];
-					selectedGO.push_back(obj);
-				}
-			}
-		}
-	}
-	else
-	{
-		for (int i = 0; i < App->scene->gameObjects.size(); i++)
-		{
-			if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
-			{
-				obj = App->scene->gameObjects[i];
-				selectedGO.push_back(obj);
-			}
-		}
-	}
-	obj = nullptr;
-
-	float shortesDistance = FLOAT_INF;
-	for (int i = 0; i < selectedGO.size(); i++)
-	{
-		if (selectedGO[i]->GetComponent(COMPONENT_MESH) != nullptr)
-		{
-			math::Triangle tmp_triangle;
-			math::LineSegment localLine(line);
-			localLine.Transform(selectedGO[i]->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix().Inverted());
-			Mesh* tmp_selected_mesh = selectedGO[i]->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh();
-			for (int a = 0; a < tmp_selected_mesh->GetIndicesSize() * 3;)
-			{
-				unsigned int concreteIndice;
-				concreteIndice = tmp_selected_mesh->indicesArray[a];
-				a++;
-				tmp_triangle.a = tmp_selected_mesh->vectorVertex[concreteIndice];
-				concreteIndice = tmp_selected_mesh->indicesArray[a];
-				a++;
-				tmp_triangle.b = tmp_selected_mesh->vectorVertex[concreteIndice];
-				concreteIndice = tmp_selected_mesh->indicesArray[a];
-				a++;
-				tmp_triangle.c = tmp_selected_mesh->vectorVertex[concreteIndice];
-
-				float tmp_distance;
-				float3 tmp_intersect_point;
-				if (localLine.Intersects(tmp_triangle, &tmp_distance, &tmp_intersect_point))
-				{
-					if (tmp_distance < shortesDistance)
-					{
-						shortesDistance = tmp_distance;
-						obj = selectedGO[i];
-					}
-				}
-			}
-		}
-	}
-	if (obj != nullptr)
-		App->scene->goSelected = obj;
 }

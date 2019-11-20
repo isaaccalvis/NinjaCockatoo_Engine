@@ -29,17 +29,12 @@ bool ModuleGUI::Start()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->GetWindow(), App->renderer3D->GetContext());
 	ImGui_ImplOpenGL2_Init();
 
 	SDL_GetVersion(&sdl_version);
 
-	// Init Windows
 	GUI_Panel* gui_topbar = new GUI_TopBar();
 	guiPanels.push_back(gui_topbar);
 	GUI_Panel* gui_configuration = new GUI_Configuration(SDL_SCANCODE_F1);
@@ -57,13 +52,68 @@ bool ModuleGUI::Start()
 
 update_status ModuleGUI::PostUpdate(float dt)
 {
+	update_status ret = update_status::UPDATE_CONTINUE;
+
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->GetWindow());
 	ImGui::NewFrame();
-
 	ImGuizmo::BeginFrame();
 
-	// GUIZMO
+	UpdateGuizmo();
+	UpdatePanels();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+
+	if (closeEngine)
+	{
+		ret = update_status::UPDATE_STOP;
+	}
+	return ret;
+}
+
+bool ModuleGUI::CleanUp()
+{
+	ImGui_ImplOpenGL2_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
+	ImGui::DestroyContext();
+	return true;
+}
+
+GUI_Panel* ModuleGUI::GetGUIPanel(GUI_WINDOWS type)
+{
+	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
+	{
+		if ((*it)->GetType() == type)
+			return (*it);
+	}
+	return nullptr;
+}
+
+void ModuleGUI::UpdatePanels()
+{
+	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
+	{
+		// Check if shortcut is pressed
+		if (App->input->GetKey((*it)->GetShortCut()) == KEY_STATE::KEY_DOWN)
+		{
+			(*it)->SwitchActive();
+		}
+		// Draw
+		if ((*it)->IsActive())
+		{
+			(*it)->Draw();
+		}
+	}
+
+	if (App->console->IsActive())
+		App->console->Draw("Console", &App->console->p_open);
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_STATE::KEY_DOWN)
+		App->console->SwitchActive();
+}
+
+void ModuleGUI::UpdateGuizmo()
+{
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) != KEY_STATE::KEY_REPEAT)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_STATE::KEY_DOWN)
@@ -92,7 +142,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 	}
 
 	ImGuiIO& io = ImGui::GetIO();
-	ImGuizmo::SetRect(0,0,io.DisplaySize.x, io.DisplaySize.y);
+	ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
 
 	if (guizmoOperation == ImGuizmo::OPERATION::SCALE)
 		guizmoMode = ImGuizmo::MODE::LOCAL;
@@ -100,8 +150,8 @@ update_status ModuleGUI::PostUpdate(float dt)
 	if (App->scene->goSelected != nullptr)
 	{
 		GameObject* go = App->scene->goSelected;
-		math::float4x4 viewMatrix = App->camera->camera.GetOpenGlViewMatrix();
-		math::float4x4 projectionMatrix = App->camera->camera.GetOpenGlProjectionMatrix();
+		math::float4x4 viewMatrix = App->camera->camera.GetViewMatrix();
+		math::float4x4 projectionMatrix = App->camera->camera.GetProjectionMatrix();
 		math::float4x4 transformMatrix = go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
 		transformMatrix = transformMatrix.Transposed();
 
@@ -114,54 +164,6 @@ update_status ModuleGUI::PostUpdate(float dt)
 			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 		}
 	}
-
-	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
-	{
-		// Check if shortcut is pressed
-		if (App->input->GetKey((*it)->GetShortCut()) == KEY_STATE::KEY_DOWN)
-		{
-			(*it)->SwitchActive();
-		}
-
-		// Draw
-		if ((*it)->IsActive())
-		{
-			(*it)->Draw();
-		}
-	}
-
-	// Console //TODO: CHANGE EVERYTHING
-	if (App->console->IsActive())
-		App->console->Draw("Console", &App->console->p_open);
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_STATE::KEY_DOWN)
-		App->console->SwitchActive();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-
-	if (closeEngine)
-	{
-		return update_status::UPDATE_STOP;
-	}
-	return UPDATE_CONTINUE;
-}
-
-bool ModuleGUI::CleanUp()
-{
-	ImGui_ImplOpenGL2_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
-	return true;
-}
-
-GUI_Panel* ModuleGUI::GetGUIPanel(GUI_WINDOWS type)
-{
-	for (std::list<GUI_Panel*>::iterator it = guiPanels.begin(); it != guiPanels.end(); it++)
-	{
-		if ((*it)->GetType() == type)
-			return (*it);
-	}
-	return nullptr;
 }
 
 void ModuleGUI::CloseEngineFromGui()

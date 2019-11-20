@@ -5,8 +5,6 @@
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleCamera3D";
-
-	Reference = math::float3(0.0f, 0.0f, 0.0f);
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -36,15 +34,11 @@ bool ModuleCamera3D::Load(JSON_Object* root_object)
 
 update_status ModuleCamera3D::Update(float dt)
 {
-	math::float3 X = math::float3(1.0f, 0.0f, 0.0f);
-	math::float3 Y = math::float3(0.0f, 1.0f, 0.0f);
-	math::float3 Z = math::float3(0.0f, 0.0f, 1.0f);
 	math::float3 newPos(0,0,0);
 
 	if (App->input->GetMouseZ() != 0)
 	{
 		camera.frustum.Translate(App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed);
-		Reference += App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
@@ -72,7 +66,6 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		if (App->scene->goSelected != nullptr)
 		{
-			// Look Around (target position)
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
 
@@ -100,7 +93,6 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 	}
 
-	Reference += newPos;
 	camera.frustum.Translate(newPos);
 
 	return UPDATE_CONTINUE;
@@ -148,15 +140,14 @@ Camera::Camera()
 
 void Camera::Init()
 {
-	/* Set camera vars*/
-	width = 16; // TODO, QUESTION, IS ASPECT RATIO GOOD NOW ??
+	width = 16;
 	height = 9;
-	aspect_ratio = width / height; // We set aspect ratio 16:9 by now
+	aspect_ratio = width / height;
 
 	near_plane = 0.2;
 	far_plane = 1000;
-	vertical_fov = 60; /* In degrees */
-					   /* Set frustum vars */
+	vertical_fov = 60;
+	
 	frustum.type = PerspectiveFrustum;
 	frustum.pos.Set(0, 0, 0);
 	frustum.front.Set(0, 0, 1);
@@ -169,25 +160,13 @@ void Camera::Init()
 	frustum_halfdistance_squared = 170 * 170;
 }
 
-float* Camera::GetViewMatrix() const
-{
-	float4x4 matrix = frustum.ViewMatrix();
-	return (float*)matrix.Transposed().v;
-}
-
-float* Camera::GetProjectionMatrix() const
-{
-	float4x4 matrix = frustum.ProjectionMatrix();
-	return (float*)matrix.Transposed().v;
-}
-
-math::float4x4 Camera::GetOpenGlViewMatrix() const
+math::float4x4 Camera::GetViewMatrix() const
 {
 	math::float4x4 matrix = frustum.ViewMatrix();
 	return matrix.Transposed();
 }
 
-math::float4x4 Camera::GetOpenGlProjectionMatrix() const
+math::float4x4 Camera::GetProjectionMatrix() const
 {
 	math::float4x4 matrix = frustum.ProjectionMatrix();
 	return matrix.Transposed();

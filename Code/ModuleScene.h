@@ -22,6 +22,8 @@ public:
 	GameObject*		SearchGameObject(std::string name);
 	void			MakeCameraLookThisGOSelected();
 
+	void MousePicking(int coor_x, int coor_y);
+
 public: // TODO: THIS COULD BE PRIVATE
 	GameObject*		root		= nullptr;
 	GameObject*		camera		= nullptr;

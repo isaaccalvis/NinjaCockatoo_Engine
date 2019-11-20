@@ -16,6 +16,9 @@ public:
 
 	GUI_Panel* GetGUIPanel(GUI_WINDOWS type);
 
+	void UpdatePanels();
+	void UpdateGuizmo();
+
 	void CloseEngineFromGui();
 private:
 	SDL_version sdl_version;

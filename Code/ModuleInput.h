@@ -28,6 +28,9 @@ public:
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 
+	void LoadPCGSeed(int argc, char** argv);
+	uuid_unit GenerateUUID();
+
 	KEY_STATE GetKey(int id) const;
 	KEY_STATE GetMouseButton(int id) const;
 	int GetMouseX() const;
@@ -35,11 +38,6 @@ public:
 	int GetMouseZ() const;
 	int GetMouseXMotion() const;
 	int GetMouseYMotion() const;
-
-	void LoadPCGSeed(int argc, char** argv);
-	uuid_unit GenerateUUID();
-
-	void MousePicking(int coor_x, int coor_y);
 
 private:
 	KEY_STATE* keyboard;
@@ -49,7 +47,6 @@ private:
 	int mouse_z;
 	int mouse_x_motion;
 	int mouse_y_motion;
-	//int mouse_z_motion;
 
 	pcg32_random_t rng;
 };

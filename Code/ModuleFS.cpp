@@ -13,6 +13,7 @@ bool ModuleFS::Start()
 	mesh_file_extension = ".smesh";
 	texture_file_extension = ".dds";
 	scene_file_extension = ".sscene";
+	meta_file_extension = ".smeta";
 
 	sceneImporter = new SceneImporter();
 	materialImporter = new MaterialImporter();
@@ -102,18 +103,19 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
-//void ModuleFS::GenerateMeta(const char* name, const char* path, uuid_unit uuid)
-//{
-//	std::string newDirection = std::string(path).append(name);
-//
-//	JSON_Value *value = json_value_init_array();
-//	JSON_Object* object = json_value_get_object(value);
-//
-//	PHYSFS_File* file = PHYSFS_openWrite(newDirection.c_str());
-//	if (file != nullptr)
-//		PHYSFS_writeBytes(file, data, size);
-//	PHYSFS_close(file);
-//}
+void ModuleFS::GenerateMeta(const char* name, uuid_unit uuid, unsigned int date)
+{
+	std::string newDirection = std::string(resources_directory + "Assets/" + name + meta_file_extension);
+
+	JSON_Value *value = json_value_init_array();
+	JSON_Object* object = json_value_get_object(value);
+	
+	json_object_set_number(object,"uuid", uuid);
+	json_object_set_number(object, "date", date);
+
+	json_serialize_to_file(value, newDirection.c_str());
+	json_value_free(value);
+}
 
 void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 {

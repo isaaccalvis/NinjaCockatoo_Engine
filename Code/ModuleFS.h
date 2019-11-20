@@ -27,7 +27,7 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
-	//void GenerateMeta(const char* name, const char* path, uuid_unit uuid);
+	void GenerateMeta(const char* name, uuid_unit uuid, unsigned int date);
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name, std::string midPath = "Library/Scenes/");
@@ -37,6 +37,7 @@ public:
 	std::string mesh_file_extension;
 	std::string texture_file_extension;
 	std::string scene_file_extension;
+	std::string meta_file_extension;
 
 	SceneImporter* sceneImporter = nullptr;
 	MaterialImporter* materialImporter = nullptr;

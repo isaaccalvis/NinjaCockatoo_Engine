@@ -45,7 +45,6 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		//Check for error
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
@@ -70,10 +69,8 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 			glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 			glClearDepth(1.0f);
 
-			//Initialize clear color
 			glClearColor(0.f, 0.f, 0.f, 1.f);
 
-			//Check for error
 			error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
@@ -114,7 +111,6 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 		}
 	}
 
-	// Projection matrix for
 	OnResize(App->window->screenWidth, App->window->screenHeight);
 
 	grid = new Grid(2);
@@ -122,16 +118,14 @@ bool ModuleRenderer3D::Init(JSON_Object* root_object)
 	return ret;
 }
 
-// PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->camera.GetViewMatrix());
+	glLoadMatrixf(App->camera->camera.GetViewMatrix().ptr());
 
-	// light 0 on cam pos
 	lights[0].SetPos(App->camera->camera.frustum.pos.x, App->camera->camera.frustum.pos.y, App->camera->camera.frustum.pos.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
@@ -185,13 +179,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		}
 	}
 
-	// Print Debug Draw
 	grid->Render();
 
 	return UPDATE_CONTINUE;
 }
 
-// PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	SDL_GL_SwapWindow(App->window->GetWindow());
@@ -202,9 +194,7 @@ bool ModuleRenderer3D::CleanUp()
 {
 	ClearMeshes();
 	LOG_IDE("Destroying 3D Renderer");
-
 	SDL_GL_DeleteContext(context);
-
 	return true;
 }
 
@@ -228,7 +218,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glLoadMatrixf(App->camera->camera.GetProjectionMatrix());
+	glLoadMatrixf(App->camera->camera.GetProjectionMatrix().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -362,14 +352,11 @@ void ModuleRenderer3D::AddMesh(Mesh* mesh)
 	if (mesh != nullptr)
 	{
 		meshes.push_back(mesh);
-		// TODO: DELETE LAST MESH
-		lastMesh = mesh;
 	}
 }
 
 void ModuleRenderer3D::ClearMeshes()
 {
-	lastMesh = nullptr;
 	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
 	{
 		if ((*item) != nullptr)

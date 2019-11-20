@@ -26,7 +26,7 @@ update_status ModuleScene::Update(float dt)
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		if (!ImGuizmo::IsOver())
-			App->input->MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
+			MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -101,4 +101,104 @@ void ModuleScene::MakeCameraLookThisGOSelected()
 	// Look
 	App->camera->LookAt(goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position);
 
+}
+
+void ModuleScene::MousePicking(int coor_x, int coor_y)
+{
+	int w_width;
+	int w_heigh;
+	int w_size;
+	App->window->GetWindowSize(w_width, w_heigh, w_size);
+
+	float x = -(1.0f - (float(coor_x) * 2.0f) / w_width);
+	float y = 1.0f - (float(coor_y) * 2.0f) / w_heigh;
+
+	math::LineSegment line = App->camera->camera.frustum.UnProjectLineSegment(x, y);
+
+	GameObject* obj = nullptr;
+	std::vector<GameObject*> selectedGO;
+
+	if (App->scene->quadTree->useQuadTree)
+	{
+		std::list<GameObject*> selGo;
+		if (App->scene->quadTree != nullptr)
+		{
+			App->scene->quadTree->Interesct(line, selGo);
+		}
+		selectedGO.resize(selGo.size());
+		unsigned int counter = 0;
+		for (std::list<GameObject*>::iterator it = selGo.begin(); it != selGo.end(); it++)
+		{
+			selectedGO[counter] = (*it);
+			counter++;
+		}
+		for (int i = 0; i < selectedGO.size(); i++)
+		{
+			if (!line.Intersects(selectedGO[i]->boundingBox))
+			{
+				selectedGO.erase(selectedGO.begin() + i);
+			}
+		}
+		for (int i = 0; i < App->scene->gameObjects.size(); i++)
+		{
+			if (!App->scene->gameObjects[i]->GetIsStatic())
+			{
+				if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+				{
+					obj = App->scene->gameObjects[i];
+					selectedGO.push_back(obj);
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < App->scene->gameObjects.size(); i++)
+		{
+			if (line.Intersects(App->scene->gameObjects[i]->boundingBox))
+			{
+				obj = App->scene->gameObjects[i];
+				selectedGO.push_back(obj);
+			}
+		}
+	}
+	obj = nullptr;
+
+	float shortesDistance = FLOAT_INF;
+	for (int i = 0; i < selectedGO.size(); i++)
+	{
+		if (selectedGO[i]->GetComponent(COMPONENT_MESH) != nullptr)
+		{
+			math::Triangle tmp_triangle;
+			math::LineSegment localLine(line);
+			localLine.Transform(selectedGO[i]->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix().Inverted());
+			Mesh* tmp_selected_mesh = selectedGO[i]->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->GetMesh();
+			for (int a = 0; a < tmp_selected_mesh->GetIndicesSize() * 3;)
+			{
+				unsigned int concreteIndice;
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
+				tmp_triangle.a = tmp_selected_mesh->vectorVertex[concreteIndice];
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
+				tmp_triangle.b = tmp_selected_mesh->vectorVertex[concreteIndice];
+				concreteIndice = tmp_selected_mesh->indicesArray[a];
+				a++;
+				tmp_triangle.c = tmp_selected_mesh->vectorVertex[concreteIndice];
+
+				float tmp_distance;
+				float3 tmp_intersect_point;
+				if (localLine.Intersects(tmp_triangle, &tmp_distance, &tmp_intersect_point))
+				{
+					if (tmp_distance < shortesDistance)
+					{
+						shortesDistance = tmp_distance;
+						obj = selectedGO[i];
+					}
+				}
+			}
+		}
+	}
+	if (obj != nullptr)
+		App->scene->goSelected = obj;
 }

@@ -12,27 +12,24 @@ public:
 
 	void Init();
 
-	float* GetViewMatrix() const;
-	float* GetProjectionMatrix() const;
-
-	math::float4x4 GetOpenGlViewMatrix() const;
-	math::float4x4 GetOpenGlProjectionMatrix() const;
+	math::float4x4		GetViewMatrix() const;
+	math::float4x4		GetProjectionMatrix() const;
 
 public:
-	math::Frustum frustum;
+	math::Frustum	frustum;
 
 private:
-	bool culling = false;
-	bool cull_dynamics = true;
-	bool is_main = false;
-	float width = 0.0f;
-	float height = 0.0f;
-	float aspect_ratio = 0.0f;
-	float near_plane = 0.0f;
-	float far_plane = 0.0f;
-	float vertical_fov = 0.0f;
-	float frustum_halfdistance_squared = 0;
-	math::float3 frustum_center = math::float3::zero;
+	bool			culling = false;
+	bool			cull_dynamics = true;
+	bool			is_main = false;
+	float			width = 0.0f;
+	float			height = 0.0f;
+	float			aspect_ratio = 0.0f;
+	float			near_plane = 0.0f;
+	float			far_plane = 0.0f;
+	float			vertical_fov = 0.0f;
+	float			frustum_halfdistance_squared = 0;
+	math::float3	frustum_center = math::float3::zero;
 };
 
 class ModuleCamera3D : public Module
@@ -41,20 +38,18 @@ public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 	
-	update_status Update(float dt);
-	bool CleanUp();
+	update_status	Update(float dt);
+	bool			CleanUp();
 
-	bool Save(JSON_Object* root_object);
-	bool Load(JSON_Object* root_object);
+	bool			Save(JSON_Object* root_object);
+	bool			Load(JSON_Object* root_object);
 
-	void LookAt(const math::float3 &Spot, float distance = 0.0f);
-	void Orbit(math::float3 target, float deltaX, float deltaY);
+	void			LookAt(const math::float3 &Spot, float distance = 0.0f);
+	void			Orbit(math::float3 target, float deltaX, float deltaY);
 
 public:
-	math::float3 Reference;
-	Camera camera;
-
-	float camera_mov_speed = 3.0f;
-	float mouse_wheel_speed = 0.5f;
-	float mouse_sensitivity = 0.25f;
+	Camera		camera;
+	float		camera_mov_speed = 3.0f;
+	float		mouse_wheel_speed = 0.5f;
+	float		mouse_sensitivity = 0.25f;
 };
