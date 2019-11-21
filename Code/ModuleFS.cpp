@@ -67,12 +67,13 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 		PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
 		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
 		JSON_Object* metaObj = json_value_get_object(metaValue);
-		if (metaValue != nullptr && date == json_object_get_number(metaObj, "date"))
+		bool fileExists = (metaValue != nullptr && date == json_object_get_number(metaObj, "date"));
+		if (fileExists)
 		{
 			uuid_unit metaSceneUUID = json_object_get_number(metaObj, "uuid");
-			OnLoadScene((resources_directory + "Library/Meshes/" + std::to_string(metaSceneUUID) + scene_file_extension).c_str(), true);
+			fileExists = OnLoadScene((resources_directory + "Library/Meshes/" + std::to_string(metaSceneUUID) + scene_file_extension).c_str(), true);
 		}
-		else
+		if (!fileExists)
 		{
 			CopyFile(path, toSavePathAssets.c_str(), true);
 			SceneImporterSettings* settings = new SceneImporterSettings();
@@ -201,7 +202,7 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name, std::string
 	json_value_free(root_value);
 }
 
-void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
+bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 {
 	std::string tmp_path(originalPath);
 	if (!isFullPath)
@@ -209,6 +210,8 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 	
 	const char* path = tmp_path.c_str();
 	JSON_Value* root_value = json_parse_file(path);
+	if (root_value == nullptr)
+		return false;
 	JSON_Array* root_array = json_value_get_array(root_value);
 
 	// TODO: Delete last scene
@@ -266,4 +269,5 @@ void ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 			}
 		}
 	}
+	return true;
 }
