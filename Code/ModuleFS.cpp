@@ -26,6 +26,8 @@ bool ModuleFS::Start()
 		CreateFolder((resources_directory + "Library/" + "Meshes").c_str());
 	if (!CheckExistingFolder((resources_directory + "Library/" + "Materials").c_str()))
 		CreateFolder((resources_directory + "Library/" + "Materials").c_str());
+	if (!CheckExistingFolder((resources_directory + "Library/" + "Scenes").c_str()))
+		CreateFolder((resources_directory + "Library/" + "Scenes").c_str());
 
 	return true;
 }
@@ -49,13 +51,19 @@ bool ModuleFS::Load(JSON_Object* root_object)
 
 void ModuleFS::DistributeObjectToLoad(const char* path)
 {
-	std::string direction_without_name(path);
+	std::string tmp_path(path);
+	for (int i = 0; i < tmp_path.size(); i++)
+	{
+		if (tmp_path[i] == '/')
+			tmp_path[i] = 92;
+	}
+	std::string direction_without_name(tmp_path);
 	direction_without_name = direction_without_name.substr(0, direction_without_name.find_last_of(92) + 1);
-	std::string name_and_extension(path);
+	std::string name_and_extension(tmp_path);
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
 	std::string name_without_extension(name_and_extension);
 	name_without_extension = name_without_extension.substr(0, name_without_extension.find_last_of(46));
-	std::string extension = name_and_extension;
+	std::string extension(name_and_extension);
 	extension = extension.substr(extension.find_last_of('.') + 1);
 	std::string toSavePathAssets = resources_directory + "Assets/"  + name_and_extension;
 	std::string toSavePathLibraryMesh = resources_directory + "Library/" + "Meshes/" + name_and_extension;

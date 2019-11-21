@@ -74,11 +74,12 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 		std::string tmp_texture_path(originalPath);
 		if (sizeof(originalPath) <= 4) // Thats to check if originalPath exist
 		{
-			tmp_texture_path = App->fs->resources_directory + "Assets/";
+			tmp_texture_path = App->fs->resources_directory + "Assets//";
 		}
 		tmp_texture_path.append(str.C_Str());
 		// Load texture
-		App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
+		App->fs->DistributeObjectToLoad(tmp_texture_path.c_str());
+		//App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
@@ -112,7 +113,9 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 			std::string tmp_texture_path(originalPath);
 			tmp_texture_path.append(str.C_Str());
 			// Load texture
-			App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
+			App->fs->DistributeObjectToLoad(tmp_texture_path.c_str());
+
+			//App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
 			// Search it
 			std::string texture_name_and_extension(tmp_texture_path);
 			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
