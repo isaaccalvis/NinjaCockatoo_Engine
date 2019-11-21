@@ -22,7 +22,6 @@ public:
 	bool Load(JSON_Object* root_object);
 
 	void DistributeObjectToLoad(const char* path);
-	void LoadScene(const char* path, const char* originalPath = nullptr);
 
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);

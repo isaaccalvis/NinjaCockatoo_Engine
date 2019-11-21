@@ -36,7 +36,7 @@ SceneImporter::~SceneImporter()
 	aiDetachAllLogStreams();
 }
 
-void SceneImporter::Import(const char* path, const ImporterSettings* settings)
+void SceneImporter::Import(const char* path, const uuid_unit uuid, const ImporterSettings* settings)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipUVs);
@@ -48,8 +48,7 @@ void SceneImporter::Import(const char* path, const ImporterSettings* settings)
 
 	SceneImporterSettings* sceneSettings = (SceneImporterSettings*)settings;
 	GameObject* base_go = IterateSceneLoading(scene, scene->mRootNode, App->scene->root, sceneSettings->originalPath.c_str());
-	uuid_unit base_uuid = App->input->GenerateUUID();
-	App->fs->OnSaveScene(base_go, std::to_string(base_uuid), "Library/Meshes/");
+	App->fs->OnSaveScene(base_go, std::to_string(uuid), "Library/Meshes/");
 	App->scene->MakeCameraLookThisGOSelected();
 }
 
@@ -79,7 +78,7 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 		}
 		tmp_texture_path.append(str.C_Str());
 		// Load texture
-		App->fs->materialImporter->Import(tmp_texture_path.c_str());
+		App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
@@ -113,7 +112,7 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 			std::string tmp_texture_path(originalPath);
 			tmp_texture_path.append(str.C_Str());
 			// Load texture
-			App->fs->materialImporter->Import(tmp_texture_path.c_str());
+			App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
 			// Search it
 			std::string texture_name_and_extension(tmp_texture_path);
 			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);

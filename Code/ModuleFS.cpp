@@ -63,12 +63,15 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	if (extension == "fbx")
 	{
 		CopyFile(path, toSavePathAssets.c_str(), true);
-		LoadScene(toSavePathAssets.c_str(), direction_without_name.c_str());
+		SceneImporterSettings* settings = new SceneImporterSettings();
+		settings->originalPath = direction_without_name.c_str();
+		sceneImporter->Import(toSavePathAssets.c_str(),App->input->GenerateUUID(), settings);
+		delete settings;
 	}
 	else if (extension == "dds" || extension == "png")
 	{
 		CopyFile(path, toSavePathAssets.c_str(), true);
-		materialImporter->Import(toSavePathAssets.c_str());
+		materialImporter->Import(toSavePathAssets.c_str(), App->input->GenerateUUID());
 	}
 	else if (extension == "smesh")
 	{
@@ -79,14 +82,6 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	{
 		OnLoadScene((direction_without_name + name_and_extension).c_str(), true);
 	}
-}
-
-void ModuleFS::LoadScene(const char* path, const char* originalPath)
-{
-	SceneImporterSettings* settings = new SceneImporterSettings();
-	settings->originalPath = originalPath;
-	sceneImporter->Import(path, settings);
-	delete settings;
 }
 
 bool ModuleFS::CheckExistingFolder(const char* path)

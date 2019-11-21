@@ -36,7 +36,7 @@ MaterialImporter::~MaterialImporter()
 
 }
 
-void MaterialImporter::Import(const char* path, const ImporterSettings* settings)
+void MaterialImporter::Import(const char* path, const uuid_unit uuid, const ImporterSettings* settings)
 {
 	std::string name_and_extension(path);
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
@@ -58,7 +58,7 @@ void MaterialImporter::Import(const char* path, const ImporterSettings* settings
 		data = new ILubyte[size];
 		if (ilSaveL(IL_DDS, data, size))
 		{
-			texture->textureUUID = App->input->GenerateUUID();
+			texture->textureUUID = uuid;
 			PHYSFS_File* file = PHYSFS_openWrite((App->fs->resources_directory + "Library/" + "Materials/" + std::to_string(texture->textureUUID) + App->fs->texture_file_extension).c_str());
 			if (file != nullptr)
 				PHYSFS_writeBytes(file, data, size);
