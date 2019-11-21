@@ -1,8 +1,6 @@
 #include "Application.h"
 #include "ModuleFS.h"
 
-#include "physfs/include/physfs.h"
-
 ModuleFS::ModuleFS(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleFileSystem";
@@ -55,23 +53,31 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	direction_without_name = direction_without_name.substr(0, direction_without_name.find_last_of(92) + 1);
 	std::string name_and_extension(path);
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+	std::string name_without_extension(name_and_extension);
+	name_without_extension = name_without_extension.substr(0, name_without_extension.find_last_of(46));
 	std::string extension = name_and_extension;
 	extension = extension.substr(extension.find_last_of('.') + 1);
 	std::string toSavePathAssets = resources_directory + "Assets/"  + name_and_extension;
 	std::string toSavePathLibraryMesh = resources_directory + "Library/" + "Meshes/" + name_and_extension;
+
+	uuid_unit uuid = App->input->GenerateUUID();
 
 	if (extension == "fbx")
 	{
 		CopyFile(path, toSavePathAssets.c_str(), true);
 		SceneImporterSettings* settings = new SceneImporterSettings();
 		settings->originalPath = direction_without_name.c_str();
-		sceneImporter->Import(toSavePathAssets.c_str(),App->input->GenerateUUID(), settings);
+		sceneImporter->Import(toSavePathAssets.c_str(), uuid, settings);
 		delete settings;
+		// Generate Meta
+		PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
+		GenerateMeta(name_without_extension.c_str(), uuid, date);
+
 	}
 	else if (extension == "dds" || extension == "png")
 	{
 		CopyFile(path, toSavePathAssets.c_str(), true);
-		materialImporter->Import(toSavePathAssets.c_str(), App->input->GenerateUUID());
+		materialImporter->Import(toSavePathAssets.c_str(), uuid);
 	}
 	else if (extension == "smesh")
 	{
@@ -98,11 +104,11 @@ void ModuleFS::CreateFolder(const char* path)
 	CreateDirectory(path, NULL);
 }
 
-void ModuleFS::GenerateMeta(const char* name, uuid_unit uuid, unsigned int date)
+void ModuleFS::GenerateMeta(const char* name, uuid_unit uuid, PHYSFS_sint64 date)
 {
 	std::string newDirection = std::string(resources_directory + "Assets/" + name + meta_file_extension);
 
-	JSON_Value *value = json_value_init_array();
+	JSON_Value* value = json_value_init_object();
 	JSON_Object* object = json_value_get_object(value);
 	
 	json_object_set_number(object,"uuid", uuid);

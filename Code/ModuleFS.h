@@ -8,6 +8,8 @@
 #include "SceneImporter.h"
 #include "MaterialImporter.h"
 
+#include "physfs/include/physfs.h"
+
 #include <string>
 
 class ModuleFS : public Module
@@ -26,7 +28,7 @@ public:
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);
 
-	void GenerateMeta(const char* name, uuid_unit uuid, unsigned int date);
+	void GenerateMeta(const char* name, uuid_unit uuid, PHYSFS_sint64 date);
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name, std::string midPath = "Library/Scenes/");
