@@ -182,6 +182,7 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile)
 			App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->SetTexture(texture);
 		}
 	}
-
+	if (texture->GetWidth() == 0)
+		return nullptr;
 	return texture;
 }

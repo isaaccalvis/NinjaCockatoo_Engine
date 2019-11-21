@@ -61,10 +61,10 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	std::string toSavePathLibraryMesh = resources_directory + "Library/" + "Meshes/" + name_and_extension;
 
 	uuid_unit uuid = App->input->GenerateUUID();
+	PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
 
 	if (extension == "fbx")
 	{
-		PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
 		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
 		JSON_Object* metaObj = json_value_get_object(metaValue);
 		bool fileExists = (metaValue != nullptr && date == json_object_get_number(metaObj, "date"));
@@ -86,8 +86,27 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	}
 	else if (extension == "dds" || extension == "png")
 	{
-		CopyFile(path, toSavePathAssets.c_str(), true);
-		materialImporter->Import(toSavePathAssets.c_str(), uuid);
+		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
+		JSON_Object* metaObj = json_value_get_object(metaValue);
+		bool fileExists = (metaValue != nullptr && date == json_object_get_number(metaObj, "date"));
+		if (fileExists)
+		{
+			uuid_unit metaSceneUUID = json_object_get_number(metaObj, "uuid");
+			if (materialImporter->LoadTexture((resources_directory + "Library/Materials/" + std::to_string(metaSceneUUID) + texture_file_extension).c_str()) != nullptr)
+			{
+				fileExists = true;
+			}
+			else
+			{
+				fileExists = false;
+			}
+		}
+		if (!fileExists)
+		{
+			CopyFile(path, toSavePathAssets.c_str(), true);
+			materialImporter->Import(toSavePathAssets.c_str(), uuid);
+			GenerateMeta(name_without_extension.c_str(), uuid, date);
+		}
 	}
 	else if (extension == "smesh")
 	{
