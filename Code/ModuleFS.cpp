@@ -64,15 +64,24 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 
 	if (extension == "fbx")
 	{
-		CopyFile(path, toSavePathAssets.c_str(), true);
-		SceneImporterSettings* settings = new SceneImporterSettings();
-		settings->originalPath = direction_without_name.c_str();
-		sceneImporter->Import(toSavePathAssets.c_str(), uuid, settings);
-		delete settings;
-		// Generate Meta
 		PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
-		GenerateMeta(name_without_extension.c_str(), uuid, date);
-
+		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
+		JSON_Object* metaObj = json_value_get_object(metaValue);
+		if (metaValue != nullptr && date == json_object_get_number(metaObj, "date"))
+		{
+			uuid_unit metaSceneUUID = json_object_get_number(metaObj, "uuid");
+			OnLoadScene((resources_directory + "Library/Meshes/" + std::to_string(metaSceneUUID) + scene_file_extension).c_str(), true);
+		}
+		else
+		{
+			CopyFile(path, toSavePathAssets.c_str(), true);
+			SceneImporterSettings* settings = new SceneImporterSettings();
+			settings->originalPath = direction_without_name.c_str();
+			sceneImporter->Import(toSavePathAssets.c_str(), uuid, settings);
+			delete settings;
+			// Generate Meta
+			GenerateMeta(name_without_extension.c_str(), uuid, date);
+		}
 	}
 	else if (extension == "dds" || extension == "png")
 	{
@@ -116,6 +125,15 @@ void ModuleFS::GenerateMeta(const char* name, uuid_unit uuid, PHYSFS_sint64 date
 
 	json_serialize_to_file(value, newDirection.c_str());
 	json_value_free(value);
+}
+
+JSON_Value* ModuleFS::CheckIfMetaExist(const char* name)
+{
+	std::string file = name;
+	JSON_Value* value = json_parse_file(file.c_str());
+	if (value == nullptr)
+		return nullptr;
+	return value;
 }
 
 void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)

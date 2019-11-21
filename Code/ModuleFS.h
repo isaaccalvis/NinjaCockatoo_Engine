@@ -29,6 +29,7 @@ public:
 	void CreateFolder(const char* path);
 
 	void GenerateMeta(const char* name, uuid_unit uuid, PHYSFS_sint64 date);
+	JSON_Value* CheckIfMetaExist(const char* name);
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name, std::string midPath = "Library/Scenes/");
