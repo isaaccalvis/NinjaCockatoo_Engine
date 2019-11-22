@@ -93,6 +93,18 @@ Texture* ModuleTextures::SearchTexture(const char* name)
 	return nullptr;
 }
 
+Texture* ModuleTextures::SearchTexture(uuid_unit uuid)
+{
+	for (std::list<Texture*>::iterator item = textures.begin(); item != textures.end(); item++)
+	{
+		if ((*item)->textureUUID == uuid)
+		{
+			return (*item);
+		}
+	}
+	return nullptr;
+}
+
 void ModuleTextures::DeleteTexture(Texture* texture)
 {
 	for (std::list<Texture*>::iterator item = textures.end(); item != textures.begin();)

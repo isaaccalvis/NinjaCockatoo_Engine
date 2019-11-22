@@ -3,6 +3,7 @@
 
 #include <list>
 #include "Module.h"
+#include "Globals.h"
 
 class Texture {
 public:
@@ -37,9 +38,11 @@ public:
 
 	void AddTexture(Texture* texture);
 	Texture* SearchTexture(const char* name);
+	Texture* SearchTexture(uuid_unit uuid);
+
 	void DeleteTexture(Texture* texture);
 	 
-private:
+public:
 	std::list<Texture*> textures;
 };
 

@@ -91,37 +91,6 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 	{
 		IterateSceneLoading(scene, node->mChildren[i], go, originalPath);
 	}
-
-	// Look if there are more meshes at same Node
-	for (int i = 1; i < node->mNumMeshes; i++)
-	{
-		// Create GameObject
-		GameObject* auxGo = App->scene->CreateGameObject(node->mName.C_Str(), go);
-
-		// Create & Load Mesh & Load Texture
-		if (node->mMeshes != nullptr)
-		{
-			Mesh* mesh = new Mesh(scene, node, i);
-			App->renderer3D->AddMesh(mesh);
-			Component* compMesh = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-			compMesh->GetComponentAsMesh()->SetMesh(mesh);
-			Component* comTexture = auxGo->CreateComponent(COMPONENT_TYPE::COMPONENT_MATERIAL, "Material");
-
-			aiString str;
-			scene->mMaterials[scene->mMeshes[(*node->mMeshes)]->mMaterialIndex]->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);
-			std::string tmp_texture_path(originalPath);
-			tmp_texture_path.append(str.C_Str());
-			// Load texture
-			App->fs->DistributeObjectToLoad(tmp_texture_path.c_str());
-
-			//App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
-			// Search it
-			std::string texture_name_and_extension(tmp_texture_path);
-			texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
-			comTexture->GetComponentAsMaterial()->SetTexture(App->textures->SearchTexture(texture_name_and_extension.c_str()));
-			str.Clear();
-		}
-	}
 	return go;
 }
 

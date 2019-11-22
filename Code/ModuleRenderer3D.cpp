@@ -341,13 +341,6 @@ bool ModuleRenderer3D::GetWireframeMode()
 {
 	return renderWireframeMode;
 }
-//bool GetGlDepthTest();
-//bool GetGlCullFace();
-//bool GetGlLighting();
-//bool GetGlColorMaterial();
-//bool GetGlTexture();
-//bool GetGlAlphaTest();
-//bool GetGlLineSmooth();
 
 void ModuleRenderer3D::AddMesh(Mesh* mesh)
 {
@@ -384,4 +377,14 @@ Mesh* ModuleRenderer3D::AddPrimitive(MESH_TYPE type)
 	Mesh *tmp_mesh = new Mesh(type);
 	AddMesh(tmp_mesh);
 	return tmp_mesh;
+}
+
+Mesh* ModuleRenderer3D::SearchMesh(uuid_unit uuid)
+{
+	for (std::list<Mesh*>::iterator it = meshes.begin(); it != meshes.end(); it++)
+	{
+		if ((*it)->uuid == uuid)
+			return (*it);
+	}
+	return nullptr;
 }

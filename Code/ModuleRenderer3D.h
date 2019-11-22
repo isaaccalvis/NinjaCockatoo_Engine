@@ -40,17 +40,13 @@ public:
 	void SetGlLineSmooth(bool set);
 
 	bool GetWireframeMode();
-	//bool GetGlDepthTest();
-	//bool GetGlCullFace();
-	//bool GetGlLighting();
-	//bool GetGlColorMaterial();
-	//bool GetGlTexture();
-	//bool GetGlAlphaTest();
-	//bool GetGlLineSmooth();
+
 	void AddMesh(Mesh* mesh);
 	void ClearMeshes();
 	void DeleteMesh(Mesh* mesh);
 	Mesh* AddPrimitive(MESH_TYPE type);
+
+	Mesh* SearchMesh(uuid_unit uuid);
 
 private:
 	SDL_GLContext context;
