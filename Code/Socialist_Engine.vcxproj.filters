@@ -469,6 +469,9 @@
     <ClInclude Include="GUI_QuadTree.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleResources.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -704,6 +707,9 @@
     </ClCompile>
     <ClCompile Include="GUI_QuadTree.cpp">
       <Filter>Engine\GUI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleResources.cpp">
+      <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@
 #include "ModuleHardware.h"
 #include "ModuleTextures.h"
 #include "ModuleScene.h"
+#include "ModuleResources.h"
 #include "ModuleFS.h"
 #include "Console.h"
 
@@ -46,6 +47,7 @@ public:
 	ModuleTextures* textures;
 	ModuleScene* scene;
 	ModuleFS* fs;
+	ModuleResources* resources;
 
 	Console* console;
 
