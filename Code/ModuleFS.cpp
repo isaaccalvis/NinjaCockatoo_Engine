@@ -100,7 +100,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 		if (fileExists)
 		{
 			uuid_unit metaSceneUUID = json_object_get_number(metaObj, "uuid");
-			if (materialImporter->LoadTexture((resources_directory + "Library/Materials/" + std::to_string(metaSceneUUID) + texture_file_extension).c_str()) != nullptr)
+			if (materialImporter->LoadTexture((resources_directory + "Library/Materials/" + std::to_string(metaSceneUUID) + texture_file_extension).c_str(), metaSceneUUID) != nullptr)
 			{
 				fileExists = true;
 			}

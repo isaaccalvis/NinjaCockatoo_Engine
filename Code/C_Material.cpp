@@ -28,7 +28,7 @@ void C_Material::OnSaveJson(JSON_Object* object)
 void C_Material::OnLoadJson(JSON_Object* object)
 {
 	material_resources_uuid = json_object_get_number(object, "MaterialUUID");
-	texture = App->fs->materialImporter->LoadTexture(std::string(App->fs->resources_directory + "Library/Materials/" + std::to_string(material_resources_uuid) + App->fs->texture_file_extension).c_str());
+	texture = App->fs->materialImporter->LoadTexture(std::string(App->fs->resources_directory + "Library/Materials/" + std::to_string(material_resources_uuid) + App->fs->texture_file_extension).c_str(), material_resources_uuid);
 }
 
 void C_Material::SetTexture(Texture* tex)
