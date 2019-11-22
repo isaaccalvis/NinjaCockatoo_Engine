@@ -2,6 +2,8 @@
 #include "Application.h"
 
 #include "ModuleRenderer3D.h"
+#include "ModuleScene.h"
+
 #include "glew-2.1.0/include/GL/glew.h"
 #include "SDL\include\SDL_opengl.h"
 
@@ -124,8 +126,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->camera.GetViewMatrix().ptr());
 
+	glLoadMatrixf(App->camera->camera.GetViewMatrix().ptr());
 	lights[0].SetPos(App->camera->camera.frustum.pos.x, App->camera->camera.frustum.pos.y, App->camera->camera.frustum.pos.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)

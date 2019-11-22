@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleInGame.h"
 
+#include "C_Camera.h"
+
 ModuleInGame::ModuleInGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleInGame";
@@ -30,9 +32,19 @@ bool ModuleInGame::CleanUp()
 
 void ModuleInGame::StartGame()
 {
-	onGame = true;
-	runingGame = true;
-	timer.Start();
+	if (App->scene->camera != nullptr)
+	{
+		onGame = true;
+		runingGame = true;
+		timer.Start();
+		App->camera->editorCameraCopy = App->camera->camera;
+		App->camera->camera.frustum = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum;
+		App->camera->isCameraEditor = false;
+	}
+	else
+	{
+		LOG_CONSOLE("Need a MainCamera to PlayGame");
+	}
 }
 
 void ModuleInGame::StopGame()
@@ -40,6 +52,9 @@ void ModuleInGame::StopGame()
 	onGame = false;
 	runingGame = false;
 	timer.Stop();
+
+	App->camera->camera = App->camera->editorCameraCopy;
+	App->camera->isCameraEditor = true;
 }
 
 void ModuleInGame::PauseGame()

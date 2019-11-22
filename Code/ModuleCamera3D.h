@@ -49,6 +49,8 @@ public:
 
 public:
 	Camera		camera;
+	Camera		editorCameraCopy;
+	bool		isCameraEditor = true;
 	float		camera_mov_speed = 3.0f;
 	float		mouse_wheel_speed = 0.5f;
 	float		mouse_sensitivity = 0.25f;

@@ -34,67 +34,69 @@ bool ModuleCamera3D::Load(JSON_Object* root_object)
 
 update_status ModuleCamera3D::Update(float dt)
 {
-	math::float3 newPos(0,0,0);
-
-	if (App->input->GetMouseZ() != 0)
+	if (isCameraEditor)
 	{
-		camera.frustum.Translate(App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed);
-	}
+		math::float3 newPos(0, 0, 0);
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-	{
-		if (App->scene->goSelected != nullptr)
+		if (App->input->GetMouseZ() != 0)
 		{
-			App->scene->MakeCameraLookThisGOSelected();
+			camera.frustum.Translate(App->input->GetMouseZ() * camera.frustum.front * mouse_wheel_speed);
 		}
-	}
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		float speed = camera_mov_speed * dt;
-		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed *= 2;
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos += camera.frustum.up * speed;
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos -= camera.frustum.up *speed;
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos += camera.frustum.front * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= camera.frustum.front * speed;
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= camera.frustum.WorldRight() * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += camera.frustum.WorldRight() * speed;
-	}
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		{
+			if (App->scene->goSelected != nullptr)
+			{
+				App->scene->MakeCameraLookThisGOSelected();
+			}
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		if (App->scene->goSelected != nullptr)
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			float speed = camera_mov_speed * dt;
+			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+				speed *= 2;
+			if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos += camera.frustum.up * speed;
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos -= camera.frustum.up *speed;
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos += camera.frustum.front * speed;
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos -= camera.frustum.front * speed;
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= camera.frustum.WorldRight() * speed;
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += camera.frustum.WorldRight() * speed;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			if (App->scene->goSelected != nullptr)
+			{
+				int dx = -App->input->GetMouseXMotion();
+				int dy = -App->input->GetMouseYMotion();
+
+				float deltaX = (float)dx * mouse_sensitivity * dt;
+				float deltaY = (float)dy * mouse_sensitivity * dt;
+				Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
+			}
+		}
+		else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();
 
-			float deltaX = (float)dx * mouse_sensitivity * dt;
-			float deltaY = (float)dy * mouse_sensitivity * dt;
-			Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
+			if (dx != 0 || dy != 0)
+			{
+				math::Quat rotationX = math::Quat::RotateAxisAngle({ 0.0f,1.0f,0.0f }, dx * DEGTORAD * mouse_sensitivity);
+				math::Quat rotationY = math::Quat::RotateAxisAngle(camera.frustum.WorldRight(), dy * DEGTORAD * mouse_sensitivity);
+				math::Quat finalRotation = rotationX * rotationY;
+
+				camera.frustum.up = finalRotation * camera.frustum.up;
+				camera.frustum.front = finalRotation * camera.frustum.front;
+
+				float distance = (camera.frustum.pos - camera.frustum.pos).Length();
+				camera.frustum.pos = camera.frustum.pos + (-camera.frustum.front * distance);
+			}
 		}
+
+		camera.frustum.Translate(newPos);
 	}
-	else if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-
-		if(dx != 0 || dy != 0)
-		{
-			math::Quat rotationX = math::Quat::RotateAxisAngle({ 0.0f,1.0f,0.0f }, dx * DEGTORAD * mouse_sensitivity);
-			math::Quat rotationY = math::Quat::RotateAxisAngle(camera.frustum.WorldRight(), dy * DEGTORAD * mouse_sensitivity);
-			math::Quat finalRotation = rotationX * rotationY;
-
-			camera.frustum.up = finalRotation * camera.frustum.up;
-			camera.frustum.front = finalRotation * camera.frustum.front;
-
-			float distance = (camera.frustum.pos - camera.frustum.pos).Length();
-			camera.frustum.pos = camera.frustum.pos + (-camera.frustum.front * distance);
-		}
-	}
-
-	camera.frustum.Translate(newPos);
-
 	return UPDATE_CONTINUE;
 }
 
