@@ -472,6 +472,9 @@
     <ClInclude Include="ModuleResources.h">
       <Filter>Engine\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleInGame.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -709,6 +712,9 @@
       <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
     <ClCompile Include="ModuleResources.cpp">
+      <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInGame.cpp">
       <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>

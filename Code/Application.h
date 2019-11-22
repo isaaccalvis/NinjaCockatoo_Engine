@@ -15,6 +15,7 @@
 #include "ModuleScene.h"
 #include "ModuleResources.h"
 #include "ModuleFS.h"
+#include "ModuleInGame.h"
 #include "Console.h"
 
 class Application
@@ -48,6 +49,7 @@ public:
 	ModuleScene* scene;
 	ModuleFS* fs;
 	ModuleResources* resources;
+	ModuleInGame* ingame;
 
 	Console* console;
 

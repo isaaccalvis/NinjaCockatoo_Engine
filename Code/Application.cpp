@@ -13,6 +13,7 @@ Application::Application()
 	scene = new ModuleScene(this);
 	fs = new ModuleFS(this);
 	resources = new ModuleResources(this);
+	ingame = new ModuleInGame(this);
 
 	console = new Console(this);
 
@@ -24,6 +25,7 @@ Application::Application()
 	AddModule(scene);
 	AddModule(fs);
 	AddModule(resources);
+	AddModule(ingame);
 
 	AddModule(console);
 

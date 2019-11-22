@@ -10,6 +10,9 @@ public:
 	ModuleResources(Application* app, bool start_enabled = true);
 
 	bool CleanUp();
+
+private:
+
 };
 
 #endif

@@ -59,6 +59,8 @@ public:
 
 	std::vector<float3> vectorVertex;
 
+	uuid_unit uuid;
+
 protected:
 	// Vertices
 	unsigned int vertices = 0u;
