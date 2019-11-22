@@ -106,6 +106,7 @@
     <ClInclude Include="GUI_Configuration.h" />
     <ClInclude Include="GUI_Hierachy.h" />
     <ClInclude Include="GUI_Panel.h" />
+    <ClInclude Include="GUI_PlayGame.h" />
     <ClInclude Include="GUI_Properties.h" />
     <ClInclude Include="GUI_QuadTree.h" />
     <ClInclude Include="GUI_TopBar.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="GUI_Configuration.cpp" />
     <ClCompile Include="GUI_Hierachy.cpp" />
     <ClCompile Include="GUI_Panel.cpp" />
+    <ClCompile Include="GUI_PlayGame.cpp" />
     <ClCompile Include="GUI_Properties.cpp" />
     <ClCompile Include="GUI_QuadTree.cpp" />
     <ClCompile Include="GUI_TopBar.cpp" />

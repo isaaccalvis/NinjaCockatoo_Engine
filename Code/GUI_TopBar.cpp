@@ -51,6 +51,9 @@ void GUI_TopBar::Draw()
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_HIERACHY)->SwitchActive();
 			if (ImGui::MenuItem("QuadTree"))
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_QUADTREE)->SwitchActive();
+			if (ImGui::MenuItem("PlayGame"))
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PLAYGAME)->SwitchActive();
+
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("GameObject"))
