@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "C_Camera.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -96,6 +97,10 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		camera.frustum.Translate(newPos);
+	}
+	else
+	{
+		App->camera->camera.frustum = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum;
 	}
 	return UPDATE_CONTINUE;
 }
