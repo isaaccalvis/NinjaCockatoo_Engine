@@ -22,12 +22,10 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 	}
 	else
 	{
-		//Create window
 		int width = App->window->screenWidth * App->window->screenSize;
 		int height = App->window->screenHeight * App->window->screenSize;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
-		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
@@ -61,7 +59,6 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 		}
 		else
 		{
-			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
@@ -77,7 +74,6 @@ bool ModuleWindow::Init(JSON_Object* root_object)
 
 update_status ModuleWindow::Update(float dt)
 {
-	// TODO: PUT HERE BRIGTHNESS
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -106,7 +102,6 @@ bool ModuleWindow::Save(JSON_Object* root_object)
 	json_object_set_boolean(root_object, "vsync", winVsync);
 	json_object_set_string(root_object, "title", winTitle);
 	json_object_set_string(root_object, "organization", organization);
-
 	return true;
 }
 
@@ -224,8 +219,17 @@ bool ModuleWindow::SetFullScreenDesktop(bool set)
 
 bool ModuleWindow::SetResizable(bool set)
 {
-	//if (!winFullScreen)
+	if (!winFullScreen)
+	{
+		if (set)
+		{
+			
+		}
+		else
+		{
 
+		}
+	}
 	return true;
 }
 

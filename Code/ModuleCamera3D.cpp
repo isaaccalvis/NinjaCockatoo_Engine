@@ -98,10 +98,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 		camera->frustum.Translate(newPos);
 	}
-	else
-	{
-		App->camera->camera->frustum = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum;
-	}
+
 	return UPDATE_CONTINUE;
 }
 

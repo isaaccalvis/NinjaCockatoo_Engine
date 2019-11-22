@@ -14,7 +14,6 @@ public:
 private:
 	bool saveWindowActive = false;
 	bool loadWindowActive = false;
-
 };
 
 #endif

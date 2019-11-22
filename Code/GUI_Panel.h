@@ -32,7 +32,7 @@ public:
 	GUI_WINDOWS GetType() const;
 
 protected:
-	bool active = false;
+	bool active = true;
 	SDL_Scancode shortcut = SDL_SCANCODE_UNKNOWN;
 	GUI_WINDOWS type = GUI_WINDOWS::GUI_NONE;
 };
