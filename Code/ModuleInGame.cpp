@@ -4,6 +4,7 @@
 ModuleInGame::ModuleInGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleInGame";
+	timer.Stop();
 }
 
 update_status ModuleInGame::Update(float dt)
@@ -44,11 +45,11 @@ void ModuleInGame::StopGame()
 void ModuleInGame::PauseGame()
 {
 	runingGame = false;
-	timer.Stop();
+	timer.Pause();
 }
 
 void ModuleInGame::ContinueGame()
 {
 	runingGame = true;
-	timer.Start();
+	timer.Continue();
 }

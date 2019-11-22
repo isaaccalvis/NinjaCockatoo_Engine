@@ -13,6 +13,8 @@ public:
 
 	void Start();
 	void Stop();
+	void Pause();
+	void Continue();
 
 	Uint32 Read();
 
@@ -21,6 +23,7 @@ private:
 	bool	running;
 	Uint32	started_at;
 	Uint32	stopped_at;
+	Uint32  totalPaused;
 };
 
 #endif //__TIMER_H__
