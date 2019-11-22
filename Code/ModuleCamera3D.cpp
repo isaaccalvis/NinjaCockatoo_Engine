@@ -95,7 +95,6 @@ update_status ModuleCamera3D::Update(float dt)
 				camera.frustum.pos = camera.frustum.pos + (-camera.frustum.front * distance);
 			}
 		}
-
 		camera.frustum.Translate(newPos);
 	}
 	else
