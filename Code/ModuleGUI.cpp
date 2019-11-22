@@ -11,6 +11,7 @@
 #include "GUI_Hierachy.h"
 #include "GUI_QuadTree.h"
 #include "GUI_PlayGame.h"
+#include "GUI_Assets.h"
 
 #include "Console.h"
 
@@ -50,6 +51,8 @@ bool ModuleGUI::Start()
 	guiPanels.push_back(gui_quadtree);
 	GUI_Panel* gui_playgame = new GUI_PlayGame(SDL_SCANCODE_F6);
 	guiPanels.push_back(gui_playgame);
+	GUI_Panel* gui_assets = new GUI_Assets(SDL_SCANCODE_F7);
+	guiPanels.push_back(gui_assets);
 	return true;
 }
 

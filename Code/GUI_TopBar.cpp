@@ -53,6 +53,8 @@ void GUI_TopBar::Draw()
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_QUADTREE)->SwitchActive();
 			if (ImGui::MenuItem("PlayGame"))
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PLAYGAME)->SwitchActive();
+			if (ImGui::MenuItem("Assets"))
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_ASSETS)->SwitchActive();
 
 			ImGui::EndMenu();
 		}

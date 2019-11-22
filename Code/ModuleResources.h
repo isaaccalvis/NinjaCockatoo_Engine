@@ -32,9 +32,9 @@ public:
 class ModuleResources : public Module
 {
 public:
+	// Module Resources
 	ModuleResources(Application* app, bool start_enabled = true);
 	~ModuleResources();
-
 	bool CleanUp();
 
 	// Meshes

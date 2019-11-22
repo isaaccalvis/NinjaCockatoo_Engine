@@ -478,6 +478,9 @@
     <ClInclude Include="GUI_PlayGame.h">
       <Filter>Engine\GUI\Panels</Filter>
     </ClInclude>
+    <ClInclude Include="GUI_Assets.h">
+      <Filter>Engine\GUI\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -721,6 +724,9 @@
       <Filter>Engine\Modules</Filter>
     </ClCompile>
     <ClCompile Include="GUI_PlayGame.cpp">
+      <Filter>Engine\GUI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Assets.cpp">
       <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
   </ItemGroup>

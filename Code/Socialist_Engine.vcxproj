@@ -103,6 +103,7 @@
     <ClInclude Include="gpudetect\ID3D10Extensions.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GUI_About.h" />
+    <ClInclude Include="GUI_Assets.h" />
     <ClInclude Include="GUI_Configuration.h" />
     <ClInclude Include="GUI_Hierachy.h" />
     <ClInclude Include="GUI_Panel.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="gpudetect\DeviceId.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GUI_About.cpp" />
+    <ClCompile Include="GUI_Assets.cpp" />
     <ClCompile Include="GUI_Configuration.cpp" />
     <ClCompile Include="GUI_Hierachy.cpp" />
     <ClCompile Include="GUI_Panel.cpp" />

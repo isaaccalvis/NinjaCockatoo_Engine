@@ -42,6 +42,7 @@ ModuleResources::~ModuleResources()
 bool ModuleResources::CleanUp()
 {
 	CleanResourceMeshes();
+	CleanResourceMaterial();
 	return true;
 }
 
