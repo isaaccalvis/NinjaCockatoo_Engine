@@ -22,7 +22,7 @@ public:
 	bool IsInsideFrustumCulling(GameObject* go);
 
 public:
-	Frustum frustum;
+	Camera* camera;
 	DebugCube* debugCube = nullptr;
 	bool renderCameraFrustum = true;
 	bool isMainCamera = false;

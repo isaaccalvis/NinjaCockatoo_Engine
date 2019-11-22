@@ -25,7 +25,6 @@ void myCallback(const char* msg, char* userData)
 SceneImporter::SceneImporter()
 {
 	bool ret = true;
-	// Assimp CallBack
 	struct aiLogStream stream;
 	stream.callback = myCallback;
 	aiAttachLogStream(&stream);

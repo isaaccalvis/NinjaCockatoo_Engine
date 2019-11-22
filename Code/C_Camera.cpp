@@ -6,6 +6,7 @@
 C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_CAMERA)
 {
 	isUnique = true;
+	camera = new Camera();
 	InitFrustum();
 	debugCube = new DebugCube();
 	if (App->scene->camera == nullptr)
@@ -38,9 +39,9 @@ void C_Camera::OnSaveJson(JSON_Object* object)
 	if (parent != nullptr)
 	{
 		json_object_set_string(object, "c_type", "c_camera");
-		json_object_set_number(object, "near_plane_distance", frustum.nearPlaneDistance);
-		json_object_set_number(object, "far_plane_distance", frustum.farPlaneDistance);
-		json_object_set_number(object, "vertical_foc", frustum.verticalFov);
+		json_object_set_number(object, "near_plane_distance", camera->frustum.nearPlaneDistance);
+		json_object_set_number(object, "far_plane_distance", camera->frustum.farPlaneDistance);
+		json_object_set_number(object, "vertical_foc", camera->frustum.verticalFov);
 		json_object_set_boolean(object, "is_main_camera", isMainCamera);
 		json_object_set_boolean(object, "frustum_culling", frustumCulling);
 	}
@@ -48,9 +49,9 @@ void C_Camera::OnSaveJson(JSON_Object* object)
 
 void C_Camera::OnLoadJson(JSON_Object* object)
 {
-	frustum.nearPlaneDistance = json_object_get_number(object, "near_plane_distance");
-	frustum.farPlaneDistance = json_object_get_number(object, "far_plane_distance");
-	frustum.verticalFov = json_object_get_number(object, "vertical_foc");
+	camera->frustum.nearPlaneDistance = json_object_get_number(object, "near_plane_distance");
+	camera->frustum.farPlaneDistance = json_object_get_number(object, "far_plane_distance");
+	camera->frustum.verticalFov = json_object_get_number(object, "vertical_foc");
 	isMainCamera = json_object_get_boolean(object, "is_main_camera");
 	if (isMainCamera)
 		App->scene->camera = this->parent;
@@ -67,15 +68,15 @@ void C_Camera::InitFrustum()
 	far_plane = 1000;
 	vertical_fov = 60; /* In degrees */
 
-	frustum.type = PerspectiveFrustum;
-	frustum.pos.Set(0, 0, 0);
-	frustum.front.Set(0, 0, 1);
-	frustum.up.Set(0, 1, 0);
-	frustum.nearPlaneDistance = near_plane;
-	frustum.farPlaneDistance = far_plane;
-	frustum.verticalFov = vertical_fov * DEGTORAD;
-	frustum.horizontalFov = Atan(aspect_ratio*Tan(frustum.verticalFov / 2)) * 2;
-	frustum_center = frustum.CenterPoint();
+	camera->frustum.type = PerspectiveFrustum;
+	camera->frustum.pos.Set(0, 0, 0);
+	camera->frustum.front.Set(0, 0, 1);
+	camera->frustum.up.Set(0, 1, 0);
+	camera->frustum.nearPlaneDistance = near_plane;
+	camera->frustum.farPlaneDistance = far_plane;
+	camera->frustum.verticalFov = vertical_fov * DEGTORAD;
+	camera->frustum.horizontalFov = Atan(aspect_ratio*Tan(camera->frustum.verticalFov / 2)) * 2;
+	frustum_center = camera->frustum.CenterPoint();
 	frustum_halfdistance_squared = 170 * 170;
 }
 
@@ -84,7 +85,7 @@ void C_Camera::RenderCamera()
 	if (debugCube != nullptr)
 	{
 		static math::float3 frustumToDraw[8];
-		frustum.GetCornerPoints(frustumToDraw);
+		camera->frustum.GetCornerPoints(frustumToDraw);
 		debugCube->DirectRender(frustumToDraw, White);
 	}
 }
@@ -92,9 +93,9 @@ void C_Camera::RenderCamera()
 void C_Camera::UpdateTransform()
 {
 	math::float4x4 matrix = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
-	frustum.pos = matrix.TranslatePart();
-	frustum.front = matrix.WorldZ();
-	frustum.up = matrix.WorldY();
+	camera->frustum.pos = matrix.TranslatePart();
+	camera->frustum.front = matrix.WorldZ();
+	camera->frustum.up = matrix.WorldY();
 }
 
 void C_Camera::BecomeMainCamera()
@@ -116,7 +117,7 @@ bool C_Camera::IsInsideFrustumCulling(GameObject* go)
 	//{
 		// This is faster, but have some problems
 		//if (frustum.Contains(go->boundingBox.CornerPoint(i)))
-	if (frustum.Intersects(go->boundingBox))
+	if (camera->frustum.Intersects(go->boundingBox))
 	{
 		return true;
 	}

@@ -89,15 +89,15 @@ void ModuleScene::MakeCameraLookThisGOSelected()
 	// Set camera pos
 	if (goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MESH) != nullptr)
 	{
-		App->camera->camera.frustum.pos.y = goSelected->boundingBox.CenterPoint().y + goSelected->boundingBox.Diagonal().y * 2;
-		App->camera->camera.frustum.pos.x = goSelected->boundingBox.CenterPoint().x + goSelected->boundingBox.Diagonal().x * 2;
-		App->camera->camera.frustum.pos.z = goSelected->boundingBox.CenterPoint().z + goSelected->boundingBox.Diagonal().z * 2;
+		App->camera->camera->frustum.pos.y = goSelected->boundingBox.CenterPoint().y + goSelected->boundingBox.Diagonal().y * 2;
+		App->camera->camera->frustum.pos.x = goSelected->boundingBox.CenterPoint().x + goSelected->boundingBox.Diagonal().x * 2;
+		App->camera->camera->frustum.pos.z = goSelected->boundingBox.CenterPoint().z + goSelected->boundingBox.Diagonal().z * 2;
 	}
 	else
 	{
-		App->camera->camera.frustum.pos.x = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.x + 1;
-		App->camera->camera.frustum.pos.y = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.y + 1;
-		App->camera->camera.frustum.pos.z = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.z + 1;
+		App->camera->camera->frustum.pos.x = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.x + 1;
+		App->camera->camera->frustum.pos.y = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.y + 1;
+		App->camera->camera->frustum.pos.z = goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position.z + 1;
 	}
 	// Look
 	App->camera->LookAt(goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position);
@@ -114,7 +114,7 @@ void ModuleScene::MousePicking(int coor_x, int coor_y)
 	float x = -(1.0f - (float(coor_x) * 2.0f) / w_width);
 	float y = 1.0f - (float(coor_y) * 2.0f) / w_heigh;
 
-	math::LineSegment line = App->camera->camera.frustum.UnProjectLineSegment(x, y);
+	math::LineSegment line = App->camera->camera->frustum.UnProjectLineSegment(x, y);
 
 	GameObject* obj = nullptr;
 	std::vector<GameObject*> selectedGO;

@@ -101,22 +101,22 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("Camera"))
 				{
-					float tmpNearPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.nearPlaneDistance;
+					float tmpNearPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.nearPlaneDistance;
 					if (ImGui::InputFloat("NearPlane", &tmpNearPlane))
 					{
-						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.nearPlaneDistance = tmpNearPlane;
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.nearPlaneDistance = tmpNearPlane;
 					}
 
-					float tmpFarPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.farPlaneDistance;
+					float tmpFarPlane = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.farPlaneDistance;
 					if (ImGui::InputFloat("FarPlane", &tmpFarPlane))
 					{
-						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.farPlaneDistance = tmpFarPlane;
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.farPlaneDistance = tmpFarPlane;
 					}
 
-					float tmpVerticalFov = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.verticalFov;
+					float tmpVerticalFov = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.verticalFov;
 					if (ImGui::InputFloat("VerticalFov", &tmpVerticalFov))
 					{
-						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum.verticalFov = tmpVerticalFov;
+						App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera->frustum.verticalFov = tmpVerticalFov;
 					}
 
 					bool isMainCamera = App->scene->goSelected->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->isMainCamera;

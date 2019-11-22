@@ -127,8 +127,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glMatrixMode(GL_MODELVIEW);
 
-	glLoadMatrixf(App->camera->camera.GetViewMatrix().ptr());
-	lights[0].SetPos(App->camera->camera.frustum.pos.x, App->camera->camera.frustum.pos.y, App->camera->camera.frustum.pos.z);
+	glLoadMatrixf(App->camera->camera->GetViewMatrix().ptr());
+	lights[0].SetPos(App->camera->camera->frustum.pos.x, App->camera->camera->frustum.pos.y, App->camera->camera->frustum.pos.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
@@ -220,7 +220,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glLoadMatrixf(App->camera->camera.GetProjectionMatrix().ptr());
+	glLoadMatrixf(App->camera->camera->GetProjectionMatrix().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

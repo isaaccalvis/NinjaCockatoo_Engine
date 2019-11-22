@@ -49,7 +49,7 @@ public:
 	ResourceMaterial*	GetResourceMaterial(uuid_unit uuid);
 	void				CleanResourceMaterial();
 
-private:
+public:
 	std::vector<ResourceMesh*>		resourcesMesh;
 	std::vector<ResourceMaterial*>	resourceMaterial;
 };

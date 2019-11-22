@@ -159,8 +159,8 @@ void ModuleGUI::UpdateGuizmo()
 	if (App->scene->goSelected != nullptr)
 	{
 		GameObject* go = App->scene->goSelected;
-		math::float4x4 viewMatrix = App->camera->camera.GetViewMatrix();
-		math::float4x4 projectionMatrix = App->camera->camera.GetProjectionMatrix();
+		math::float4x4 viewMatrix = App->camera->camera->GetViewMatrix();
+		math::float4x4 projectionMatrix = App->camera->camera->GetProjectionMatrix();
 		math::float4x4 transformMatrix = go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
 		transformMatrix = transformMatrix.Transposed();
 

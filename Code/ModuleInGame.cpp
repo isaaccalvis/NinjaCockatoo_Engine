@@ -31,7 +31,7 @@ void ModuleInGame::StartGame()
 		runingGame = true;
 		timer.Start();
 		App->camera->editorCameraCopy = App->camera->camera;
-		App->camera->camera.frustum = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->frustum;
+		App->camera->camera = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera;
 		App->camera->isCameraEditor = false;
 		App->fs->OnSaveScene(App->scene->root, "__tmpscene");
 	}

@@ -48,8 +48,8 @@ public:
 	void			Orbit(math::float3 target, float deltaX, float deltaY);
 
 public:
-	Camera		camera;
-	Camera		editorCameraCopy;
+	Camera*		camera = nullptr;
+	Camera*		editorCameraCopy = nullptr;
 	bool		isCameraEditor = true;
 	float		camera_mov_speed = 3.0f;
 	float		mouse_wheel_speed = 0.5f;
