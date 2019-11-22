@@ -146,7 +146,7 @@ void GUI_TopBar::Draw()
 	{
 		ImGui::SetNextWindowSize(ImVec2(300, 70));
 		ImGui::SetNextWindowPosCenter(ImGuiCond_Always);
-		ImGui::Begin("Save Scen", &saveWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+		ImGui::Begin("Save Scene", &saveWindowActive, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 		if (ImGui::InputText("Save Name", gui_saveName, 256, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
 			App->fs->OnSaveScene(App->scene->root, gui_saveName);

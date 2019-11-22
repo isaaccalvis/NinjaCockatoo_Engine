@@ -62,7 +62,10 @@ update_status ModuleGUI::PostUpdate(float dt)
 	ImGui::NewFrame();
 	ImGuizmo::BeginFrame();
 
-	UpdateGuizmo();
+	if (App->camera->isCameraEditor == true)
+	{
+		UpdateGuizmo();
+	}
 	UpdatePanels();
 
 	ImGui::Render();
