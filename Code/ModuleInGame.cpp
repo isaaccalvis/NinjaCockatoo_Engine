@@ -11,16 +11,9 @@ ModuleInGame::ModuleInGame(Application* app, bool start_enabled) : Module(app, s
 
 update_status ModuleInGame::Update(float dt)
 {
-	if (onGame)
+	if (onGame && runingGame)
 	{
-		if (runingGame)
-		{
-
-		}
-		else
-		{
-
-		}
+		logicUpdates++;
 	}
 	return update_status::UPDATE_CONTINUE;
 }
@@ -69,4 +62,14 @@ void ModuleInGame::ContinueGame()
 {
 	runingGame = true;
 	timer.Continue();
+}
+
+void ModuleInGame::TickGame()
+{
+	if (onGame && runingGame == false)
+	{
+		ContinueGame();
+		Update(App->GetLastDt());
+		PauseGame();
+	}
 }

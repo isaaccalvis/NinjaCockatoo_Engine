@@ -47,7 +47,7 @@ void GUI_PlayGame::Draw()
 		ImGui::SameLine();
 		if (ImGui::Button("Tick"))
 		{
-			LOG_CONSOLE("Tick; advance 1 step");
+			App->ingame->TickGame();
 		}
 
 		ImGui::SameLine();
@@ -57,6 +57,9 @@ void GUI_PlayGame::Draw()
 		float minutes = (int)(abs(totalTime / 60 / 1000 - hours * 60));
 		float seconds = (int)(abs(totalTime / 1000 - minutes * 60));
 		ImGui::Text("%i:%i:%i", (int)hours, (int)minutes, (int)seconds);
+
+		ImGui::SameLine();
+		ImGui::Text("LogicUpdates: %u", App->ingame->logicUpdates);
 	}
 	// ~Timer
 	ImGui::End();

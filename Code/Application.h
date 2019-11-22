@@ -68,6 +68,7 @@ public:
 	int GetMaxFPS() const;
 	float GetLastMS() const;
 	void SetMaxFPS(int max);
+	float GetLastDt() const;
 };
 
 extern Application* App;

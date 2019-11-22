@@ -190,6 +190,11 @@ void  Application::SetMaxFPS(int max)
 		max_ms = 0;
 }
 
+float Application::GetLastDt() const
+{
+	return dt;
+}
+
 void Application::LogConsole(const char* msg)
 {
 	if (console != nullptr)

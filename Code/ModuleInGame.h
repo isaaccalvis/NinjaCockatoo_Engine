@@ -17,11 +17,13 @@ public:
 	void StopGame();
 	void PauseGame();
 	void ContinueGame();
+	void TickGame();
 
 public:
 	bool onGame = false;
 	bool runingGame = false;
 	Timer timer;
+	unsigned int logicUpdates = 0;
 };
 
 #endif
