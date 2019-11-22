@@ -3,18 +3,30 @@
 
 #include <vector>
 #include "Module.h"
+
 #include "Mesh.h"
+#include "ModuleTextures.h"
 
 class ResourceMesh
 {
 public:
-	ResourceMesh(Mesh* mesh = nullptr, uuid_unit uuid = 0);
+	ResourceMesh(Mesh* mesh, uuid_unit uuid);
 	~ResourceMesh();
-
 public:
 	Mesh* mesh = nullptr;
 	uuid_unit uuid = 0;
 	unsigned int totalInUse = 0;
+};
+
+class ResourceMaterial
+{
+public:
+	ResourceMaterial(Texture* mesh, uuid_unit uuid);
+	~ResourceMaterial();
+public:
+	Texture* texture = nullptr;
+	uuid_unit uuid = 0;
+	unsigned int totalInUse;
 };
 
 class ModuleResources : public Module
@@ -26,13 +38,20 @@ public:
 	bool CleanUp();
 
 	// Meshes
-	void AddResourceMesh(Mesh* mesh, uuid_unit uuid);
-	void DeleteResourceMesh(uuid_unit uuid);
-	ResourceMesh* GetResourceMesh(uuid_unit uuid);
-	void CleanResourceMeshes();
+	void			AddResourceMesh(Mesh* mesh, uuid_unit uuid);
+	void			DeleteResourceMesh(uuid_unit uuid);
+	ResourceMesh*	GetResourceMesh(uuid_unit uuid);
+	void			CleanResourceMeshes();
+
+	// Materials
+	void				AddResourceMaterial(Texture* texture, uuid_unit uuid);
+	void				DeleteResourceMaterial(uuid_unit uuid);
+	ResourceMaterial*	GetResourceMaterial(uuid_unit uuid);
+	void				CleanResourceMaterial();
 
 private:
-	std::vector<ResourceMesh*> resourcesMesh;
+	std::vector<ResourceMesh*>		resourcesMesh;
+	std::vector<ResourceMaterial*>	resourceMaterial;
 };
 
 #endif

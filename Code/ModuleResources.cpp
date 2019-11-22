@@ -2,20 +2,33 @@
 #include "ModuleResources.h"
 
 
-// Resources Mesh
+// Resource Mesh
 ResourceMesh::ResourceMesh(Mesh* mesh, uuid_unit uuid)
 {
 	this->mesh = mesh;
 	this->uuid = uuid;
-	this->totalInUse = 0;
+	this->totalInUse = 0u;
 }
 
 ResourceMesh::~ResourceMesh()
 {
 	delete mesh;
 }
-// ~Resources Mesh
 
+// Resource Material
+ResourceMaterial::ResourceMaterial(Texture* mesh, uuid_unit uuid)
+{
+	this->texture = texture;
+	this->uuid = uuid;
+	this->totalInUse = 0u;
+}
+
+ResourceMaterial::~ResourceMaterial()
+{
+	delete texture;
+}
+
+// Module Resources
 ModuleResources::ModuleResources(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModuleResources";
@@ -36,7 +49,7 @@ void ModuleResources::AddResourceMesh(Mesh* mesh, uuid_unit uuid)
 {
 	if (mesh != nullptr)
 	{
-		if (GetResourceMesh(mesh->uuid) == nullptr)
+		if (GetResourceMesh(uuid) == nullptr)
 		{
 			ResourceMesh* resource = new ResourceMesh(mesh, uuid);
 			resourcesMesh.push_back(resource);
@@ -78,4 +91,52 @@ void ModuleResources::CleanResourceMeshes()
 		resourcesMesh.erase(resourcesMesh.begin() + i);
 	}
 	resourcesMesh.clear();
+}
+
+void ModuleResources::AddResourceMaterial(Texture* texture, uuid_unit uuid)
+{
+	if (texture != nullptr)
+	{
+		if (GetResourceMaterial(uuid) == nullptr)
+		{
+			ResourceMaterial* resource = new ResourceMaterial(texture, uuid);
+			resourceMaterial.push_back(resource);
+		}
+	}
+}
+
+void ModuleResources::DeleteResourceMaterial(uuid_unit uuid)
+{
+	for (int i = 0; i < resourceMaterial.size(); i++)
+	{
+		if (resourceMaterial[i]->uuid == uuid)
+		{
+			if (resourceMaterial[i]->totalInUse <= 0)
+			{
+				resourceMaterial.erase(resourceMaterial.begin() + i);
+			}
+		}
+	}
+}
+
+ResourceMaterial* ModuleResources::GetResourceMaterial(uuid_unit uuid)
+{
+	ResourceMaterial* ret = nullptr;
+	for (int i = 0; i < resourceMaterial.size(); i++)
+	{
+		if (resourceMaterial[i]->uuid == uuid)
+		{
+			ret = resourceMaterial[i];
+		}
+	}
+	return ret;
+}
+
+void ModuleResources::CleanResourceMaterial()
+{
+	for (int i = 0; i < resourceMaterial.size(); i++)
+	{
+		resourceMaterial.erase(resourceMaterial.begin() + i);
+	}
+	resourceMaterial.clear();
 }
