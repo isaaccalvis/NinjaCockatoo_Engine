@@ -139,13 +139,22 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	}
 
 	// Normals TODO: MAKE IT WORK
-	normalsSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
+	normalsSize = 0;
 	if (scene->mMeshes[node->mMeshes[num]]->HasNormals())
 	{
+		normalsSize = scene->mMeshes[node->mMeshes[num]]->mNumVertices;
 		normals = new DebugArrow[scene->mMeshes[node->mMeshes[num]]->mNumVertices];
 		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumVertices; i++)
 		{
-			normals[i].SetDebugArrow(math::float3(scene->mMeshes[node->mMeshes[num]]->mVertices[i].x, scene->mMeshes[node->mMeshes[num]]->mVertices[i].y, scene->mMeshes[node->mMeshes[num]]->mVertices[i].z), math::float3(scene->mMeshes[node->mMeshes[num]]->mVertices[i].x + scene->mMeshes[node->mMeshes[num]]->mNormals[i].x, scene->mMeshes[node->mMeshes[num]]->mVertices[i].y + scene->mMeshes[node->mMeshes[num]]->mNormals[i].y, scene->mMeshes[node->mMeshes[num]]->mVertices[i].z + scene->mMeshes[node->mMeshes[num]]->mNormals[i].z));
+			normals[i].SetDebugArrow(
+				math::float3(
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].x,
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].y,
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].z),
+				math::float3(
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].x + scene->mMeshes[node->mMeshes[num]]->mNormals[i].x,
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].y + scene->mMeshes[node->mMeshes[num]]->mNormals[i].y,
+				scene->mMeshes[node->mMeshes[num]]->mVertices[i].z + scene->mMeshes[node->mMeshes[num]]->mNormals[i].z));
 		}
 	}
 }
