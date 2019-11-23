@@ -18,6 +18,12 @@ void GUI_Properties::Draw()
 	ImGui::Begin("Properties", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 	ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.75-18.f), ImGuiCond_Once);
 	ImGui::SetWindowPos(ImVec2(App->window->screenWidth- App->window->screenWidth / 5, 18.0f), ImGuiCond_Once);
+
+	if (App->gui->automaticGUI_pos)
+	{
+		ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.75 - 18.f));
+		ImGui::SetWindowPos(ImVec2(App->window->screenWidth - App->window->screenWidth / 5, 18.0f));
+	}
 	
 
 	if (App->scene->goSelected != nullptr)

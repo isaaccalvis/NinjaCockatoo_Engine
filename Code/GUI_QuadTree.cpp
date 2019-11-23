@@ -15,6 +15,11 @@ void GUI_QuadTree::Draw()
 	ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.25), ImGuiCond_Once);
 	ImGui::SetWindowPos(ImVec2(App->window->screenWidth - App->window->screenWidth / 5, App->window->screenHeight*.75), ImGuiCond_Once);
 
+	if (App->gui->automaticGUI_pos)
+	{
+		ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.25));
+		ImGui::SetWindowPos(ImVec2(App->window->screenWidth - App->window->screenWidth / 5, App->window->screenHeight*.75));
+	}
 
 	if (ImGui::Button("Generate QuadTree"))
 	{
