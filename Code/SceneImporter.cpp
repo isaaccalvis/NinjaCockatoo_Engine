@@ -63,6 +63,9 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = { rotation.x, rotation.y, rotation.z, rotation.w };
 	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale = { scale.x, scale.y, scale.z };
 	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+	go->UpdateAABB();
+
 	// Create & Load Mesh
 	if (node->mMeshes != nullptr)
 	{

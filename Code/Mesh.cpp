@@ -100,7 +100,7 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 
 	vectorVertex.resize(verticesSize);
 	int a = 0;
-	for (int i = 0; i < verticesSize; i++)
+	for (int i = 0; i < verticesSize * 3; i++)
 	{
 		vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
 		a++;
@@ -127,9 +127,9 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	textureCoorSize = 0;
 	if (scene->mMeshes[node->mMeshes[num]]->HasTextureCoords(0))
 	{
-		textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumFaces * 2;
+		textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumFaces * 2 * 3;
 		textureCoords = new GLfloat[textureCoorSize];
-		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumFaces; i++)
+		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumFaces * 3; i++)
 		{
 			textureCoords[i * 2] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].x;
 			textureCoords[(i * 2) + 1] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].y;
