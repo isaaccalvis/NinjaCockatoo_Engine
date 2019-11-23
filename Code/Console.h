@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "imgui/imgui.h"
 #include "mmgr/mmgr.h"
+#include "GUI_Panel.h"
 
 class Console : public Module
 {
