@@ -51,13 +51,16 @@ void Console::ClearLog()
 
 void Console::Draw(const char* title, bool* p_open)
 {
-	ImGui::SetWindowPos(ImVec2(0.1f, 18.0f), ImGuiCond_Once);
-	ImGui::SetWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight), ImGuiCond_Once/* | ImGuiWindowFlags_NoFocusOnAppearing*/);
+
 	if (!ImGui::Begin(title, p_open))
 	{
 		ImGui::End();
 		return;
 	}
+
+	ImGui::SetWindowPos(ImVec2(App->window->screenWidth / 5, App->window->screenHeight - App->window->screenHeight*.25), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.6f, App->window->screenHeight*.15), ImGuiCond_Once);
+
 
 	if (ImGui::BeginPopupContextItem())
 	{
