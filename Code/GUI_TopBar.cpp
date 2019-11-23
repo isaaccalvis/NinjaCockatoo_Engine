@@ -115,14 +115,6 @@ void GUI_TopBar::Draw()
 			}
 			ImGui::EndMenu();
 		}
-		//if (ImGui::BeginMenu("Windows"))
-		//{
-		//	if (ImGui::MenuItem("QuadTree"))
-		//	{
-		//		App->scene->quadTree->GenerateQuadTree();
-		//	}
-		//	ImGui::EndMenu();
-		//}
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Documentation"))
@@ -143,6 +135,9 @@ void GUI_TopBar::Draw()
 
 			ImGui::EndMenu();
 		}
+		ImGui::Text("   ");
+		ImGui::Checkbox("GUI : Automatic Position", &App->gui->automaticGUI_pos);
+
 		ImGui::EndMainMenuBar();
 	}
 

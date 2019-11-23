@@ -38,7 +38,7 @@ SceneImporter::~SceneImporter()
 void SceneImporter::Import(const char* path, const uuid_unit uuid, const ImporterSettings* settings)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_GenUVCoords | aiProcess_FlipUVs);
 	if (!scene)
 	{
 		LOG_CONSOLE_IDE("Mesh can not be loaded");

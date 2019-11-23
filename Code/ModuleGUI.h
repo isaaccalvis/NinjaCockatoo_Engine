@@ -28,6 +28,8 @@ private:
 	// Guizmo
 	ImGuizmo::OPERATION guizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	ImGuizmo::MODE guizmoMode = ImGuizmo::MODE::WORLD;
+public:
+	bool automaticGUI_pos = true;
 };
 
 #endif
