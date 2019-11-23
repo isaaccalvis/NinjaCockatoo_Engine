@@ -78,7 +78,6 @@ private:
 	std::vector<Component*> components;
 
 	uuid_unit uuid = 0u;
-
 };
 
 #endif

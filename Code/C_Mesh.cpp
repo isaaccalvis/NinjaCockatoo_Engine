@@ -11,6 +11,7 @@ C_Mesh::C_Mesh(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT
 
 C_Mesh::~C_Mesh()
 {
+	LOG_CONSOLE("Deleting Component Mesh");
 	App->resources->DeleteResourceMesh(mesh_resources_uuid);
 	mesh = nullptr;
 }
