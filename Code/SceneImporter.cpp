@@ -60,8 +60,8 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 	if (node->mMeshes != nullptr)
 	{
 		Mesh* mesh = new Mesh(scene, node);
-		App->renderer3D->AddMesh(mesh);
 		uuid_unit meshUUID = App->input->GenerateUUID();
+		App->resources->AddResourceMesh(mesh, meshUUID);
 		App->fs->CreateOwnMesh(mesh, meshUUID);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		compMesh->GetComponentAsMesh()->mesh_resources_uuid = meshUUID;

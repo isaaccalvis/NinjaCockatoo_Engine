@@ -194,7 +194,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 bool ModuleRenderer3D::CleanUp()
 {
-	ClearMeshes();
 	LOG_IDE("Destroying 3D Renderer");
 	SDL_GL_DeleteContext(context);
 	return true;
@@ -342,49 +341,9 @@ bool ModuleRenderer3D::GetWireframeMode()
 	return renderWireframeMode;
 }
 
-void ModuleRenderer3D::AddMesh(Mesh* mesh)
-{
-	if (mesh != nullptr)
-	{
-		meshes.push_back(mesh);
-	}
-}
-
-void ModuleRenderer3D::ClearMeshes()
-{
-	for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
-	{
-		if ((*item) != nullptr)
-			delete (*item);
-	}
-	meshes.clear();
-}
-
-void ModuleRenderer3D::DeleteMesh(Mesh* mesh)
-{
-	//for (std::list<Mesh*>::iterator item = meshes.begin(); item != meshes.end(); item++)
-	//{
-	//	if ((*item) == mesh)
-	//	{
-	delete mesh;
-	meshes.remove(mesh);
-	//	}
-	//}
-}
-
-Mesh* ModuleRenderer3D::AddPrimitive(MESH_TYPE type)
+Mesh* ModuleRenderer3D::AddPrimitive(MESH_TYPE type, uuid_unit uuid)
 {
 	Mesh *tmp_mesh = new Mesh(type);
-	AddMesh(tmp_mesh);
+	App->resources->AddResourceMesh(tmp_mesh, uuid);
 	return tmp_mesh;
-}
-
-Mesh* ModuleRenderer3D::SearchMesh(uuid_unit uuid)
-{
-	for (std::list<Mesh*>::iterator it = meshes.begin(); it != meshes.end(); it++)
-	{
-		if ((*it)->uuid == uuid)
-			return (*it);
-	}
-	return nullptr;
 }

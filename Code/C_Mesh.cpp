@@ -11,7 +11,7 @@ C_Mesh::C_Mesh(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT
 
 C_Mesh::~C_Mesh()
 {
-	App->renderer3D->DeleteMesh(mesh);
+	App->resources->DeleteResourceMesh(mesh_resources_uuid);
 	mesh = nullptr;
 }
 
@@ -43,18 +43,18 @@ void C_Mesh::OnSaveJson(JSON_Object* object)
 void C_Mesh::OnLoadJson(JSON_Object* object)
 {
 	int num_type = json_object_get_number(object, "m_type");
+	mesh_resources_uuid = json_object_get_number(object, "MeshUUID");
 	MESH_TYPE m_type = (MESH_TYPE)num_type;
 	switch (m_type)
 	{
 	case MESH_TYPE::CUSTOM_MESH:
 	{
-		mesh_resources_uuid = json_object_get_number(object, "MeshUUID");
 		mesh = App->fs->sceneImporter->LoadMesh(std::string(App->fs->resources_directory + "Library/Meshes/" + std::to_string(mesh_resources_uuid) + App->fs->mesh_file_extension).c_str());
 		break;
 	}
 	default:
 	{
-		mesh = App->renderer3D->AddPrimitive(m_type);
+		mesh = App->renderer3D->AddPrimitive(m_type, mesh_resources_uuid);
 		break;
 	}
 	}

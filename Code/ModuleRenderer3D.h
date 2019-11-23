@@ -41,20 +41,13 @@ public:
 
 	bool GetWireframeMode();
 
-	void AddMesh(Mesh* mesh);
-	void ClearMeshes();
-	void DeleteMesh(Mesh* mesh);
-	Mesh* AddPrimitive(MESH_TYPE type);
-
-	Mesh* SearchMesh(uuid_unit uuid);
+	Mesh* AddPrimitive(MESH_TYPE type, uuid_unit uuid);
 
 private:
 	SDL_GLContext context;
 	bool renderWireframeMode = false;
 
 public:
-	std::list<Mesh*> meshes;
-
 	Light lights[MAX_LIGHTS];
 
 	bool renderNormals = true;

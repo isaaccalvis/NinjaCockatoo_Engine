@@ -66,23 +66,26 @@ void GUI_TopBar::Draw()
 			}
 			if (ImGui::MenuItem("Plane"))
 			{
+				uuid_unit uuid = App->input->GenerateUUID();
 				GameObject* go = App->scene->CreateGameObject("Plane", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_PLANE));
+				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_PLANE, uuid));
 				App->scene->MakeCameraLookThisGOSelected();
 			}
 			if (ImGui::MenuItem("Cube"))
 			{
+				uuid_unit uuid = App->input->GenerateUUID();
 				GameObject* go = App->scene->CreateGameObject("Cube", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CUBE));
+				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_CUBE, uuid));
 				App->scene->MakeCameraLookThisGOSelected();
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
+				uuid_unit uuid = App->input->GenerateUUID();
 				GameObject* go = App->scene->CreateGameObject("Sphere", App->scene->root);
 				Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
-				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_SPHERE));
+				compMesh->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_SPHERE, uuid));
 				App->scene->MakeCameraLookThisGOSelected();
 			}
 			ImGui::EndMenu();
