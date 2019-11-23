@@ -75,7 +75,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 				float deltaX = (float)dx * mouse_sensitivity * dt;
 				float deltaY = (float)dy * mouse_sensitivity * dt;
-				Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position, deltaY, deltaX);
+				Orbit(App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition, deltaY, deltaX);
 			}
 		}
 		else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)

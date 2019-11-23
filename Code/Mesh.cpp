@@ -141,7 +141,6 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 		GenerateTextureCoorBuffer();
 	}
 
-	// Normals TODO: MAKE IT WORK
 	normalsSize = 0;
 	if (scene->mMeshes[node->mMeshes[num]]->HasNormals())
 	{
