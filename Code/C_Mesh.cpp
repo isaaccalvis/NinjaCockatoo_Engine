@@ -49,7 +49,15 @@ void C_Mesh::OnLoadJson(JSON_Object* object)
 	{
 	case MESH_TYPE::CUSTOM_MESH:
 	{
-		mesh = App->fs->sceneImporter->LoadMesh(std::string(App->fs->resources_directory + "Library/Meshes/" + std::to_string(mesh_resources_uuid) + App->fs->mesh_file_extension).c_str());
+		if (App->resources->GetResourceMesh(mesh_resources_uuid) != nullptr)
+		{
+			mesh = App->resources->GetResourceMesh(mesh_resources_uuid)->mesh;
+		}
+		else
+		{
+			mesh = App->fs->sceneImporter->LoadMesh(std::string(App->fs->resources_directory + "Library/Meshes/" + std::to_string(mesh_resources_uuid) + App->fs->mesh_file_extension).c_str());
+			App->resources->AddResourceMesh(mesh, mesh_resources_uuid);
+		}
 		break;
 	}
 	default:
