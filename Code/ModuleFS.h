@@ -33,7 +33,7 @@ public:
 
 	void CreateOwnMesh(Mesh* mesh, uuid_unit uuid);
 	void OnSaveScene(GameObject* gameObject, std::string name, std::string midPath = "Library/Scenes/");
-	bool OnLoadScene(const char* originalPath, const bool isFullPath = false);
+	bool OnLoadScene(const char* originalPath, const bool isFullPath = false, const bool deleteScene = true);
 
 public:
 	std::string resources_directory;

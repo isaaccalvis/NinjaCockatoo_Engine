@@ -84,6 +84,18 @@ GameObject* ModuleScene::SearchGameObject(std::string name)
 	return nullptr;
 }
 
+GameObject*	ModuleScene::SearchGameObject(uuid_unit uuid)
+{
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (gameObjects[i]->GetUUID() == uuid)
+		{
+			return gameObjects[i];
+		}
+	}
+	return nullptr;
+}
+
 void ModuleScene::MakeCameraLookThisGOSelected()
 {
 	// Set camera pos

@@ -20,6 +20,7 @@ public:
 	void			DeleteGameObject(GameObject* go);
 	GameObject*		CreateGameObject(const char* name, GameObject* parent = nullptr);
 	GameObject*		SearchGameObject(std::string name);
+	GameObject*		SearchGameObject(uuid_unit uuid);
 	void			MakeCameraLookThisGOSelected();
 
 	void MousePicking(int coor_x, int coor_y);
