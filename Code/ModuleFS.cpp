@@ -79,7 +79,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 		if (fileExists)
 		{
 			uuid_unit metaSceneUUID = json_object_get_number(metaObj, "uuid");
-			fileExists = OnLoadScene((resources_directory + "Library/Meshes/" + std::to_string(metaSceneUUID) + scene_file_extension).c_str(), true);
+			fileExists = OnLoadScene((resources_directory + "Library/Meshes/" + std::to_string(metaSceneUUID) + scene_file_extension).c_str(), true, false);
 		}
 		if (!fileExists)
 		{
@@ -115,11 +115,6 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 			materialImporter->Import(toSavePathAssets.c_str(), uuid);
 			GenerateMeta(name_without_extension.c_str(), uuid, date);
 		}
-	}
-	else if (extension == "smesh")
-	{
-		CopyFile(path, toSavePathLibraryMesh.c_str(), true);
-		sceneImporter->LoadMesh(toSavePathLibraryMesh.c_str());
 	}
 	else if (extension == "sscene")
 	{
@@ -229,7 +224,7 @@ void ModuleFS::OnSaveScene(GameObject* gameObject, std::string name, std::string
 	json_value_free(root_value);
 }
 
-bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
+bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath, const bool deleteScene)
 {
 	std::string tmp_path(originalPath);
 	if (!isFullPath)
@@ -241,8 +236,8 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 		return false;
 	JSON_Array* root_array = json_value_get_array(root_value);
 
-	// TODO: Delete last scene
-	App->scene->CleanUp();
+	if (deleteScene)
+		App->scene->CleanUp();
 
 	// Load
 	JSON_Object* tmp_obj;
@@ -266,6 +261,12 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath)
 				App->scene->gameObjects[i]->AddChildren(obj);
 				obj->SetParent(App->scene->gameObjects[i]);
 			}
+		}
+		if (!deleteScene)
+		if (App->scene->SearchGameObject(obj->parent_uuid) == nullptr)
+		{
+			App->scene->root->AddChildren(obj);
+			obj->SetParent(App->scene->root);
 		}
 		// Load Components
 		JSON_Array* array_components = json_object_get_array(tmp_obj, "Components");
