@@ -168,7 +168,7 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 	unsigned int ranges[4] = { mesh->GetVerticesSize(), mesh->GetIndicesSize(), mesh->GetTextureCoorSize(), mesh->GetNormalsSize() };
 
 	// Body
-	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + mesh->GetTextureCoorSize() * sizeof(GLfloat) * 2 + mesh->GetNormalsSize() * sizeof(float) * 3 * 2;
+	unsigned int size = sizeof(ranges) + sizeof(GLfloat) * mesh->GetVerticesSize() * 3 + sizeof(unsigned int) * mesh->GetIndicesSize() * 3 + mesh->GetTextureCoorSize() * sizeof(GLfloat) + mesh->GetNormalsSize() * sizeof(float) * 3 * 2;
 
 	// Data & Cursor
 	char* data = new char[size];	// Contenidor
@@ -190,7 +190,12 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 
 	// Put texture coords
 	cursor += bytes;
-	bytes = sizeof(GLfloat) * mesh->GetTextureCoorSize() * 2;
+	bytes = sizeof(GLfloat) * mesh->GetTextureCoorSize();
+	LOG_CONSOLE("==========================");
+	for (int i = 0; i < mesh->GetTextureCoorSize(); i++)
+	{
+		LOG_CONSOLE("%i", mesh->textureCoords[i]);
+	}
 	memcpy(cursor, mesh->textureCoords, bytes);
 
 	// Put Normals
