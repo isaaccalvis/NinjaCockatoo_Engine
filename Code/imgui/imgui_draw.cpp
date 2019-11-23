@@ -239,7 +239,7 @@ void ImGui::StyleColorsDark(ImGuiStyle* dst)
     colors[ImGuiCol_FrameBg]                = ImVec4(0.26f, 0.19f, 0.19f, 0.54f);
     colors[ImGuiCol_FrameBgHovered]         = ImVec4(0.78f, 0.07f, 0.07f, 0.40f);
     colors[ImGuiCol_FrameBgActive]          = ImVec4(0.75f, 0.17f, 0.13f, 0.67f);
-    colors[ImGuiCol_TitleBg]                = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
+    colors[ImGuiCol_TitleBg]                = ImVec4(0.15f, 0.02f, 0.02f, 1.00f);
     colors[ImGuiCol_TitleBgActive]          = ImVec4(0.75f, 0.17f, 0.13f, 0.67f);
     colors[ImGuiCol_TitleBgCollapsed]       = ImVec4(0.00f, 0.00f, 0.00f, 0.51f);
     colors[ImGuiCol_MenuBarBg]              = ImVec4(0.42f, 0.03f, 0.03f, 1.00f);
