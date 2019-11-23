@@ -11,6 +11,11 @@ GUI_QuadTree::GUI_QuadTree(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WIND
 void GUI_QuadTree::Draw()
 {
 	ImGui::Begin("QuadTree", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth / 5, App->window->screenHeight*.25), ImGuiCond_Once);
+	ImGui::SetWindowPos(ImVec2(App->window->screenWidth - App->window->screenWidth / 5, App->window->screenHeight*.75), ImGuiCond_Once);
+
+
 	if (ImGui::Button("Generate QuadTree"))
 	{
 		App->scene->quadTree->GenerateQuadTree();
