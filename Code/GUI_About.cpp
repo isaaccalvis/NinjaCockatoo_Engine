@@ -15,6 +15,8 @@ GUI_About::GUI_About(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::G
 void GUI_About::Draw()
 {
 	ImGui::Begin("About", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::SetWindowPos(ImVec2(App->window->screenWidth *.35f, App->window->screenHeight - App->window->screenHeight*.75f), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.3f, App->window->screenHeight*.15), ImGuiCond_Once);
 	ImGui::Text("Socialist Engine is a video game engine made by students\nfrom CITM(UPC) at VideoGame Development & Design degree");
 	ImGui::Text("Made by Isaac Calvis & Aitor Velez");
 

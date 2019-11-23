@@ -13,6 +13,8 @@ GUI_PlayGame::GUI_PlayGame(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WIND
 void GUI_PlayGame::Draw()
 {
 	ImGui::Begin("PlayGame", &active, ImGuiWindowFlags_NoFocusOnAppearing);
+	ImGui::SetWindowPos(ImVec2(App->window->screenWidth / 5, 18.0f), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.6f, App->window->screenHeight*.07), ImGuiCond_Once);
 	if (!App->ingame->onGame)
 	{
 		if (ImGui::Button("Play"))
