@@ -71,7 +71,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	uuid_unit uuid = App->input->GenerateUUID();
 	PHYSFS_sint64 date = PHYSFS_getLastModTime(toSavePathAssets.c_str());
 
-	if (extension == "fbx")
+	if (extension == "fbx" || extension == "FBX")
 	{
 		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
 		JSON_Object* metaObj = json_value_get_object(metaValue);
@@ -92,7 +92,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 			GenerateMeta(name_without_extension.c_str(), uuid, date);
 		}
 	}
-	else if (extension == "dds" || extension == "png")
+	else if (extension == "dds" || extension == "png" || extension == "tga")
 	{
 		JSON_Value* metaValue = CheckIfMetaExist((direction_without_name + name_without_extension + meta_file_extension).c_str());
 		JSON_Object* metaObj = json_value_get_object(metaValue);
@@ -191,11 +191,6 @@ void ModuleFS::CreateOwnMesh(Mesh* mesh, uuid_unit uuid)
 	// Put texture coords
 	cursor += bytes;
 	bytes = sizeof(GLfloat) * mesh->GetTextureCoorSize();
-	LOG_CONSOLE("==========================");
-	for (int i = 0; i < mesh->GetTextureCoorSize(); i++)
-	{
-		LOG_CONSOLE("%i", mesh->textureCoords[i]);
-	}
 	memcpy(cursor, mesh->textureCoords, bytes);
 
 	// Put Normals

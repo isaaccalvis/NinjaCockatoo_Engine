@@ -38,6 +38,8 @@ MaterialImporter::~MaterialImporter()
 
 void MaterialImporter::Import(const char* path, const uuid_unit uuid, const ImporterSettings* settings)
 {
+	std::string extension(path);
+	extension = extension.substr(extension.find_last_of(".") + 1);
 	Texture* texture = App->textures->SearchTexture(uuid);
 	if (texture == nullptr)
 	{
@@ -74,8 +76,8 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 			texture->SetWidth(imageInfo.Width);
 			texture->SetHeight(imageInfo.Height);
 			// TODO: If extension is TGA you'll have to flip this concrete texture
-			//if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-			//	iluFlipImage();
+			if (extension.compare("tga") >= 0)
+				iluFlipImage();
 
 			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 			{
@@ -123,6 +125,8 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 {
 	std::string name_and_extension(exportedFile);
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+	std::string extension(name_and_extension);
+	extension = extension.substr(extension.find_last_of(".") + 1);
 
 	Texture* texture = App->textures->SearchTexture(uuid);
 	if (texture == nullptr)
@@ -143,8 +147,9 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 			texture->SetWidth(imageInfo.Width);
 			texture->SetHeight(imageInfo.Height);
 			// TODO: If extension is TGA you'll have to flip this concrete texture
-			//if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-			//	iluFlipImage();
+			if (extension.compare("tga") > 0)
+				if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+					iluFlipImage();
 
 			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 			{

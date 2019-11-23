@@ -55,7 +55,14 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 {
 	// Create GameObject
 	GameObject* go = App->scene->CreateGameObject(node->mName.C_Str(), parent);
-
+	aiVector3D position;
+	aiVector3D scale;
+	aiQuaternion rotation;
+	node->mTransformation.Decompose(scale, rotation, position);
+	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = {position.x, position.y, position.z};
+	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = { rotation.x, rotation.y, rotation.z, rotation.w };
+	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->scale = { scale.x, scale.y, scale.z };
+	go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 	// Create & Load Mesh
 	if (node->mMeshes != nullptr)
 	{
