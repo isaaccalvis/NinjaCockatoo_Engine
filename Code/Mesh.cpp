@@ -25,19 +25,22 @@ Mesh::Mesh(MESH_TYPE type)
 		primitive = par_shapes_create_parametric_sphere(10, 10);
 		break;
 	}
-	vectorVertex.resize(primitive->npoints);
-	int a = 0;
-	for (int i = 0; i < primitive->npoints * 3; i++)
-	{
-		vectorVertex[a].Set(primitive->points[i], primitive->points[i++], primitive->points[i++]);
-		a++;
-	}
 
 	verticesSize = primitive->npoints;
 	verticesArray = new GLfloat[verticesSize * 3];
 	for (int i = 0; i < verticesSize * 3; i++)
 	{
 		verticesArray[i] = primitive->points[i];
+	}
+
+	vectorVertex.resize(verticesSize);
+	int count = 0;
+	for (int i = 0; i < verticesSize * 3; i++)
+	{
+		vectorVertex[count].Set(verticesArray[i],
+			verticesArray[i++],
+			verticesArray[i++]);
+		count++;
 	}
 
 	indicesSize = primitive->ntriangles;
@@ -99,11 +102,11 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	}
 
 	vectorVertex.resize(verticesSize);
-	int a = 0;
+	int count = 0;
 	for (int i = 0; i < verticesSize * 3; i++)
 	{
-		vectorVertex[a].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
-		a++;
+		vectorVertex[count].Set(verticesArray[i], verticesArray[i++], verticesArray[i++]);
+		count++;
 	}
 
 	// Indices
