@@ -64,6 +64,7 @@ void C_Mesh::OnLoadJson(JSON_Object* object)
 
 void C_Mesh::SetMesh(Mesh* mesh)
 {
+	this->mesh_resources_uuid = mesh->uuid;
 	this->mesh = mesh;
 	parent->UpdateAABB();
 }

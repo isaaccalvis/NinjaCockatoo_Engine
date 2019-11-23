@@ -119,11 +119,6 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 	}
 }
 
-void MaterialImporter::Load(const char* exportedFile)
-{
-
-}
-
 Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 {
 	std::string name_and_extension(exportedFile);

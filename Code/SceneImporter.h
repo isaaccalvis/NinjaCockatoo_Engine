@@ -24,8 +24,6 @@ public:
 	void Import(const char* path, const uuid_unit uuid, const ImporterSettings* settings = nullptr);
 	GameObject* IterateSceneLoading(const aiScene* scene, const aiNode* node, GameObject* parent, const char* originalPath);
 
-
-	void Load(const char* exportedFile);
 	Mesh* LoadMesh(const char* exportedFile);
 };
 

@@ -696,9 +696,6 @@
     <ClCompile Include="SceneImporter.cpp">
       <Filter>Engine\Importers</Filter>
     </ClCompile>
-    <ClCompile Include="Importer.cpp">
-      <Filter>Engine\Importers</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialImporter.cpp">
       <Filter>Engine\Importers</Filter>
     </ClCompile>

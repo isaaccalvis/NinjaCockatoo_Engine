@@ -8,11 +8,10 @@ struct ImporterSettings {};
 class Importer
 {
 public:
-	Importer();
-	~Importer();
+	Importer() {};
+	~Importer() {};
 
 	virtual void Import(const char* path, const uuid_unit uuid , const ImporterSettings* settings = nullptr) = 0;
-	virtual void Load(const char* exportedFile) = 0;
 };
 
 #endif

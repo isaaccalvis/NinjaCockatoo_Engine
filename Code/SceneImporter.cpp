@@ -94,11 +94,6 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 	return go;
 }
 
-void SceneImporter::Load(const char* exportedFile)
-{
-	
-}
-
 Mesh* SceneImporter::LoadMesh(const char* exportedFile)
 {
 	Mesh* mesh = new Mesh();
