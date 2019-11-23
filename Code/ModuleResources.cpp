@@ -7,6 +7,7 @@ ResourceMesh::ResourceMesh(Mesh* mesh, uuid_unit uuid)
 {
 	this->mesh = mesh;
 	this->uuid = uuid;
+	mesh->uuid = uuid;
 	this->totalInUse = 0u;
 }
 
