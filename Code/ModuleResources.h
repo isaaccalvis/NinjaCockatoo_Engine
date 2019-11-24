@@ -22,7 +22,7 @@ public:
 class ResourceMaterial
 {
 public:
-	ResourceMaterial(Texture* mesh, uuid_unit uuid);
+	ResourceMaterial(Texture* texture, uuid_unit uuid);
 	~ResourceMaterial();
 public:
 	Texture* texture = nullptr;
@@ -43,12 +43,14 @@ public:
 	void			AddResourceMesh(Mesh* mesh, uuid_unit uuid);
 	void			DeleteResourceMesh(uuid_unit uuid);
 	ResourceMesh*	GetResourceMesh(uuid_unit uuid);
+	ResourceMesh*	GetResourceMesh(std::string name);
 	void			CleanResourceMeshes();
 
 	// Materials
 	void				AddResourceMaterial(Texture* texture, uuid_unit uuid);
 	void				DeleteResourceMaterial(uuid_unit uuid);
 	ResourceMaterial*	GetResourceMaterial(uuid_unit uuid);
+	ResourceMaterial*	GetResourceMaterial(std::string name);
 	void				CleanResourceMaterial();
 
 public:

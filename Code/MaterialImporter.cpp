@@ -46,7 +46,13 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 	LOG_CONSOLE("%s", name_and_extension.c_str());
 	Texture* texture = nullptr;
 	if (App->resources->GetResourceMaterial(uuid) != nullptr)
+	{
 		texture = App->resources->GetResourceMaterial(uuid)->texture;
+	}
+	else if (App->resources->GetResourceMaterial(name_and_extension) != nullptr)
+	{
+		texture = App->resources->GetResourceMaterial(name_and_extension)->texture;
+	}
 	else
 	{
 		std::string name_and_extension(path);
@@ -138,7 +144,13 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 
 	Texture* texture = nullptr;
 	if (App->resources->GetResourceMaterial(uuid) != nullptr)
+	{
 		texture = App->resources->GetResourceMaterial(uuid)->texture;
+	}
+	else if (App->resources->GetResourceMaterial(name_and_extension) != nullptr)
+	{
+		texture = App->resources->GetResourceMaterial(name_and_extension)->texture;
+	}
 	else
 	{
 		texture = new Texture(name_and_extension.c_str());

@@ -17,7 +17,7 @@ ResourceMesh::~ResourceMesh()
 }
 
 // Resource Material
-ResourceMaterial::ResourceMaterial(Texture* mesh, uuid_unit uuid)
+ResourceMaterial::ResourceMaterial(Texture* texture, uuid_unit uuid)
 {
 	this->texture = texture;
 	this->uuid = uuid;
@@ -86,6 +86,19 @@ ResourceMesh* ModuleResources::GetResourceMesh(uuid_unit uuid)
 	return ret;
 }
 
+ResourceMesh* ModuleResources::GetResourceMesh(std::string name)
+{
+	ResourceMesh* ret = nullptr;
+	for (int i = 0; i < resourcesMesh.size(); i++)
+	{
+		if (resourcesMesh[i]->name.compare(name) == 0)
+		{
+			ret = resourcesMesh[i];
+		}
+	}
+	return ret;
+}
+
 void ModuleResources::CleanResourceMeshes()
 {
 	for (int i = 0; i < resourcesMesh.size(); i++)
@@ -127,6 +140,19 @@ ResourceMaterial* ModuleResources::GetResourceMaterial(uuid_unit uuid)
 	for (int i = 0; i < resourceMaterial.size(); i++)
 	{
 		if (resourceMaterial[i]->uuid == uuid)
+		{
+			ret = resourceMaterial[i];
+		}
+	}
+	return ret;
+}
+
+ResourceMaterial* ModuleResources::GetResourceMaterial(std::string name)
+{
+	ResourceMaterial* ret = nullptr;
+	for (int i = 0; i < resourceMaterial.size(); i++)
+	{
+		if (resourceMaterial[i]->name.compare(name) == 0)
 		{
 			ret = resourceMaterial[i];
 		}

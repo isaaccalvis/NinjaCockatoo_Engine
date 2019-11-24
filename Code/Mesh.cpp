@@ -130,12 +130,12 @@ Mesh::Mesh(const aiScene* scene, const aiNode* node, const int num)
 	textureCoorSize = 0;
 	if (scene->mMeshes[node->mMeshes[num]]->HasTextureCoords(0))
 	{
-		textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumFaces * 2 * 3;
+		textureCoorSize = scene->mMeshes[node->mMeshes[num]]->mNumFaces * 2 * 2;
 		textureCoords = new GLfloat[textureCoorSize];
-		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumFaces * 3; i++)
+		for (int i = 0; i < scene->mMeshes[node->mMeshes[num]]->mNumFaces * 2; i++)
 		{
-			textureCoords[i * 2] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].x;
-			textureCoords[(i * 2) + 1] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].y;
+				textureCoords[i * 2] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].x;
+				textureCoords[(i * 2) + 1] = scene->mMeshes[node->mMeshes[num]]->mTextureCoords[0][i].y;
 		}
 
 		GenerateTextureCoorBuffer();
