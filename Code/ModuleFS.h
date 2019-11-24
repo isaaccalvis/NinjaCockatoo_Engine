@@ -23,7 +23,7 @@ public:
 	bool Save(JSON_Object* root_object);
 	bool Load(JSON_Object* root_object);
 
-	void DistributeObjectToLoad(const char* path);
+	uuid_unit DistributeObjectToLoad(const char* path);
 
 	bool CheckExistingFolder(const char* path);
 	void CreateFolder(const char* path);

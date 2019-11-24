@@ -2,7 +2,7 @@
 #define __Mesh_H__
 
 #include "Globals.h"
-#include "ModuleTextures.h"
+#include "Texture.h"
 #include "glew-2.1.0/include/GL/glew.h"
 #include "MathGeoLib-1.5/src/MathGeoLib.h"
 #include "DebugArrow.h"

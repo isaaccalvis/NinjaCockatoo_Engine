@@ -5,7 +5,7 @@
 #include "Module.h"
 
 #include "Mesh.h"
-#include "ModuleTextures.h"
+#include "Texture.h"
 
 class ResourceMesh
 {

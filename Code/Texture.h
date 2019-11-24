@@ -29,21 +29,4 @@ private:
 	int height = 0;
 };
 
-class ModuleTextures : public Module
-{
-public:
-	ModuleTextures(Application* app, bool start_enabled = true);
-
-	bool CleanUp();
-
-	void AddTexture(Texture* texture);
-	Texture* SearchTexture(const char* name);
-	Texture* SearchTexture(uuid_unit uuid);
-
-	void DeleteTexture(Texture* texture);
-	 
-public:
-	std::list<Texture*> textures;
-};
-
 #endif

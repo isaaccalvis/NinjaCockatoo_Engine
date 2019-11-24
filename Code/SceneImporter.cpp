@@ -87,12 +87,12 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 		}
 		tmp_texture_path.append(str.C_Str());
 		// Load texture
-		App->fs->DistributeObjectToLoad(tmp_texture_path.c_str());
+		uuid_unit textureUUID = App->fs->DistributeObjectToLoad(tmp_texture_path.c_str());
 		//App->fs->materialImporter->Import(tmp_texture_path.c_str(), App->input->GenerateUUID());
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
-		comTexture->GetComponentAsMaterial()->SetTexture(App->textures->SearchTexture(texture_name_and_extension.c_str()));
+		comTexture->GetComponentAsMaterial()->SetTexture(App->resources->GetResourceMaterial(textureUUID)->texture);
 		str.Clear();
 	}
 

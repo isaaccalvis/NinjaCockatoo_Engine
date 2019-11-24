@@ -49,7 +49,7 @@ bool ModuleFS::Load(JSON_Object* root_object)
 	return true;
 }
 
-void ModuleFS::DistributeObjectToLoad(const char* path)
+uuid_unit ModuleFS::DistributeObjectToLoad(const char* path)
 {
 	std::string tmp_path(path);
 	for (int i = 0; i < tmp_path.size(); i++)
@@ -120,6 +120,7 @@ void ModuleFS::DistributeObjectToLoad(const char* path)
 	{
 		OnLoadScene((direction_without_name + name_and_extension).c_str(), true);
 	}
+	return uuid;
 }
 
 bool ModuleFS::CheckExistingFolder(const char* path)

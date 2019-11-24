@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "MaterialImporter.h"
-#include "ModuleTextures.h"
+#include "Texture.h"
 #include "ModuleScene.h"
 
 #include "C_Material.h"
@@ -40,8 +40,10 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 {
 	std::string extension(path);
 	extension = extension.substr(extension.find_last_of(".") + 1);
-	Texture* texture = App->textures->SearchTexture(uuid);
-	if (texture == nullptr)
+	Texture* texture = nullptr;
+	if (App->resources->GetResourceMaterial(uuid) != nullptr)
+	texture = App->resources->GetResourceMaterial(uuid)->texture;
+	else
 	{
 
 		std::string name_and_extension(path);
@@ -103,7 +105,7 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 
 		texture->SetBufferPos(textureNum);
 
-		App->textures->AddTexture(texture);
+		App->resources->AddResourceMaterial(texture, uuid);
 
 	}
 	// Add loaded texture to selected mesh
@@ -128,8 +130,10 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 	std::string extension(name_and_extension);
 	extension = extension.substr(extension.find_last_of(".") + 1);
 
-	Texture* texture = App->textures->SearchTexture(uuid);
-	if (texture == nullptr)
+	Texture* texture = nullptr;
+	if (App->resources->GetResourceMaterial(uuid) != nullptr)
+		texture = App->resources->GetResourceMaterial(uuid)->texture;
+	else
 	{
 		texture = new Texture(name_and_extension.c_str());
 
@@ -175,7 +179,7 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 
 		texture->SetBufferPos(textureNum);
 		texture->textureUUID = uuid;
-		App->textures->AddTexture(texture);
+		App->resources->AddResourceMaterial(texture, uuid);
 	}
 	// Add loaded texture to selected mesh
 	if (App->scene->goSelected != nullptr)
@@ -190,7 +194,7 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 			App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_MATERIAL)->GetComponentAsMaterial()->SetTexture(texture);
 		}
 	}
-	if (texture->GetWidth() == 0)
+	if (texture == nullptr ||texture->GetWidth() == 0)
 		return nullptr;
 	return texture;
 }

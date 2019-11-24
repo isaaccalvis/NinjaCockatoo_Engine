@@ -2,7 +2,7 @@
 #define __C_Material_H__
 
 #include "Component.h"
-#include "ModuleTextures.h"
+#include "Texture.h"
 
 class C_Material : public Component
 {

@@ -357,9 +357,6 @@
     <ClInclude Include="Console.h">
       <Filter>Engine\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleTextures.h">
-      <Filter>Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="DevIL\include\IL\devil_cpp_wrapper.hpp">
       <Filter>External Tools\Devil</Filter>
     </ClInclude>
@@ -480,6 +477,9 @@
     </ClInclude>
     <ClInclude Include="GUI_Assets.h">
       <Filter>Engine\GUI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -642,9 +642,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Meshes</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Engine\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="pcg-c-0.94\extras\entropy.c">
       <Filter>External Tools\PCG</Filter>
     </ClCompile>
@@ -725,6 +722,9 @@
     </ClCompile>
     <ClCompile Include="GUI_Assets.cpp">
       <Filter>Engine\GUI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Meshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
