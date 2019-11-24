@@ -72,6 +72,7 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 		Mesh* mesh = new Mesh(scene, node);
 		uuid_unit meshUUID = App->input->GenerateUUID();
 		App->resources->AddResourceMesh(mesh, meshUUID);
+		App->resources->GetResourceMesh(meshUUID)->name = node->mName.C_Str();
 		App->fs->CreateOwnMesh(mesh, meshUUID);
 		Component* compMesh = go->CreateComponent(COMPONENT_TYPE::COMPONENT_MESH, "Mesh");
 		compMesh->GetComponentAsMesh()->mesh_resources_uuid = meshUUID;
@@ -92,7 +93,8 @@ GameObject* SceneImporter::IterateSceneLoading(const aiScene* scene, const aiNod
 		// Search it
 		std::string texture_name_and_extension(tmp_texture_path);
 		texture_name_and_extension = texture_name_and_extension.substr(texture_name_and_extension.find_last_of(92) + 1);
-		comTexture->GetComponentAsMaterial()->SetTexture(App->resources->GetResourceMaterial(textureUUID)->texture);
+		if (App->resources->GetResourceMaterial(textureUUID) != nullptr)
+			comTexture->GetComponentAsMaterial()->SetTexture(App->resources->GetResourceMaterial(textureUUID)->texture);
 		str.Clear();
 	}
 

@@ -27,13 +27,13 @@ void GUI_Assets::Draw()
 	ImGui::Text("Meshes : %i", App->resources->resourcesMesh.size());
 	for (int i = 0; i < App->resources->resourcesMesh.size(); i++)
 	{
-		ImGui::Button(std::to_string((App->resources->resourcesMesh[i]->uuid)).c_str());
+		ImGui::Button(App->resources->resourcesMesh[i]->name.c_str());
 	}
 	
 	ImGui::Text("Materials : %i", App->resources->resourceMaterial.size());
 	for (int i = 0; i < App->resources->resourceMaterial.size(); i++)
 	{
-		ImGui::Button(std::to_string((App->resources->resourceMaterial[i]->uuid)).c_str());
+		ImGui::Button(App->resources->resourceMaterial[i]->name.c_str());
 	}
 
 	ImGui::End();

@@ -16,6 +16,7 @@ public:
 	Mesh* mesh = nullptr;
 	uuid_unit uuid = 0;
 	unsigned int totalInUse = 0;
+	std::string name;
 };
 
 class ResourceMaterial
@@ -27,6 +28,7 @@ public:
 	Texture* texture = nullptr;
 	uuid_unit uuid = 0;
 	unsigned int totalInUse;
+	std::string name;
 };
 
 class ModuleResources : public Module

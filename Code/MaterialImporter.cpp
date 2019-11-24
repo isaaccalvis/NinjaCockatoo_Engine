@@ -40,14 +40,18 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 {
 	std::string extension(path);
 	extension = extension.substr(extension.find_last_of(".") + 1);
+	std::string name_and_extension(path);
+	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of("/") + 1);
+	LOG_CONSOLE("%s", name_and_extension.c_str());
 	Texture* texture = nullptr;
 	if (App->resources->GetResourceMaterial(uuid) != nullptr)
-	texture = App->resources->GetResourceMaterial(uuid)->texture;
+		texture = App->resources->GetResourceMaterial(uuid)->texture;
 	else
 	{
-
 		std::string name_and_extension(path);
 		name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+		name_and_extension = name_and_extension.substr(name_and_extension.find_last_of("/") + 1);
 
 		texture = new Texture(name_and_extension.c_str());
 
@@ -106,7 +110,7 @@ void MaterialImporter::Import(const char* path, const uuid_unit uuid, const Impo
 		texture->SetBufferPos(textureNum);
 
 		App->resources->AddResourceMaterial(texture, uuid);
-
+		App->resources->GetResourceMaterial(uuid)->name.assign(name_and_extension);
 	}
 	// Add loaded texture to selected mesh
 	if (App->scene->goSelected != nullptr)
@@ -127,6 +131,8 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 {
 	std::string name_and_extension(exportedFile);
 	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of(92) + 1);
+	name_and_extension = name_and_extension.substr(name_and_extension.find_last_of("/") + 1);
+	LOG_CONSOLE("%s", name_and_extension.c_str());
 	std::string extension(name_and_extension);
 	extension = extension.substr(extension.find_last_of(".") + 1);
 
@@ -180,6 +186,7 @@ Texture* MaterialImporter::LoadTexture(const char* exportedFile, uuid_unit uuid)
 		texture->SetBufferPos(textureNum);
 		texture->textureUUID = uuid;
 		App->resources->AddResourceMaterial(texture, uuid);
+		App->resources->GetResourceMaterial(uuid)->name.assign(name_and_extension);
 	}
 	// Add loaded texture to selected mesh
 	if (App->scene->goSelected != nullptr)
