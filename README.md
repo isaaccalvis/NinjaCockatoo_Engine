@@ -28,14 +28,25 @@ It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
  - F2: Shows  object propierties window.
  - F3: Shows console window.
  - F4: Shows hirearchy.
+ - F5: Shows QuadTree window.
+ - F6: Shows PlayGame window.
+ - F7: Shows Asset window.
  - F9: Shows the about window.
+
+## Transform Operations with Guizmos
+ - Q: Change between Local & Global Mode
+ - W: Translate
+ - E: Rotate
+ - R: Scale
 
 ## Features
  - Drag&Drop 3D models & textures from your pc to the GameEngine, it will be added to the project at folder resources
  - Create & Delete GameObjects at Hierachy Panel
  - Create Primitives &/or add components to game objects (at top bar, gameobjects & components)
  - At configuration window can manage render & window options, also draw in wireframe mode or draw imported meshes normals, with a lot more features !
- - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material component
+ - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material componentç
+ - Create QuadTree with static GameObjects
+ - Drag & Drop function at Hierachy Panel
 
 ##  Tools used 
 
@@ -59,6 +70,21 @@ It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
  - PhysFS
  - ImGuizmo
 
+## What have done each member for 2 delivery
+ - Isaac:
+	- ModuleFileSystem
+	- Scene Importer
+	- Material Importer
+	- Own File format for meshes, textures, scenes & components, with metas (for fbx & textures)
+	- Component Camera with frustum culling
+	- QuadTree
+	- Implemet ImGuizmo & Mouse picking
+	- Play Mode
+	- ModuleResources
+
+ - Aitor:
+	- GUI improvement
+	- Moral Support
 
 ## License
 
