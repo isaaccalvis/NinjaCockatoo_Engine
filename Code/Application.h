@@ -15,6 +15,7 @@
 #include "ModuleResources.h"
 #include "ModuleFS.h"
 #include "ModuleInGame.h"
+#include "ModulePhysics.h"
 #include "Console.h"
 
 class Application
@@ -48,6 +49,7 @@ public:
 	ModuleFS* fs;
 	ModuleResources* resources;
 	ModuleInGame* ingame;
+	ModulePhysics* physics;
 
 	Console* console;
 

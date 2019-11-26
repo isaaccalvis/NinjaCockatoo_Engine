@@ -481,6 +481,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Engine\Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePhysics.h">
+      <Filter>Engine\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -725,6 +728,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Engine\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePhysics.cpp">
+      <Filter>Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ Application::Application()
 	fs = new ModuleFS(this);
 	resources = new ModuleResources(this);
 	ingame = new ModuleInGame(this);
+	physics = new ModulePhysics(this);
 
 	console = new Console(this);
 
@@ -23,6 +24,7 @@ Application::Application()
 	AddModule(scene);
 	AddModule(fs);
 	AddModule(resources);
+	AddModule(physics);
 	AddModule(ingame);
 
 	AddModule(console);
