@@ -16,6 +16,26 @@
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "ModulePhysics";
+
+	collisionConfiguration = new btDefaultCollisionConfiguration();
+	collisionDispatcher = new btCollisionDispatcher(collisionConfiguration);
+	broadphaseInterface = new btDbvtBroadphase();
+	constraintSolver = new btSequentialImpulseConstraintSolver();
+}
+
+ModulePhysics::~ModulePhysics()
+{
+	delete constraintSolver;
+	delete broadphaseInterface;
+	delete collisionDispatcher;
+	delete collisionConfiguration;
+}
+
+bool ModulePhysics::Start()
+{
+	physicsWorld = new btDiscreteDynamicsWorld(collisionDispatcher,
+		broadphaseInterface, constraintSolver, collisionConfiguration);
+	return true;
 }
 
 update_status ModulePhysics::Update(float dt)
