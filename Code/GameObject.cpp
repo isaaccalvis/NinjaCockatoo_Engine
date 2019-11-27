@@ -6,6 +6,8 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 #include "C_Camera.h"
+#include "C_Collider.h"
+#include "C_RigidBody.h"
 
 GameObject::GameObject()
 {
@@ -108,6 +110,16 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 	case COMPONENT_TYPE::COMPONENT_CAMERA:
 	{
 		component = new C_Camera(this);
+	}
+	break;
+	case COMPONENT_TYPE::COMPONENT_COLLIDER:
+	{
+		component = new C_Collider(this);
+	}
+	break;
+	case COMPONENT_TYPE::COMPONENT_RIGIDBODY:
+	{
+		component = new C_RigidBody(this);
 	}
 	break;
 	}

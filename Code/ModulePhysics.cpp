@@ -33,6 +33,7 @@ ModulePhysics::~ModulePhysics()
 
 bool ModulePhysics::Start()
 {
+	LOG_CONSOLE("Creating Physics World");
 	physicsWorld = new btDiscreteDynamicsWorld(collisionDispatcher,
 		broadphaseInterface, constraintSolver, collisionConfiguration);
 	return true;

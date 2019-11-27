@@ -139,6 +139,22 @@ void GUI_Properties::Draw()
 				}
 			}
 			break;
+			case COMPONENT_TYPE::COMPONENT_COLLIDER:
+			{
+				if (ImGui::CollapsingHeader("Collider"))
+				{
+
+				}
+			}
+			break;
+			case COMPONENT_TYPE::COMPONENT_RIGIDBODY:
+			{
+				if (ImGui::CollapsingHeader("RigidBody"))
+				{
+
+				}
+			}
+			break;
 			}
 		}
 	}

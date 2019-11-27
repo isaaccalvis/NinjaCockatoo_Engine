@@ -113,6 +113,20 @@ void GUI_TopBar::Draw()
 					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_CAMERA, "Camera");
 				}
 			}
+			if (ImGui::MenuItem("Collider"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_COLLIDER, "Collider");
+				}
+			}
+			if (ImGui::MenuItem("RigidBody"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY, "RigidBody");
+				}
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

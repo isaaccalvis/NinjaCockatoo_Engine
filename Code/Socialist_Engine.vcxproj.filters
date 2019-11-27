@@ -1204,6 +1204,12 @@
     <ClInclude Include="Bullet\include\BulletDynamics\Vehicle\btWheelInfo.h">
       <Filter>External Tools\Bullet\BulletDynamics\Vehicle</Filter>
     </ClInclude>
+    <ClInclude Include="C_Collider.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C_RigidBody.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -1451,6 +1457,12 @@
     </ClCompile>
     <ClCompile Include="ModulePhysics.cpp">
       <Filter>Engine\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="C_Collider.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C_RigidBody.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
