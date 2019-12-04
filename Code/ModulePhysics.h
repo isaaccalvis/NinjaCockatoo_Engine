@@ -5,6 +5,8 @@
 #include "Module.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
+class PhysicsDebugDrawer;
+
 class ModulePhysics : public Module
 {
 public:
@@ -18,6 +20,8 @@ public:
 
 	btRigidBody* CreateCollisionObject(math::float3 size);
 
+	std::list<btRigidBody*> rigidbodies;
+
 private:
 	btDiscreteDynamicsWorld*				physicsWorld			= nullptr;
 	btDefaultCollisionConfiguration*		collisionConfiguration	= nullptr;
@@ -25,6 +29,22 @@ private:
 	btBroadphaseInterface*					broadphaseInterface		= nullptr;
 	btSequentialImpulseConstraintSolver*	constraintSolver		= nullptr;
 
+	PhysicsDebugDrawer*						physicsDebugDrawer = nullptr;
+};
+
+class PhysicsDebugDrawer : public btIDebugDraw
+{
+public:
+	PhysicsDebugDrawer();
+	
+	void drawLine(const btVector3& p_origin, const btVector3& p_end, const btVector3& color);
+	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color);
+	void reportErrorWarning(const char* warningString);
+	void draw3dText(const btVector3& location, const char* textString);
+	void setDebugMode(int debugMode);
+	int	getDebugMode() const;
+
+	DebugDrawModes debugMode = DebugDrawModes::DBG_DrawWireframe;
 };
 
 #endif
