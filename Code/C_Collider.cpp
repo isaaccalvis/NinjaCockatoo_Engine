@@ -29,6 +29,29 @@ void C_Collider::Update(float dt)
 
 }
 
+void C_Collider::OnSaveJson(JSON_Object* object)
+{
+	if (parent != nullptr)
+	{
+		json_object_set_string(object, "c_type", "c_collider");
+		json_object_set_number(object, "ColliderUUID", colliderUUID);
+		json_object_set_number(object, "SizeX", size.x);
+		json_object_set_number(object, "SizeY", size.y);
+		json_object_set_number(object, "SizeZ", size.z);
+	}
+}
+
+void C_Collider::OnLoadJson(JSON_Object* object)
+{
+	colliderUUID = json_object_get_number(object, "ColliderUUID");
+	size.x = json_object_get_number(object, "SizeX");
+	size.y = json_object_get_number(object, "SizeY");
+	size.z = json_object_get_number(object, "SizeZ");
+
+	UpdatePosition();
+	SetSize(size);
+}
+
 void C_Collider::UpdatePosition()
 {
 	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;

@@ -28,6 +28,28 @@ void C_RigidBody::Update(float dt)
 
 }
 
+void C_RigidBody::OnSaveJson(JSON_Object* object)
+{
+	if (parent != nullptr)
+	{
+		json_object_set_string(object, "c_type", "c_rigidbody");
+		json_object_set_number(object, "RigidBodyUUID", rigidBody_uuid);
+		json_object_set_number(object, "SizeX", size.x);
+		json_object_set_number(object, "SizeY", size.y);
+		json_object_set_number(object, "SizeZ", size.z);
+		json_object_set_number(object, "Mass", mass);
+	}
+}
+
+void C_RigidBody::OnLoadJson(JSON_Object* object)
+{
+	rigidBody_uuid = json_object_get_number(object, "RigidBodyUUID");
+	size.x = json_object_get_number(object, "SizeX");
+	size.y = json_object_get_number(object, "SizeY");
+	size.z = json_object_get_number(object, "SizeZ");
+	mass = json_object_get_number(object, "Mass");
+}
+
 void C_RigidBody::SetMass(float mass)
 {
 	this->mass = mass;

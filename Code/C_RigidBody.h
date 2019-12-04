@@ -12,6 +12,9 @@ public:
 
 	void Update(float dt);
 
+	void OnSaveJson(JSON_Object* object);
+	void OnLoadJson(JSON_Object* object);
+
 	void SetMass(float mass);
 	float GetMass() const;
 
@@ -21,6 +24,9 @@ public:
 	void SetSize(math::float3 size);
 	math::float3 GetSize() const;
 	
+public:
+	uuid_unit rigidBody_uuid = 0u;
+
 private:
 	btRigidBody* rigidBody = nullptr;
 	float mass = 1.0f;

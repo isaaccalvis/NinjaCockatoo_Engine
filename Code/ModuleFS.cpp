@@ -296,6 +296,16 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath, cons
 				Component* compCamera = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_CAMERA, "Camera");
 				compCamera->OnLoadJson(c_obj);
 			}
+			else if (c_type.compare("c_rigidbody") == 0)
+			{
+				Component* compRigidBody = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY, "RigidBody");
+				compRigidBody->OnLoadJson(c_obj);
+			}
+			else if (c_type.compare("c_collider") == 0)
+			{
+				Component* compCollider = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_COLLIDER, "Collider");
+				compCollider->OnLoadJson(c_obj);
+			}
 		}
 	}
 	return true;
