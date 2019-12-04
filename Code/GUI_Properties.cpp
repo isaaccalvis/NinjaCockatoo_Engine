@@ -162,7 +162,24 @@ void GUI_Properties::Draw()
 			}
 			break;
 			}
+			GameComponentPopUp(App->scene->goSelected->GetComponent(i));
 		}
 	}
 	ImGui::End();
+}
+
+void GUI_Properties::GameComponentPopUp(Component* component) const
+{
+	if (component->type != COMPONENT_TRANSFORM)
+	{
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::Selectable("Delete"))
+			{
+				App->scene->goSelected->DeleteComponent(component->type);
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+	}
 }

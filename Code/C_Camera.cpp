@@ -22,7 +22,12 @@ C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPO
 
 C_Camera::~C_Camera()
 {
+	if (App->scene->camera == this->parent)
+	{
+		App->scene->camera = nullptr;
+	}
 
+	delete camera;
 }
 
 void C_Camera::Update(float dt)
