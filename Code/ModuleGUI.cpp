@@ -12,6 +12,7 @@
 #include "GUI_QuadTree.h"
 #include "GUI_PlayGame.h"
 #include "GUI_Assets.h"
+#include "GUI_Physics.h"
 
 #include "Console.h"
 
@@ -53,6 +54,8 @@ bool ModuleGUI::Start()
 	guiPanels.push_back(gui_playgame);
 	GUI_Panel* gui_assets = new GUI_Assets(SDL_SCANCODE_F7);
 	guiPanels.push_back(gui_assets);
+	GUI_Panel* gui_physics = new GUI_Physics(SDL_SCANCODE_F8);
+	guiPanels.push_back(gui_physics);
 	return true;
 }
 

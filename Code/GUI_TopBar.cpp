@@ -55,6 +55,8 @@ void GUI_TopBar::Draw()
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PLAYGAME)->SwitchActive();
 			if (ImGui::MenuItem("Assets"))
 				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_ASSETS)->SwitchActive();
+			if (ImGui::MenuItem("Physics"))
+				App->gui->GetGUIPanel(GUI_WINDOWS::GUI_PHYSICS)->SwitchActive();
 
 			ImGui::EndMenu();
 		}

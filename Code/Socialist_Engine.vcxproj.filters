@@ -1210,6 +1210,9 @@
     <ClInclude Include="C_RigidBody.h">
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
+    <ClInclude Include="GUI_Physics.h">
+      <Filter>Engine\GUI\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -1463,6 +1466,9 @@
     </ClCompile>
     <ClCompile Include="C_RigidBody.cpp">
       <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI_Physics.cpp">
+      <Filter>Engine\GUI\Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
