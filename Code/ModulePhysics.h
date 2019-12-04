@@ -18,11 +18,13 @@ public:
 	update_status	Update(float dt);
 	bool			CleanUp();
 
-	btRigidBody* CreateCollisionObject(math::float3 size);
+	btRigidBody* CreateRigidBody(math::float3 size, float mass = 0.0f);
 
 
 public:
 	std::list<btRigidBody*> rigidBodies;
+	btVector3 gravity = btVector3(0, -9.8f, 0);
+
 	bool physicsDebugDraw = true;
 
 private:

@@ -37,11 +37,11 @@ bool ModulePhysics::Start()
 	LOG_CONSOLE("Creating Physics World");
 	physicsWorld = new btDiscreteDynamicsWorld(collisionDispatcher,
 		broadphaseInterface, constraintSolver, collisionConfiguration);
-	physicsWorld->setGravity(btVector3(0,0,-1));
+	physicsWorld->setGravity(gravity);
 	physicsWorld->setDebugDrawer(physicsDebugDrawer);
 
-	CreateCollisionObject(math::float3(2, 2, 2));
-	CreateCollisionObject(math::float3(1, 1, 1));
+	CreateRigidBody(math::float3(2, 2, 2), 1);
+	CreateRigidBody(math::float3(1, 1, 1), 10);
 
 	return true;
 }
@@ -72,14 +72,14 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-btRigidBody* ModulePhysics::CreateCollisionObject(math::float3 size)
+btRigidBody* ModulePhysics::CreateRigidBody(math::float3 size, float mass)
 {
 	// Shape
 	btCollisionShape* shape = new btBoxShape(btVector3(size.x, size.y, size.z));
 
 	// RigidBody
 	btDefaultMotionState* myMotionState = new btDefaultMotionState();
-	btRigidBody* rigidBody = new btRigidBody(0 , myMotionState, shape);
+	btRigidBody* rigidBody = new btRigidBody(mass, myMotionState, shape);
 
 	physicsWorld->addRigidBody(rigidBody);
 	rigidBodies.push_back(rigidBody);
