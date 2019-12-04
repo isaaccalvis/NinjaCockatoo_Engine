@@ -27,7 +27,7 @@ public:
 public:
 	uuid_unit rigidBody_uuid = 0u;
 
-private:
+public:
 	btRigidBody* rigidBody = nullptr;
 	float mass = 1.0f;
 	math::float3 size = math::float3::one;
