@@ -36,7 +36,24 @@ bool ModulePhysics::Start()
 	LOG_CONSOLE("Creating Physics World");
 	physicsWorld = new btDiscreteDynamicsWorld(collisionDispatcher,
 		broadphaseInterface, constraintSolver, collisionConfiguration);
+	physicsWorld->setGravity(btVector3(0,0,-1));
+
+	CreateCollisionObject(math::float3(2, 2, 2));
+	CreateCollisionObject(math::float3(1, 1, 1));
+
 	return true;
+}
+
+update_status ModulePhysics::PreUpdate(float dt)
+{
+	physicsWorld->stepSimulation(dt);
+	int numManifolds = physicsWorld->getDispatcher()->getNumManifolds();
+	for (int i = 0; i < numManifolds; i++)
+	{
+		btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+		LOG_CONSOLE("%i", contactManifold->getNumContacts());
+	}
+	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModulePhysics::Update(float dt)
@@ -47,4 +64,17 @@ update_status ModulePhysics::Update(float dt)
 bool ModulePhysics::CleanUp()
 {
 	return true;
+}
+
+btRigidBody* ModulePhysics::CreateCollisionObject(math::float3 size)
+{
+	// Shape
+	btCollisionShape* shape = new btBoxShape(btVector3(size.x, size.y, size.z));
+
+	// RigidBody
+	btDefaultMotionState* myMotionState = new btDefaultMotionState();
+	btRigidBody* rigidBody = new btRigidBody(0 , myMotionState, shape);
+
+	physicsWorld->addRigidBody(rigidBody);
+	return rigidBody;
 }
