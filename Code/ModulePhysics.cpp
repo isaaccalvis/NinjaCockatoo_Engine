@@ -40,8 +40,8 @@ bool ModulePhysics::Start()
 	physicsWorld->setGravity(gravity);
 	physicsWorld->setDebugDrawer(physicsDebugDrawer);
 
-	CreateRigidBody(math::float3(2, 2, 2), 1);
-	CreateRigidBody(math::float3(1, 1, 1), 10);
+	//CreateRigidBody(math::float3(2, 2, 2), 1);
+	//CreateRigidBody(math::float3(1, 1, 1), 10);
 
 	return true;
 }
@@ -53,7 +53,7 @@ update_status ModulePhysics::PreUpdate(float dt)
 	for (int i = 0; i < numManifolds; i++)
 	{
 		btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
-		LOG_CONSOLE("%i", contactManifold->getNumContacts());
+		//LOG_CONSOLE("%i", contactManifold->getNumContacts());
 	}
 	return update_status::UPDATE_CONTINUE;
 }

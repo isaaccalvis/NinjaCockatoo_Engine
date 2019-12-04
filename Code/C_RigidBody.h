@@ -12,6 +12,13 @@ public:
 
 	void Update(float dt);
 
+	void SetMass(float mass);
+	float GetMass() const;
+	
+private:
+	btRigidBody* rigidBody = nullptr;
+	float mass = 1.0f;
+
 };
 
 #endif

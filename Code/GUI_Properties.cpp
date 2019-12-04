@@ -9,6 +9,8 @@
 #include "C_Mesh.h"
 #include "C_Material.h"
 #include "C_Camera.h"
+#include "C_Collider.h"
+#include "C_RigidBody.h"
 
 GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_PROPERTIES)
 {}
@@ -151,7 +153,11 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("RigidBody"))
 				{
-
+					static float newMass = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetMass();
+					if (ImGui::InputFloat("Mass", &newMass))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetMass(newMass);
+					}
 				}
 			}
 			break;

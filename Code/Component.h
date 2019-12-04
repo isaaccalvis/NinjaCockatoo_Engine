@@ -7,6 +7,8 @@ class C_Transform;
 class C_Mesh;
 class C_Material;
 class C_Camera;
+class C_Collider;
+class C_RigidBody;
 
 class Component
 {
@@ -23,6 +25,8 @@ public:
 	C_Mesh* GetComponentAsMesh() const;
 	C_Material* GetComponentAsMaterial() const;
 	C_Camera* GetComponentAsCamera() const;
+	C_Collider* GetComponentAsCollider() const;
+	C_RigidBody* GetComponentAsRigidBody() const;
 
 	virtual void OnSaveJson(JSON_Object* object) {};
 	virtual void OnLoadJson(JSON_Object* object) {};

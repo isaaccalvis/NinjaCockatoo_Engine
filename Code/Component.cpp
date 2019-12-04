@@ -40,3 +40,13 @@ C_Camera* Component::GetComponentAsCamera() const
 {
 	return (C_Camera*)this;
 }
+
+C_Collider* Component::GetComponentAsCollider() const
+{
+	return (C_Collider*)this;
+}
+
+C_RigidBody* Component::GetComponentAsRigidBody() const
+{
+	return (C_RigidBody*)this;
+}
