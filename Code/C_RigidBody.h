@@ -14,6 +14,9 @@ public:
 
 	void SetMass(float mass);
 	float GetMass() const;
+
+	void UpdatePosition();
+	void SetPosition(math::float3 position);
 	
 private:
 	btRigidBody* rigidBody = nullptr;

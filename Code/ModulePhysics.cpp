@@ -75,7 +75,7 @@ bool ModulePhysics::CleanUp()
 btRigidBody* ModulePhysics::CreateRigidBody(math::float3 size, float mass)
 {
 	// Shape
-	btCollisionShape* shape = new btBoxShape(btVector3(size.x, size.y, size.z));
+	btCollisionShape* shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
 
 	// RigidBody
 	btDefaultMotionState* myMotionState = new btDefaultMotionState();

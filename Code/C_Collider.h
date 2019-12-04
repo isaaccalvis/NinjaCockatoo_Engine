@@ -12,6 +12,12 @@ public:
 
 	void Update(float dt);
 
+	void UpdatePosition();
+	void SetPosition(math::float3 position);
+
+private:
+	btRigidBody* rigidBody = nullptr;
+
 };
 
 #endif

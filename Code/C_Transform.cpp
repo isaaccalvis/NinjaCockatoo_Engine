@@ -2,6 +2,8 @@
 
 #include "Application.h"
 #include "C_Transform.h"
+#include "C_Collider.h"
+#include "C_RigidBody.h"
 
 C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_TRANSFORM)
 {
@@ -73,6 +75,10 @@ void C_Transform::SetMatrixFromGlobal(math::float4x4& globalMatrix)
 	newMatrix.Decompose(position, rotation, scale);
 	UpdateGlobalMatrix();
 	parent->UpdateAABB();
+	if (parent->GetComponent(COMPONENT_COLLIDER) != nullptr)
+		parent->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->UpdatePosition();
+	if (parent->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsCollider()->UpdatePosition();
 }
 
 void C_Transform::UpdateGlobalMatrix()
