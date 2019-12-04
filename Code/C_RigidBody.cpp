@@ -5,6 +5,12 @@ C_RigidBody::C_RigidBody(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 {
 	isUnique = true;
 	rigidBody = App->physics->CreateRigidBody(math::float3(1,1,1), mass);
+	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
+
+	btTransform bulletTransform = btTransform::getIdentity();
+	bulletTransform.setOrigin(btVector3(goPosition.x, goPosition.y, goPosition.z));
+
+	rigidBody->setCenterOfMassTransform(bulletTransform);
 }
 
 C_RigidBody::~C_RigidBody()
