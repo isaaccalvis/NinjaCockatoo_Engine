@@ -20,7 +20,7 @@ C_RigidBody::C_RigidBody(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 
 C_RigidBody::~C_RigidBody()
 {
-
+	App->physics->DeleteRigidBody(rigidBody);
 }
 
 void C_RigidBody::Update(float dt)

@@ -19,7 +19,7 @@ public:
 	bool			CleanUp();
 
 	btRigidBody* CreateRigidBody(math::float3 size, float mass = 0.0f);
-
+	void DeleteRigidBody(btRigidBody* rigidBody);
 
 public:
 	std::list<btRigidBody*> rigidBodies;

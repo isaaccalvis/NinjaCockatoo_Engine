@@ -21,7 +21,7 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 
 C_Collider::~C_Collider()
 {
-
+	App->physics->DeleteRigidBody(rigidBody);
 }
 
 void C_Collider::Update(float dt)
