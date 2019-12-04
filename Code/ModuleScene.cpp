@@ -29,6 +29,14 @@ update_status ModuleScene::Update(float dt)
 			if (!ImGuizmo::IsOver())
 				MousePicking(App->input->GetMouseX(), App->input->GetMouseY());
 	}
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
+	{
+		if (goSelected != nullptr)
+		{
+			DeleteGameObject(goSelected);
+		}
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 
