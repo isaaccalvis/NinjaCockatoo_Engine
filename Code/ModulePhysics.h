@@ -20,7 +20,10 @@ public:
 
 	btRigidBody* CreateCollisionObject(math::float3 size);
 
-	std::list<btRigidBody*> rigidbodies;
+
+public:
+	std::list<btRigidBody*> rigidBodies;
+	bool physicsDebugDraw = true;
 
 private:
 	btDiscreteDynamicsWorld*				physicsWorld			= nullptr;

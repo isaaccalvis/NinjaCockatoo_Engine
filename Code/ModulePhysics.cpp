@@ -60,6 +60,10 @@ update_status ModulePhysics::PreUpdate(float dt)
 
 update_status ModulePhysics::Update(float dt)
 {
+	if (physicsDebugDraw)
+	{
+		physicsWorld->debugDrawWorld();
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -78,6 +82,7 @@ btRigidBody* ModulePhysics::CreateCollisionObject(math::float3 size)
 	btRigidBody* rigidBody = new btRigidBody(0 , myMotionState, shape);
 
 	physicsWorld->addRigidBody(rigidBody);
+	rigidBodies.push_back(rigidBody);
 	return rigidBody;
 }
 
