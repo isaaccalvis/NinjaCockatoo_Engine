@@ -18,6 +18,9 @@ public:
 	void UpdatePosition();
 	void SetPosition(math::float3 position);
 
+	math::float3 GetLocalPosition();
+	void SetLocalPosition(math::float3 position);
+
 	PHYSIC_PRIMITIVE GetShape();
 	void SetShape(PHYSIC_PRIMITIVE primitive);
 	void SetShape(const char* primitiveName);
@@ -33,6 +36,7 @@ public:
 private:
 	btRigidBody* rigidBody = nullptr;
 	math::float3 size = math::float3::one;
+	math::float3 localPosition = math::float3::zero;
 
 	PHYSIC_PRIMITIVE shapePrimitive;
 	bool isTrigger = false;

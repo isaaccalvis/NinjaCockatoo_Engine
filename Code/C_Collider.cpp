@@ -14,6 +14,7 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 		size.y = parent->boundingBox.MaxY() - parent->boundingBox.MinY();
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
+	LOG_CONSOLE("%f, %f, %f", size.x,size.y,size.z);
 	rigidBody = App->physics->CreateRigidBody(PHY_CUBE, math::float3(size.x, size.y, size.z), 0);
 	shapePrimitive = PHY_CUBE;
 
@@ -56,6 +57,7 @@ void C_Collider::OnLoadJson(JSON_Object* object)
 void C_Collider::UpdatePosition()
 {
 	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
+	goPosition += localPosition;
 	SetPosition(goPosition);
 }
 
@@ -64,6 +66,17 @@ void C_Collider::SetPosition(math::float3 position)
 	btTransform bulletTransform = btTransform::getIdentity();
 	bulletTransform.setOrigin(btVector3(position.x, position.y, position.z));
 	rigidBody->setCenterOfMassTransform(bulletTransform);
+}
+
+math::float3 C_Collider::GetLocalPosition()
+{
+	return localPosition;
+}
+
+void C_Collider::SetLocalPosition(math::float3 position)
+{
+	this->localPosition = position;
+	UpdatePosition();
 }
 
 PHYSIC_PRIMITIVE C_Collider::GetShape()

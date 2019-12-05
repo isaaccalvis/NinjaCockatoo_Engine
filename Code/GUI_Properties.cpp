@@ -153,6 +153,14 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetSize(inputSize);
 					}
 
+					math::float3 tmpCenter = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->GetLocalPosition();
+					float auxCenter[3] = { tmpCenter.x, tmpCenter.y, tmpCenter.z };
+					if (ImGui::InputFloat3("Collider Center", auxCenter))
+					{
+						math::float3 inputCenter(auxCenter[0], auxCenter[1], auxCenter[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetLocalPosition(inputCenter);
+					}
+
 					static const char* shapes[] = {"None", "Cube", "Sphere"};
 					static const char* currentShape = "Cube";
 					static const int numTypeShapes = 3;
