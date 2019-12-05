@@ -27,7 +27,8 @@ public:
 
 	bool physicsDebugDraw = true;
 
-private:
+	// TODO: PASSARHO A PRIVAT
+public:
 	btDiscreteDynamicsWorld*				physicsWorld			= nullptr;
 	btDefaultCollisionConfiguration*		collisionConfiguration	= nullptr;
 	btCollisionDispatcher*					collisionDispatcher		= nullptr;

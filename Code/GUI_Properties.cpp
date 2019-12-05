@@ -167,7 +167,7 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetSize(inputSize);
 					}
 
-					static float newMass = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetMass();
+					float newMass = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetMass();
 					if (ImGui::InputFloat("Mass", &newMass))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetMass(newMass);

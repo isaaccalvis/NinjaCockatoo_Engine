@@ -53,7 +53,12 @@ void C_RigidBody::OnLoadJson(JSON_Object* object)
 void C_RigidBody::SetMass(float mass)
 {
 	this->mass = mass;
+	App->physics->physicsWorld->removeRigidBody(rigidBody);
+	rigidBody->getCollisionShape()->calculateLocalInertia(mass, btVector3(0,0,0));
 	rigidBody->setMassProps(mass, btVector3(0,0,0));
+	rigidBody->clearForces();
+	App->physics->physicsWorld->addRigidBody(rigidBody);
+	rigidBody->activate(true);
 }
 
 float C_RigidBody::GetMass() const

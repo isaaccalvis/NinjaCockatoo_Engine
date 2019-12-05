@@ -8,7 +8,6 @@ C_Mesh::C_Mesh(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT
 {
 	isUnique = true;
 	name = "Mesh";
-
 }
 
 C_Mesh::~C_Mesh()
