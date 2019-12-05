@@ -25,13 +25,17 @@ public:
 	void SetSize(math::float3 size);
 	math::float3 GetSize() const;
 
+	bool GetIsTrigger() const;
+	void SetIsTrigger(bool set);
+
 public:
 	uuid_unit colliderUUID = 0u;
 private:
 	btRigidBody* rigidBody = nullptr;
 	math::float3 size = math::float3::one;
-	PHYSIC_PRIMITIVE shapePrimitive;
 
+	PHYSIC_PRIMITIVE shapePrimitive;
+	bool isTrigger = false;
 };
 
 #endif

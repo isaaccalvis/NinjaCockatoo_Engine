@@ -125,3 +125,21 @@ math::float3 C_Collider::GetSize() const
 {
 	return size;
 }
+
+bool C_Collider::GetIsTrigger() const
+{
+	return isTrigger;
+}
+
+void C_Collider::SetIsTrigger(bool set)
+{
+	isTrigger = set;
+	if (set)
+	{
+		rigidBody->setCollisionFlags(4);
+	}
+	else
+	{
+		rigidBody->setCollisionFlags(1);
+	}
+}

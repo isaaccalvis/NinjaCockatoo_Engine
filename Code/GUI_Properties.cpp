@@ -173,6 +173,13 @@ void GUI_Properties::Draw()
 						}
 						ImGui::EndCombo();
 					}
+
+					static bool isTrigger = App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->GetIsTrigger();
+					if (ImGui::Checkbox("Is Trigger", &isTrigger))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->SetIsTrigger(isTrigger);
+					}
+
 				}
 			}
 			break;
