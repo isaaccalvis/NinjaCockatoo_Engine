@@ -5,6 +5,12 @@
 #include "Module.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
+enum PHYSIC_PRIMITIVE
+{
+	PHY_CUBE = 0,
+	PHY_SPHERE
+};
+
 class PhysicsDebugDrawer;
 
 class ModulePhysics : public Module
@@ -18,7 +24,8 @@ public:
 	update_status	Update(float dt);
 	bool			CleanUp();
 
-	btRigidBody* CreateRigidBody(math::float3 size, float mass = 0.0f);
+	btRigidBody* CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::float3 size, float mass = 0.0f);
+
 	void DeleteRigidBody(btRigidBody* rigidBody);
 
 public:

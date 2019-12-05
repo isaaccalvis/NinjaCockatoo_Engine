@@ -55,7 +55,6 @@ update_status ModulePhysics::PreUpdate(float dt)
 		for (int i = 0; i < numManifolds; i++)
 		{
 			btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
-			//LOG_CONSOLE("%i", contactManifold->getNumContacts());
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -75,10 +74,24 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-btRigidBody* ModulePhysics::CreateRigidBody(math::float3 size, float mass)
+btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::float3 size, float mass)
 {
 	// Shape
-	btCollisionShape* shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+	btCollisionShape* shape;
+
+	switch (primitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+	{
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+	}
+	break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+	{
+		shape = new btSphereShape(size.x);
+	}
+	break;
+	}
 
 	// RigidBody
 	btDefaultMotionState* myMotionState = new btDefaultMotionState();

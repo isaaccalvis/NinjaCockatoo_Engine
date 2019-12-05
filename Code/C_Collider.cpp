@@ -14,7 +14,8 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 		size.y = parent->boundingBox.MaxY() - parent->boundingBox.MinY();
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
-	rigidBody = App->physics->CreateRigidBody(math::float3(size.x, size.y, size.z), 0);
+	rigidBody = App->physics->CreateRigidBody(PHY_CUBE, math::float3(size.x, size.y, size.z), 0);
+	shapePrimitive = PHY_CUBE;
 
 	UpdatePosition();
 }
@@ -63,6 +64,46 @@ void C_Collider::SetPosition(math::float3 position)
 	btTransform bulletTransform = btTransform::getIdentity();
 	bulletTransform.setOrigin(btVector3(position.x, position.y, position.z));
 	rigidBody->setCenterOfMassTransform(bulletTransform);
+}
+
+PHYSIC_PRIMITIVE C_Collider::GetShape()
+{
+	return shapePrimitive;
+}
+
+void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
+{
+	shapePrimitive = primitive;
+	// Actualitzar el rigidbody
+	btCollisionShape* shape;
+	switch (shapePrimitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+		break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+		shape = new btSphereShape(size.x);
+		break;
+	}
+	rigidBody->setCollisionShape(shape);
+}
+
+void C_Collider::SetShape(const char* primitiveName)
+{
+	std::string primitiveNameString(primitiveName);
+	btCollisionShape* shape;
+	if (primitiveNameString.compare("Cube") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_CUBE;
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+	}
+	else if (primitiveNameString.compare("Sphere") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_SPHERE;
+		shape = new btSphereShape(size.x);
+	}
+	// Actualitzar el rigidbody
+	rigidBody->setCollisionShape(shape);
 }
 
 void C_Collider::SetSize(math::float3 size)

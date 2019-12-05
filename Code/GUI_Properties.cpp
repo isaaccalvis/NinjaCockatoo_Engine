@@ -152,6 +152,27 @@ void GUI_Properties::Draw()
 						math::float3 inputSize(auxSize[0], auxSize[1], auxSize[2]);
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetSize(inputSize);
 					}
+
+					static const char* shapes[] = {"Cube", "Sphere"};
+					static const char* currentShape = "Cube";
+					static const int numTypeShapes = 2;
+					if (ImGui::BeginCombo("Shape", currentShape))
+					{
+						for (int i = 0; i < numTypeShapes; i++)
+						{
+							bool is_selected = (currentShape == shapes[i]);
+							if (ImGui::Selectable(shapes[i], is_selected))
+							{
+								currentShape = shapes[i];
+								App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->SetShape(currentShape);
+							}
+							if (is_selected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+						ImGui::EndCombo();
+					}
 				}
 			}
 			break;
