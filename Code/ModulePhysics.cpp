@@ -40,9 +40,6 @@ bool ModulePhysics::Start()
 	physicsWorld->setGravity(gravity);
 	physicsWorld->setDebugDrawer(physicsDebugDrawer);
 
-	//CreateRigidBody(math::float3(2, 2, 2), 1);
-	//CreateRigidBody(math::float3(1, 1, 1), 10);
-
 	return true;
 }
 
@@ -81,6 +78,11 @@ btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::fl
 
 	switch (primitive)
 	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+	{
+		shape = new btEmptyShape();
+	}
+	break;
 	case PHYSIC_PRIMITIVE::PHY_CUBE:
 	{
 		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));

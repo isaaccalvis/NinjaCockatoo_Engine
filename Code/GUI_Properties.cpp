@@ -153,9 +153,9 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetSize(inputSize);
 					}
 
-					static const char* shapes[] = {"Cube", "Sphere"};
+					static const char* shapes[] = {"None", "Cube", "Sphere"};
 					static const char* currentShape = "Cube";
-					static const int numTypeShapes = 2;
+					static const int numTypeShapes = 3;
 					if (ImGui::BeginCombo("Shape", currentShape))
 					{
 						for (int i = 0; i < numTypeShapes; i++)

@@ -78,6 +78,9 @@ void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
 	btCollisionShape* shape;
 	switch (shapePrimitive)
 	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+		shape = new btEmptyShape();
+		break;
 	case PHYSIC_PRIMITIVE::PHY_CUBE:
 		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
 		break;
@@ -92,7 +95,12 @@ void C_Collider::SetShape(const char* primitiveName)
 {
 	std::string primitiveNameString(primitiveName);
 	btCollisionShape* shape;
-	if (primitiveNameString.compare("Cube") == 0)
+	if (primitiveNameString.compare("None") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_NONE;
+		shape = new btEmptyShape();
+	}
+	else if (primitiveNameString.compare("Cube") == 0)
 	{
 		shapePrimitive = PHYSIC_PRIMITIVE::PHY_CUBE;
 		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));

@@ -7,7 +7,8 @@
 
 enum PHYSIC_PRIMITIVE
 {
-	PHY_CUBE = 0,
+	PHY_NONE = 0,
+	PHY_CUBE,
 	PHY_SPHERE
 };
 
