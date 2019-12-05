@@ -25,6 +25,7 @@ public:
 	std::list<btRigidBody*> rigidBodies;
 	btVector3 gravity = btVector3(0, -9.8f, 0);
 
+	bool activePhysics = false;
 	bool physicsDebugDraw = true;
 
 	// TODO: PASSARHO A PRIVAT

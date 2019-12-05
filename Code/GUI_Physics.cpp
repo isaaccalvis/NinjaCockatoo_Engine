@@ -19,6 +19,12 @@ void GUI_Physics::Draw()
 		ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.6f, App->window->screenHeight*.07));
 	}
 
+	static bool physicsActive = App->physics->activePhysics;
+	if (ImGui::Checkbox("Activate Physics", &physicsActive))
+	{
+		App->physics->activePhysics = physicsActive;
+	}
+
 	static bool physicsDebugDraw = App->physics->physicsDebugDraw;
 	if (ImGui::Checkbox("Physics Debug", &physicsDebugDraw))
 	{

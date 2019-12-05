@@ -48,12 +48,15 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate(float dt)
 {
-	physicsWorld->stepSimulation(dt);
-	int numManifolds = physicsWorld->getDispatcher()->getNumManifolds();
-	for (int i = 0; i < numManifolds; i++)
+	if (activePhysics)
 	{
-		btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
-		//LOG_CONSOLE("%i", contactManifold->getNumContacts());
+		physicsWorld->stepSimulation(dt);
+		int numManifolds = physicsWorld->getDispatcher()->getNumManifolds();
+		for (int i = 0; i < numManifolds; i++)
+		{
+			btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+			//LOG_CONSOLE("%i", contactManifold->getNumContacts());
+		}
 	}
 	return update_status::UPDATE_CONTINUE;
 }
