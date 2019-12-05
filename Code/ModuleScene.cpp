@@ -37,6 +37,14 @@ update_status ModuleScene::Update(float dt)
 		}
 	}
 
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		for (int j = 0; j < gameObjects[i]->CountComponents(); j++)
+		{
+			gameObjects[i]->GetComponent(j)->Update(dt);
+		}
+	}
+
 	return update_status::UPDATE_CONTINUE;
 }
 

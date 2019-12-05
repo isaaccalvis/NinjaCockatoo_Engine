@@ -86,6 +86,12 @@ btRigidBody* ModulePhysics::CreateRigidBody(math::float3 size, float mass)
 	return rigidBody;
 }
 
+void ModulePhysics::DeleteRigidBody(btRigidBody* rigidBody)
+{
+	physicsWorld->removeRigidBody(rigidBody);
+	rigidBodies.remove(rigidBody);
+}
+
 // ================== DEBUG DRAW ==================
 
 PhysicsDebugDrawer::PhysicsDebugDrawer()

@@ -4,6 +4,8 @@
 C_Material::C_Material(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_MATERIAL)
 {
 	isUnique = true;
+	name = "Material";
+
 }
 
 C_Material::~C_Material()

@@ -6,6 +6,8 @@
 C_Camera::C_Camera(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_CAMERA)
 {
 	isUnique = true;
+	name = "Camera";
+
 	camera = new Camera();
 	InitFrustum();
 	debugCube = new DebugCube();

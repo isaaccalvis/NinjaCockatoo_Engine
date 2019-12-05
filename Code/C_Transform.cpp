@@ -8,11 +8,23 @@
 C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE::COMPONENT_TRANSFORM)
 {
 	isUnique = true;
+	name = "Transform";
+
 }
 
 C_Transform::~C_Transform() {}
 
-void C_Transform::Update(float dt) {}
+void C_Transform::Update(float dt)
+{
+	if (parent->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+	{
+		const btVector3 rbPos = parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->getCenterOfMassPosition();
+		this->position = math::float3(rbPos.getX(), rbPos.getY(), rbPos.getZ());
+		UpdateGlobalMatrix();
+		UpdateGlobalMatrixOfChilds();
+		parent->UpdateAABB();
+	}
+}
 
 void C_Transform::OnSaveJson(JSON_Object* object)
 {

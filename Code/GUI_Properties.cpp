@@ -145,7 +145,13 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("Collider"))
 				{
-
+					math::float3 tmpSize = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->GetSize();
+					float auxSize[3] = { tmpSize.x, tmpSize.y, tmpSize.z };
+					if (ImGui::InputFloat3("Collider Size", auxSize))
+					{
+						math::float3 inputSize(auxSize[0], auxSize[1], auxSize[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetSize(inputSize);
+					}
 				}
 			}
 			break;
@@ -153,7 +159,15 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("RigidBody"))
 				{
-					static float newMass = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetMass();
+					math::float3 tmpSize = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetSize();
+					float auxSize[3] = { tmpSize.x, tmpSize.y, tmpSize.z };
+					if (ImGui::InputFloat3("RigidBody Size", auxSize))
+					{
+						math::float3 inputSize(auxSize[0], auxSize[1], auxSize[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetSize(inputSize);
+					}
+
+					float newMass = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetMass();
 					if (ImGui::InputFloat("Mass", &newMass))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetMass(newMass);
@@ -172,7 +186,7 @@ void GUI_Properties::GameComponentPopUp(Component* component) const
 {
 	if (component->type != COMPONENT_TRANSFORM)
 	{
-		if (ImGui::BeginPopupContextItem())
+		if (ImGui::BeginPopupContextItem(component->name, 1))
 		{
 			if (ImGui::Selectable("Delete"))
 			{
