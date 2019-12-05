@@ -17,6 +17,7 @@ Mesh::Mesh(MESH_TYPE type)
 	{
 	case MESH_TYPE::PRIMITIVE_CUBE:
 		primitive = par_shapes_create_cube();
+
 		break;
 	case MESH_TYPE::PRIMITIVE_PLANE:
 		primitive = par_shapes_create_plane(1, 1);
