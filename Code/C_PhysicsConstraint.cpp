@@ -23,6 +23,7 @@ bool C_PhysicsConstraint::ConnectGameObject(GameObject* go)
 		if (tmpRB != nullptr)
 		{
 			connectedGO = go;
+			GenerateConstraint();
 			ret = true;
 		}
 	}

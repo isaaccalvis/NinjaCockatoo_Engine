@@ -90,7 +90,7 @@ void C_Transform::SetMatrixFromGlobal(math::float4x4& globalMatrix)
 	if (parent->GetComponent(COMPONENT_COLLIDER) != nullptr)
 		parent->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->UpdatePosition();
 	if (parent->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
-		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsCollider()->UpdatePosition();
+		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->UpdatePosition();
 }
 
 void C_Transform::UpdateGlobalMatrix()
