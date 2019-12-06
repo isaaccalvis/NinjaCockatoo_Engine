@@ -10,13 +10,18 @@ public:
 	C_PhysicsConstraint(GameObject* parent);
 	~C_PhysicsConstraint();
 
+	bool ConnectRigidBody(GameObject* go);
+
+	bool GenerateConstraint();
+
 	void Update(float dt);
 
 	void OnSaveJson(JSON_Object* object);
 	void OnLoadJson(JSON_Object* object);
 
-private:
-
+public:
+	btTypedConstraint* constraint = nullptr;
+	GameObject* connectedGO = nullptr;
 };
 
 #endif

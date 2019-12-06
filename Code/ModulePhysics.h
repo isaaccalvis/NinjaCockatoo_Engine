@@ -26,11 +26,14 @@ public:
 	bool			CleanUp();
 
 	btRigidBody* CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::float3 size, float mass = 0.0f);
+	btTypedConstraint* CreateConstraint(btRigidBody* bodyA, btRigidBody* bodyB, const math::float3 pivotA, const math::float3 pivotB);
 
 	void DeleteRigidBody(btRigidBody* rigidBody);
 
 public:
 	std::list<btRigidBody*> rigidBodies;
+	std::list<btTypedConstraint*> constraints;
+
 	btVector3 gravity = btVector3(0, -9.8f, 0);
 
 	bool activePhysics = false;

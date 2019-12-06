@@ -68,6 +68,7 @@ update_status ModulePhysics::Update(float dt)
 
 bool ModulePhysics::CleanUp()
 {
+	// TODO: CLEAR LISTS
 	return true;
 }
 
@@ -102,6 +103,15 @@ btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::fl
 	physicsWorld->addRigidBody(rigidBody);
 	rigidBodies.push_back(rigidBody);
 	return rigidBody;
+}
+
+btTypedConstraint* ModulePhysics::CreateConstraint(btRigidBody* bodyA, btRigidBody* bodyB, const math::float3 pivotA, const math::float3 pivotB)
+{
+	btTypedConstraint* constraint = new btPoint2PointConstraint(
+	*bodyA, *bodyB, btVector3(pivotA.x, pivotA.y, pivotA.z), btVector3(pivotB.x, pivotB.y, pivotB.z));
+	constraints.push_back(constraint);
+	physicsWorld->addConstraint(constraint);
+	return constraint;
 }
 
 void ModulePhysics::DeleteRigidBody(btRigidBody* rigidBody)
