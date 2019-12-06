@@ -152,6 +152,42 @@ void GUI_Properties::Draw()
 						math::float3 inputSize(auxSize[0], auxSize[1], auxSize[2]);
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetSize(inputSize);
 					}
+
+					math::float3 tmpCenter = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->GetLocalPosition();
+					float auxCenter[3] = { tmpCenter.x, tmpCenter.y, tmpCenter.z };
+					if (ImGui::InputFloat3("Collider Center", auxCenter))
+					{
+						math::float3 inputCenter(auxCenter[0], auxCenter[1], auxCenter[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_COLLIDER)->GetComponentAsCollider()->SetLocalPosition(inputCenter);
+					}
+
+					static const char* shapes[] = {"None", "Cube", "Sphere"};
+					static const char* currentShape = "Cube";
+					static const int numTypeShapes = 3;
+					if (ImGui::BeginCombo("Shape", currentShape))
+					{
+						for (int i = 0; i < numTypeShapes; i++)
+						{
+							bool is_selected = (currentShape == shapes[i]);
+							if (ImGui::Selectable(shapes[i], is_selected))
+							{
+								currentShape = shapes[i];
+								App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->SetShape(currentShape);
+							}
+							if (is_selected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+						ImGui::EndCombo();
+					}
+
+					static bool isTrigger = App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->GetIsTrigger();
+					if (ImGui::Checkbox("Is Trigger", &isTrigger))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->SetIsTrigger(isTrigger);
+					}
+
 				}
 			}
 			break;

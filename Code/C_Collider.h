@@ -18,15 +18,28 @@ public:
 	void UpdatePosition();
 	void SetPosition(math::float3 position);
 
+	math::float3 GetLocalPosition();
+	void SetLocalPosition(math::float3 position);
+
+	PHYSIC_PRIMITIVE GetShape();
+	void SetShape(PHYSIC_PRIMITIVE primitive);
+	void SetShape(const char* primitiveName);
+
 	void SetSize(math::float3 size);
 	math::float3 GetSize() const;
+
+	bool GetIsTrigger() const;
+	void SetIsTrigger(bool set);
 
 public:
 	uuid_unit colliderUUID = 0u;
 private:
 	btRigidBody* rigidBody = nullptr;
 	math::float3 size = math::float3::one;
+	math::float3 localPosition = math::float3::zero;
 
+	PHYSIC_PRIMITIVE shapePrimitive;
+	bool isTrigger = false;
 };
 
 #endif

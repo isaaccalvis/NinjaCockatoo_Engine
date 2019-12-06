@@ -13,7 +13,7 @@ C_RigidBody::C_RigidBody(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 		size.y = parent->boundingBox.MaxY() - parent->boundingBox.MinY();
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
-	rigidBody = App->physics->CreateRigidBody(math::float3(size.x, size.y, size.z), mass);
+	rigidBody = App->physics->CreateRigidBody(PHY_CUBE,math::float3(size.x, size.y, size.z), mass);
 
 	UpdatePosition();
 }

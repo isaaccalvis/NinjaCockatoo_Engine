@@ -14,7 +14,9 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 		size.y = parent->boundingBox.MaxY() - parent->boundingBox.MinY();
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
-	rigidBody = App->physics->CreateRigidBody(math::float3(size.x, size.y, size.z), 0);
+	LOG_CONSOLE("%f, %f, %f", size.x,size.y,size.z);
+	rigidBody = App->physics->CreateRigidBody(PHY_CUBE, math::float3(size.x, size.y, size.z), 0);
+	shapePrimitive = PHY_CUBE;
 
 	UpdatePosition();
 }
@@ -55,6 +57,7 @@ void C_Collider::OnLoadJson(JSON_Object* object)
 void C_Collider::UpdatePosition()
 {
 	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
+	goPosition += localPosition;
 	SetPosition(goPosition);
 }
 
@@ -63,6 +66,65 @@ void C_Collider::SetPosition(math::float3 position)
 	btTransform bulletTransform = btTransform::getIdentity();
 	bulletTransform.setOrigin(btVector3(position.x, position.y, position.z));
 	rigidBody->setCenterOfMassTransform(bulletTransform);
+}
+
+math::float3 C_Collider::GetLocalPosition()
+{
+	return localPosition;
+}
+
+void C_Collider::SetLocalPosition(math::float3 position)
+{
+	this->localPosition = position;
+	UpdatePosition();
+}
+
+PHYSIC_PRIMITIVE C_Collider::GetShape()
+{
+	return shapePrimitive;
+}
+
+void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
+{
+	shapePrimitive = primitive;
+	// Actualitzar el rigidbody
+	btCollisionShape* shape;
+	switch (shapePrimitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+		shape = new btEmptyShape();
+		break;
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+		break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+		shape = new btSphereShape(size.x);
+		break;
+	}
+	rigidBody->setCollisionShape(shape);
+}
+
+void C_Collider::SetShape(const char* primitiveName)
+{
+	std::string primitiveNameString(primitiveName);
+	btCollisionShape* shape;
+	if (primitiveNameString.compare("None") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_NONE;
+		shape = new btEmptyShape();
+	}
+	else if (primitiveNameString.compare("Cube") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_CUBE;
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+	}
+	else if (primitiveNameString.compare("Sphere") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_SPHERE;
+		shape = new btSphereShape(size.x);
+	}
+	// Actualitzar el rigidbody
+	rigidBody->setCollisionShape(shape);
 }
 
 void C_Collider::SetSize(math::float3 size)
@@ -75,4 +137,22 @@ void C_Collider::SetSize(math::float3 size)
 math::float3 C_Collider::GetSize() const
 {
 	return size;
+}
+
+bool C_Collider::GetIsTrigger() const
+{
+	return isTrigger;
+}
+
+void C_Collider::SetIsTrigger(bool set)
+{
+	isTrigger = set;
+	if (set)
+	{
+		rigidBody->setCollisionFlags(4);
+	}
+	else
+	{
+		rigidBody->setCollisionFlags(1);
+	}
 }
