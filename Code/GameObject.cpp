@@ -8,6 +8,7 @@
 #include "C_Camera.h"
 #include "C_Collider.h"
 #include "C_RigidBody.h"
+#include "C_PhysicsConstraint.h"
 
 GameObject::GameObject()
 {
@@ -120,6 +121,11 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 	case COMPONENT_TYPE::COMPONENT_RIGIDBODY:
 	{
 		component = new C_RigidBody(this);
+	}
+	break;
+	case COMPONENT_TYPE::COMPONENT_CONSTRAINT:
+	{
+		component = new C_PhysicsConstraint(this);
 	}
 	break;
 	}

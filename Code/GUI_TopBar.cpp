@@ -129,6 +129,13 @@ void GUI_TopBar::Draw()
 					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY, "RigidBody");
 				}
 			}
+			if (ImGui::MenuItem("Physic Constraint"))
+			{
+				if (App->scene->goSelected != nullptr)
+				{
+					App->scene->goSelected->CreateComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT, "PhysicsConstraint");
+				}
+			}
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))

@@ -211,6 +211,14 @@ void GUI_Properties::Draw()
 				}
 			}
 			break;
+			case COMPONENT_TYPE::COMPONENT_CONSTRAINT:
+			{
+				if (ImGui::CollapsingHeader("PhysicsConstraint"))
+				{
+
+				}
+			}
+			break;
 			}
 			GameComponentPopUp(App->scene->goSelected->GetComponent(i));
 		}
