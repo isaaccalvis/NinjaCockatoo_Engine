@@ -11,6 +11,7 @@
 #include "C_Camera.h"
 #include "C_Collider.h"
 #include "C_RigidBody.h"
+#include "C_PhysicsConstraint.h"
 
 GUI_Properties::GUI_Properties(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_PROPERTIES)
 {}
@@ -215,7 +216,18 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("PhysicsConstraint"))
 				{
-
+					if (ImGui::Button("Connect Game Object"))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->tryingConnect = true;
+					}
+					if (App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->connectedGO != nullptr)
+					{
+						ImGui::Text("Connected Game Object: %s", App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->connectedGO->GetName());
+					}
+					else
+					{
+						ImGui::Text("Any Game Object connected");
+					}
 				}
 			}
 			break;

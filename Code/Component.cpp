@@ -50,3 +50,8 @@ C_RigidBody* Component::GetComponentAsRigidBody() const
 {
 	return (C_RigidBody*)this;
 }
+
+C_PhysicsConstraint* Component::GetComponentAsConstraint() const
+{
+	return (C_PhysicsConstraint*)this;
+}

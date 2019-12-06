@@ -10,7 +10,7 @@ public:
 	C_PhysicsConstraint(GameObject* parent);
 	~C_PhysicsConstraint();
 
-	bool ConnectRigidBody(GameObject* go);
+	bool ConnectGameObject(GameObject* go);
 
 	bool GenerateConstraint();
 
@@ -22,6 +22,7 @@ public:
 public:
 	btTypedConstraint* constraint = nullptr;
 	GameObject* connectedGO = nullptr;
+	bool tryingConnect = false;
 };
 
 #endif

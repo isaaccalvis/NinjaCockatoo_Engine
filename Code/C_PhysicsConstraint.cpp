@@ -14,7 +14,7 @@ C_PhysicsConstraint::~C_PhysicsConstraint()
 
 }
 
-bool C_PhysicsConstraint::ConnectRigidBody(GameObject* go)
+bool C_PhysicsConstraint::ConnectGameObject(GameObject* go)
 {
 	bool ret = false;
 	if (go->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
@@ -25,6 +25,10 @@ bool C_PhysicsConstraint::ConnectRigidBody(GameObject* go)
 			connectedGO = go;
 			ret = true;
 		}
+	}
+	if (ret == false)
+	{
+		LOG_CONSOLE("Cant connect Game Object (not rigidbody found)");
 	}
 	return ret;
 }
@@ -45,7 +49,14 @@ bool C_PhysicsConstraint::GenerateConstraint()
 
 void C_PhysicsConstraint::Update(float dt)
 {
-
+	if (tryingConnect)
+	{
+		if (App->scene->goSelected != parent)
+		{
+			ConnectGameObject(App->scene->goSelected);
+			tryingConnect = false;
+		}
+	}
 }
 
 void C_PhysicsConstraint::OnSaveJson(JSON_Object* object)
