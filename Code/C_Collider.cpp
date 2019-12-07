@@ -106,6 +106,7 @@ void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
 
 void C_Collider::SetShape(const char* primitiveName)
 {
+	// TODO: CLEAR OLD SHAPE
 	std::string primitiveNameString(primitiveName);
 	btCollisionShape* shape;
 	if (primitiveNameString.compare("None") == 0)

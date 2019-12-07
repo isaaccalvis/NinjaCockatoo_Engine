@@ -216,6 +216,27 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("PhysicsConstraint"))
 				{
+					static const char* constraints[] = { "Point2Point", "Hinge", "Slider" };
+					static const char* currentconstraint = "Point2Point";
+					static const int numTypeShapes = 3;
+					if (ImGui::BeginCombo("Constraint Type", currentconstraint))
+					{
+						for (int i = 0; i < numTypeShapes; i++)
+						{
+							bool is_selected = (currentconstraint == constraints[i]);
+							if (ImGui::Selectable(constraints[i], is_selected))
+							{
+								currentconstraint = constraints[i];
+								App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetConstraint(currentconstraint);
+							}
+							if (is_selected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+						ImGui::EndCombo();
+					}
+
 					if (ImGui::Button("Connect Game Object"))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->tryingConnect = true;

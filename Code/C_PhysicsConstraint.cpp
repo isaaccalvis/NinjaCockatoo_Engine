@@ -39,12 +39,39 @@ bool C_PhysicsConstraint::GenerateConstraint()
 	bool ret = false;
 	if (connectedGO != nullptr)
 	{
-		constraint = App->physics->CreateConstraint(
-			PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
-			parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-			connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-			parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-			connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+		switch (type)
+		{
+		case PHYSIC_CONSTRAINT::CONSTRAINT_P2P:
+		{
+			constraint = App->physics->CreateConstraint(
+				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
+				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+		}
+		break;
+		case PHYSIC_CONSTRAINT::CONSTRAINT_HINGE:
+		{
+			constraint = App->physics->CreateConstraint(
+				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
+				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+		}
+		break;
+		case PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER:
+		{
+			constraint = App->physics->CreateConstraint(
+				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
+				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+		}
+		break;
+		}
 	}
 	return ret;
 }
@@ -69,4 +96,28 @@ void C_PhysicsConstraint::OnSaveJson(JSON_Object* object)
 void C_PhysicsConstraint::OnLoadJson(JSON_Object* object)
 {
 
+}
+
+void C_PhysicsConstraint::SetConstraint(const char* type)
+{
+	// Quit old constraint
+	if (constraint != nullptr)
+	{
+
+	}
+	// Clear old constraint
+
+	std::string constraintType(type);
+	if (constraintType.compare("Point2Point") == 0)
+	{
+		this->type = PHYSIC_CONSTRAINT::CONSTRAINT_P2P;
+	}
+	else if (constraintType.compare("Hinge") == 0)
+	{
+		this->type = PHYSIC_CONSTRAINT::CONSTRAINT_HINGE;
+	}
+	else if (constraintType.compare("Slider") == 0)
+	{
+		this->type = PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER;
+	}
 }

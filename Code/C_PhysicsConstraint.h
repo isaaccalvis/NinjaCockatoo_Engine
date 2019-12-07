@@ -19,10 +19,13 @@ public:
 	void OnSaveJson(JSON_Object* object);
 	void OnLoadJson(JSON_Object* object);
 
+	void SetConstraint(const char* type);
+
 public:
 	btTypedConstraint* constraint = nullptr;
 	GameObject* connectedGO = nullptr;
 	bool tryingConnect = false;
+	PHYSIC_CONSTRAINT type = PHYSIC_CONSTRAINT::CONSTRAINT_P2P;
 };
 
 #endif
