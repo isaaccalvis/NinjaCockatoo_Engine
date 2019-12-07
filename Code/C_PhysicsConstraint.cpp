@@ -40,7 +40,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 	if (connectedGO != nullptr)
 	{
 		constraint = App->physics->CreateConstraint(
-		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
+			PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
+			parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 			connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 			parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
 			connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);

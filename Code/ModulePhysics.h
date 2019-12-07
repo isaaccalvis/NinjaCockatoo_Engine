@@ -4,12 +4,20 @@
 #include <list>
 #include "Module.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
+#include "MathGeoLib-1.5/src/Math/float3.h"
 
 enum PHYSIC_PRIMITIVE
 {
 	PHY_NONE = 0,
 	PHY_CUBE,
 	PHY_SPHERE
+};
+
+enum PHYSIC_CONSTRAINT
+{
+	CONSTRAINT_P2P,
+	CONSTRAINT_HINGE,
+	CONSTRAINT_SLIDER
 };
 
 class PhysicsDebugDrawer;
@@ -26,7 +34,11 @@ public:
 	bool			CleanUp();
 
 	btRigidBody* CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::float3 size, float mass = 0.0f);
-	btTypedConstraint* CreateConstraint(btRigidBody* bodyA, btRigidBody* bodyB, const math::float3 pivotA, const math::float3 pivotB);
+	btTypedConstraint* CreateConstraint(PHYSIC_CONSTRAINT type,
+		btRigidBody* bodyA, btRigidBody* bodyB,
+		const math::float3 pivotA, const math::float3 pivotB,
+		const math::float3 axisA = math::float3::zero,
+		const math::float3 axisB = math::float3::zero);
 
 	void DeleteRigidBody(btRigidBody* rigidBody);
 

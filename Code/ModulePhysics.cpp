@@ -105,10 +105,45 @@ btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::fl
 	return rigidBody;
 }
 
-btTypedConstraint* ModulePhysics::CreateConstraint(btRigidBody* bodyA, btRigidBody* bodyB, const math::float3 pivotA, const math::float3 pivotB)
+btTypedConstraint* ModulePhysics::CreateConstraint(
+	PHYSIC_CONSTRAINT type,
+	btRigidBody* bodyA, btRigidBody* bodyB, 
+	const math::float3 pivotA, const math::float3 pivotB,
+	const math::float3 axisA, const math::float3 axisB)
 {
-	btTypedConstraint* constraint = new btPoint2PointConstraint(
-	*bodyA, *bodyB, btVector3(pivotA.x, pivotA.y, pivotA.z), btVector3(pivotB.x, pivotB.y, pivotB.z));
+	btTypedConstraint* constraint;
+	switch (type)
+	{
+	case PHYSIC_CONSTRAINT::CONSTRAINT_P2P:
+	{
+		constraint = new btPoint2PointConstraint(
+			*bodyA, *bodyB, btVector3(pivotA.x, pivotA.y, pivotA.z), btVector3(pivotB.x, pivotB.y, pivotB.z));
+	}
+	break;
+	case PHYSIC_CONSTRAINT::CONSTRAINT_HINGE:
+	{
+		constraint = new btHingeConstraint(
+			*bodyA, *bodyB,
+			btVector3(pivotA.x, pivotA.y, pivotA.z),
+			btVector3(pivotB.x, pivotB.y, pivotB.z),
+			btVector3(axisA.x, axisA.y, axisA.z),
+			btVector3(axisB.x, axisB.y, axisB.z));
+
+	}
+	break;
+	case PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER:
+	{
+		btTransform transform1;
+		btTransform transform2;
+		transform1.setOrigin(btVector3(pivotA.x, pivotA.y, pivotA.z));
+		transform2.setOrigin(btVector3(pivotB.x, pivotB.y, pivotB.z));
+		constraint = new btSliderConstraint(
+			*bodyA, *bodyB,
+			transform1,
+			transform2, false);
+	}
+	break;
+	}
 	constraints.push_back(constraint);
 	physicsWorld->addConstraint(constraint);
 	return constraint;
