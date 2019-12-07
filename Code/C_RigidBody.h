@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "C_PhysicsConstraint.h"
 
 class C_RigidBody : public Component
 {
@@ -29,7 +30,7 @@ public:
 
 public:
 	btRigidBody* rigidBody = nullptr;
-	btTypedConstraint* connectedConstraint = nullptr;
+	C_PhysicsConstraint* connectedConstraint = nullptr;
 	float mass = 1.0f;
 	math::float3 size = math::float3::one;
 };

@@ -22,13 +22,13 @@ public:
 	void SetEnable(bool set);
 	bool GetEnabled() const;
 
-	C_Transform* GetComponentAsTransform() const;
-	C_Mesh* GetComponentAsMesh() const;
-	C_Material* GetComponentAsMaterial() const;
-	C_Camera* GetComponentAsCamera() const;
-	C_Collider* GetComponentAsCollider() const;
-	C_RigidBody* GetComponentAsRigidBody() const;
-	C_PhysicsConstraint* GetComponentAsConstraint() const;
+	C_Transform*			GetComponentAsTransform()	const;
+	C_Mesh*					GetComponentAsMesh()		const;
+	C_Material*				GetComponentAsMaterial()	const;
+	C_Camera*				GetComponentAsCamera()		const;
+	C_Collider*				GetComponentAsCollider()	const;
+	C_RigidBody*			GetComponentAsRigidBody()	const;
+	C_PhysicsConstraint*	GetComponentAsConstraint()	const;
 
 	virtual void OnSaveJson(JSON_Object* object) {};
 	virtual void OnLoadJson(JSON_Object* object) {};

@@ -79,8 +79,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 
 	if (constraint != nullptr)
 	{
-		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = constraint;
-		connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = constraint;
+		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = this;
+		connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = this;
 	}
 
 	return ret;

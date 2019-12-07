@@ -23,7 +23,8 @@ C_RigidBody::~C_RigidBody()
 	App->physics->DeleteRigidBody(rigidBody);
 	if (connectedConstraint != nullptr)
 	{
-		App->physics->DeleteConstraint(connectedConstraint);
+		connectedConstraint->connectedGO = nullptr;
+		App->physics->DeleteConstraint(connectedConstraint->constraint);
 	}
 }
 

@@ -241,8 +241,7 @@ void GUI_Properties::Draw()
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->tryingConnect = true;
 					}
-					if (App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->connectedGO != nullptr
-						&& App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->constraint != nullptr)
+					if (App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->connectedGO != nullptr)
 					{
 						ImGui::Text("Connected Game Object: %s", App->scene->goSelected->GetComponent(COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->connectedGO->GetName());
 					}
