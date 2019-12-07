@@ -29,6 +29,7 @@ public:
 
 public:
 	btRigidBody* rigidBody = nullptr;
+	btTypedConstraint* connectedConstraint = nullptr;
 	float mass = 1.0f;
 	math::float3 size = math::float3::one;
 };

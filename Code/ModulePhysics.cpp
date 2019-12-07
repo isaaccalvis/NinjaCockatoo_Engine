@@ -68,7 +68,9 @@ update_status ModulePhysics::Update(float dt)
 
 bool ModulePhysics::CleanUp()
 {
-	// TODO: CLEAR LISTS
+	ClearConstraints();
+	ClearRigidBodies();
+	ClearShapes();
 	return true;
 }
 
@@ -95,6 +97,7 @@ btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::fl
 	}
 	break;
 	}
+	shapes.push_back(shape);
 
 	// RigidBody
 	btDefaultMotionState* myMotionState = new btDefaultMotionState();
@@ -149,10 +152,48 @@ btTypedConstraint* ModulePhysics::CreateConstraint(
 	return constraint;
 }
 
+void ModulePhysics::DeleteShape(btCollisionShape* shape)
+{
+	shapes.remove(shape);
+}
+
 void ModulePhysics::DeleteRigidBody(btRigidBody* rigidBody)
 {
 	physicsWorld->removeRigidBody(rigidBody);
 	rigidBodies.remove(rigidBody);
+}
+
+void ModulePhysics::DeleteConstraint(btTypedConstraint* constraint)
+{
+	physicsWorld->removeConstraint(constraint);
+	constraints.remove(constraint);
+}
+
+void ModulePhysics::ClearShapes()
+{
+	for (std::list<btCollisionShape*>::iterator it = shapes.begin();
+		it != shapes.end(); it++)
+	{
+		DeleteShape((*it));
+	}
+}
+
+void ModulePhysics::ClearRigidBodies()
+{
+	for (std::list<btRigidBody*>::iterator it = rigidBodies.begin();
+		it != rigidBodies.end(); it++)
+	{
+		DeleteRigidBody((*it));
+	}
+}
+
+void ModulePhysics::ClearConstraints()
+{
+	for (std::list<btTypedConstraint*>::iterator it = constraints.begin();
+		it != constraints.end(); it++)
+	{
+		DeleteConstraint((*it));
+	}
 }
 
 // ================== DEBUG DRAW ==================

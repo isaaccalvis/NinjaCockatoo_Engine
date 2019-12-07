@@ -23,7 +23,15 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 
 C_Collider::~C_Collider()
 {
-	App->physics->DeleteRigidBody(rigidBody);
+	if (rigidBody->getCollisionShape() != nullptr)
+	{
+		App->physics->DeleteShape(rigidBody->getCollisionShape());
+	}
+
+	if (rigidBody != nullptr)
+	{
+		App->physics->DeleteRigidBody(rigidBody);
+	}
 }
 
 void C_Collider::Update(float dt)
@@ -86,6 +94,12 @@ PHYSIC_PRIMITIVE C_Collider::GetShape()
 
 void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
 {
+	// Clear old shape
+	if (rigidBody->getCollisionShape() != nullptr)
+	{
+		App->physics->DeleteShape(rigidBody->getCollisionShape());
+	}
+
 	shapePrimitive = primitive;
 	// Actualitzar el rigidbody
 	btCollisionShape* shape;
@@ -106,7 +120,12 @@ void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
 
 void C_Collider::SetShape(const char* primitiveName)
 {
-	// TODO: CLEAR OLD SHAPE
+	// Clear old shape
+	if (rigidBody->getCollisionShape() != nullptr)
+	{
+		App->physics->DeleteShape(rigidBody->getCollisionShape());
+	}
+
 	std::string primitiveNameString(primitiveName);
 	btCollisionShape* shape;
 	if (primitiveNameString.compare("None") == 0)

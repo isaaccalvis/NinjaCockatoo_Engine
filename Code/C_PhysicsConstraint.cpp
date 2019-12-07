@@ -11,7 +11,10 @@ C_PhysicsConstraint::C_PhysicsConstraint(GameObject* parent) : Component(parent,
 
 C_PhysicsConstraint::~C_PhysicsConstraint()
 {
-
+	if (constraint != nullptr)
+	{
+		App->physics->DeleteConstraint(constraint);
+	}
 }
 
 bool C_PhysicsConstraint::ConnectGameObject(GameObject* go)
@@ -73,6 +76,13 @@ bool C_PhysicsConstraint::GenerateConstraint()
 		break;
 		}
 	}
+
+	if (constraint != nullptr)
+	{
+		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = constraint;
+		connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->connectedConstraint = constraint;
+	}
+
 	return ret;
 }
 
@@ -100,12 +110,11 @@ void C_PhysicsConstraint::OnLoadJson(JSON_Object* object)
 
 void C_PhysicsConstraint::SetConstraint(const char* type)
 {
-	// Quit old constraint
 	if (constraint != nullptr)
 	{
-
+		App->physics->DeleteConstraint(constraint);
+		constraint = nullptr;
 	}
-	// Clear old constraint
 
 	std::string constraintType(type);
 	if (constraintType.compare("Point2Point") == 0)

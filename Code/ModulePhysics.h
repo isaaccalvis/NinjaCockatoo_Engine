@@ -40,9 +40,16 @@ public:
 		const math::float3 axisA = math::float3::zero,
 		const math::float3 axisB = math::float3::zero);
 
+	void DeleteShape(btCollisionShape* shape);
 	void DeleteRigidBody(btRigidBody* rigidBody);
+	void DeleteConstraint(btTypedConstraint* constraint);
+
+	void ClearShapes();
+	void ClearRigidBodies();
+	void ClearConstraints();
 
 public:
+	std::list<btCollisionShape*> shapes;
 	std::list<btRigidBody*> rigidBodies;
 	std::list<btTypedConstraint*> constraints;
 
