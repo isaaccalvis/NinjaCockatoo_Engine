@@ -34,6 +34,7 @@ void ModuleInGame::StartGame()
 		App->camera->camera = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera;
 		App->camera->isCameraEditor = false;
 		App->fs->OnSaveScene(App->scene->root, "__tmpscene");
+		App->physics->activePhysics = true;
 	}
 	else
 	{
@@ -49,6 +50,7 @@ void ModuleInGame::StopGame()
 
 	App->camera->camera = App->camera->editorCameraCopy;
 	App->camera->isCameraEditor = true;
+	App->physics->activePhysics = false;
 	App->fs->OnLoadScene("__tmpscene.sscene");
 }
 
