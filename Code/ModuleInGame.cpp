@@ -14,6 +14,50 @@ update_status ModuleInGame::Update(float dt)
 	if (onGame && runingGame)
 	{
 		logicUpdates++;
+
+		// Camera Movement
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(0,0,cameraSpeed);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(0, 0, -cameraSpeed);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(cameraSpeed, 0, 0);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(-cameraSpeed, 0, 0);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(0, cameraSpeed, 0);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_STATE::KEY_REPEAT)
+		{
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position += math::float3(0, -cameraSpeed, 0);
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			App->scene->camera->UpdateAABB();
+		}
 	}
 	return update_status::UPDATE_CONTINUE;
 }

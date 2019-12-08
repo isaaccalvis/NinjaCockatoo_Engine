@@ -24,6 +24,8 @@ public:
 	bool runingGame = false;
 	Timer timer;
 	unsigned int logicUpdates = 0;
+
+	float cameraSpeed = 0.2f;
 };
 
 #endif
