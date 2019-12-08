@@ -2,6 +2,7 @@
 #include "ModuleInGame.h"
 
 #include "C_Camera.h"
+#include "C_RigidBody.h"
 
 ModuleInGame::ModuleInGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -15,6 +16,7 @@ update_status ModuleInGame::Update(float dt)
 	{
 		logicUpdates++;
 
+		// HardCoded for Assignment 3
 		// Camera Movement
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_STATE::KEY_REPEAT)
 		{
@@ -57,6 +59,17 @@ update_status ModuleInGame::Update(float dt)
 			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 			App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 			App->scene->camera->UpdateAABB();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_STATE::KEY_DOWN)
+		{
+			math::float3 camPos = App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
+			GameObject* bullet = App->scene->CreateGameObject("_bullet", App->scene->root);
+			bullet->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = camPos;
+			bullet->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
+			bullet->UpdateAABB();
+
+			bullet->CreateComponent(COMPONENT_RIGIDBODY);
+			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->applyImpulse(btVector3(0,0, bulletImpulse), btVector3(camPos.x, camPos.y, camPos.z));
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
