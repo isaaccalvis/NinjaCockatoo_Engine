@@ -21,11 +21,21 @@ public:
 
 	void SetConstraint(const char* type);
 
+	void SetBodyApoint(math::float3 point);
+	void SetBodyBpoint(math::float3 point);
+	void SetBodyAaxis(math::float3 point);
+	void SetBodyBaxis(math::float3 point);
+
 public:
 	btTypedConstraint* constraint = nullptr;
 	GameObject* connectedGO = nullptr;
 	bool tryingConnect = false;
 	PHYSIC_CONSTRAINT type = PHYSIC_CONSTRAINT::CONSTRAINT_P2P;
+	math::float3 bodyApoint = math::float3::zero;
+	math::float3 bodyBpoint = math::float3::zero;
+	math::float3 bodyAaxis = math::float3::zero;
+	math::float3 bodyBaxis = math::float3::zero;
+
 };
 
 #endif

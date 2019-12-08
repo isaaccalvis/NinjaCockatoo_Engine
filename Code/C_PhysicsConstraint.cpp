@@ -50,8 +50,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
 		}
 		break;
 		case PHYSIC_CONSTRAINT::CONSTRAINT_HINGE:
@@ -60,8 +60,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
 		}
 		break;
 		case PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER:
@@ -70,8 +70,9 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition);
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint,
+				bodyAaxis, bodyBaxis);
 		}
 		break;
 		}
@@ -129,4 +130,24 @@ void C_PhysicsConstraint::SetConstraint(const char* type)
 	{
 		this->type = PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER;
 	}
+}
+
+void C_PhysicsConstraint::SetBodyApoint(math::float3 point)
+{
+	this->bodyApoint = point;
+}
+
+void C_PhysicsConstraint::SetBodyBpoint(math::float3 point)
+{
+	this->bodyBpoint = point;
+}
+
+void C_PhysicsConstraint::SetBodyAaxis(math::float3 point)
+{
+	this->bodyAaxis = point;
+}
+
+void C_PhysicsConstraint::SetBodyBaxis(math::float3 point)
+{
+	this->bodyBaxis = point;
 }

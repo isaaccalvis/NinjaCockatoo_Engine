@@ -147,6 +147,7 @@ btTypedConstraint* ModulePhysics::CreateConstraint(
 	}
 	break;
 	}
+	constraint->setDbgDrawSize(5.0f);
 	constraints.push_back(constraint);
 	physicsWorld->addConstraint(constraint);
 	return constraint;

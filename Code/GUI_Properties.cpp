@@ -249,6 +249,43 @@ void GUI_Properties::Draw()
 					{
 						ImGui::Text("Any Game Object connected");
 					}
+					// BodyA point
+					math::float3 tmpBodyApoint = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->bodyApoint;
+					float auxBodyApoint[3] = { tmpBodyApoint.x, tmpBodyApoint.y, tmpBodyApoint.z };
+					if (ImGui::InputFloat3("BodyA Point", auxBodyApoint))
+					{
+						math::float3 inputPoint(auxBodyApoint[0], auxBodyApoint[1], auxBodyApoint[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetBodyApoint(inputPoint);
+					}
+					// BodyB point
+					math::float3 tmpBodyBpoint = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->bodyBpoint;
+					float auxBodyBpoint[3] = { tmpBodyBpoint.x, tmpBodyBpoint.y, tmpBodyBpoint.z };
+					if (ImGui::InputFloat3("BodyB Point", auxBodyBpoint))
+					{
+						math::float3 inputPoint(auxBodyBpoint[0], auxBodyBpoint[1], auxBodyBpoint[2]);
+						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetBodyBpoint(inputPoint);
+					}
+
+					if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->type == PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER)
+					{
+						// AxisA point
+						math::float3 tmpAxisApoint = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->bodyAaxis;
+						float auxAxisApoint[3] = { tmpAxisApoint.x, tmpAxisApoint.y, tmpAxisApoint.z };
+						if (ImGui::InputFloat3("Axis A Point", auxAxisApoint))
+						{
+							math::float3 inputPoint(auxAxisApoint[0], auxAxisApoint[1], auxAxisApoint[2]);
+							App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetBodyAaxis(inputPoint);
+						}
+						// AxisB point
+						math::float3 tmpAxisBpoint = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->bodyBaxis;
+						float auxAxisBpoint[3] = { tmpAxisBpoint.x, tmpAxisBpoint.y, tmpAxisBpoint.z };
+						if (ImGui::InputFloat3("Axis B point", auxAxisBpoint))
+						{
+							math::float3 inputPoint(auxAxisBpoint[0], auxAxisBpoint[1], auxAxisBpoint[2]);
+							App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetBodyBaxis(inputPoint);
+						}
+
+					}
 				}
 			}
 			break;
