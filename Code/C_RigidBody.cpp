@@ -14,7 +14,7 @@ C_RigidBody::C_RigidBody(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
 	rigidBody = App->physics->CreateRigidBody(PHY_CUBE,math::float3(size.x, size.y, size.z), mass);
-
+	shapePrimitive = PHY_CUBE;
 	UpdatePosition();
 }
 
@@ -96,4 +96,80 @@ void C_RigidBody::SetSize(math::float3 size)
 math::float3 C_RigidBody::GetSize() const
 {
 	return size;
+}
+
+const char* C_RigidBody::GetShapeString()
+{
+	switch (shapePrimitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+		return "None";
+		break;
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+		return "Cube";
+		break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+		return "Sphere";
+		break;
+	}
+}
+
+PHYSIC_PRIMITIVE C_RigidBody::GetShape()
+{
+	return shapePrimitive;
+}
+
+void C_RigidBody::SetShape(PHYSIC_PRIMITIVE primitive)
+{
+	// Clear old shape
+	if (rigidBody->getCollisionShape() != nullptr)
+	{
+		App->physics->DeleteShape(rigidBody->getCollisionShape());
+	}
+
+	shapePrimitive = primitive;
+	// Actualitzar el rigidbody
+	btCollisionShape* shape;
+	switch (shapePrimitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+		shape = new btEmptyShape();
+		break;
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+		break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+		shape = new btSphereShape(size.x);
+		break;
+	}
+	rigidBody->setCollisionShape(shape);
+}
+
+void C_RigidBody::SetShape(const char* primitiveName)
+{
+	// Clear old shape
+	if (rigidBody->getCollisionShape() != nullptr)
+	{
+		App->physics->DeleteShape(rigidBody->getCollisionShape());
+	}
+
+	std::string primitiveNameString(primitiveName);
+	btCollisionShape* shape;
+	if (primitiveNameString.compare("None") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_NONE;
+		shape = new btEmptyShape();
+	}
+	else if (primitiveNameString.compare("Cube") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_CUBE;
+		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
+	}
+	else if (primitiveNameString.compare("Sphere") == 0)
+	{
+		shapePrimitive = PHYSIC_PRIMITIVE::PHY_SPHERE;
+		shape = new btSphereShape(size.x);
+	}
+	// Actualitzar el rigidbody
+	rigidBody->setCollisionShape(shape);
 }

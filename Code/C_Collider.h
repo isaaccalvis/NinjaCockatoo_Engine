@@ -21,6 +21,7 @@ public:
 	math::float3 GetLocalPosition();
 	void SetLocalPosition(math::float3 position);
 
+	const char* GetShapeString();
 	PHYSIC_PRIMITIVE GetShape();
 	void SetShape(PHYSIC_PRIMITIVE primitive);
 	void SetShape(const char* primitiveName);

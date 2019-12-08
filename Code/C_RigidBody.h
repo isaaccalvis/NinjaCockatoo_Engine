@@ -24,6 +24,11 @@ public:
 
 	void SetSize(math::float3 size);
 	math::float3 GetSize() const;
+
+	const char* GetShapeString();
+	PHYSIC_PRIMITIVE GetShape();
+	void SetShape(PHYSIC_PRIMITIVE primitive);
+	void SetShape(const char* primitiveName);
 	
 public:
 	uuid_unit rigidBody_uuid = 0u;
@@ -33,6 +38,9 @@ public:
 	C_PhysicsConstraint* connectedConstraint = nullptr;
 	float mass = 1.0f;
 	math::float3 size = math::float3::one;
+
+	PHYSIC_PRIMITIVE shapePrimitive;
+
 };
 
 #endif

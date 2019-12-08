@@ -14,7 +14,6 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 		size.y = parent->boundingBox.MaxY() - parent->boundingBox.MinY();
 		size.z = parent->boundingBox.MaxZ() - parent->boundingBox.MinZ();
 	}
-	LOG_CONSOLE("%f, %f, %f", size.x,size.y,size.z);
 	rigidBody = App->physics->CreateRigidBody(PHY_CUBE, math::float3(size.x, size.y, size.z), 0);
 	shapePrimitive = PHY_CUBE;
 
@@ -85,6 +84,22 @@ void C_Collider::SetLocalPosition(math::float3 position)
 {
 	this->localPosition = position;
 	UpdatePosition();
+}
+
+const char* C_Collider::GetShapeString()
+{
+	switch (shapePrimitive)
+	{
+	case PHYSIC_PRIMITIVE::PHY_NONE:
+		return "None";
+		break;
+	case PHYSIC_PRIMITIVE::PHY_CUBE:
+		return "Cube";
+		break;
+	case PHYSIC_PRIMITIVE::PHY_SPHERE:
+		return "Sphere";
+		break;
+	}
 }
 
 PHYSIC_PRIMITIVE C_Collider::GetShape()

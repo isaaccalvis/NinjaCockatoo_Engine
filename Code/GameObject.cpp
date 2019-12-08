@@ -115,12 +115,26 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 	break;
 	case COMPONENT_TYPE::COMPONENT_COLLIDER:
 	{
-		component = new C_Collider(this);
+		if (GetComponent(COMPONENT_RIGIDBODY) == nullptr)
+		{
+			component = new C_Collider(this);
+		}
+		else
+		{
+			LOG_CONSOLE("Can add Collider if exist a RigidBody");
+		}
 	}
 	break;
 	case COMPONENT_TYPE::COMPONENT_RIGIDBODY:
 	{
-		component = new C_RigidBody(this);
+		if (GetComponent(COMPONENT_COLLIDER) == nullptr)
+		{
+			component = new C_RigidBody(this);
+		}
+		else
+		{
+			LOG_CONSOLE("Can add RigidBodu if exist a Collider");
+		}
 	}
 	break;
 	case COMPONENT_TYPE::COMPONENT_CONSTRAINT:
@@ -129,6 +143,8 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 	}
 	break;
 	}
+	if (component == nullptr)
+		return nullptr;
 	component->parent = this;
 	components.push_back(component);
 	return component;

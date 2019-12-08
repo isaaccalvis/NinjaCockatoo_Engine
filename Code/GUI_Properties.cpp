@@ -163,7 +163,7 @@ void GUI_Properties::Draw()
 					}
 
 					static const char* shapes[] = {"None", "Cube", "Sphere"};
-					static const char* currentShape = "Cube";
+					const char* currentShape = App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->GetShapeString();
 					static const int numTypeShapes = 3;
 					if (ImGui::BeginCombo("Shape", currentShape))
 					{
@@ -196,6 +196,27 @@ void GUI_Properties::Draw()
 			{
 				if (ImGui::CollapsingHeader("RigidBody"))
 				{
+					static const char* shapes[] = { "None", "Cube", "Sphere" };
+					const char* currentShape = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetShapeString();
+					static const int numTypeShapes = 3;
+					if (ImGui::BeginCombo("Shape", currentShape))
+					{
+						for (int i = 0; i < numTypeShapes; i++)
+						{
+							bool is_selected = (currentShape == shapes[i]);
+							if (ImGui::Selectable(shapes[i], is_selected))
+							{
+								currentShape = shapes[i];
+								App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetShape(currentShape);
+							}
+							if (is_selected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+						ImGui::EndCombo();
+					}
+
 					math::float3 tmpSize = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetSize();
 					float auxSize[3] = { tmpSize.x, tmpSize.y, tmpSize.z };
 					if (ImGui::InputFloat3("RigidBody Size", auxSize))
