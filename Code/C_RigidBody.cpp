@@ -71,6 +71,24 @@ float C_RigidBody::GetMass() const
 	return mass;
 }
 
+void C_RigidBody::SetGravity(bool set)
+{
+	useGravity = set;
+	if (set)
+	{
+		rigidBody->setGravity(App->physics->gravity);
+	}
+	else
+	{
+		rigidBody->setGravity(btVector3(0, 0, 0));
+	}
+}
+
+bool C_RigidBody::GetGravity() const
+{
+	return useGravity;
+}
+
 void C_RigidBody::UpdatePosition()
 {
 	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;

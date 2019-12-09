@@ -230,6 +230,12 @@ void GUI_Properties::Draw()
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetMass(newMass);
 					}
+
+					bool useGravity = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->GetGravity();
+					if (ImGui::Checkbox("Use Gravity", &useGravity))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetGravity(useGravity);
+					}
 				}
 			}
 			break;

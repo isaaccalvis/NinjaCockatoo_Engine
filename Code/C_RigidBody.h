@@ -19,6 +19,9 @@ public:
 	void SetMass(float mass);
 	float GetMass() const;
 
+	void SetGravity(bool set);
+	bool GetGravity() const;
+
 	void UpdatePosition();
 	void SetPosition(math::float3 position);
 
@@ -40,6 +43,7 @@ public:
 	math::float3 size = math::float3::one;
 
 	PHYSIC_PRIMITIVE shapePrimitive;
+	bool useGravity = true;
 
 };
 
