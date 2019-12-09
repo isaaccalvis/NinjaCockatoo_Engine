@@ -93,7 +93,7 @@ btRigidBody* ModulePhysics::CreateRigidBody(PHYSIC_PRIMITIVE primitive, math::fl
 	break;
 	case PHYSIC_PRIMITIVE::PHY_SPHERE:
 	{
-		shape = new btSphereShape(size.x);
+		shape = new btSphereShape(size.x / 2);
 	}
 	break;
 	}

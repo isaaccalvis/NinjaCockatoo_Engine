@@ -127,7 +127,7 @@ void C_Collider::SetShape(PHYSIC_PRIMITIVE primitive)
 		shape = new btBoxShape(btVector3(size.x / 2, size.y / 2, size.z / 2));
 		break;
 	case PHYSIC_PRIMITIVE::PHY_SPHERE:
-		shape = new btSphereShape(size.x);
+		shape = new btSphereShape(size.x / 2);
 		break;
 	}
 	rigidBody->setCollisionShape(shape);
@@ -156,7 +156,7 @@ void C_Collider::SetShape(const char* primitiveName)
 	else if (primitiveNameString.compare("Sphere") == 0)
 	{
 		shapePrimitive = PHYSIC_PRIMITIVE::PHY_SPHERE;
-		shape = new btSphereShape(size.x);
+		shape = new btSphereShape(size.x / 2);
 	}
 	// Actualitzar el rigidbody
 	rigidBody->setCollisionShape(shape);

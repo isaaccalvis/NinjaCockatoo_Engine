@@ -2,6 +2,7 @@
 #include "ModuleInGame.h"
 
 #include "C_Camera.h"
+#include "C_Mesh.h"
 #include "C_RigidBody.h"
 
 ModuleInGame::ModuleInGame(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -62,13 +63,19 @@ update_status ModuleInGame::Update(float dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_STATE::KEY_DOWN)
 		{
+			// Create Game Object
 			math::float3 camPos = App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
 			GameObject* bullet = App->scene->CreateGameObject("_bullet", App->scene->root);
+			// Update Transform
 			bullet->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = camPos;
 			bullet->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 			bullet->UpdateAABB();
-
+			// Create Mesh
+			bullet->CreateComponent(COMPONENT_MESH);
+			bullet->GetComponent(COMPONENT_MESH)->GetComponentAsMesh()->SetMesh(App->renderer3D->AddPrimitive(MESH_TYPE::PRIMITIVE_SPHERE, 0));
+			// Create RigidBody
 			bullet->CreateComponent(COMPONENT_RIGIDBODY);
+			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetShape(PHYSIC_PRIMITIVE::PHY_SPHERE);
 			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->applyImpulse(btVector3(0,0, bulletImpulse), btVector3(camPos.x, camPos.y, camPos.z));
 		}
 	}
