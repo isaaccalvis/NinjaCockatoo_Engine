@@ -32,6 +32,8 @@ public:
 	PHYSIC_PRIMITIVE GetShape();
 	void SetShape(PHYSIC_PRIMITIVE primitive);
 	void SetShape(const char* primitiveName);
+
+	void ClearForces();
 	
 public:
 	uuid_unit rigidBody_uuid = 0u;
@@ -44,7 +46,6 @@ public:
 
 	PHYSIC_PRIMITIVE shapePrimitive;
 	bool useGravity = true;
-
 };
 
 #endif

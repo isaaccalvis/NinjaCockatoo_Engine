@@ -30,7 +30,11 @@ C_RigidBody::~C_RigidBody()
 
 void C_RigidBody::Update(float dt)
 {
-
+	if (!rigidBody->isActive())
+	{
+		rigidBody->activate();
+		rigidBody->clearForces();
+	}
 }
 
 void C_RigidBody::OnSaveJson(JSON_Object* object)
@@ -82,6 +86,7 @@ void C_RigidBody::SetGravity(bool set)
 	{
 		rigidBody->setGravity(btVector3(0, 0, 0));
 	}
+	rigidBody->clearForces();
 }
 
 bool C_RigidBody::GetGravity() const
@@ -190,4 +195,9 @@ void C_RigidBody::SetShape(const char* primitiveName)
 	}
 	// Actualitzar el rigidbody
 	rigidBody->setCollisionShape(shape);
+}
+
+void C_RigidBody::ClearForces()
+{
+	rigidBody->clearForces();
 }

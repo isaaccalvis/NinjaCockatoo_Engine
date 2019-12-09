@@ -236,6 +236,11 @@ void GUI_Properties::Draw()
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetGravity(useGravity);
 					}
+
+					if (ImGui::Button("Clear Forces"))
+					{
+						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->ClearForces();
+					}
 				}
 			}
 			break;

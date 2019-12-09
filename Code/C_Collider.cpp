@@ -16,7 +16,6 @@ C_Collider::C_Collider(GameObject* parent) : Component(parent, COMPONENT_TYPE::C
 	}
 	rigidBody = App->physics->CreateRigidBody(PHY_CUBE, math::float3(size.x, size.y, size.z), 0);
 	shapePrimitive = PHY_CUBE;
-
 	UpdatePosition();
 }
 
