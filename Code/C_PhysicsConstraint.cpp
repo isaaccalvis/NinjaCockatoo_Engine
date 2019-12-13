@@ -61,7 +61,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
+				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint,
+				bodyAaxis, bodyBaxis);
 		}
 		break;
 		case PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER:
@@ -71,8 +72,7 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint,
-				bodyAaxis, bodyBaxis);
+				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
 		}
 		break;
 		}

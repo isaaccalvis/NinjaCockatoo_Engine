@@ -10,6 +10,7 @@ public:
 	GUI_About(SDL_Scancode shortcut = SDL_SCANCODE_UNKNOWN);
 
 	void Draw();
+	Texture* leninMarxImage = nullptr;
 };
 
 #endif

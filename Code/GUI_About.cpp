@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "GUI_About.h"
+#include "ModuleFS.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl2.h"
@@ -10,24 +11,34 @@
 #include "physfs/include/physfs.h"
 
 GUI_About::GUI_About(SDL_Scancode shortcut) : GUI_Panel(shortcut, GUI_WINDOWS::GUI_ABOUT)
-{}
+{
+	leninMarxImage = App->fs->materialImporter->LoadTexture("S_IMG_Logo_SocialistEngine.png", App->input->GenerateUUID());
+}
 
 void GUI_About::Draw()
 {
 	ImGui::Begin("About", &active, ImGuiWindowFlags_NoFocusOnAppearing);
 	
 	ImGui::SetWindowPos(ImVec2(App->window->screenWidth *.35f, App->window->screenHeight - App->window->screenHeight*.75f), ImGuiCond_Once);
-	ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.3f, App->window->screenHeight*.15), ImGuiCond_Once);
+	ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.3f, App->window->screenHeight*.30), ImGuiCond_Once);
 	if (App->gui->automaticGUI_pos)
 	{
 		ImGui::SetWindowPos(ImVec2(App->window->screenWidth *.35f, App->window->screenHeight - App->window->screenHeight*.75f));
-		ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.3f, App->window->screenHeight*.15));
+		ImGui::SetWindowSize(ImVec2(App->window->screenWidth*0.3f, App->window->screenHeight*.30));
 	}
+
 	ImGui::Text("Socialist Engine is a video game engine made by students\nfrom CITM(UPC) at VideoGame Development & Design degree");
 	ImGui::Text("Made by Isaac Calvis & Aitor Velez");
 
 	ImGui::Text("License: MIT (More info at License file or at ReadMe)");
 	ImGui::Text("External tools & libraries");
+
+	if (leninMarxImage != nullptr)
+	{
+		ImGui::Text("                     ");
+		ImGui::SameLine();
+		ImGui::Image((void*)(intptr_t)leninMarxImage->GetBufferPos(), ImVec2(128, 128));
+	}
 
 	if (ImGui::CollapsingHeader("Libraries"))
 	{

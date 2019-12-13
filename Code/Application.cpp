@@ -20,9 +20,9 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(fs);
 	AddModule(gui);
 	AddModule(scene);
-	AddModule(fs);
 	AddModule(resources);
 	AddModule(physics);
 	AddModule(ingame);

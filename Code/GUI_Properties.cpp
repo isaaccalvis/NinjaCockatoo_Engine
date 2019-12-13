@@ -298,7 +298,7 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->SetBodyBpoint(inputPoint);
 					}
 
-					if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->type == PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER)
+					if (App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->type == PHYSIC_CONSTRAINT::CONSTRAINT_HINGE)
 					{
 						// AxisA point
 						math::float3 tmpAxisApoint = App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT)->GetComponentAsConstraint()->bodyAaxis;

@@ -230,7 +230,7 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath, cons
 	std::string tmp_path(originalPath);
 	if (!isFullPath)
 		tmp_path = std::string(resources_directory + "Library/Scenes/" + originalPath);
-	
+
 	const char* path = tmp_path.c_str();
 	JSON_Value* root_value = json_parse_file(path);
 	if (root_value == nullptr)
@@ -264,11 +264,11 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath, cons
 			}
 		}
 		if (!deleteScene)
-		if (App->scene->SearchGameObject(obj->parent_uuid) == nullptr)
-		{
-			App->scene->root->AddChildren(obj);
-			obj->SetParent(App->scene->root);
-		}
+			if (App->scene->SearchGameObject(obj->parent_uuid) == nullptr)
+			{
+				App->scene->root->AddChildren(obj);
+				obj->SetParent(App->scene->root);
+			}
 		// Load Components
 		JSON_Array* array_components = json_object_get_array(tmp_obj, "Components");
 		JSON_Object* c_obj;
