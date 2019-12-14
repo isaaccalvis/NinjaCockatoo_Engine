@@ -25,6 +25,8 @@ public:
 	void UpdateGlobalMatrix();
 	void UpdateGlobalMatrixOfChilds();
 
+	void TransformModified();
+
 public:
 	math::float3 position = math::float3::zero;
 	math::Quat rotation = math::Quat::identity;

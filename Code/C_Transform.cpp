@@ -9,7 +9,6 @@ C_Transform::C_Transform(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 {
 	isUnique = true;
 	name = "Transform";
-
 }
 
 C_Transform::~C_Transform() {}
@@ -109,5 +108,13 @@ void C_Transform::UpdateGlobalMatrixOfChilds()
 		{
 			parent->GetChild(i)->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 		}
+	}
+}
+
+void C_Transform::TransformModified()
+{
+	if (parent->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+	{
+		parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->setActivationState(false);
 	}
 }

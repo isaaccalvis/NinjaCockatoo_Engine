@@ -53,6 +53,7 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_TYPE::COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = math::float3(auxPos[0], auxPos[1], auxPos[2]);
 						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+						App->scene->goSelected->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->TransformModified();
 						App->scene->goSelected->UpdateAABB();
 					}
 

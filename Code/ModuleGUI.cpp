@@ -174,6 +174,7 @@ void ModuleGUI::UpdateGuizmo()
 			transformMatrix = transformMatrix.Transposed();
 			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->SetMatrixFromGlobal(transformMatrix);
 			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
+			go->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->TransformModified();
 		}
 	}
 }
