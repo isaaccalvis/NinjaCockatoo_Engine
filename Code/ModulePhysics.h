@@ -48,6 +48,9 @@ public:
 	void ClearRigidBodies();
 	void ClearConstraints();
 
+	btVector3 GetGravity() const;
+	void SetGravity(btVector3 nG);
+
 public:
 	std::list<btCollisionShape*> shapes;
 	std::list<btRigidBody*> rigidBodies;

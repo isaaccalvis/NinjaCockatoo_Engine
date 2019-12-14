@@ -28,5 +28,12 @@ void GUI_Physics::Draw()
 		App->physics->physicsDebugDraw = physicsDebugDraw;
 	}
 
+	btVector3 tmpGravity = App->physics->GetGravity();
+	float auxGravity[3] = { tmpGravity.getX() , tmpGravity.getY(), tmpGravity.getZ() };
+	if (ImGui::InputFloat3("Scale", auxGravity))
+	{
+		App->physics->SetGravity(btVector3(auxGravity[0], auxGravity[1], auxGravity[2]));
+	}
+
 	ImGui::End();
 }

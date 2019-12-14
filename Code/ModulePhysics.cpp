@@ -197,6 +197,22 @@ void ModulePhysics::ClearConstraints()
 	}
 }
 
+
+btVector3 ModulePhysics::GetGravity() const
+{
+	return gravity;
+}
+
+void ModulePhysics::SetGravity(btVector3 nG)
+{
+	gravity = nG;
+	for (std::list<btRigidBody*>::iterator it = rigidBodies.begin();
+		it != rigidBodies.end(); it++)
+	{
+		(*it)->setGravity(gravity);
+	}
+}
+
 // ================== DEBUG DRAW ==================
 
 PhysicsDebugDrawer::PhysicsDebugDrawer()

@@ -121,7 +121,7 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 		}
 		else
 		{
-			LOG_CONSOLE("Can add Collider if exist a RigidBody");
+			LOG_CONSOLE("Can't add Collider if exist a RigidBody");
 		}
 	}
 	break;
@@ -133,13 +133,20 @@ Component* GameObject::CreateComponent(COMPONENT_TYPE type, const char* name)
 		}
 		else
 		{
-			LOG_CONSOLE("Can add RigidBodu if exist a Collider");
+			LOG_CONSOLE("Can't add RigidBody if exist a Collider");
 		}
 	}
 	break;
 	case COMPONENT_TYPE::COMPONENT_CONSTRAINT:
 	{
-		component = new C_PhysicsConstraint(this);
+		if (GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+		{
+			component = new C_PhysicsConstraint(this);
+		}
+		else
+		{
+			LOG_CONSOLE("Can't add Constraint if don't have RigiBody");
+		}
 	}
 	break;
 	}
