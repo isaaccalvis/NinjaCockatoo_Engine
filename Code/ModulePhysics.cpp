@@ -206,10 +206,20 @@ btVector3 ModulePhysics::GetGravity() const
 void ModulePhysics::SetGravity(btVector3 nG)
 {
 	gravity = nG;
+	physicsWorld->setGravity(gravity);
 	for (std::list<btRigidBody*>::iterator it = rigidBodies.begin();
 		it != rigidBodies.end(); it++)
 	{
 		(*it)->setGravity(gravity);
+	}
+}
+
+void ModulePhysics::ClearForces()
+{
+	for (std::list<btRigidBody*>::iterator it = rigidBodies.begin();
+		it != rigidBodies.end(); it++)
+	{
+		(*it)->clearForces();
 	}
 }
 

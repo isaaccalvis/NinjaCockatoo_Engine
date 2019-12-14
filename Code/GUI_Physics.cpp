@@ -21,18 +21,18 @@ void GUI_Physics::Draw()
 
 	ImGui::Checkbox("Activate Physics", &App->physics->activePhysics);
 
-
-	static bool physicsDebugDraw = App->physics->physicsDebugDraw;
-	if (ImGui::Checkbox("Physics Debug", &physicsDebugDraw))
-	{
-		App->physics->physicsDebugDraw = physicsDebugDraw;
-	}
+	ImGui::Checkbox("Physics Debug", &App->physics->physicsDebugDraw);
 
 	btVector3 tmpGravity = App->physics->GetGravity();
 	float auxGravity[3] = { tmpGravity.getX() , tmpGravity.getY(), tmpGravity.getZ() };
-	if (ImGui::InputFloat3("Scale", auxGravity))
+	if (ImGui::InputFloat3("Gravity", auxGravity))
 	{
 		App->physics->SetGravity(btVector3(auxGravity[0], auxGravity[1], auxGravity[2]));
+	}
+
+	if (ImGui::Button("Clear Forces"))
+	{
+		App->physics->ClearForces();
 	}
 
 	ImGui::End();
