@@ -52,6 +52,11 @@ update_status ModulePhysics::PreUpdate(float dt)
 		for (int i = 0; i < numManifolds; i++)
 		{
 			btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+			btCollisionObject* colA = (btCollisionObject*)contactManifold->getBody0();
+			btCollisionObject* colB = (btCollisionObject*)contactManifold->getBody1();
+			
+			unsigned int numContacts = contactManifold->getNumContacts();
+			LOG_CONSOLE("Collisions: %i", numManifolds);
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -147,7 +152,7 @@ btTypedConstraint* ModulePhysics::CreateConstraint(
 	}
 	break;
 	}
-	constraint->setDbgDrawSize(5.0f);
+	constraint->setDbgDrawSize(1.0f);
 	constraints.push_back(constraint);
 	physicsWorld->addConstraint(constraint);
 	return constraint;
@@ -155,19 +160,28 @@ btTypedConstraint* ModulePhysics::CreateConstraint(
 
 void ModulePhysics::DeleteShape(btCollisionShape* shape)
 {
-	shapes.remove(shape);
+	if (shape != nullptr)
+	{
+		shapes.remove(shape);
+	}
 }
 
 void ModulePhysics::DeleteRigidBody(btRigidBody* rigidBody)
 {
-	physicsWorld->removeRigidBody(rigidBody);
-	rigidBodies.remove(rigidBody);
+	if (rigidBody != nullptr)
+	{
+		physicsWorld->removeRigidBody(rigidBody);
+		rigidBodies.remove(rigidBody);
+	}
 }
 
 void ModulePhysics::DeleteConstraint(btTypedConstraint* constraint)
 {
-	physicsWorld->removeConstraint(constraint);
-	constraints.remove(constraint);
+	if (constraint != nullptr)
+	{
+		physicsWorld->removeConstraint(constraint);
+		constraints.remove(constraint);
+	}
 }
 
 void ModulePhysics::ClearShapes()

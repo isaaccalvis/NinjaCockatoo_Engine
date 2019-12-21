@@ -21,7 +21,7 @@ C_RigidBody::C_RigidBody(GameObject* parent) : Component(parent, COMPONENT_TYPE:
 C_RigidBody::~C_RigidBody()
 {
 	App->physics->DeleteRigidBody(rigidBody);
-	if (connectedConstraint != nullptr)
+	if (connectedConstraint != nullptr && connectedConstraint->connectedGO != nullptr)
 	{
 		connectedConstraint->connectedGO = nullptr;
 		App->physics->DeleteConstraint(connectedConstraint->constraint);
