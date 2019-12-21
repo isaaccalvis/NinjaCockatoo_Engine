@@ -190,6 +190,12 @@ void GUI_Properties::Draw()
 						App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->SetIsTrigger(isTrigger);
 					}
 
+					C_Collider* col = App->scene->goSelected->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider();
+					ImGui::Text("Colldiding with:");
+					for (std::list<GameObject*>::iterator it = col->collidingGameObjects.begin(); it != col->collidingGameObjects.end(); it++)
+					{
+						ImGui::Text("%s", (*it)->GetName());
+					}
 				}
 			}
 			break;
@@ -241,6 +247,12 @@ void GUI_Properties::Draw()
 					if (ImGui::Button("Clear Forces"))
 					{
 						App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->ClearForces();
+					}
+					C_RigidBody* rb = App->scene->goSelected->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody();
+					ImGui::Text("Colldiding with:");
+					for (std::list<GameObject*>::iterator it = rb->collidingGameObjects.begin(); it != rb->collidingGameObjects.end(); it++)
+					{
+						ImGui::Text("%s", (*it)->GetName());
 					}
 				}
 			}

@@ -1,6 +1,9 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 
+#include "C_Collider.h"
+#include "C_RigidBody.h"
+
 #define PHYSICS_DEBUG
 
 #ifdef PHYSICS_DEBUG
@@ -45,18 +48,84 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate(float dt)
 {
+	// Clean colliding go list
+	for (int i = 0; i < App->scene->gameObjects.size(); i++)
+	{
+		if (App->scene->gameObjects[i]->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+		{
+			App->scene->gameObjects[i]->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->ClearCollidingGameObjectList();
+		}
+		else if (App->scene->gameObjects[i]->GetComponent(COMPONENT_COLLIDER) != nullptr)
+		{
+			App->scene->gameObjects[i]->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->ClearCollidingGameObjectList();
+		}
+	}
+
 	if (activePhysics)
 	{
 		physicsWorld->stepSimulation(dt);
 		int numManifolds = physicsWorld->getDispatcher()->getNumManifolds();
+		LOG_CONSOLE("Collisions: %i", numManifolds);
 		for (int i = 0; i < numManifolds; i++)
 		{
 			btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 			btCollisionObject* colA = (btCollisionObject*)contactManifold->getBody0();
 			btCollisionObject* colB = (btCollisionObject*)contactManifold->getBody1();
-			
-			unsigned int numContacts = contactManifold->getNumContacts();
-			LOG_CONSOLE("Collisions: %i", numManifolds);
+
+			// Check from who is that collision
+			GameObject* objA = nullptr;
+			GameObject* objB = nullptr;
+			for (int a = 0; a < App->scene->gameObjects.size(); a++)
+			{
+				if (App->scene->gameObjects[a]->GetComponent(COMPONENT_COLLIDER) != nullptr)
+				{
+					if (App->scene->gameObjects[a]->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->rigidBody == colA)
+					{
+						objA = App->scene->gameObjects[a];
+					}
+					else if (App->scene->gameObjects[a]->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->rigidBody == colB)
+					{
+						objB = App->scene->gameObjects[a];
+					}
+				}
+				else if (App->scene->gameObjects[a]->GetComponent(COMPONENT_RIGIDBODY) != nullptr)
+				{
+					if (App->scene->gameObjects[a]->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody == colA)
+					{
+						objA = App->scene->gameObjects[a];
+					}
+					else if (App->scene->gameObjects[a]->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody == colB)
+					{
+						objB = App->scene->gameObjects[a];
+					}
+				}
+			}
+
+			if (objA != nullptr && objB != nullptr)
+			{
+				if (objA->GetComponent(COMPONENT_COLLIDER) != nullptr)
+				{
+					objA->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->AddCollidingGameObjectList(objB);
+				}
+				else
+				{
+					objA->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->AddCollidingGameObjectList(objB);
+				}
+				if (objB->GetComponent(COMPONENT_COLLIDER) != nullptr)
+				{
+					objB->GetComponent(COMPONENT_COLLIDER)->GetComponentAsCollider()->AddCollidingGameObjectList(objA);
+				}
+				else
+				{
+					objB->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->AddCollidingGameObjectList(objA);
+				}
+			}
+
+			//unsigned int numContacts = contactManifold->getNumContacts();
+			//if (numContacts > 0)
+			//{
+
+			//}
 		}
 	}
 	return update_status::UPDATE_CONTINUE;

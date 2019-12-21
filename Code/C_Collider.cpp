@@ -34,7 +34,7 @@ C_Collider::~C_Collider()
 
 void C_Collider::Update(float dt)
 {
-
+	//rigidBody->checkCollideWith();
 }
 
 void C_Collider::OnSaveJson(JSON_Object* object)
@@ -189,4 +189,17 @@ void C_Collider::SetIsTrigger(bool set)
 	{
 		rigidBody->setCollisionFlags(1);
 	}
+}
+
+void C_Collider::AddCollidingGameObjectList(GameObject* go)
+{
+	if (go != nullptr)
+	{
+		collidingGameObjects.push_back(go);
+	}
+}
+
+void C_Collider::ClearCollidingGameObjectList()
+{
+	collidingGameObjects.clear();
 }

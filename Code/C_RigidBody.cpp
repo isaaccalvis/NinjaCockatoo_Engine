@@ -201,3 +201,16 @@ void C_RigidBody::ClearForces()
 {
 	rigidBody->clearForces();
 }
+
+void C_RigidBody::AddCollidingGameObjectList(GameObject* go)
+{
+	if (go != nullptr)
+	{
+		collidingGameObjects.push_back(go);
+	}
+}
+
+void C_RigidBody::ClearCollidingGameObjectList()
+{
+	collidingGameObjects.clear();
+}

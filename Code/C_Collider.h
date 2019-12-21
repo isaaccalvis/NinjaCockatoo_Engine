@@ -32,15 +32,22 @@ public:
 	bool GetIsTrigger() const;
 	void SetIsTrigger(bool set);
 
+	void AddCollidingGameObjectList(GameObject* go);
+	void ClearCollidingGameObjectList();
+
 public:
 	uuid_unit colliderUUID = 0u;
-private:
+
+	std::list<GameObject*> collidingGameObjects;
 	btRigidBody* rigidBody = nullptr;
+
+private:
 	math::float3 size = math::float3::one;
 	math::float3 localPosition = math::float3::zero;
 
 	PHYSIC_PRIMITIVE shapePrimitive;
 	bool isTrigger = false;
+
 };
 
 #endif

@@ -35,6 +35,9 @@ public:
 
 	void ClearForces();
 	
+	void AddCollidingGameObjectList(GameObject* go);
+	void ClearCollidingGameObjectList();
+
 public:
 	uuid_unit rigidBody_uuid = 0u;
 
@@ -46,6 +49,8 @@ public:
 
 	PHYSIC_PRIMITIVE shapePrimitive;
 	bool useGravity = true;
+
+	std::list<GameObject*> collidingGameObjects;
 };
 
 #endif
