@@ -15,25 +15,24 @@ public:
 	void OnSaveJson(JSON_Object* object);
 	void OnLoadJson(JSON_Object* object);
 
-	void UpdatePosition();
-	void SetPosition(math::float3 position);
+	void				UpdatePosition();
+	void				SetPosition(math::float3 position);
+	math::float3		GetLocalPosition();
+	void				SetLocalPosition(math::float3 position);
 
-	math::float3 GetLocalPosition();
-	void SetLocalPosition(math::float3 position);
+	const char*			GetShapeString();
+	PHYSIC_PRIMITIVE	GetShape();
+	void				SetShape(PHYSIC_PRIMITIVE primitive);
+	void				SetShape(const char* primitiveName);
 
-	const char* GetShapeString();
-	PHYSIC_PRIMITIVE GetShape();
-	void SetShape(PHYSIC_PRIMITIVE primitive);
-	void SetShape(const char* primitiveName);
+	void				SetSize(math::float3 size);
+	math::float3		GetSize() const;
 
-	void SetSize(math::float3 size);
-	math::float3 GetSize() const;
+	bool				GetIsTrigger() const;
+	void				SetIsTrigger(bool set);
 
-	bool GetIsTrigger() const;
-	void SetIsTrigger(bool set);
-
-	void AddCollidingGameObjectList(GameObject* go);
-	void ClearCollidingGameObjectList();
+	void				AddCollidingGameObjectList(GameObject* go);
+	void				ClearCollidingGameObjectList();
 
 public:
 	uuid_unit colliderUUID = 0u;
@@ -44,10 +43,8 @@ public:
 private:
 	math::float3 size = math::float3::one;
 	math::float3 localPosition = math::float3::zero;
-
 	PHYSIC_PRIMITIVE shapePrimitive;
 	bool isTrigger = false;
-
 };
 
 #endif

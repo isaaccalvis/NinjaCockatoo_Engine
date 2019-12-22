@@ -46,18 +46,31 @@ void C_Collider::OnSaveJson(JSON_Object* object)
 		json_object_set_number(object, "SizeX", size.x);
 		json_object_set_number(object, "SizeY", size.y);
 		json_object_set_number(object, "SizeZ", size.z);
+		json_object_set_number(object, "LocalX", localPosition.x);
+		json_object_set_number(object, "LocalY", localPosition.y);
+		json_object_set_number(object, "LocalZ", localPosition.z);
+		json_object_set_number(object, "Shape", (int)shapePrimitive);
+		json_object_set_boolean(object, "IsTrigger", isTrigger);
 	}
 }
 
 void C_Collider::OnLoadJson(JSON_Object* object)
 {
-	colliderUUID = json_object_get_number(object, "ColliderUUID");
-	size.x = json_object_get_number(object, "SizeX");
-	size.y = json_object_get_number(object, "SizeY");
-	size.z = json_object_get_number(object, "SizeZ");
+	colliderUUID =		json_object_get_number(object, "ColliderUUID");
+	size.x =			json_object_get_number(object, "SizeX");
+	size.y =			json_object_get_number(object, "SizeY");
+	size.z =			json_object_get_number(object, "SizeZ");
+	localPosition.x =	json_object_get_number(object, "LocalX");
+	localPosition.y =	json_object_get_number(object, "LocalY");
+	localPosition.z =	json_object_get_number(object, "LocalZ");
+	shapePrimitive =	(PHYSIC_PRIMITIVE)((int)json_object_get_number(object, "Shape"));
+	isTrigger =			json_object_get_boolean(object, "IsTrigger");
 
 	UpdatePosition();
 	SetSize(size);
+	SetLocalPosition(localPosition);
+	SetShape(shapePrimitive);
+	SetIsTrigger(isTrigger);
 }
 
 void C_Collider::UpdatePosition()
