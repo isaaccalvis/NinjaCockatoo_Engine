@@ -101,12 +101,64 @@ void C_PhysicsConstraint::Update(float dt)
 
 void C_PhysicsConstraint::OnSaveJson(JSON_Object* object)
 {
-
+	if (parent != nullptr)
+	{
+		json_object_set_string(object, "c_type", "c_constraint");
+		json_object_set_number(object, "ConstraintUUID", constraintUUID);
+		// Connected GO
+		if (connectedGO != nullptr)
+			json_object_set_number(object, "ConnectedGO", connectedGO->GetUUID());
+		else
+			json_object_set_number(object, "ConnectedGO", 0);
+		json_object_set_number(object, "ConstraintType", (int)type);
+		// bodyApoint
+		json_object_set_number(object, "bodyApointX", bodyApoint.x);
+		json_object_set_number(object, "bodyApointY", bodyApoint.y);
+		json_object_set_number(object, "bodyApointZ", bodyApoint.z);
+		// bodyBpoint
+		json_object_set_number(object, "bodyBpointX", bodyBpoint.x);
+		json_object_set_number(object, "bodyBpointY", bodyBpoint.y);
+		json_object_set_number(object, "bodyBpointZ", bodyBpoint.z);
+		// bodyAaxis
+		json_object_set_number(object, "bodyAaxisX", bodyAaxis.x);
+		json_object_set_number(object, "bodyAaxisY", bodyAaxis.y);
+		json_object_set_number(object, "bodyAaxisZ", bodyAaxis.z);
+		// bodyBaxis
+		json_object_set_number(object, "bodyBaxisX", bodyBaxis.x);
+		json_object_set_number(object, "bodyBaxisY", bodyBaxis.y);
+		json_object_set_number(object, "bodyBaxisZ", bodyBaxis.z);
+	}
 }
 
 void C_PhysicsConstraint::OnLoadJson(JSON_Object* object)
 {
+	constraintUUID = json_object_get_number(object, "ConstraintUUID");
+	// Connected GO
+	uuid_unit connectedGOUUID = json_object_get_number(object, "ConnectedGO");
+	connectedGO = App->scene->SearchGameObject(connectedGOUUID);
 
+	type = (PHYSIC_CONSTRAINT)((int)json_object_get_number(object, "ConstraintType"));
+	// bodyApoint
+	bodyApoint.x = json_object_get_number(object, "bodyApointX");
+	bodyApoint.y = json_object_get_number(object, "bodyApointY");
+	bodyApoint.z = json_object_get_number(object, "bodyApointZ");
+	// bodyBpoint
+	bodyBpoint.x = json_object_get_number(object, "bodyBpointX");
+	bodyBpoint.y = json_object_get_number(object, "bodyBpointY");
+	bodyBpoint.z = json_object_get_number(object, "bodyBpointZ");
+	// bodyAaxis
+	bodyAaxis.x = json_object_get_number(object, "bodyAaxisX");
+	bodyAaxis.y = json_object_get_number(object, "bodyAaxisY");
+	bodyAaxis.z = json_object_get_number(object, "bodyAaxisZ");
+	// bodyBaxis
+	bodyBaxis.x = json_object_get_number(object, "bodyBaxisX");
+	bodyBaxis.y = json_object_get_number(object, "bodyBaxisY");
+	bodyBaxis.z = json_object_get_number(object, "bodyBaxisZ");
+
+	if (connectedGO != nullptr)
+	{
+		ConnectGameObject(connectedGO);
+	}
 }
 
 void C_PhysicsConstraint::SetConstraint(const char* type)

@@ -28,6 +28,7 @@ public:
 
 public:
 	btTypedConstraint* constraint = nullptr;
+	uuid_unit constraintUUID = 0u;
 	GameObject* connectedGO = nullptr;
 	bool tryingConnect = false;
 	PHYSIC_CONSTRAINT type = PHYSIC_CONSTRAINT::CONSTRAINT_P2P;
@@ -35,7 +36,6 @@ public:
 	math::float3 bodyBpoint = math::float3::zero;
 	math::float3 bodyAaxis = math::float3::zero;
 	math::float3 bodyBaxis = math::float3::zero;
-
 };
 
 #endif

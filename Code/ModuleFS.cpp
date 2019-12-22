@@ -307,6 +307,17 @@ bool ModuleFS::OnLoadScene(const char* originalPath, const bool isFullPath, cons
 				compCollider->OnLoadJson(c_obj);
 			}
 		}
+		// Constraints are readed after, we need all RigidBodies created
+		for (int i = 0; i < json_array_get_count(array_components); i++)
+		{
+			c_obj = json_array_get_object(array_components, i);
+			std::string c_type = json_object_get_string(c_obj, "c_type");
+			if (c_type.compare("c_constraint") == 0)
+			{
+				Component* compConstraint = obj->CreateComponent(COMPONENT_TYPE::COMPONENT_CONSTRAINT, "Constraint");
+				compConstraint->OnLoadJson(c_obj);
+			}
+		}
 	}
 	return true;
 }
