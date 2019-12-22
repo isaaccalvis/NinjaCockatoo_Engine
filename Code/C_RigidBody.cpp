@@ -47,6 +47,8 @@ void C_RigidBody::OnSaveJson(JSON_Object* object)
 		json_object_set_number(object, "SizeY", size.y);
 		json_object_set_number(object, "SizeZ", size.z);
 		json_object_set_number(object, "Mass", mass);
+		json_object_set_number(object, "Shape", (int)shapePrimitive);
+		json_object_set_boolean(object, "UseGravity", useGravity);
 	}
 }
 
@@ -57,6 +59,13 @@ void C_RigidBody::OnLoadJson(JSON_Object* object)
 	size.y = json_object_get_number(object, "SizeY");
 	size.z = json_object_get_number(object, "SizeZ");
 	mass = json_object_get_number(object, "Mass");
+	shapePrimitive = (PHYSIC_PRIMITIVE)((int)json_object_get_number(object, "Shape"));
+	useGravity = json_object_get_boolean(object, "UseGravity");
+
+	SetShape(shapePrimitive);
+	SetSize(size);
+	SetMass(mass);
+	SetGravity(useGravity);
 }
 
 void C_RigidBody::SetMass(float mass)
@@ -112,8 +121,9 @@ void C_RigidBody::SetPosition(math::float3 position)
 void C_RigidBody::SetSize(math::float3 size)
 {
 	this->size = size;
-	rigidBody->getCollisionShape()->setLocalScaling(btVector3(
-		size.x, size.y, size.z));
+	//rigidBody->getCollisionShape()->setLocalScaling(btVector3(
+	//	size.x, size.y, size.z));
+	SetShape(shapePrimitive);
 }
 
 math::float3 C_RigidBody::GetSize() const

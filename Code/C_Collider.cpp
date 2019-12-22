@@ -34,7 +34,6 @@ C_Collider::~C_Collider()
 
 void C_Collider::Update(float dt)
 {
-	//rigidBody->checkCollideWith();
 }
 
 void C_Collider::OnSaveJson(JSON_Object* object)
@@ -67,9 +66,9 @@ void C_Collider::OnLoadJson(JSON_Object* object)
 	isTrigger =			json_object_get_boolean(object, "IsTrigger");
 
 	UpdatePosition();
-	SetSize(size);
-	SetLocalPosition(localPosition);
+	//SetSize(size);
 	SetShape(shapePrimitive);
+	SetLocalPosition(localPosition);
 	SetIsTrigger(isTrigger);
 }
 
@@ -177,8 +176,9 @@ void C_Collider::SetShape(const char* primitiveName)
 void C_Collider::SetSize(math::float3 size)
 {
 	this->size = size;
-	rigidBody->getCollisionShape()->setLocalScaling(btVector3(
-		size.x, size.y, size.z));
+	//rigidBody->getCollisionShape()->setLocalScaling(btVector3(
+	//	size.x / 2, size.y / 2, size.z / 2));
+	SetShape(shapePrimitive);
 }
 
 math::float3 C_Collider::GetSize() const
