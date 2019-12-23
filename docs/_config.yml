@@ -1,1 +1,5 @@
 theme: jekyll-theme-cayman
+
+title: [Socialist Engine]
+description: [3D Video Game Engine made with C++ & OpenGL]
+show_downloads: ["true"]
