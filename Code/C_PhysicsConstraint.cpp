@@ -40,6 +40,10 @@ bool C_PhysicsConstraint::ConnectGameObject(GameObject* go)
 bool C_PhysicsConstraint::GenerateConstraint()
 {
 	bool ret = false;
+
+	// Clean last Constraint
+	App->physics->DeleteConstraint(constraint);
+
 	if (connectedGO != nullptr)
 	{
 		switch (type)
@@ -50,8 +54,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
+				bodyApoint,
+				bodyBpoint);
 		}
 		break;
 		case PHYSIC_CONSTRAINT::CONSTRAINT_HINGE:
@@ -60,9 +64,10 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint,
-				bodyAaxis, bodyBaxis);
+				bodyApoint,
+				bodyBpoint,
+				bodyAaxis,
+				bodyBaxis);
 		}
 		break;
 		case PHYSIC_CONSTRAINT::CONSTRAINT_SLIDER:
@@ -71,8 +76,8 @@ bool C_PhysicsConstraint::GenerateConstraint()
 				PHYSIC_CONSTRAINT::CONSTRAINT_P2P,
 				parent->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
 				connectedGO->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody,
-				parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyApoint,
-				connectedGO->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition + bodyBpoint);
+				bodyApoint,
+				bodyBpoint);
 		}
 		break;
 		}
