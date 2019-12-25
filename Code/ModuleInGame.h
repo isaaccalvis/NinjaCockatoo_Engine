@@ -26,7 +26,8 @@ public:
 	unsigned int logicUpdates = 0;
 
 	float cameraSpeed = 0.2f;
-	float bulletImpulse = 10.0f;
+	float cameraRotSpeed = 0.8f;
+	float bulletImpulse = 15.0f;
 };
 
 #endif
