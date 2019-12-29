@@ -11,6 +11,14 @@ Socialist engine is developed by:
   - Isaac Calvís [GitHub](https://github.com/isaaccalvis)
   - Aitor Velez [GitHub](https://github.com/AitorVelez)
 
+## Main Core Sub-Systems
+
+
+## Phyisics engine
+We implemented colliders, rigidbodies and phyisics constrains ,these allows use to have the core parts of a phisics engine. In our engine you are able to test if two objects collide, apply gravity to them, and also apply a the collider component.
+In this gif it' s possible to see two objetcs that have been previously applyied a rigidbody and a collider.
+
+![Collider](ColliderAndRigidBody.gif)
 
 ## Downloads & Release
 
