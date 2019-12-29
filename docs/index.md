@@ -13,7 +13,16 @@ Socialist engine is developed by:
 
 ## Main Core Sub-Systems
 
-
+ - Module Scene : Manages all the scene and all ingame components attatched. We can save and load scenes in binary format.
+ 
+ - Hirearchy : Manages all game objects and its properties in game.
+ 
+ - Importer System : We can import models and its textures and convert it into our own file format.
+ 
+ 
+ - Ingame Timing : We have a play button to view the game from the main camera.Time mainly affects to our phyisics update.
+ 
+ 
 ## Phyisics engine
 We implemented colliders, rigidbodies and phyisics constrains ,these allows use to have the core parts of a phisics engine. In our engine you are able to test if two objects collide, apply gravity to them, and also apply a the collider component.
 In this gif it' s possible to see two objetcs that have been previously applyied a rigidbody and a collider.
