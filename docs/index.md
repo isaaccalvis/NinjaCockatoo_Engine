@@ -24,10 +24,40 @@ Socialist engine is developed by:
  
  
 ## Phyisics engine
-We implemented colliders, rigidbodies and phyisics constrains ,these allows use to have the core parts of a phisics engine. In our engine you are able to test if two objects collide, apply gravity to them, and also apply a the collider component.
+We implemented colliders, rigidbodies and phyisics constrains ,these allows use to have the core parts of a phisics engine. In our engine you are able to test if two objects collide, apply gravity to them, and also apply collider component.
 In this gif it' s possible to see two objetcs that have been previously applyied a rigidbody and a collider.
 
 ![Collider](ColliderAndRigidBody.gif)
+
+You have a physics panel where:
+  - Can Activate/ Deactivate physics
+  - Draw Physics debug
+  - Modify gravity force
+  - Clear all rigidbodies forces
+
+### Physic Objects properties
+Colliders:
+  - Collider size (for each axis)
+  - Collider center point
+  - Type of shape (Cube & Sphere)
+  - Trigger option
+  - And also will show with wich objects is colliding
+ 
+RigidBodies:
+  - Type of shape (Cube or Sphere)
+  - You can modifi RigidBody size (for each axis)
+  - Mass
+  - Use Gravity
+  - Clear forces button
+  - And also will show with wich objects is colliding
+
+Constraints:
+  - Choose constraint type (P2P, Hinge, Slider)
+  - Connect Game Object button (click button and then the GO to connect, it will show the name of connected GO)
+  - BodyA point
+  - BodyB point
+  - AxisA point
+  - AxisB point
 
 ## Downloads & Release
 
