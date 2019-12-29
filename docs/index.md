@@ -7,9 +7,13 @@ Socialist Engine is a Video Game Engine developed by 2 students from the Video G
 
 ![SocialistEngine](EngineShot.png)
 
+## About our team
+
 Socialist engine is developed by:
   - Isaac Calvís [GitHub](https://github.com/isaaccalvis)
   - Aitor Velez [GitHub](https://github.com/AitorVelez)
+![TeamPhoto](TeamPhoto.jpg)
+
 
 ## Main Core Sub-Systems
 
@@ -64,6 +68,9 @@ Constraints:
 [Source Code](https://github.com/isaaccalvis/Socialist_Engine)
 [Releases](https://github.com/isaaccalvis/Socialist_Engine/releases)
 
+### Use Scene
+You will find at folder Library/Scenes the file PhysicsScene.sscene, you can load it dragging on the engine or using the load scenes panel. Theres a Sphere with a camera that have a rigidBody, you can move & shot balls. Also you'll find 2 cubes, one with a RigidBody & another one with a RigidBody & Constraint, choose what constraint you want, the points, and connect them using the button at Constraint properties.
+
 ## Controls
 
  - WASD: Navigation forward, backward and sides.
@@ -73,6 +80,7 @@ Constraints:
  - Mouse Wheel: Zoom in, zoom out
  - Hold Shift: Camera moves x2 fast
  - Del: To delete selected Game Object
+ - RigthMouse Button to move camera
 
 Guizmos
 
@@ -80,6 +88,12 @@ Guizmos
  - W: Translate
  - E: Rotate
  - R: Scale
+ 
+ InGame
+ - WASD: Navigation forward, backward and sides.
+ - ER: Navigation up and down.
+ - RigthMouse Button to move camera
+ - Space to shot a ball
 
 ## Panels
 
@@ -105,6 +119,10 @@ Guizmos
  - Drag & Drop function at Hierachy Panel
  - Save/ Load Scenes
 
+## Video
+
+<iframe width="1903" height="768" src="https://www.youtube.com/embed/WZSejnIXudA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Used Tools & libraries
 
 Tools
@@ -125,14 +143,6 @@ Libraries
  - PhysFS
  - ImGuizmo
  - BulletPhysics
-
-## About our team
-
-Socialist engine is developed by:
-  - Isaac Calvís [GitHub](https://github.com/isaaccalvis)
-  - Aitor Velez [GitHub](https://github.com/AitorVelez)
-![TeamPhoto](TeamPhoto.jpg)
-
 
 ## License
 
