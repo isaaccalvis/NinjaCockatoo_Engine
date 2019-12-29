@@ -1,45 +1,107 @@
 # Socialist Engine
+3D Video Game Engine made with C++ & OpenGL
 
 Welcome to the repository of Socialist Engine !
 
-Socialist Engine is project constistent of creating a 3D game engine using C++ & OpenGL.
+Socialist Engine is a Video Game Engine developed by 2 students from the Video Game Development & Design degree, at CITM (UPC).
 
- - GitHub repository: [Socialist Engine](https://github.com/isaaccalvis/Socialist_Engine)
+Socialist engine is developed by:
+  - Isaac Calvís (https://github.com/isaaccalvis)
+  - Aitor Velez (https://github.com/AitorVelez)
 
-## About our team
+## Main Core Sub-Systems
 
-It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
- - Isaac's GitHub page: [isaaccalvis](https://github.com/isaaccalvis)
- - Aitor's GitHub page: [aitorvelez](https://github.com/AitorVelez)
+ - Module Scene : Manages all the scene and all ingame components attatched. We can save and load scenes in binary format.
+ 
+ - Hirearchy : Manages all game objects and its properties in game.
+ 
+ - Importer System : We can import models and its textures and convert it into our own file format.
+ 
+ 
+ - Ingame Timing : We have a play button to view the game from the main camera.Time mainly affects to our phyisics update.
+ 
+ 
+## Phyisics engine
+We implemented colliders, rigidbodies and phyisics constrains ,these allows use to have the core parts of a phisics engine. In our engine you are able to test if two objects collide, apply gravity to them, and also apply collider component.
+In this gif it' s possible to see two objetcs that have been previously applyied a rigidbody and a collider.
+
+You have a physics panel where:
+  - Can Activate/ Deactivate physics
+  - Draw Physics debug
+  - Modify gravity force
+  - Clear all rigidbodies forces
+
+### Physic Objects properties
+Colliders:
+  - Collider size (for each axis)
+  - Collider center point
+  - Type of shape (Cube & Sphere)
+  - Trigger option
+  - And also will show with wich objects is colliding
+ 
+RigidBodies:
+  - Type of shape (Cube or Sphere)
+  - You can modifi RigidBody size (for each axis)
+  - Mass
+  - Use Gravity
+  - Clear forces button
+  - And also will show with wich objects is colliding
+
+Constraints:
+  - Choose constraint type (P2P, Hinge, Slider)
+  - Connect Game Object button (click button and then the GO to connect, it will show the name of connected GO)
+  - BodyA point
+  - BodyB point
+  - AxisA point
+  - AxisB point
+
+## Downloads & Release
+
+Source Code: (https://github.com/isaaccalvis/Socialist_Engine)
+Releases: (https://github.com/isaaccalvis/Socialist_Engine/releases)
+
+### Use Scene
+You will find at folder Library/Scenes the file PhysicsScene.sscene, you can load it dragging on the engine or using the load scenes panel. Theres a Sphere with a camera that have a rigidBody, you can move & shot balls. Also you'll find 2 cubes, one with a RigidBody & another one with a RigidBody & Constraint, choose what constraint you want, the points, and connect them using the button at Constraint properties.
 
 ## Controls
 
  - WASD: Navigation forward, backward and sides.
- - ER: Navigation with keys up and down.
+ - ER: Navigation up and down.
  - F: Center the camera in the selected object.
  - LeftAlt: Orbital camera around selected game object
  - Mouse Wheel: Zoom in, zoom out
  - Hold Shift: Camera moves x2 fast
+ - Del: To delete selected Game Object
+ - RigthMouse Button to move camera
 
-## Window Shortcuts
+Guizmos
 
- - Esc: Quit
- - F1: Shows configuration window.
- - F2: Shows  object propierties window.
- - F3: Shows console window.
- - F4: Shows hirearchy.
- - F5: Shows QuadTree window.
- - F6: Shows PlayGame window.
- - F7: Shows Asset window.
- - F9: Shows the about window.
-
-## Transform Operations with Guizmos
  - Q: Change between Local & Global Mode
  - W: Translate
  - E: Rotate
  - R: Scale
+ 
+ InGame
+ - WASD: Navigation forward, backward and sides.
+ - ER: Navigation up and down.
+ - RigthMouse Button to move camera
+ - Space to shot a ball
 
+## Panels
+
+ - Esc: Quit
+ - F1: Shows configuration panel
+ - F2: Shows  object propierties panel
+ - F3: Shows console panel
+ - F4: Shows hirearchy panel
+ - F5: Shows QuadTree panel
+ - F6: Shows PlayGame panel
+ - F7: Shows Asset panel
+ - F8: Shows Physics panel
+ - F9: Shows the about panel
+ 
 ## Features
+
  - Drag&Drop 3D models & textures from your pc to the GameEngine, it will be added to the project at folder resources
  - Create & Delete GameObjects at Hierachy Panel
  - Create Primitives &/or add components to game objects (at top bar, gameobjects & components)
@@ -47,15 +109,14 @@ It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
  - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material componentç
  - Create QuadTree with static GameObjects
  - Drag & Drop function at Hierachy Panel
+ - Save/ Load Scenes
 
-##  Tools used 
+## Used Tools & libraries
 
-#### Code editor
+Tools
+  - Visual Studio 2017
 
-- Visual Studio 2017
-
-#### Libraries used
-
+Libraries
  - SDL
  - OpenGL
  - Glew
@@ -69,35 +130,17 @@ It is being develped by two CITM students Isaac Calvis and Aitor Vélez.
  - Par Shapes
  - PhysFS
  - ImGuizmo
-
-## What have done each member for 2 delivery
- - Isaac:
-	- ModuleFileSystem
-	- Scene Importer
-	- Material Importer
-	- Own File format for meshes, textures, scenes & components, with metas (for fbx & textures)
-	- Component Camera with frustum culling
-	- QuadTree
-	- Implemet ImGuizmo & Mouse picking
-	- Play Mode
-	- ModuleResources
-
- - Aitor:
-	- GUI improvement
-	- Moral Support
+ - BulletPhysics
 
 ## License
 
 Copyright <2019> <Socialist_Engine>
-
-  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
 and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 

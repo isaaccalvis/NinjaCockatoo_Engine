@@ -27,7 +27,7 @@ public:
 
 	float cameraSpeed = 0.2f;
 	float cameraRotSpeed = 0.8f;
-	float bulletImpulse = 15.0f;
+	float bulletImpulse = 50.0f;
 };
 
 #endif

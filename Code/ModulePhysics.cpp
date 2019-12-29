@@ -4,9 +4,7 @@
 #include "C_Collider.h"
 #include "C_RigidBody.h"
 
-#define PHYSICS_DEBUG
-
-#ifdef PHYSICS_DEBUG
+#ifdef _DEBUG
 #pragma comment (lib, "Bullet/libx86/BulletDynamics_debug.lib")
 #pragma comment (lib, "Bullet/libx86/BulletCollision_debug.lib")
 #pragma comment (lib, "Bullet/libx86/LinearMath_debug.lib")
@@ -43,6 +41,9 @@ bool ModulePhysics::Start()
 	physicsWorld->setGravity(gravity);
 	physicsWorld->setDebugDrawer(physicsDebugDrawer);
 
+	App->fs->OnLoadScene("PhysicsScene.sscene", false);
+
+
 	return true;
 }
 
@@ -65,7 +66,6 @@ update_status ModulePhysics::PreUpdate(float dt)
 	{
 		physicsWorld->stepSimulation(dt);
 		int numManifolds = physicsWorld->getDispatcher()->getNumManifolds();
-		LOG_CONSOLE("Collisions: %i", numManifolds);
 		for (int i = 0; i < numManifolds; i++)
 		{
 			btPersistentManifold* contactManifold = physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
