@@ -6,7 +6,6 @@
 class ModuleHardware : public Module
 {
 public:
-
 	struct hw_info {
 		//char sdl_version[25] = "";
 		float ram_gb = 0.f;

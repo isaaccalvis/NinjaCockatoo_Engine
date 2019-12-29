@@ -19,78 +19,61 @@ update_status ModuleInGame::Update(float dt)
 
 		// HardCoded for Assignment 3
 		// Camera Movement & Rotation
-		math::float3 camRot = App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation.ToEulerXYZ();
 		math::float3 camPos = App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position;
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
-			{
-				camRot.x += cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(0, 0, cameraSpeed);
-			}
+			camPos += math::float3(0, 0, cameraSpeed);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
-			{
-				camRot.x -= cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(0, 0, -cameraSpeed);
-			}
+			camPos += math::float3(0, 0, -cameraSpeed);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
-			{
-				camRot.y += cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(cameraSpeed, 0, 0);
-			}
+			camPos += math::float3(cameraSpeed, 0, 0);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
-			{
-				camRot.y -= cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(-cameraSpeed, 0, 0);
-			}
+			camPos += math::float3(-cameraSpeed, 0, 0);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
-			{
-				camRot.z -= cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(0, cameraSpeed, 0);
-			}
+			camPos += math::float3(0, cameraSpeed, 0);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_STATE::KEY_REPEAT)
 		{
-			if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_STATE::KEY_REPEAT)
+			camPos += math::float3(0, -cameraSpeed, 0);
+		}
+
+		// =====================
+
+		Camera* game_camera = App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->camera;
+
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			if (dx != 0 || dy != 0)
 			{
-				camRot.z += cameraRotSpeed * dt;
-			}
-			else
-			{
-				camPos += math::float3(0, -cameraSpeed, 0);
+				math::Quat rotationX = math::Quat::RotateAxisAngle({ 0.0f,1.0f,0.0f }, dx * DEGTORAD * App->camera->mouse_sensitivity);
+				math::Quat rotationY = math::Quat::RotateAxisAngle(game_camera->frustum.WorldRight(), dy * DEGTORAD * App->camera->mouse_sensitivity);
+				math::Quat finalRotation = rotationX * rotationY;
+
+				game_camera->frustum.up = finalRotation * game_camera->frustum.up;
+				game_camera->frustum.front = finalRotation * game_camera->frustum.front;
+
+				float distance = (game_camera->frustum.pos - game_camera->frustum.pos).Length();
+				game_camera->frustum.pos = game_camera->frustum.pos + (-game_camera->frustum.front * distance);
 			}
 		}
 
+		// ~~~~~~~~~~~~~~~~~~~~~
+
+		math::float3 camRot = App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation.ToEulerXYZ();
+
 		App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->position = camPos;
-		App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->rotation = math::Quat::FromEulerXYZ(camRot.x, camRot.y, camRot.z);
 		App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrix();
 		App->scene->camera->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->UpdateGlobalMatrixOfChilds();
 		App->scene->camera->UpdateAABB();
@@ -111,7 +94,7 @@ update_status ModuleInGame::Update(float dt)
 			// Create RigidBody
 			bullet->CreateComponent(COMPONENT_RIGIDBODY);
 			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->SetShape(PHYSIC_PRIMITIVE::PHY_SPHERE);
-			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->applyImpulse(btVector3(0,0, bulletImpulse), btVector3(camPos.x, camPos.y, camPos.z));
+			bullet->GetComponent(COMPONENT_RIGIDBODY)->GetComponentAsRigidBody()->rigidBody->applyImpulse(btVector3(0, 0, bulletImpulse), btVector3(camPos.x, camPos.y, camPos.z));
 		}
 	}
 	return update_status::UPDATE_CONTINUE;
@@ -134,6 +117,8 @@ void ModuleInGame::StartGame()
 		App->camera->isCameraEditor = false;
 		App->fs->OnSaveScene(App->scene->root, "__tmpscene");
 		App->physics->activePhysics = true;
+
+		App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->modifyWithParentTransform = false;
 	}
 	else
 	{
@@ -146,6 +131,8 @@ void ModuleInGame::StopGame()
 	onGame = false;
 	runingGame = false;
 	timer.Stop();
+
+	App->scene->camera->GetComponent(COMPONENT_CAMERA)->GetComponentAsCamera()->modifyWithParentTransform = true;
 
 	App->camera->camera = App->camera->editorCameraCopy;
 	App->camera->isCameraEditor = true;

@@ -101,8 +101,11 @@ void C_Camera::UpdateTransform()
 {
 	math::float4x4 matrix = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->GetGlobalMatrix();
 	camera->frustum.pos = matrix.TranslatePart();
-	camera->frustum.front = matrix.WorldZ();
-	camera->frustum.up = matrix.WorldY();
+	if (modifyWithParentTransform)
+	{
+		camera->frustum.front = matrix.WorldZ();
+		camera->frustum.up = matrix.WorldY();
+	}
 }
 
 void C_Camera::BecomeMainCamera()

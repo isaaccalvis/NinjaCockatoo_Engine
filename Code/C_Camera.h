@@ -22,11 +22,13 @@ public:
 	bool IsInsideFrustumCulling(GameObject* go);
 
 public:
-	Camera* camera;
+	Camera* camera = nullptr;
 	DebugCube* debugCube = nullptr;
 	bool renderCameraFrustum = true;
 	bool isMainCamera = false;
 	bool frustumCulling = false;
+
+	bool modifyWithParentTransform = true;
 
 private:
 	float width = 0.0f;

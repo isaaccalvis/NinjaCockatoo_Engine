@@ -108,6 +108,8 @@ void C_RigidBody::UpdatePosition()
 	math::float3 goPosition = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalPosition;
 	btTransform bulletTransform = btTransform::getIdentity();
 	bulletTransform.setOrigin(btVector3(goPosition.x, goPosition.y, goPosition.z));
+	math::Quat goRotation = parent->GetComponent(COMPONENT_TRANSFORM)->GetComponentAsTransform()->globalRotation;
+	bulletTransform.setRotation(btQuaternion(goRotation.x, goRotation.y, goRotation.z, goRotation.w));
 	rigidBody->setCenterOfMassTransform(bulletTransform);
 }
 
