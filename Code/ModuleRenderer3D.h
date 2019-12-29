@@ -50,8 +50,8 @@ private:
 public:
 	Light lights[MAX_LIGHTS];
 
-	bool renderNormals = true;
-	bool renderBoudingBox = true;
+	bool renderNormals = false;
+	bool renderBoudingBox = false;
 	
 	bool renderGlDepthTest = true;
 	bool renderGlCullFace = true;

@@ -211,6 +211,10 @@ void C_RigidBody::SetShape(const char* primitiveName)
 
 void C_RigidBody::ClearForces()
 {
+	rigidBody->setLinearVelocity(btVector3(0,0,0));
+	rigidBody->setAngularVelocity(btVector3(0, 0, 0));
+	SetMass(mass);
+	SetGravity(useGravity);
 	rigidBody->clearForces();
 }
 

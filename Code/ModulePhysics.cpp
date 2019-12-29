@@ -302,6 +302,8 @@ void ModulePhysics::ClearForces()
 	for (std::list<btRigidBody*>::iterator it = rigidBodies.begin();
 		it != rigidBodies.end(); it++)
 	{
+		(*it)->setLinearVelocity(btVector3(0, 0, 0));
+		(*it)->setAngularVelocity(btVector3(0, 0, 0));
 		(*it)->clearForces();
 	}
 }
