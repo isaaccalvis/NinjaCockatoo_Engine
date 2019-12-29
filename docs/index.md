@@ -64,6 +64,9 @@ Constraints:
 [Source Code](https://github.com/isaaccalvis/Socialist_Engine)
 [Releases](https://github.com/isaaccalvis/Socialist_Engine/releases)
 
+### Use Scene
+You will find at folder Library/Scenes the file PhysicsScene.sscene, you can load it dragging on the engine or using the load scenes panel. Theres a Sphere with a camera that have a rigidBody, you can move & shot balls. Also you'll find 2 cubes, one with a RigidBody & another one with a RigidBody & Constraint, choose what constraint you want, de points, and connect them using the button at Constraint properties.
+
 ## Controls
 
  - WASD: Navigation forward, backward and sides.
@@ -73,6 +76,7 @@ Constraints:
  - Mouse Wheel: Zoom in, zoom out
  - Hold Shift: Camera moves x2 fast
  - Del: To delete selected Game Object
+ - RigthMouse Button to move camera
 
 Guizmos
 
@@ -80,6 +84,12 @@ Guizmos
  - W: Translate
  - E: Rotate
  - R: Scale
+ 
+ InGame
+ - WASD: Navigation forward, backward and sides.
+ - ER: Navigation up and down.
+ - RigthMouse Button to move camera
+ - Space to shot a ball
 
 ## Panels
 
