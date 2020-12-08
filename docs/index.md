@@ -12,7 +12,7 @@ Socialist Engine is a Video Game Engine developed by 2 students from the Video G
 Socialist engine is developed by:
   - Isaac Calvís [GitHub](https://github.com/isaaccalvis)
   - Aitor Velez [GitHub](https://github.com/AitorVelez)
-![TeamPhoto](TeamPhoto.jpg)
+
 
 
 ## Main Core Sub-Systems
