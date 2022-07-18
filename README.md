@@ -1,12 +1,12 @@
-# Socialist Engine
+# Red Circle Engine
 3D Video Game Engine made with C++ & OpenGL
 
-Welcome to the repository of Socialist Engine !
+Welcome to the repository of Red Circle Engine !
 
-Socialist Engine is a Video Game Engine developed by 2 students from the Video Game Development & Design degree, at CITM (UPC).
+Red Circle Engine is a Video Game Engine developed by 2 students from the Video Game Development & Design degree, at CITM (UPC).
 
-Socialist engine is developed by:
-  - Isaac Calvís (https://github.com/isaaccalvis)
+Red Circle engine is developed by:
+  - Isaac CalvÃ­s (https://github.com/isaaccalvis)
   - Aitor Velez (https://github.com/AitorVelez)
 
 ## Main Core Sub-Systems
@@ -106,7 +106,7 @@ Guizmos
  - Create & Delete GameObjects at Hierachy Panel
  - Create Primitives &/or add components to game objects (at top bar, gameobjects & components)
  - At configuration window can manage render & window options, also draw in wireframe mode or draw imported meshes normals, with a lot more features !
- - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material componentç
+ - At properties panel you can modify selected GameObject transform, also see how many triangles have, or the texture associated at Material componentÃ§
  - Create QuadTree with static GameObjects
  - Drag & Drop function at Hierachy Panel
  - Save/ Load Scenes
