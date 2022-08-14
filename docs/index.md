@@ -1,15 +1,15 @@
-# Socialist Engine
+# RedCircle Engine
 3D Video Game Engine made with C++ & OpenGL
 
-Welcome to the repository of Socialist Engine !
+Welcome to the repository of RedCircle Engine !
 
-Socialist Engine is a Video Game Engine developed by 2 students from the Video Game Development & Design degree, at CITM (UPC).
+RedCircle is a Video Game Engine developed by 2 students from the Video Game Development & Design degree, at CITM (UPC).
 
-![SocialistEngine](EngineShot.png)
+![RedCircleEngine](EngineShot.png)
 
 ## About our team
 
-Socialist engine is developed by:
+RedCircle engine is developed by:
   - Isaac Calvís [GitHub](https://github.com/isaaccalvis)
   - Aitor Velez [GitHub](https://github.com/AitorVelez)
 
@@ -65,8 +65,8 @@ Constraints:
 
 ## Downloads & Release
 
-[Source Code](https://github.com/isaaccalvis/Socialist_Engine)
-[Releases](https://github.com/isaaccalvis/Socialist_Engine/releases)
+[Source Code](https://github.com/isaaccalvis/RedCircle_Engine)
+[Releases](https://github.com/isaaccalvis/RedCircle_Engine/releases)
 
 ### Use Scene
 You will find at folder Library/Scenes the file PhysicsScene.sscene, you can load it dragging on the engine or using the load scenes panel. Theres a Sphere with a camera that have a rigidBody, you can move & shot balls. Also you'll find 2 cubes, one with a RigidBody & another one with a RigidBody & Constraint, choose what constraint you want, the points, and connect them using the button at Constraint properties.
@@ -146,7 +146,7 @@ Libraries
 
 ## License
 
-Copyright <2019> <Socialist_Engine>
+Copyright <2019> <RedCircle_Engine>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
